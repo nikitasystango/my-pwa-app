@@ -4,7 +4,6 @@ import { Router } from 'react-router-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import AppComponent from './containers/App'
 import browserHistory from './utils/history'
-import history from './utils/history'
 
 export default function App() {
 
