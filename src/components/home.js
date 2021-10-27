@@ -12,7 +12,7 @@ const Home = (props) => {
           }}
           className='cursor-pointer'
         >
-          <h1>Go To Product List</h1>
+          <h1>Go To Product List checkk matee</h1>
         </span>
         <div>
         <div
