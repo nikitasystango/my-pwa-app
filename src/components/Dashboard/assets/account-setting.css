@@ -1,0 +1,422 @@
+.user-dashboard__content .account-setting .row > .column.change-alter-email-btn {
+  margin-top: 26px;
+}
+
+.user-dashboard__content .account-setting__heading {
+  color: var(--dark);
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.user-dashboard__content .account-setting__form label {
+  font-weight: normal !important;
+  margin-bottom: 2px !important;
+  color: var(--text-dark) !important;
+}
+
+.user-dashboard__content .account-setting__form label strong {
+  font-weight: inherit !important;
+}
+
+.user-dashboard__content .account-setting__form .field .ui.dropdown .menu {
+  top: calc(100% + 1px);
+  border-color: var(--dark) !important;
+}
+
+.user-dashboard__content .account-setting__form .required-field label:after {
+  content: "*";
+  color: #9f3a38;
+}
+
+.user-dashboard__content .account-setting__form .verify-email label {
+  color: #eb5757 !important;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .input input {
+  color: var(--dark);
+  font-weight: bold;
+  text-transform: capitalize!important;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .input input::-webkit-input-placeholder {
+  font-weight: normal;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .input input:-ms-input-placeholder {
+  font-weight: normal;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .input input::-ms-input-placeholder {
+  font-weight: normal;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .input input::placeholder {
+  font-weight: normal;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .input input:focus {
+  border-color: var(--dark) !important;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .input input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 100px white inset !important;
+          box-shadow: 0 0 0 100px white inset !important;
+  border-color: rgba(34, 36, 38, 0.15) !important;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .input input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100px white inset !important;
+          box-shadow: 0 0 0 100px white inset !important;
+  border-color: rgba(34, 36, 38, 0.15) !important;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .error .input input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 100px #fff6f6 inset !important;
+          box-shadow: 0 0 0 100px #fff6f6 inset !important;
+  border-color: #e0b4b4 !important;
+  color: #9f3a38;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .error .input input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100px #fff6f6 inset !important;
+          box-shadow: 0 0 0 100px #fff6f6 inset !important;
+  border-color: #e0b4b4 !important;
+  color: #9f3a38;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .ui.dropdown > .text {
+  color: var(--dark);
+  font-weight: bold;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .set-password-grid .column {
+  width: auto;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .set-password-grid span {
+  display: block;
+  margin: 0 0 14px !important;
+  width: 100%;
+  font-size: .92857143em;
+  line-height: 16px;
+  color: #132c51;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .set-password-grid .btn--account-setting {
+  color: #03b2db !important;
+  font-size: 14px;
+  padding: 9px 29px;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  line-height: 19px !important;
+}
+
+.user-dashboard__content .account-setting__form.ui.form .set-password-grid .btn--account-setting:hover {
+  color: #fff !important;
+  background-color: var(--medium-blue-hover) !important;
+}
+
+.user-dashboard__content .account-setting__form .btn--account-setting {
+  margin-bottom: 15px !important;
+  min-width: 200px;
+  min-height: 40px;
+}
+
+.user-dashboard__content .account-setting__form .btn--account-setting:not(:last-child) {
+  margin-right: 15px !important;
+}
+
+.user-dashboard__content .account-setting__form .selection.dropdown {
+  width: 100% !important;
+  min-width: initial !important;
+}
+
+.user-dashboard__content .account-setting__form .selection.dropdown.active {
+  border-color: var(--dark) !important;
+}
+
+.user-dashboard__content .account-setting__form .row > .column {
+  margin-bottom: 15px !important;
+}
+
+.user-dashboard__content .account-setting__form .myprofile_cta {
+  font-weight: 600;
+  color: var(--medium-blue);
+  font-size: 12px;
+  line-height: 1.25;
+  text-decoration: underline;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+
+.user-dashboard__content .account-setting__form .myprofile_cta:hover {
+  color: var(--medium-blue-hover) !important;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .user-dashboard__content .account-setting__form .myprofile_cta {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .user-dashboard__content .account-setting__form .ui.grid.accordion-myprofile > .row > .column {
+    padding-right: 0;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .user-dashboard__content .account-setting__form.ui.form .accordion-myprofile.ui.grid > .row > .column[class*="wide"]:nth-child(3), .user-dashboard__content .account-setting__form.ui.form .accordion-myprofile.ui.grid > .row > .column[class*="wide"]:nth-child(6) {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 479px) {
+  .user-dashboard__content .account-setting__form .ui.grid > .row > [class*="column"] {
+    width: 100% !important;
+  }
+}
+
+.user-dashboard__content .account-setting__info-text {
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(var(--dark-rgb), 0.7);
+  margin-bottom: 1.5rem;
+}
+
+.user-dashboard__content .phone_wrap {
+  position: relative;
+}
+
+.user-dashboard__content .phone_wrap .error {
+  font-size: 12px;
+  line-height: 16px;
+  color: #EB5757;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.user-dashboard__content .phone_wrap .phone_field {
+  width: 100%;
+  display: inline-block;
+  border: 1px solid rgba(34, 36, 38, 0.15);
+  background-color: #ffffff;
+  border-radius: .28571429rem;
+  padding: 7px 3px 6px 6px;
+}
+
+.user-dashboard__content .phone_wrap .phone_field .dropdown {
+  display: inline-block;
+  vertical-align: middle;
+  width: 53px;
+}
+
+.user-dashboard__content .phone_wrap .phone_field .dropdown .menu {
+  max-height: 270px;
+  overflow: auto;
+  margin: 0;
+  top: calc(100% + 10px);
+}
+
+.user-dashboard__content .phone_wrap .phone_field .field {
+  width: 50%;
+  width: calc(100% - 124px);
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+}
+
+.user-dashboard__content .phone_wrap .phone_field .field input {
+  border: none;
+  width: 100% !important;
+  padding: 0 2px;
+  min-width: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.user-dashboard__content .phone_wrap .phone_field button.ui.button {
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 12px;
+  line-height: 16px;
+  color: #03B2D8;
+  border: 1px solid #03B2D8;
+  background-color: #fff;
+  padding: 3px 5px;
+  border-radius: 5px;
+}
+
+.user-dashboard__content .sms_notification_wrap {
+  padding: 12px 0 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.user-dashboard__content .sms_notification_wrap span {
+  font-size: 12px;
+  line-height: 16px;
+  color: #132C52;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.user-dashboard__content .sms_notification_wrap span.sms_label {
+  font-weight: 600;
+  min-width: 145px;
+}
+
+.user-dashboard__content .sms_notification_wrap span:last-child {
+  display: none;
+}
+
+.user-dashboard__content .sms_notification_wrap .ui.fitted.toggle.checkbox {
+  display: inline-block;
+  vertical-align: middle;
+  width: 80px;
+  position: relative;
+  padding: 0 24px;
+  margin: 0 15px;
+}
+
+.user-dashboard__content .sms_notification_wrap .ui.fitted.toggle.checkbox input {
+  width: 100%;
+}
+
+.user-dashboard__content .sms_notification_wrap .ui.fitted.toggle.checkbox input ~ label:after {
+  width: 14px;
+  height: 14px;
+  background-color: #03B2D8;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  top: 2px;
+  left: 2.5px;
+}
+
+.user-dashboard__content .sms_notification_wrap .ui.fitted.toggle.checkbox input:checked ~ label:after {
+  background-color: #EBE8E8;
+  left: auto;
+  right: 2.5px;
+}
+
+.user-dashboard__content .sms_notification_wrap .ui.fitted.toggle.checkbox label {
+  margin: 0 !important;
+}
+
+.user-dashboard__content .sms_notification_wrap .ui.fitted.toggle.checkbox label:before {
+  background-color: #EBE8E8 !important;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  width: 32.03px;
+  height: 18px;
+  border-radius: 9px;
+}
+
+.user-dashboard__content .sms_notification_wrap .ui.fitted.toggle.checkbox input:checked ~ label:before {
+  background-color: #03B2D8 !important;
+}
+
+.user-dashboard__content .sms_notification_wrap .ui.fitted.toggle.checkbox span {
+  position: absolute;
+  line-height: 0;
+  display: inline-block;
+  left: 0;
+  top: 1px;
+  right: 0;
+}
+
+.user-dashboard__content .sms_notification_wrap .ui.fitted.toggle.checkbox span:after {
+  content: 'on';
+  color: #132C52;
+  opacity: .6;
+  font-size: 12px;
+  line-height: 16px;
+  position: absolute;
+  right: 0;
+}
+
+.user-dashboard__content .sms_notification_wrap .ui.fitted.toggle.checkbox input:checked ~ span:after {
+  opacity: 1;
+  color: #03B2D8;
+}
+
+.user-dashboard__content .sms_notification_wrap .ui.fitted.toggle.checkbox span:before {
+  content: 'off';
+  font-size: 12px;
+  line-height: 16px;
+  opacity: 1;
+  color: #03B2D8;
+  position: absolute;
+  left: 0;
+}
+
+.user-dashboard__content .sms_notification_wrap .ui.fitted.toggle.checkbox input:checked ~ span:before {
+  color: #132C52;
+  opacity: .6;
+}
+
+.user-dashboard__content .alert_input .account-setting__heading {
+  margin-bottom: 0;
+}
+
+.email-notification {
+  padding-bottom: 4%;
+}
+
+.email-notification__title {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  color: #132C52;
+}
+
+.email-notification__cb-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.email-notification__cb:not(:last-child) {
+  margin-right: 40px;
+}
+
+.email-notification__cb:hover {
+  cursor: pointer;
+}
+
+.email-notification__cb svg,
+.email-notification__cb span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.email-notification__cb svg {
+  margin-right: 8px;
+}
+
+.email-notification__cb span {
+  font-size: 14px;
+  line-height: 19px;
+  color: var(--text-dark);
+}
+/*# sourceMappingURL=account-setting.css.map */

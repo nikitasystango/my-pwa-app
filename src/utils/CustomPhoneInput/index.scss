@@ -1,0 +1,179 @@
+.manageContact-CustomInput {
+    position: absolute;
+    top: 0px;
+    left: 12%;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    span{
+        color: #545454
+    }
+    input{
+        background-color: transparent;
+        outline:none;
+        width: 65% !important;
+    }
+    &.non-masking-wrap{
+        top:10px;
+        width: 240px  !important;
+        .disabled{
+            opacity: 1 !important;
+        }
+        input{
+            color: #545454 !important;
+            font-weight: 500 !important;
+            @media(max-width:767px){
+                font-size: 12px !important;
+                font-weight: 500 !important ;
+                color: #545454 !important;
+            }
+        }
+    }
+    @media(max-width:767px){
+        left: 14% !important;
+        width: 60%;
+        font-size:12px;
+        margin-left: 10px;
+        top: 10px;
+        z-index: 0;
+        span{
+            margin-right: 2px;
+        }
+    }
+    @media (max-width:820px) and (orientation: landscape) {
+        left: 16% !important;
+    }
+    @media(max-width:320px){
+        left: 30%;
+    }
+}
+.ui .notification_input{
+    .search.ui.dropdown{
+        padding: 12px 5px !important;
+        position: relative;
+        top: -7px;
+        left: -7px;
+    }
+    .manageContact-CustomInput {
+        input
+        {
+            @media(max-width:767px){
+                width: 115px !important;
+                padding: 0px 5px;
+                background: transparent;
+            }
+        }
+    }
+}
+.masked-input-wrap{
+    border: none !important;
+    width: 300px !important;   
+}
+
+.contactphoneInput{
+    .visible.menu{
+        width: 429px !important;
+        left: 0px !important;
+    }
+}
+.ui .notification_input{
+    .search.dropdown{
+        width: 55px !important;
+        padding: 10px 5px !important;
+        .dropdown.icon{
+            right:2px !important;
+            top:11px;
+        }
+    }
+    .search.dropdown>input.search{
+        padding: 10px 2px 10px 40px !important;
+        font-size:12px;
+        position: absolute !important;
+        top: 42px !important;
+        background: #fff !important;
+        width: 415px !important;
+        z-index: 99999 !important;
+        border: 1px solid #03b2d8 !important;
+        border-radius: 5px !important;
+        @media(max-width:767px){
+            width: 275px !important;
+        }
+        @media(max-width:414px){
+            width: 286px !important;
+        }
+        @media(max-width:375px){
+            width: 246px !important;
+        }
+        @media(max-width:360px){
+            width: 232px !important;
+        }
+        @media(max-width:320px){
+            width: 185px !important;
+        }
+    }
+    .dropdown-none{
+        input{
+            opacity: 0;
+        } 
+        .countrySearchIcon{
+            display: none;
+        }
+    }
+    .filtered.text{
+        visibility: visible !important;
+        position: relative !important;
+    }
+    .text{
+        top: 3px;
+        @media(max-width:767px){
+            top:0;
+            font-size:15px;
+        }
+    }
+    .text img{
+        width: 25px !important;
+        height: 17px !important;
+        object-fit: cover;
+        position: relative;
+        top: 2px;
+        @media(max-width:767px){
+        top: 6px;
+        }
+    }
+    .text .flag-image{
+        border:1px solid #c4c4c4;
+    }
+    .countrySearchIcon{
+        position: absolute;
+        top:50px;
+        z-index: 99;
+        left:10px;
+    }
+    .search.dropdown>input.search{
+        border: 1px solid #dededf  !important;
+    }
+    .visible.menu{
+        padding-top:30px !important;
+        @media(max-width:767px){
+            width: 290px !important;
+        }
+        @media(max-width:375px){
+            width: 250px !important;
+        }
+        @media(max-width:360px){
+            width: 235px !important;
+        }
+        @media(max-width:320px){
+            width: 195px !important;
+        }
+    }
+    @media(max-width:767px){
+        .masked-input-wrap {
+            border: none !important;
+            width: 220px !important;
+        }
+        .ui .notification_input .search.dropdown > input.search {
+            width: 275px !important;
+        }
+    }
+} 

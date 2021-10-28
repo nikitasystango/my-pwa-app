@@ -1,11 +1,33 @@
 import React, { useEffect, Suspense } from 'react';
 import { Router } from 'react-router-dom';
-// import Loader from './stories/Loader/Loader';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import AppComponent from './containers/App'
 import browserHistory from './utils/history'
+import { Provider } from 'react-redux'
+import { toast } from 'react-toastify'
+import configureStore from './store'
+import App from 'containers/App'
+import Loader from 'components/LoadingSpinner'
+import 'rc-tree-select/assets/index.css'
 
-export default function App() {
+import 'semantic-ui-css/components/reset.min.css'
+import 'semantic-ui-css/components/site.min.css'
+import 'semantic-ui-css/components/button.min.css'
+import 'semantic-ui-css/components/container.min.css'
+import 'semantic-ui-css/components/dimmer.min.css'
+import 'semantic-ui-css/components/dropdown.min.css'
+import 'semantic-ui-css/components/grid.min.css'
+import 'semantic-ui-css/components/modal.min.css'
+import 'semantic-ui-css/components/transition.min.css'
+import 'semantic-ui-css/components/icon.min.css'
+import 'semantic-ui-css/semantic.min.css'
+import 'react-toastify/dist/ReactToastify.css'
+import 'react-dates/lib/css/_datepicker.css'
+import 'react-dates/initialize'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import './index.scss'
+
+export default function MainApp() {
 
 
   const reloadAppHandler = (waitingWorker) => {
@@ -84,12 +106,15 @@ export default function App() {
       }, 10000);
     }
   }
-
+  const { store } = configureStore()
+  toast.configure()
   return (
-    <Suspense fallback={'...Loading'}>
+    <Provider store={store}>
+    <Suspense fallback={<Loader/>}>
       <Router history={browserHistory} >
-        <AppComponent />
+        <App />
       </Router>
     </Suspense>
+    </Provider>
   );
 }

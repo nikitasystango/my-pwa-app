@@ -1,0 +1,164 @@
+.news-card {
+  position: relative;
+  z-index: 1;
+  border-radius: 10px;
+  margin-top: 25px;
+  margin-bottom: 65px;
+
+  &__inner {
+    padding: 30px 40px;
+    background: #E2F6FB;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+    border-radius: inherit;
+
+    background-image: url('../../assets/images/news-card-bg-min.png');
+    background-position: calc(100% - 18px) bottom;
+    background-repeat: no-repeat;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    border-radius: inherit;
+    background: var(--medium-blue);
+    position: absolute;
+    top: var(--gap);
+    right: var(--gap);
+    left: var(--gap);
+    height: 100%;
+  }
+
+  &::before {
+    --gap: 20px;
+    opacity: .05;
+    z-index: 2;
+  }
+  
+  &::after {
+    --gap: 40px;
+    opacity: .04;
+    z-index: 1;
+  }
+
+
+  &__content {
+
+    &-text {
+      font-size: 20px;
+      line-height: 1.5;
+      font-weight: 600;
+      color: var(--dark);
+      margin: 0 0 5px;
+      padding-right: 15%;
+      width: 100%;
+    }
+    &-date {
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--text-light);
+    }
+  }
+  
+  
+  &__cta {
+    
+    button {
+      white-space: nowrap;
+      font-weight: normal !important;
+      padding: 10px 35px !important;
+      text-transform: capitalize !important;
+    }
+  }
+
+  @media (max-width: 991px) {
+    border-radius: 8px;
+    margin-bottom: 60px;
+
+    &__inner {
+      padding: 25px 35px;
+    }
+
+    &::before {
+      --gap: 15px;
+    }
+    
+    &::after {
+      --gap: 30px;
+    }
+
+    &__content {
+
+      &-text {
+        font-size: 18px;
+        padding-right: 10%;
+      }
+      &-date {
+        font-size: 14px;
+      }
+    }
+    
+    
+    &__cta {
+      
+      button {
+        padding: 10px 25px !important;
+      }
+    }
+  }
+  
+  @media (max-width: 767px) {
+    margin-bottom: 50px;
+
+    &__inner {
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+
+    &::before {
+      --gap: 10px;
+    }
+    
+    &::after {
+      --gap: 20px;
+    }
+
+    &__content {
+      width: 100%;
+      margin-bottom: 10px;
+
+      &-text {
+        font-size: 16px;
+        padding-right: 0;
+      }
+    }
+    
+    
+    &__cta {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 479px) {
+
+    &__inner {
+      padding: 15px;
+    }    
+
+    &__content {
+      margin-bottom: 10px;
+
+      &-text {
+        font-size: 14px;
+        padding-right: 0;
+      }
+
+      &-date {
+        font-size: 12px;
+      }
+    }
+  }
+}

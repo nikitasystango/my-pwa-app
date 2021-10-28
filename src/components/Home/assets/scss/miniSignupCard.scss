@@ -1,0 +1,64 @@
+// MiniSIgnUpCard
+.mini-signup-card {
+  padding: 16px 26px;
+  background: var(--dark);
+  border-radius: 10px;
+
+  &__text {
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--white);
+  }
+
+  .button {
+    padding: 10px 25px !important;
+    font-weight: normal !important;
+    line-height: 19px !important;
+    text-transform: capitalize !important;
+    min-height: 50px;
+    max-width: 165px;
+    width: 100%;
+  }
+
+  @media (max-width: 1199px) {
+    padding: 24px 32px;
+
+    &__text {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 1140px) {
+    padding: 19px 25px;
+
+    &__text {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    padding: 24px 16px;
+  }
+
+  @media (max-width: 575px) {
+    padding: 1rem;
+
+    &__text {
+      font-size: 16px;
+    }
+
+    .ui.grid>.row>[class*="mobile"].column,
+    .ui.grid>.row>[class*="mobile"].column {
+      width: 100% !important;
+    }
+    .ui.grid>.row>[class*="mobile"].column {
+      margin-top: 0 !important;
+      justify-content: flex-start !important;
+      text-align: center !important;
+
+      & + [class*=column] {
+        margin-top: 1rem !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+// <!-- Cancle Elite Membership
+.change-password-modal.cst-popup.cancel-plan.change-plan-popup{
+  max-width: 550px !important;
+}
+.cancel-elite-membership {
+  text-align: center;
+  font-family: var(--primary-font);
+  padding: 50px 0 80px;
+
+  &__image {
+      width: 230px;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 36px;
+    color: var(--dark);
+    margin: 40px 0 10px;
+  }
+  &__subhead{
+    color: var(--dark);
+    font-weight: bold;
+  }
+  &__text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    max-width: 625px;
+
+    &.mb-10 {
+      margin-bottom: 10px !important;
+    }
+  }
+  &__btn {
+    font-size: 14px !important;
+    line-height: 19px !important;
+    padding: 10px 35px !important;
+    margin: 0 !important;
+    font-weight: normal !important;
+
+    & + .cancel-elite-membership__btn {
+      margin-left: 10px !important;
+    }
+  }
+
+  @media (max-width: 479px) {
+    &__title {
+      font-size: 22px;
+      margin: 25px 0 5px;
+    }
+    &__text {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+  }
+}
+// Cancle Elite Membership -->

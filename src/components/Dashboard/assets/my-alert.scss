@@ -1,0 +1,389 @@
+.user-dashboard {
+  &__content {
+    .note-text--my-alert {
+      padding: 12px;
+      line-height: 1.5;
+    }
+
+    .alerts-count {
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 25px;
+      color: var(--dark);
+      margin: 20px 0 0;
+      @media (min-width:768px) and (max-width:1024px){
+      font-size: 16px;
+      }
+    }
+
+    .alert-box {
+      background: var(--light);
+      border-radius: 10px;
+      padding: 4px;
+      transition: all 0.2s ease-in;
+      will-change: opacity, box-shadow;
+
+      & + .alert-box {
+        margin-top: 15px;
+      }
+
+      &:hover {
+        background-color: #D8F7FD;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px;
+        font-size: 13px;
+        line-height: 18px;
+      }
+      &__header-left {
+        display: flex;
+        align-items: center;
+
+        svg {
+          margin-right: 7.5px;
+        }
+        span {
+          font-weight: 600;
+
+          color: var(--dark);
+        }
+      }
+      &__header-right {
+        display: flex;
+        align-items: center;
+        color: var(--grey1);
+
+        // > span {
+        //   &:first-child {
+        //     border-right: 1px solid var(--grey5);
+        //     padding-right: 8px;
+        //     margin-right: 12px;
+        //   }
+        // }
+
+        svg {
+          cursor: pointer;
+        }
+      }
+
+
+      &__body {
+        padding: 15px 10px;
+        border-radius: 10px;
+        background: var(--white);
+        font-size: 13px;
+        line-height: 1;
+        display: flex;
+        position: relative;
+
+        --right-col-width: 145px;
+
+      }
+      &__body-left {
+        width: 100%;
+        position: relative;
+        // width: calc(100% - var(--right-col-width));
+      }
+      &__body-right {
+        // width: var(--right-col-width);
+
+        button {
+          white-space: nowrap;
+          font-size: 13px !important;
+          padding: 13px !important;
+          font-weight: normal !important;
+          text-transform: capitalize !important;
+        }
+      }
+      &__classes-buttons {
+        font-size: 12px;
+        line-height: 16px;
+      }
+      .classes-buttons {
+        display: inline-flex;
+        margin-top: 10px;
+
+        &--floating {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          margin-top: 0;
+        }
+
+        &__btn {
+          padding: 1px 8px 2px;
+          border: 1px solid rgba(var(--color), .2);
+          color: rgba(var(--color), 1);
+          border-radius: 5px;
+          display: block;
+          text-transform: capitalize;
+
+          &:not(:last-child) {
+            margin-right: 8px;
+          }
+
+          &--business {
+            --color: var(--business-rgb);
+          }
+          &--economy {
+            --color: var(--economy-rgb);
+          }
+          &--first {
+            --color: var(--first-rgb);
+          }
+          &--premium, &--premium_economy {
+            --color: var(--premium-rgb);
+          }
+        }
+      }
+
+      &__info {
+        // margin-bottom: 10px;
+        color: var(--dark);
+        display: flex;
+        align-items: flex-start;
+        line-height: 18px;
+
+        svg {
+          margin-right: 6px;
+        }
+
+        > span {
+          white-space: nowrap;
+
+          &:not(:last-child) {
+            margin-right: 23px;
+            display: flex;
+            align-items: center;
+          }
+        }
+      }
+      &__info-airline {
+        img {
+          margin-right: 7px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+        .airline-icon{
+          width: 20px;
+        }
+      }
+      &__info-date {
+        > span {
+          white-space: nowrap;
+          display: flex;
+          align-items: center;
+          @media (min-width:768px) and (max-width:1024px){
+            display: block;
+          }
+          svg {
+            opacity: .5;
+            path {
+              fill: var(--medium-blue);
+            }
+          }
+
+          & + span {
+            margin-top: 10px;
+          }
+        }
+      }
+      &__info-membership {
+        font-style: unset;
+        color: rgba(var(--dark-rgb), .6);
+        margin-left: 5px;
+        display: inline-block;
+        max-width: 100px;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      // &__info-passengers {}
+      // &__info-way {}
+
+      @media (max-width: 1240px) {
+        &__info {
+          flex-wrap: wrap;
+        }
+        &__info-airline {
+          width: 100%;
+          max-width: 100%;
+          margin-bottom: 10px;
+        }
+        &__info-membership {
+          max-width: initial;
+        }
+        .classes-buttons {
+          flex-wrap: wrap;
+          margin-top: 10px;
+
+          // &__btn {
+          //   margin-bottom: 8px;
+          // }
+          &--floating {
+            position: static;
+          }
+        }
+      }
+
+      @media (min-width: 768px) and (max-width: 1240px) {
+        &__info-date {
+          display: flex;
+          align-items: center;
+
+          > span {
+            width: 50%;
+
+            & + span {
+              margin: 0 0 0 15px;
+            }
+          }
+        }
+        &__info {
+          > span {
+
+            &:not(:last-child) {
+              margin-right: 15px;
+              @media (min-width:768px) and (max-width:1024px){
+                margin-bottom: 10px;
+              }
+            }
+          }
+        }
+      }
+
+      @media (max-width: 639px) {
+        &__body {
+          flex-wrap: wrap;
+        }
+        &__body-left {
+          margin-bottom: 10px;
+        }
+      }
+
+      @media (max-width: 479px) {
+        &__header {
+          padding: 10px;
+          font-size: 12px;
+          flex-wrap: wrap;
+        }
+        &__header-left {
+          margin-bottom: 5px;
+        }
+        // &__header-left,
+        // &__header-right {
+        //   width: 100%;
+        // }
+
+        &__info {
+          > span {
+            width: 100%;
+
+            &:not(:last-child) {
+              margin-right: 0 !important;
+              margin-bottom: 10px;
+            }
+          }
+        }
+        &__info-way {
+          svg {
+            transform: rotate(90deg);
+          }
+        }
+
+        &__body-right {
+          button {
+            font-size: 12px !important;
+            padding: 10px !important;
+          }
+        }
+
+        .classes-buttons {
+          &--floating {
+            position: static;
+            margin-top: 10px;
+          }
+
+          &__btn {
+            margin-bottom: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// .no-alert-box
+
+.no-alert-box {
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__inner {
+    text-align: center;
+  }
+}
+
+.sort-button-main-wrap{
+  padding-right: 0 !important;
+  .sort-alert-wrap{
+    display: block;
+    text-align: right;
+      margin: 1em 0px;
+      @media(max-width:767px){
+        text-align: left;
+      }
+      .sortText{
+        font-family: Open Sans;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 19px;
+        display: flex;
+        align-items: center;
+        text-align: right;
+        color: #132C52;
+        opacity: 0.6;
+        margin-right:10px;
+        display: inline-block;
+        @media(max-width:767px){
+          display: block;
+          text-align: left;
+          margin-bottom: 10px;
+        }
+      }
+      .sort-button{
+        background: #E6F7FB;
+        border-radius: 4px;
+        font-family: Open Sans;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        color: rgba(19, 44, 82, 0.8);
+        padding: 6px 10px;
+        border-radius: 4px;
+        margin-right: 10px;
+        cursor: pointer;
+        display: inline-block;
+        @media(max-width:767px){
+          width: 45%;
+          margin-bottom: 10px;
+          font-size: 12px;
+        }
+      svg{
+        margin-right: 5px;
+      }
+      }
+      .highlight-btn {
+        background: #CDF0F7;
+        border: 1px solid rgba(3, 178, 216, 0.5);
+      }
+  }
+}

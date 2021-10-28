@@ -1,0 +1,1951 @@
+.flight-availability-page {
+  .sticky-header{
+    .pop{
+      margin-top: 15px;
+    }
+  }
+    
+    @media (min-width: 992px) {
+      padding: {
+        left: 0 !important;
+        right: 0 !important;
+      }
+      .btn--search-icon {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 991px) {
+      padding: {
+        left: 1rem !important;
+        right: 1rem !important;
+      }
+    }
+    
+    .flight-availability-page__calender-wrapper{
+      background-color: #F5F8F9;
+      padding: 5px 0 0;
+      .DayPicker{
+        background: transparent !important;
+        .DayPicker-Month{
+          box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
+        }
+      }
+    }
+
+    &__header {
+        padding: 0;
+        border-radius: 6px;
+        position: relative;
+        z-index: 110;
+
+        @media (max-width: 1199px) {
+          padding: 0 0 .5rem;
+        }
+
+
+
+        .radio-buttons {
+            border-radius: 10px 10px 0 0;
+            background: var(--light-blue);
+            @media(max-width:767px){
+              border-radius: 5px 5px 5px 5px;
+            }
+        }
+
+        .search-panel {
+            background: var(--light-blue);
+            border-radius: 0 0 10px 10px;
+            padding-bottom: 1rem !important;
+            margin-top: 0 !important;
+
+            &__row {
+              padding-bottom: 0 !important;
+            }
+
+            &__date-swap-icon:not(:hover) {
+              path {
+                &:nth-child(2) {
+                  stroke: var(--light);
+                }
+              }
+            }
+
+            &__col {
+                @media (min-width: 992px) {
+                  .rc-tree-select,
+                  .select-location>div:first-child,
+                  .select-location>div[class$=-control] {
+                    border-color: var(--grey5);
+                    background-color: #F5F8F9;
+                  }
+                  .select-location {
+                    background-color: #F5F8F9;
+                  }
+
+                  .dont-know-start-end-date-grid {
+                    padding-left: 1rem !important;
+                  }
+                  .dont-know-grid {
+                    &__column {
+                      &--dropdown + .dont-know-grid__column{
+                        padding-left: 0 !important;
+                      }
+                      &--dropdown + .dont-know-grid__column--dropdown + .dont-know-grid__column--date-picker {
+                        > .ui.grid {
+                          margin-right: 0 !important;
+                        }
+                      }
+                      &--date-picker {
+                        padding-right: 0 !important;
+                      }
+
+                    }
+                  }
+                  &--dont-know:nth-child(2) {
+                    padding-right: 0 !important;
+                  }
+
+                  &--detination-autocomplete {
+                    &.pr-1 {
+                      padding-right: 0 !important;
+
+                      .search-panel-close-icon {
+                        right: 15px;
+                      }
+                    }
+                  }
+                }
+
+                @media (min-width: 768px) and (max-width: 991px) {
+                    &:first-child,
+                    &:nth-child(2) {
+                        padding-right: 0 !important;
+                    }
+                    &:nth-child(2) {
+                        .search-panel-close-icon {
+                            right: 11px;
+                        }
+                    }
+                    &--airline-selector:first-child,
+                    &--source-autocomplete:nth-child(2) {
+                      padding-right: .5rem !important;
+                    }
+
+                    &--source-autocomplete:nth-child(2) {
+                      .search-panel-close-icon {
+                        right: 18px;
+                      }
+                    }
+                    &--dont-know:nth-child(2) {
+                      padding-right: 1rem !important;
+                    }
+                }
+
+                @media (min-width: 480px) and (max-width: 767px) {
+                    &:nth-child(2) {
+                        padding-right: 1rem !important;
+
+                        .search-panel-close-icon {
+                            right: 30px;
+                        }
+                    }
+                    &:nth-child(3) {
+                        padding-left: 1rem !important;
+                    }
+                }
+
+                @media (min-width: 576px) and (max-width: 767px) {
+                    &:nth-child(odd) {
+                        padding-right: .5rem !important;
+                    }
+                    &:nth-child(even) {
+                        padding-left: .5rem !important;
+                    }
+                }
+
+                @media (min-width: 480px) and (max-width: 575px) {
+                    &:nth-child(odd) {
+                        padding-right: .5rem !important;
+                    }
+                    &:nth-child(even) {
+                        padding-left: .5rem !important;
+                    }
+                    &:nth-child(3) {
+                        .search-panel-close-icon {
+                            right: 18px;
+                        }
+                    }
+                }
+                @media (min-width: 992px) {
+                  &--detination-autocomplete {
+                      padding-right: 0px !important;
+                  }
+                }
+
+                @media (max-width: 768px) {
+                  &--button {
+                    &.mp0 {
+                      margin-top: 0 !important;
+                      margin-bottom: 0 !important;
+                    }
+                  }
+                }
+
+                @media (max-width: 767px) {
+                  &--airline-selector[class*=column],
+                  &--source-autocomplete[class*=column],
+                  &--detination-autocomplete[class*=column],
+                  &--button[class*=column] {
+                    padding-left: 1rem !important;
+                    padding-right: 1rem !important;
+                  }
+                  &--button[class*=column] {
+                    margin-top: 0 !important;
+                  }
+                  &--detination-autocomplete[class*=column] {
+                    .search-panel-close-icon {
+                      right: 30px;
+                    }
+                  }
+                  &--dont-know[class*=column] {
+                    padding-left: 1rem !important;
+                  }
+                }
+
+                @media (max-width: 479px) {
+                    .search-panel-close-icon {
+                        right: 30px !important;
+                    }
+                }
+
+                &--button {
+                    margin-bottom: 0 !important;
+
+                    @media (max-width: 991px) {
+                        text-align: center !important;
+
+                        .mbMinus35 {
+                          margin: 15px 0 0 !important;
+                        }
+                    }
+                }
+            }
+            &__button {
+                // @media (max-width: 991px) {
+                    width: 100%;
+                    max-width: 100%;
+                    padding: 16.5px 25px !important;
+                    text-transform: capitalize !important;
+                    @media(min-width:768px) and (max-width:1024px){
+                      max-width: 230px;
+                    }  
+                // }
+            }
+        }
+
+        > div > .ui.grid {
+            &.radio-buttons,
+            &.search-panel {
+                margin: 0 !important;
+            }
+            &.radio-buttons {
+              margin-top: -1px !important;
+              margin-bottom: -1px !important;
+            }
+
+            &:last-child > .row {
+                padding-top: 0;
+                padding-bottom: 0;
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+            }
+        }
+        .date-select {
+          --col-width-button: 210px;
+          max-width: 640px;
+          margin-left: auto !important;
+          margin-right: auto !important;
+          background: var(--blue1);
+          border-radius: 10px;
+          padding-top: 2px !important;
+          padding-bottom: 2px !important;
+          // box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1), 0px 4px 40px rgba(117, 230, 255, 0.5);
+          position: relative;
+          margin-top: 0 !important;
+
+          &--one-way {
+            max-width: 450px !important;
+          }
+          &::before {
+            content: '';
+            position: absolute;
+            top: 35px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: block;
+            background: #EFF2FF;
+            box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1), 0px 2px 20px rgba(117, 230, 255, 0.25);
+            border-radius: 10px;
+            z-index: -1;
+          }
+
+          label {
+            color: var(--grey1);
+            // font-size: 12px
+          }
+
+          .DateRangePicker {
+            width: 100%;
+            background-image: none;
+            padding-left: 5px;
+            padding-right: 5px;
+            border-radius: 6px;
+          }
+          // .DateInput_input {
+          //   font-size: 12px;
+          // }
+          &.ui.grid > .row {
+            z-index: 10;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+          }
+
+          & + .date-select-popup {
+            // &__inner {
+              top: calc(100% - 194px);
+              transform: translateX(-50%);
+              margin-left: -35px;
+              @media (min-width:768px) and (max-width:1024px){
+                margin-left: 0px;
+              }                              
+            // }
+          }
+
+          @media (min-width: 768px) and (max-width: 991px) {
+            &.ui.grid > .row > [class*=column] {
+              &:nth-child(3) {
+                padding-left: 0 !important;
+              }
+            }
+          }
+          @media (min-width: 768px) {
+            &.ui.grid > .row > [class*=column] {
+              &:nth-child(1),
+              &:nth-child(2) {
+                max-width: calc((100% - var(--col-width-button)) / 2) !important;
+                width: 100% !important;
+              }
+              &:nth-child(3) {
+                max-width: var(--col-width-button) !important;
+                width: 100% !important;
+              }
+            }
+            &--one-way {
+              &.ui.grid > .row > [class*=column] {
+                &:nth-child(1) {
+                  max-width: calc((100% - var(--col-width-button)) / 1) !important;
+                  width: 100% !important;
+                }
+                &:nth-child(2) {
+                  max-width: var(--col-width-button) !important;
+                  width: 100% !important;
+                }
+              }
+            }
+          }
+          @media (min-width: 992px) {
+            display: none !important;
+          }
+          @media (max-width: 767px) {
+            max-width: 535px;
+
+            & + .date-select-popup {
+              // &__inner {
+                top: 0;
+                margin-left: 0;
+                margin-bottom: 50px;
+              // }
+            }
+
+            &--one-way {
+              max-width: 420px;
+            }
+          }
+          .outbondRangepicker{
+            margin: 0 auto;
+            label{
+              text-align: center;
+            }
+            .DateRangePickerInput{
+              input{
+                text-align: center;
+              }
+            }
+            &.date-error-field{
+              box-shadow: unset;
+            }
+            &.date-error-field .DateRangePicker{
+              border: 1px solid #e0b4b4 !important;
+            }
+            &.date-error-field .DateInput_input{
+              color: #9f3a38 !important;
+            }
+            &.date-error-field .DateInput_input::placeholder{
+              color: #9f3a38 !important;
+            }
+          }
+          .inbondRangepicker{
+            margin: 0 auto;
+            label{
+              text-align: center;
+            }
+            .DateRangePickerInput{
+              input{
+                text-align: center;
+              }
+            }
+            &.date-error-field{
+              box-shadow: unset;
+            }
+            &.date-error-field .DateRangePicker{
+              border: 1px solid #e0b4b4 !important;
+            }
+            &.date-error-field .DateInput_input{
+              color: #9f3a38 !important;
+            }
+            &.date-error-field .DateInput_input::placeholder{
+              color: #9f3a38 !important;
+            }
+          }
+        }
+        .dataSelectCompress{
+          max-width:450px !important;
+          @media (min-width: 768px) {
+            &.ui.grid > .row > [class*=column] {
+              &:nth-child(1),
+              &:nth-child(2) {
+                max-width: 50% !important;
+              }
+              &:nth-child(3) {
+                max-width: 50% !important;
+              }
+            }
+            &--one-way {
+              &.ui.grid > .row > [class*=column] {
+                &:nth-child(1) {
+                  max-width: 50% !important;
+                  width: 100% !important;
+                }
+                &:nth-child(2) {
+                  max-width: 50% !important;
+                  width: 100% !important;
+                }
+              }
+            }
+          }
+        }
+    }
+    // &__info-text {
+    //     display: flex;
+    //     flex-direction: row;
+    //     flex-wrap: wrap;
+    //     align-items: center;
+    //     justify-content: center;
+    //     // margin: 20px 0;
+
+    //     svg {
+    //         width: 35px;
+    //         margin-right: 9px;
+    //         display: inline-block;
+    //         vertical-align: middle;
+    //     }
+    //     p {
+    //         font-size: 16px;
+    //         line-height: 45px;
+    //         margin: 0;
+
+    //         @media (max-width: 767px) {
+    //             line-height: 35px;
+    //         }
+    //     }
+    // }
+
+    // &__circle-buttons {
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    //     align-content: center;
+    //     padding: 0;
+    //     margin: 0;
+    //     margin-top: 10px;
+
+    //     li {
+    //         color: var(--grey2);
+    //         padding: 0;
+    //         list-style: none;
+    //         display: flex;
+    //         align-items: center;
+    //         font-size: 12px;
+    //         line-height: 16px;
+
+    //         &:first-child {
+    //             margin-right: 40px;
+
+    //             &:before {
+    //                 background-color: #BDBDBD;
+    //             }
+
+    //             @media (max-width: 374px) {
+    //                 margin-right: 25px;
+    //             }
+    //             @media (max-width: 359px) {
+    //                 margin-bottom: 15px;
+    //             }
+    //         }
+
+    //         &:before {
+    //             content: '';
+    //             display: inline-block;
+    //             vertical-align: middle;
+    //             width: 16px;
+    //             height: 16px;
+    //             box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+    //             margin-right: 6px;
+    //             border-radius: 50%;
+    //         }
+
+    //         &:last-child {
+    //             &:before {
+    //                 background-color: var(--white);
+    //             }
+    //         }
+    //     }
+    //     @media (max-width: 359px) {
+    //         flex-direction: column;
+    //         justify-content: flex-start;
+    //         align-items: flex-start;
+    //     }
+    // }
+
+    // &__weeks-head {
+    //     width: 100% !important;
+    //     display: flex;
+    //     flex-direction: row;
+    //     flex-wrap: wrap;
+    //     justify-content: space-between;
+    //     --col: 4;
+    //     --col-gap: 90px;
+
+    //     ul {
+    //         list-style: none;
+    //         margin: 0;
+    //         padding: 5px 0;
+    //         width: calc((100% - var(--col-gap)) / var(--col));
+    //         display: flex;
+    //         flex-direction: row;
+    //         flex-wrap: wrap;
+    //         justify-content: space-around;
+    //         background: var(--white);
+    //         // border: 1px solid var(--grey5);
+    //         // box-shadow: 0px 2px 23px #EDEDED;
+    //         border-radius: 6px;
+    //         font-weight: 600;
+    //     }
+
+    //     @media (max-width: 991px) {
+    //         --col: 2;
+    //         --col-gap: 30px;
+
+    //         ul {
+    //             &:nth-child(3),
+    //             &:last-child {
+    //                 display: none;
+    //             }
+    //         }
+    //     }
+    //     @media (max-width: 479px) {
+    //         --col: 1;
+    //         --col-gap: 0px;
+
+    //         ul {
+    //             &:nth-child(2) {
+    //                 display: none;
+    //             }
+    //         }
+    //     }
+    // }
+
+    &__calender-heading {
+        color: var(--dark);
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 38px;
+        margin-bottom: 0;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+
+        svg {
+          margin-right: 8.5px;
+        }
+
+        @media (min-width: 480px) and (max-width: 575px) {
+            margin: 10px 0 !important;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        @media (min-width: 1px) {
+          &--mobile-only {
+              display: none;
+          }
+        }
+
+        @media (max-width: 640px) {
+            font-size: 12px;
+            line-height: 1.35;
+            margin: 5px 0 !important;
+            padding-bottom: 5px;
+
+            &:not(&--mobile-only) {
+              display: block;
+            }
+
+            &--return {
+                color: var(--text-light);
+                border-bottom: 2px solid transparent;
+                transition: all 0.2s ease-in;
+                --icon-color: var(--text-light);
+                transition: all 0.2s ease-in;
+
+                svg {
+                  path {
+                    fill: var(--icon-color);
+                    transition: all 0.2s ease-in;
+                  }
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    color: var(--dark);
+
+                    --icon-color: var(--dark);
+                }
+            }
+
+            &--active {
+                color: var(--dark);
+                border-bottom-color: var(--dark);
+
+                --icon-color: var(--dark);
+            }
+        }
+    }
+
+    &__calender {
+        &-wrapper {
+          &-inner {
+            max-width: 915px;
+            margin-left: auto !important;
+            margin-right: auto !important;
+          }
+          @media (max-width: 991px) {
+            padding-left: 1rem;
+            padding-right: 1rem;
+          }
+        }
+
+        &-inner {
+          padding-top: 6px !important;
+        }
+
+        .column {
+            --col: 2;
+            --col-gap: 40px;
+            &.calendar-wrapper {
+                --col: 1;
+                --col-gap: 0px;
+                padding-left: 0.2rem !important;
+                padding-right: 0.2rem !important;
+                &--active {
+                  display: flex !important;
+                  justify-content: space-between;
+                  flex-direction: row;
+                  flex-wrap: wrap;
+                }
+            }
+
+            @media (max-width: 991px) {
+                --col: 2;
+                --col-gap: 28px;
+                &.calendar-wrapper {
+                    --col: 1;
+                    --col-gap: 0px;
+                }
+            }
+
+            @media (max-width: 767px) {
+              --col-gap: 14px;
+            }
+
+            @media (min-width: 641px) and (max-width: 767px) {
+              &.calendar-wrapper {
+                &:first-child {
+                  padding-right: .5rem !important;
+                }
+                &:last-child {
+                  padding-left: .5rem !important;
+                }
+              }
+            }
+
+            
+        }
+
+        // .CalendarMonthGrid {
+        //     width: 100% !important;
+        //     display: flex;
+        //     flex-direction: row;
+        //     flex-wrap: wrap;
+        //     justify-content: space-between;
+        //     background: var(--light);
+
+        //     > div {
+        //         width: calc((100% - var(--col-gap)) / var(--col));
+        //         background: var(--white);
+        //         border: 1px solid var(--grey5);
+        //         box-shadow: 0px 2px 18px #EDEDED;
+        //         border-radius: 6px;
+        //         margin-bottom: 30px;
+
+        //         .CalendarMonth {
+        //             border-radius: inherit;
+
+        //             @media (max-width: 991px) {
+        //                 > table {
+        //                     width: 100%;
+        //                 }
+        //             }
+        //         }
+
+        //         @media (max-width: 479px) {
+        //             margin-bottom: 15px;
+        //         }
+        //     }
+        // }
+        // .DayPicker__withBorder {
+        //     border: none;
+        //     box-shadow: none;
+        // }
+
+        // .DayPicker_weekHeaders,
+        // .DayPickerKeyboardShortcuts_show__topRight {
+        //     display: none;
+        // }
+        // .DayPicker_transitionContainer__vertical {
+        //     padding-top: 0;
+        // }
+
+        // .CalendarMonth {
+        //     .CalendarMonth_caption {
+        //         strong {
+        //             font-weight: normal;
+        //             font-size: 15px;
+        //             line-height: 18px;
+        //             color: var(--medium-blue);
+        //             margin-bottom: 14px;
+        //             display: block;
+        //             color: var(--grey2);
+        //         }
+        //     }
+        // }
+        // .CalendarDay {
+        //     background: var(--white);
+        //     font-size: 12px;
+        //     // line-height: 16px;
+        //     color: var(--text-light);
+        //     font-weight: bold;
+        //     padding: 0;
+        //     border-radius: 0 !important;
+
+
+        //     > div {
+        //         width: 100%;
+        //         height: 100%;
+        //         display: flex;
+        //         align-items: center;
+        //         justify-content: center;
+        //         font-size: 12px;
+        //         font-weight: 600;
+
+        //         &.available-flights {
+        //             background: #BDBDBD;
+        //             color: var(--white);
+        //         }
+        //     }
+
+
+        //     &:hover {
+        //         background: var(--light-blue);
+        //         // border-radius: 8px;
+        //         color: var(--dark);
+        //     }
+
+        //     &.CalendarDay__selected {
+        //         // border-radius: 8px;
+        //         padding: 4px;
+        //         background: #BDBDBD;
+        //         > div {
+        //             background: var(--light-blue);
+        //             color: var(--dark) !important;
+        //         }
+        //     }
+        // }
+
+        @media (max-width: 840px) {
+          max-width: 750px !important;
+          width:100% !important;
+          margin: {
+            left: auto !important;
+            right: auto !important;
+          };
+        }
+    }
+
+    .search-panel__row [class*="column"]:not(:last-child):before,
+    .search-panel__row [class*="column"]:not(:nth-child(odd)):after {
+        background: var(--light-blue);
+    }
+    .search-panel__date-swap-icon {
+        svg {
+            path {
+                &:first-child {
+                    fill: var(--light-blue);
+                }
+            }
+        }
+    }
+
+    > .ui.container {
+        max-width: 915px !important;
+        width: 100% !important;
+
+        @media (max-width: 767px) {
+          margin: {
+            left: auto !important;
+            right: auto !important;
+          }
+        }
+
+        .padding-b{
+            margin-bottom: 7px;
+            padding-top: .5rem;//5.5px
+        }
+        .buttons_element__button.highlightOffPeakBtn{
+          margin-bottom: 0 !important;
+          border: unset !important;
+        }
+        .buttons_element{
+            // text-align: center !important;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            
+            &__button {
+                border-radius: 5px;
+                margin: 0 !important;
+                border: 0;
+                font-weight: 600;
+                padding: 10px !important;
+                margin: 0 !important;
+                color: var(--dark) !important;
+                background: #F5F8F9 !important;
+               &.inactive-cabin-class{
+                background: #c9c9c9 !important;
+                opacity: 0.4;
+                padding: 9px 8px !important;
+                svg {
+                  rect{
+                    fill: #656565;
+                    stroke: #656565;
+                  }
+                }
+               }
+                @media (min-width: 641px) {
+                  &:not(:last-child) {
+                    margin-right: 10px !important;
+                  }
+                }
+
+                svg {
+                  --size: 16px;
+                  width: var(--size);
+                  height: var(--size);
+                  display: inline-block;
+                  vertical-align: middle;
+                  margin-right: 4px;
+
+                  & + span {
+                    display: inline-block;
+                    vertical-align: middle;
+                  }
+                }
+
+                &:hover {
+                  opacity: .75;
+                }
+            }
+
+          @media (max-width: 991px) {
+            text-align: center;
+          }
+          @media (max-width: 640px) {
+            display: flex !important;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: {
+              left: 5px;
+              right: 5px;
+              bottom: 6px !important;
+            }
+
+            &__button {
+              margin: 0 5px 10px !important;
+              // width: 50%;
+              flex: 1 0 0;
+              white-space: nowrap;
+            }
+          }
+          @media (max-width: 520px) {
+            &__button {
+              border: 1px solid rgba(var(--dark-rgb), .1) !important;
+            }
+          }
+          @media (max-width: 767px) {
+            &__button {
+              border: 1px solid rgba(var(--dark-rgb),.1)!important;
+            }
+          }
+
+        }
+        .calendar-wrapper {
+
+            &--hover {
+              z-index: 10;
+            }
+
+            @media (min-width: 992px) {
+              &:first-child {
+                > div {
+                  padding-right: 6px;
+                }
+              }
+              &:last-child {
+                > div {
+                  padding-left: 6px;
+                }
+              }
+            }
+        }
+        .DayPicker {
+            background: var(--white);
+            width: calc((100% - var(--col-gap))/var(--col));
+        }
+        .pop {
+          display: flex;
+          align-items: center;
+          align-content: center;
+          justify-content: flex-end;
+
+          &__item {
+            display: flex;
+            align-items: center;
+            align-content: center;
+
+            &:not(:last-child) {
+              margin-right: 15px;
+            }
+
+            &-icon {
+              --size: 35px;
+              width: var(--size);
+              height: var(--size);
+              margin-right: 5px;
+              position: relative;
+
+              svg {
+                width: 100%;
+                height: 100%;
+
+                & + span {
+                  display: block;
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  font-weight: 700;
+                  font-size: 12px;
+                  line-height: 14px;
+                }
+              }
+            }
+
+            &-text {
+              color: var(--dark);
+              font-weight: 600;
+              font-size: 14px;
+              line-height: 20px;
+            }
+          }
+
+          @media (max-width: 991px) {
+            justify-content: center;
+
+            &__item {
+              &-icon {
+                --size: 30px;
+              }
+            }
+          }
+        }
+
+    }
+
+    // <!-- Calendar
+    .react-datepicker {
+      &__day {
+        &-date {
+          font-size: 12px;
+          font-weight: 600;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &:focus {
+            outline: none;
+          }
+
+          &--disabled {
+            color: #E1E4E7;
+            cursor: not-allowed;
+
+            &:hover {
+              background: var(--white);
+            }
+          }
+        }
+      }
+    }
+    // Calendar -->
+
+    // <!-- Popup
+    .react-datepicker {
+      &__tooltip-wrap {
+        position: relative;
+        will-change: transform, opacity;
+      }
+      &__tooltip-box {
+        pointer-events: none;
+      }
+      &__tooltip-wrap:hover .react-datepicker__tooltip-box {
+        display: block;
+      }
+    }
+    // Popup -->
+
+  // search panel divider
+  .search-panel-divder-grid,
+  .search-panel-divider {
+    display: block;
+  }
+
+  .search-panel-divder-grid {
+    // margin: 23px calc(-1 * (1rem + 1px)) !important;
+    margin: 0 !important;
+  }
+
+  .search-panel-divider {
+    height: 10px;
+    // height: 14px;
+    background: var(--white);
+    width: 100%;
+  }
+  .header {
+    position: relative;
+    z-index: 16;
+  }
+  @media (min-width: 992px) {
+    .header {
+      &__inner {
+        max-width: 915px;
+        width: 100%;
+        margin: 0 auto;
+      }
+      will-change: transform;
+      padding-top: 10px;
+    }
+    // Sticky Header
+    .sticky-header {
+      position: fixed;
+      width: 100%;
+      left: 0;
+      top: var(--header-height);
+      z-index: 110;
+      background: var(--white);
+      padding: 6px 0;
+      // transition: all .3s ease-in;
+      animation: stickyHeader .2s linear;
+      animation-fill-mode: forwards;
+      will-change: transform;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.14);
+
+      .date-select {
+        display: flex !important;
+      }
+      .smac {
+        display: none;
+      }
+
+      .find-flight {
+        > div:not(.date-select):not(.date-select-popup):not(.date-select-popup-overlay) {
+          display: none;
+        }
+      }
+
+      .flight-availability-page {
+        &__header {
+          padding-bottom: 0;
+
+          .date-select {
+            &::before {
+              box-shadow: none;
+            }
+            label {
+              font-size: 12px;
+              margin-bottom: 2px;
+            }
+            .DateInput_input {
+              min-height: 36px;
+              line-height: 36px;
+            }
+            #departEndDate{
+              text-align: right;
+            }
+            #returnEndDate{
+              text-align: right;
+            }
+            &__btn {
+              padding: 10px !important;
+              svg {
+                display: inline-block;
+                vertical-align: middle;
+                margin-left: 5px;
+                margin-top: -1px;
+              }
+            }
+            &.ui.grid > .row {
+              padding: {
+                top: 3px !important;
+                bottom: 5px !important;
+              };
+
+              > [class*=column] {
+                &:nth-child(1),
+                &:nth-child(2),
+                &:nth-child(3) {
+                  padding-left: 8px !important;
+                }
+                &:nth-child(3) {
+                  padding-right: 8px !important;
+                }
+              }
+            }
+            & + .date-select-popup {
+              top: 0;
+            }
+          }
+        }
+        &__calender-heading {
+          line-height: 24px;
+          font-size: 14px;
+        }
+      }
+      .flight-classes {
+        &.ui.grid > .row {
+          .buttons_element {
+            padding: {
+              top: 6px;
+              bottom: 6px;
+            };
+            &__button {
+              padding: 6px 6px !important;
+              font-size: 13px;
+
+              svg {
+                --size: 14px;
+              }
+            }
+          }
+        }
+      }
+      .pop {
+        &__item {
+          &-icon {
+            --size: 26px !important;
+          }
+          &-text {
+            font-size: 13px !important;
+          }
+        }
+      }
+
+      & + .flight-availability-page {
+        &__calender {
+          margin-top: calc(var(--header-height) + 190px) !important;
+        }
+      }
+    }
+    &__header {
+      .radio-buttons,
+      .search-panel {
+        background: transparent !important;
+      }
+    }
+  }
+
+
+  @media (max-width: 991px) {
+    .header {
+      &:not(.header--mobile) {
+        .flight-availability-page__header {
+          display: block;
+          .dataSelectCompress  {
+            display:none;
+          }
+        }
+      }
+
+      &--mobile {
+
+        .flight-availability-page__header {
+          position: fixed;
+          margin: 0 calc(-50vw + 50%);
+          top: var(--header-height);
+          right: 0;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          z-index: 116;
+          background: rgba(var(--dark-rgb), .7);
+          border-radius: 0 !important;
+          padding: 1rem;
+          overflow-x: hidden;
+          overflow-y: auto;
+
+          .find-flight {
+            max-width: 915px !important;
+            width: 100%;
+            margin: 0 auto;
+          }
+
+          .search-panel-divider {
+            background: transparent;
+          }
+        }
+      }
+      .smac {
+        display: none;
+      }
+    }
+  }
+
+  // <!-- Calandar Day Picker
+    .DayPicker {
+      &:focus {
+        outline: none;
+      }
+
+      &-wrapper,
+      &-Months {
+        outline: none;
+        height: 100%;
+      }
+
+      &-wrapper {
+        padding-bottom: 0;
+      }
+
+      &-Months {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      &-Month {
+        margin: 0;
+        background: var(--white);
+        border-radius: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgba(0,0,0,.1);
+
+        &:hover {
+          z-index: 16;
+        }
+
+      }
+      &-Caption {
+        margin-bottom: 0;
+        padding: 10px 14px 12px;
+        background-color: rgba(var(--medium-blue-rgb),.08);
+        border-radius: 10px 10px 0 0;
+        text-align: center;
+        display: block;
+
+        > div {
+          font-weight: 600;
+          font-size: 15px;
+          line-height: 20px;
+          color: var(--medium-blue);
+        }
+      }
+      &-Weekdays {
+        margin: 0;
+        display: block;
+      }
+      &-WeekdaysRow {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 14px 5px;
+      }
+      &-Weekday {
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 19px;
+        position: relative;
+        color: rgba(var(--dark-rgb), 0.7);
+        margin: 0;
+        overflow: hidden;
+        width: calc(100% / 7);
+        padding: 0;
+      }
+      &-Body {
+        display: block;
+        margin: 0;
+        padding: 0 14px 14px;
+        // background: var(--white);
+        position: relative;
+        z-index: 3;
+        height: 100%;
+        border-radius: 0 0 10px 10px;
+      }
+      &-Week {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 4px;
+        margin-bottom: 4px;
+      }
+      &-Day {
+        margin: 0;
+        width: 14.28571%;
+        display: block;
+        background: var(--white);
+        font-size: 12px;
+        color: var(--text-light);
+        font-weight: 700;
+        padding: 0;
+        height: 44px;
+
+        &:focus {
+          outline: none;
+        }
+
+        &--outside {
+          opacity: 0;
+          visibility: hidden;
+        }
+
+        .date-svg {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          --size: 38px;
+          max-width: var(--size);
+          max-height: var(--size);
+        }
+      }
+
+      @media (max-width: 767px) {
+        &-Month {
+          margin-bottom: 15px;
+        }
+        &-Caption {
+          padding: 14px 10px 10px;
+          > div {
+            font-size: 12px;
+            line-height: 18px;
+          }
+        }
+        &-WeekdaysRow {
+          padding: 15px 11px 7px;
+        }
+        &-Body {
+          padding: 0 4px 6px;
+        }
+        &-Day {
+          height: 40px;
+
+          .date-svg {
+            max-width: 22px;
+            max-height: 22px;
+
+            &__icon {
+              --bdr-width: 2px;
+              --padding: 2px;
+            }
+
+            .color-circle {
+              &__text {
+                font-size: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  // -->
+}
+
+@keyframes stickyHeader {
+  0% {
+    transform: translateY(-50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.date-svg {
+
+  &:hover {
+    background-color: var(--medium-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px var(--medium-blue);
+  }
+
+  &__icon {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    --bdr-width: 3px;
+    --padding: 3px;
+    border-radius: 50%;
+    padding: var(--padding);
+    border: var(--bdr-width) solid transparent;
+    background-repeat: no-repeat;
+
+    --pop-grad: linear-gradient(0deg, rgba(var(--dark-rgb-peak),  var(--ci-opacity)) 0%, rgba(var(--dark-rgb-peak), var(--ci-opacity)) 100%);
+    --c1-grad: linear-gradient(0deg, var(--c1, transparent) 0%, var(--c1, transparent) 100%);
+    --c2-grad: linear-gradient(0deg, var(--c2, transparent) 0%, var(--c2, transparent) 100%);
+    --c3-grad: linear-gradient(0deg, var(--c3, transparent) 0%, var(--c3, transparent) 100%);
+    --c4-grad: linear-gradient(0deg, var(--c4, transparent) 0%, var(--c4, transparent) 100%);
+    --base-shape-bg-size: 100% 100%, 100% 100%, 100% 100%;
+    --base-shape-bg-grad: var(--pop-grad),
+                          linear-gradient(0deg, var(--white) 0%, var(--white) 100%),
+                          linear-gradient(0deg, rgba(var(--dark-rgb-peak), .08) 0%, rgba(var(--dark-rgb-peak), .08) 100%);
+    --base-shape-bg-pos: center center, center center, center center;
+    --base-shape-bg-origin: content-box, padding-box, border-box;
+    --base-shape-bg-clip: content-box, padding-box, border-box;
+    --space: (var(--bdr-width) / 2);
+ 
+    &--s4 {
+      background-size: var(--base-shape-bg-size),
+                        calc(50% - var(--space)) calc(50% - var(--space)), calc(50% - var(--space)) calc(50% - var(--space)), calc(50% - var(--space)) calc(50% - var(--space)), calc(50% - var(--space)) calc(50% - var(--space));
+      background-image: var(--base-shape-bg-grad),
+                        var(--c3-grad),
+                        var(--c1-grad),
+                        var(--c4-grad),
+                        var(--c2-grad);
+      background-position: var(--base-shape-bg-pos),
+                          0 0, 100% 0, 0 100%, 100% 100%;
+      background-origin: var(--base-shape-bg-origin),
+                          border-box, border-box, border-box, border-box;
+      background-clip: var(--base-shape-bg-clip),
+                        border-box, border-box, border-box, border-box;
+    }
+
+    &--s3 {
+      background-size: var(--base-shape-bg-size),
+                      calc(50% - var(--space)) calc(66.66% - var(--space)), calc(50% - var(--space)) calc(66.66% - var(--space)), 100% calc(33.33% - var(--space));
+      background-image: var(--base-shape-bg-grad),
+                        var(--c3-grad),
+                        var(--c1-grad),
+                        var(--c2-grad);
+      background-position: var(--base-shape-bg-pos),
+                          0 0, 100% 0, 0 100%;
+      background-origin: var(--base-shape-bg-origin),
+                        border-box, border-box, border-box;
+      background-clip: var(--base-shape-bg-clip),
+                      border-box, border-box, border-box;
+    }
+
+    &--s2 {
+      background-size: var(--base-shape-bg-size),
+                        calc(50% - var(--space)) 100%, calc(50% - var(--space)) 100%;
+      background-image: var(--base-shape-bg-grad),
+                        var(--c2-grad),
+                        var(--c1-grad);
+      background-position: var(--base-shape-bg-pos),
+                          0 0, 100% 0;
+      background-origin: var(--base-shape-bg-origin),
+                        border-box, border-box;
+      background-clip: var(--base-shape-bg-clip),
+                        border-box, border-box;
+    }
+
+    &--s1 {
+      background-size: var(--base-shape-bg-size),
+                      100% 100%;
+      background-image: var(--base-shape-bg-grad),
+                        var(--c1-grad);
+      background-position: var(--base-shape-bg-pos),
+                          0 0;
+      background-origin: var(--base-shape-bg-origin),
+                        border-box;
+      background-clip: var(--base-shape-bg-clip),
+                      border-box;
+    }
+
+    &--s0 {
+      background-size: 100% 100%;
+      background-image: var(--pop-grad);
+      background-position: center center;
+      background-origin: content-box;
+      background-clip: content-box;
+    }
+
+    // &--s0 {
+    //   background-size: 100% 100%, 100% 100%;
+    //   background-image: var(--pop-grad),
+    //                     linear-gradient(0deg, rgba(var(--dark-rgb), var(--ci-opacity)) 0%, rgba(var(--dark-rgb), var(--ci-opacity)) 100%);
+    //   background-position: center center, 0 0;
+    //   background-origin: content-box, border-box;
+    //   background-clip: content-box, border-box;
+    // }
+  }
+}
+
+
+// highlighoffpeak svg
+.design_variation2 {
+  &__icon {
+    --base-shape-bg-grad: url("../FlightAvailability/assets/ellipse-bg.png"),
+                          linear-gradient(0deg, var(--white) 0%, var(--white) 100%),
+                          linear-gradient(0deg, rgba(var(--dark-rgb-peak), .08) 0%, rgba(var(--dark-rgb-peak), .08) 100%) !important;
+  }
+}
+
+
+.no-availibility-popup__text{
+  font-size: 26px;
+    line-height: 33px;
+}
+
+// React Tooltip
+.react-tooltip-wrapper {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  opacity: 1 !important;
+  text-align: center !important;
+
+  --fang-size: 14px;
+  --fang-bdr-clr: #E8E8EC;
+  --fang-bdr-rds: 4px;
+  --fang-pos: calc(-1 * var(--fang-size) / 2);
+    &.position-wrap{
+      top: 205px !important;
+    }
+
+  &[class*=place-] {
+    &::before {
+      display: none;
+    }
+    &::after {
+      border: 1px solid !important;
+      display: block;
+      position: absolute;
+      background-color: var(--white);
+      transform-origin: center;
+      transform-box: fill-box;
+      height: var(--fang-size);
+      width: var(--fang-size);
+      margin: 0 !important;
+    }
+  }
+
+  &.place-top::after,
+  &.place-bottom::after {
+    left: 50% !important;
+    transform: translateX(-50%) rotate(-45deg);
+  }
+  &.place-left::after,
+  &.place-right::after {
+    top: 50% !important;
+    transform: translateY(-50%) rotate(-45deg);
+  }
+
+  &.place-top::after {
+    border-color: transparent transparent var(--fang-bdr-clr) var(--fang-bdr-clr) !important;
+    border-radius: 0 0 0 var(--fang-bdr-rds);
+    bottom: var(--fang-pos) !important;
+  }
+  &.place-bottom::after {
+    border-color: var(--fang-bdr-clr) var(--fang-bdr-clr) transparent transparent !important;
+    border-radius: var(--fang-bdr-rds) 0 0 0;
+    top: var(--fang-pos) !important;
+  }
+  &.place-left::after {
+    border-color: transparent var(--fang-bdr-clr) var(--fang-bdr-clr) transparent !important;
+    border-radius: 0 0 var(--fang-bdr-rds) 0;
+    right: var(--fang-pos) !important;
+  }
+  &.place-right::after {
+    border-color: var(--fang-bdr-clr) transparent transparent var(--fang-bdr-clr) !important;
+    border-radius: var(--fang-bdr-rds) 0 0 0;
+    left: var(--fang-pos) !important;
+  }
+
+  @media (max-width: 520px) {
+    width: calc(1px * var(--popup-width)) !important;
+
+    &[class*=place-] {
+      &::after {
+        display: none;
+      }
+      .sa-popup{
+        margin: 0 auto;
+      }
+    }
+  }
+}
+.DayPicker-Day--highlighted {
+   display:none !important; 
+ }
+
+ .availabilityPopups{
+  padding:0px;
+  max-width: 450px !important;
+  @media (max-width:767px) {
+    max-width: 350px !important;
+  }
+  .cst-popup__text{
+    margin-bottom: 10px;
+  }
+  .ui.header{
+    padding:17px !important;
+    border-bottom: 1px solid rgba(34,36,38,.15) !important;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+    @media (max-width:767px) {
+      font-size: 16px;
+    }
+  }
+  .content{
+  padding:0px !important;
+    @media(max-width:767px){
+    padding:0px !important;
+    }
+    .allDatesText{
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 18px;
+      color: #132C52;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      @media (max-width:767px) {
+        font-size: 13px;
+        margin-top: 0px;
+        margin-bottom: 10px;
+      }
+    }
+    .flight-availability-page{
+      padding: 5px;
+      padding-left: 25px !important;
+      padding-right: 25px !important;
+      @media(max-width:767px){
+        padding: 0px;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        }
+    }
+    .boundText{
+      font-size: 14px;
+      line-height: 19px;
+      color: #03B2D8;
+      font-weight: bold;
+    }
+    .availability-changes{
+      background: #E6F7FB;
+      padding: 25px;
+      color: #05b3d8;
+      margin-bottom: 20px;
+      p{
+        font-size: 14px;
+        line-height: 18px;
+        color: #03B2D8;
+      }
+    }
+    button{
+      background-color: #03B2D8;
+      border: none;
+      color:#fff;
+      &:hover{
+        background-color: #03a4c7;
+        color:#fff;
+        border: none;
+      }
+      &:focus{
+        background-color: #03a4c7;
+        color:#fff;
+        border: none;
+      }
+    }
+    .ringTextWrapper{
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-left: 10px;
+      @media(max-width:767px){
+        justify-content: center;
+      }
+      .daysText{
+        svg{
+          cursor: pointer;
+          position: absolute;
+          top: 15px;
+          @media(max-width:767px){
+          top: 10px;
+          }
+        }
+        &.prevarrow{
+          svg{
+            left: -3px;
+          }
+        }
+        &.nextarrow{
+          svg{
+            right: -3px;
+            @media(max-width:767px){
+              right: 4px;
+            }
+          }
+        }
+      }
+    }
+    .dates-popup-wrap{
+        display:block !important;
+        text-align: center;
+        margin-left: 0;
+        margin-right: auto;
+        width: 100%;
+        border-radius: 0;
+        height: unset;
+        text-align: left;
+        cursor: default;
+        @media(max-width:767px){
+          justify-content: center;
+          width: 100%;
+          height: unset;
+        }
+        .color-circle {
+          width: unset;
+          margin: 5px 9px;
+          cursor: default;
+          display: inline-block;
+          @media(max-width:767px){
+            margin: 5px 5px;
+          }
+        }
+        .date-svg__icon {
+          width: 45px;
+          height: 45px;
+          --bdr-width: 3px;
+          @media(max-width:767px){
+            width: 38px;
+            height: 38px;
+            --bdr-width: 4px;
+          }
+        }
+        .color-circle__text{
+          font-style: normal;
+          font-weight: 600;
+          font-size: 12px;
+          line-height: 12px;
+          display: flex;
+          align-items: center;
+          text-align: center;
+          color: #132C52;
+          @media(max-width:767px){
+            font-size: 10px;
+            line-height: 10px;
+          }
+        }
+      }
+      .pArrowLarge{
+        svg{
+          position:relative;
+          top:2px;
+        }
+      }
+      .pArrowText{
+        font-size: 13px;
+        line-height: 20px;
+        color: #626262;
+        margin: 10px 0;
+        svg{
+          margin: 0px 5px;
+        }
+        &.lastpArrowText{
+          width: 65%;
+          margin: 0 auto;
+          @media(max-width:767px){
+            width: 100%;
+          }
+        }
+      }
+
+    }
+ }
+ .cal-popup.ui.modal{
+   &.footercloudtop{
+     transform: translateY(0%);
+   }
+   .cst-popup__close{
+    fill: #ffffff3b;
+    stroke: #ffffff5c;
+    --icon-color: #ffffff08;
+   }
+  max-width: 500px !important;
+  background-image: url("../FlightAvailability/assets/su-popup-bg.png") !important; 
+  height: 470px; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  background-color: unset !important;
+  bottom: 0px;
+  transform: translateY(100%);
+  transition:2s ease all;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0!important;
+  .content{
+    margin: 0 !important;
+  background: unset !important;
+  background-color: unset !important;
+  .co-pass {
+    padding-left: 5px;
+  }
+    h2{
+      font-weight: bold;
+      font-size: 21px;
+      line-height: 26px;
+      text-align: center;
+      color: #FFFFFF;
+    }
+    .signin-signup-form.ui.form{
+      .error-message{
+        display: block;
+        width: 100%;
+        text-align: left;
+      }
+      .field.required-field {
+        label:after{
+          color: #ffffff !important;
+        }
+      }
+    }
+    .signin-signup-form.ui.form .field {
+      label{
+        font-family: Open Sans;
+        text-align: center;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 16px;
+        color: #FFFFFF !important;
+        text-align: left;
+      }
+    }
+    .social-login-wrap{
+      .social-login {
+        button{
+          background-color: transparent !important;
+          border:unset !important;
+          width: 30px !important;
+          height: 30px !important;
+          margin: 0 5px !important;
+          padding: 0 !important;
+          background-size: 27px !important;
+          background-repeat: no-repeat !important;
+          cursor: pointer;
+          &.google-login-btn{
+            background-image: url(../FlightAvailability/assets/google-icon.svg) !important;
+          }
+          &.fb-login-btn {
+            background-image: url(../FlightAvailability/assets/fb-icon-popup.svg) !important;
+          }
+          &.apple-log-btn{
+            background-image: url(../FlightAvailability/assets/apple-icon.svg) !important;
+          }
+        }
+        .btn{
+          padding: 0 !important;
+          border:unset !important;
+          background-color: transparent !important;
+          svg{
+            display: none;
+          }
+          span{
+            display:none;
+          }
+        }
+      }
+    }
+    .signup-button{
+      justify-content: center;
+      button{
+        max-width: 120px;
+        background: #03B2D8!important;
+        border: unset !important;
+      padding: 11px 0 !important;
+      }
+    }
+    .divider--with-text {
+      span{
+        color: white;
+      }
+    }
+  }
+  .cal-social-login-wrap{
+    display:none;
+    svg{
+      margin: 0 5px;
+    }
+  }
+ }
