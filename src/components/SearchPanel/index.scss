@@ -1,0 +1,1464 @@
+@mixin textTruncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mt-2px{
+    @media (max-width: 768px){
+        margin-top:2px !important;
+    }
+}
+
+.radio-buttons {
+    background: var(--light-blue);
+    border-radius: 10px 10px 0 0;
+    padding-bottom: 10px !important;
+    .radio-buttons__col{
+      @media(max-width:767px){
+        padding: 0px 5px !important;
+        margin:0 5px;
+        @media(max-width:360px){
+          font-size:12px
+        }
+      }
+      @media(max-width:321px){
+        font-size: 12px;
+        padding: 0px 5px !important;
+      }
+      @media  (max-device-width: 800px) and (orientation: landscape) {
+        margin: 0 5px;
+      }
+
+    }
+    .passengers_name{
+      @media(max-width:321px){
+        font-size: 12px;
+      }
+    }
+    & > .row {
+        &.RffPanelRow {
+          justify-content: center !important;
+          padding-top: 10px !important;
+          @media (max-width: 767px) {
+            .column {
+              &.radio-buttons {
+                &__col {
+                  &--airline-classes {
+                    min-width: 70px;
+                  }
+                }
+              }
+            }
+          }
+          @media (max-width: 374px) {
+            .column {
+              padding-left: .25rem !important;
+              padding-right: .25rem !important;
+
+              &.radio-buttons {
+                &__col {
+                  &--airline-classes {
+                    min-width: 70px;
+                  }
+                }
+              }
+            }
+          }
+        }
+        & > .field {
+            &:first-child {
+                margin-right: 25px;
+            }
+        }
+    }
+    label {
+        color: var(--dark) !important;
+    }
+
+    &__col {
+        width: auto !important;
+
+        &--journey-type {
+          max-width: 110px;
+        }
+        &--airline-classes {
+          max-width: 190px;
+          min-width: 90px;
+        }
+        &--traveller-count {
+          max-width: 180px;
+        }
+
+        .ui.inline.dropdown {
+          .text {
+            font-weight: 600;
+          }
+          .menu {
+            overflow: hidden;
+
+            .item {
+              .text {
+                font-weight: normal;
+              }
+
+              &:hover {
+                background: var(--light-blue);
+                color: var(--dark);
+              }
+            }
+          }
+        }
+    }
+}
+
+.find-flight {
+    font-display: swap;
+    position: relative;
+    .radio-buttons {
+      margin-top: 0 !important;
+    }
+
+     .RffPanelRow {
+         padding-bottom:0 !important;
+     }
+     .search-panel {
+         margin-top:10px !important;
+     }
+    .find-flights-header{
+     
+    } 
+}
+.search-panel {
+    background: var(--light-blue);
+    border-radius: 0 0 10px 10px;
+
+    &__row {
+        padding: {
+            top: 0px !important;
+            bottom: 23px !important;
+        };
+
+        @media (max-width: 991px) {
+          padding: {
+            bottom: 1rem !important;
+          };
+        }
+    }
+
+    & [class*="column"] {
+        @media (max-width: 479px) {
+            &.search-panel__col--button {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+        }
+    }
+
+    &__col {
+        &--airline-selector {
+            .rc-tree-select {
+                position: relative;
+
+                &::after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    right: 15px;
+                    background-image: var(--caret-img--down);
+                    background-size: 7px 5px;
+                    background-repeat: no-repeat;
+                    width: 8px;
+                    height: 6px;
+                }
+
+                &.rc-tree-select-open.rc-tree-select-focused {
+                    &::after {
+                        background-image: var(--caret-img--up);
+                    }
+                }
+            }
+        }
+        &--airline-selector,
+        &--source-autocomplete,
+        &--detination-autocomplete,
+        &--passenger-modal {
+            display: flex !important;
+            align-items: center;
+            justify-content: space-between;
+
+            > .DateRangePicker {
+                width: calc(calc(100% - 1rem) / 2);
+            }
+
+            .rc-tree-select,
+            .passengers-modal-container {
+                position: relative;
+                &:before {
+                    content: var(--text);
+                    display: block;
+                    position: absolute;
+                    left: 10px;
+                    top: 0;//5px
+                    color: var(--grey2);
+                    font-size: 10px;
+                }
+                .rc-tree-select-arrow {
+                    display: none;
+                }
+            }
+            .passengers-modal-container {
+                > span:first-child {
+                    padding-left: 10px;
+                }
+            }
+
+            .DateRangePicker {
+                background-image: var(--calendar-icon);
+                background-repeat: no-repeat;
+                background-size: 18px;
+                background-position: 13px center;
+                background-color: var(--white);
+                padding-left: 30px;
+                border-radius: 6px;
+            }
+
+            .DateInput {
+                background-color: transparent !important;
+                width: calc(calc(100% - 20px) / 2);
+            }
+            .DateInput_input {
+                padding: 0 5px;
+                font-size: 14px;
+                font-family: var(--primary-font) !important;
+                background-color: transparent !important;
+                margin: 0;
+                min-height: 47px;
+                line-height: 47px;
+                border: none !important;
+                &.DateInput_input__disabled{
+                    font-style: normal;
+                    opacity: 0.5;
+                }
+            }
+
+            .DateRangePickerInput  {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: transparent !important;
+                border: none !important;
+            }
+            .DateRangePickerInput_arrow {
+                width: 20px;
+
+                &:before {
+                    content: '';
+                    display: block;
+                    height: 2px;
+                    width: 100%;
+                    max-width: 6px;
+                    margin: 0 auto;
+                    background-color: var(--dark);
+                }
+            }
+            .DateRangePickerInput_arrow_svg {
+                display: none;
+            }
+
+            @media (min-width: 768px) and (max-width: 991px) {
+                &:first-child {
+                    padding-right: .5rem !important;
+                }
+                &:nth-child(2) {
+                    padding-left: .5rem !important;
+                    padding-right: .5rem !important;
+
+                    .search-panel-close-icon {
+                        right: 18px;
+                    }
+                }
+                &:nth-child(3) {
+                    padding-left: .5rem !important;
+                }
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+          &--passenger-modal {
+            margin-top: 15px !important;
+          }
+        }
+        @media (max-width: 767px) {
+          &--passenger-modal {
+            flex-wrap: wrap;
+
+            .DateRangePicker {
+              width: 100%;
+              &:first-child {
+                margin-bottom: 2px;
+              }
+            }
+          }
+        }
+
+        &--button {
+
+            &-home {
+              button {
+                width: 100% !important;
+                @media (min-width:768px) and (max-width:1024px){
+                  max-width: 230px !important;
+                }
+              }
+              @media (min-width: 992px) {
+                padding: 0 !important;
+                padding-right: 1rem !important;
+
+                button {
+                  min-height: 49px !important;
+                }
+              }
+              @media (max-width: 991px) {
+                padding-top: 1rem !important;
+              }
+            }
+
+            &.mp0{
+                margin: 0;
+                padding:0;
+                @media (max-width: 768px){
+                    margin-top: 10px !important;
+                    margin-bottom: 10px !important;
+                }
+            }
+
+        }
+
+
+        @media (min-width: 992px) {
+            &--airline-selector,
+            &--source-autocomplete,
+            &--detination-autocomplete {
+                padding-right: 0px !important;
+            }
+
+            &--detination-autocomplete {
+                &.pr-1 {
+                    padding-right: 1rem !important;
+
+                    .search-panel-close-icon {
+                        right: 25px;
+                    }
+                }
+            }
+            &--airline-selector ~ .search-panel__col--dont-know {
+              padding-right: 1rem !important;
+            }
+        }
+        &--dont-know {
+          @media (min-width: 768px) and (max-width: 991px) {
+            padding-left: .5rem !important;
+            padding-right: 1rem !important;
+          }
+
+        }
+        .dont-know-grid {
+          &__column {
+            &--dropdown {
+              .dropdown {
+                .menu {
+                  width: 100%;
+                  margin-top: 4px;
+
+                  .item {
+                    padding-top: 7.5px !important;
+                    padding-bottom: 7.5px !important;
+                    &:first-child {
+                      pointer-events: none !important;
+                      cursor: alias;
+                      font-weight: 600;
+                      font-style: italic;
+                      span {
+                        color: var(--text-light) !important;
+                      }
+                    }
+                    span {
+                      line-height: 1.5;
+                    }
+                  }
+                }
+              }
+            }
+            &--dropdown + .dont-know-grid__column--dropdown,
+            &--dropdown + .dont-know-grid__column--date-picker {
+              @media (min-width: 768px) {
+                padding-left: 0 !important;
+              }
+            }
+
+            &--date-picker {
+              .SingleDatePicker {
+                width: 100%;
+
+                .SingleDatePickerInput {
+
+                  > div.DateInput {
+                    width: 100% !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+    }
+    &__date-swap-icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: -12px;
+        z-index: 1;
+        transition: all 0.2s ease-in;
+        --size: 38px;
+        width: var(--size);
+        height: var(--size);
+        display: block;
+
+        path {
+            transition: inherit;
+
+            &:nth-child(2) {
+                stroke: var(--light-blue);
+                stroke-width: 2;
+            }
+            &:nth-child(3) {
+              fill: var(--medium-blue);
+              opacity: 1;
+            }
+        }
+        &:hover {
+            cursor: pointer;
+            path {
+                &:nth-child(2) {
+                    stroke: var(--medium-blue);
+                }
+            }
+        }
+        @media (min-width: 480px) and (max-width: 991px) {
+            display: none;
+        }
+        @media (max-width: 479px) {
+            left: initial;
+            right: 15px;
+            transform: rotateZ(90deg);
+            top: -19px;
+        }
+    }
+    &__button {
+        background: var(--dark) !important;
+        color: var(--white) !important;
+        text-transform: uppercase !important;
+        margin: 0 !important;
+        font-size: 16px !important;
+        padding: 15px 25px !important;
+        transition: all 0.2s ease-in;
+        margin-bottom: -30px;
+        &:hover {
+            --dark: var(--dark-hover);
+        }
+        &--home {
+          text-transform: capitalize !important;
+          min-width: 130px;
+        }
+    }
+
+    //
+    .select-location {
+      width: 100%;
+      height: 100%;
+      min-height: 49px;
+      // &:focus{
+      // > div {
+      //   &[class$=-control] {
+          
+      //       box-shadow: 0 0 0 1px var(--medium-blue) !important;
+      //     }
+          
+      //   }
+      // }
+      &.error-field {
+        > div {
+          &:first-child,
+          &[class$=-control] {
+            border-color: var(--error-border) !important;
+            background-color: #e956561a !important;
+            border-width: 2px;
+            > div {
+              &:first-child,
+              &[class$=-ValueContainer] {
+                > div {
+                  &:first-child,
+                  &[class$=-placeholder] {
+                    color: var(--error-message);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      > div {
+        &:first-child,
+        &[class$=-control] {
+          width: 100%!important;
+          background: var(--white);
+          height: 100%;
+          color: var(--dark);
+          border-radius: 6px;
+          border: 2px solid var(--light-blue);
+          // box-shadow: none;
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          > div {
+            &:first-child,
+            &[class$=-ValueContainer] {
+              padding: 0 15px;
+              width: 100%;
+
+              > div {
+                &:first-child,
+                &[class$=-singleValue] {
+                  display: block;
+                  color: var(--dark);
+                  max-width: calc(100% - 30px);
+                  width: 100%;
+                  margin :0;
+                  padding-right: 15px;
+                  @include textTruncate;
+                }
+                &:last-child,
+                &[class$=-Input] {
+                  color: var(--dark);
+                }
+              }
+            }
+            &:last-child,
+            &[class$=-IndicatorsContainer] {
+              display: none;
+            }
+          }
+        }
+        & + div,
+        &[class$=-menu] {
+          margin: {
+            top: 4px;
+            bottom: 4px;
+          };
+          border-radius: 3px;
+          background-color: var(--white);
+          z-index: 100;
+
+          > div {
+            &:first-child,
+            &[class$=-MenuList] {
+              padding: 12px 6px;
+
+              > div {
+                border-radius: 3px !important;
+                background: inherit !important;
+
+                > div,
+                [class$=-Group] {
+                  padding: 0;
+                  background: var(--white);
+
+                  > div {
+                    &:first-child,
+                    &[class$=-group][id$=-heading] {
+                      font-size: 14px;
+                      font-weight: 600;
+                      color: var(--dark);
+                      height: 33px;
+                      line-height: 33px;
+                      margin: 0;
+                      @include textTruncate
+                    }
+
+                    &:last-child {
+                      > div,
+                      [class$=-option] {
+                        background: var(--white);
+                        padding: 5px 12px;
+                        color: var(--grey1);
+                        max-width: 100%;
+
+                        &:hover {
+                          background: var(--light-blue);
+                          color: var(--dark);
+                          cursor: pointer;
+                        }
+
+                        @media (min-width: 992px) {
+                          @include textTruncate;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          @media (min-width: 992px) {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    // <!-- rc-tree-select start
+    .rc-tree-select {
+        width: 100% !important;
+        background: var(--white);
+        height: 100%;
+        color: var(--dark);
+        border-radius: 6px;
+        border: 2px solid var(--light-blue);
+
+        &:focus {
+            outline: none;
+        }
+    }
+    .rc-tree-select-selection {
+        background: transparent;
+        border: 1px solid transparent !important;
+        height: 100%;
+        &:hover {
+            box-shadow: none !important;
+        }
+    }
+
+    .rc-tree-select-focused {
+        .rc-tree-select-selection {
+            box-shadow: 0 0 0 1px var(--medium-blue) !important;
+        }
+    }
+
+    .rc-tree-select-selection__rendered {
+        line-height: 45px !important;
+        height: inherit;
+        padding-right: 30px !important;
+        padding-left: 15px !important;
+    }
+    .rc-tree-select-selection-selected-value {
+        .active-list-item {
+            line-height: 45px;
+            // padding-top: 7px;
+            // height: 45px;
+            @include textTruncate;
+        }
+        > div:first-child {
+          @include textTruncate;
+        }
+
+    }
+    .rc-tree-select-arrow {
+        height: 45px;
+        top: 0;
+        &:after {
+            border-top-color: var(--dark);
+        }
+    }
+    .rc-tree-select-open {
+        & .rc-tree-select-arrow {
+            &:after {
+                border-bottom-color: var(--dark);
+            }
+        }
+    }
+    // rc-tree-select end -->
+
+    // <!-- passengers-modal start
+    .passengers-modal{
+        margin-top: -18px;
+        margin-left: -20px;
+        &-container {
+            span {
+                line-height: 47px;
+                height: 47px;
+                display: block;
+                @include textTruncate;
+            }
+        }
+    }
+    // passengers-modal end -->
+}
+.search-panel-divder-grid,
+.search-panel-divider {
+  display: none;
+}
+
+.rc-tree-select-dropdown {
+    border: 0px!important;
+    border-radius: 3px !important;
+    box-shadow: 0 0 0 1px hsla(0,0%,0%,0.1), 0 4px 11px hsla(0,0%,0%,0.1) !important;
+    max-height: 210px !important;
+    max-width: 360px !important;
+    width: 100% !important;
+    padding: 0 !important;
+    min-width: initial !important;
+
+    .airline {
+      --airline-logo-width: 30px;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+
+      &__logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        --size: 30px;
+        height: var(--size);
+        width: var(--size);
+
+        &-img {
+          object-fit: contain;
+          object-position: center;
+          max-width: 100%;
+          max-height: 100%;
+          display: block;
+        }
+      }
+
+      &__name {
+        padding-left: 10px;
+        width: calc(100% - var(--airline-logo-width));
+        font-weight: 600;
+        color: var(--dark);
+        @include textTruncate()
+      }
+    }
+
+    & [id*="rc-tree-select-list"] {
+        &:focus {
+            outline: none;
+        }
+    }
+    .rc-tree-select-not-found {
+        width: 100%;
+        &:empty {
+          display: none;
+        }
+    }
+
+    .rc-tree-select-dropdown-search {
+        padding: 15px 10px !important;
+        .rc-tree-select-search__field {
+            // height: 30px;
+            line-height: 30px;
+            padding: 0px 10px !important;
+            border-radius: 4px;
+            border: 1px solid var(--grey5) !important;
+            color: var(--text-light);
+
+            &__placeholder {
+                padding: 0 10px !important;
+                height: 30px;
+                line-height: 30px;
+                @include textTruncate;
+                top: 0;
+            }
+        }
+
+        & + .rc-tree-select-tree {
+          padding-top: 0;
+        }
+    }
+
+    .rc-tree-select-tree {
+        padding: 12px 6px;
+
+        & > li {
+            padding: 7px 9px;
+            position: relative;
+            &:hover {
+                cursor: pointer;
+                background: var(--light-blue);
+            }
+            &.rc-tree-select-tree-treenode-switcher-open {
+
+                .rc-tree-select-tree-node-content-wrapper {
+                    color: rgba(0, 0, 0, 0.87) !important;
+                    font-weight: normal !important;
+                }
+            }
+            &.rc-tree-select-tree-treenode-selected {
+                background: var(--light-blue);
+
+                .rc-tree-select-tree-node-content-wrapper {
+                    font-weight: 700 !important;
+                }
+            }
+            & > .rc-tree-select-tree-switcher {
+
+                &_close,
+                &_open {
+                    display: block;
+                    margin: 0;
+                    height: 6px;
+                    width: 8px;
+                    position: absolute;
+                    right: 14px;
+                    background-size: 7px 5px !important;
+                    background-repeat: no-repeat !important;
+                }
+                &_close {
+                    background-image: var(--caret-img--down) !important;
+                }
+                &_open {
+                    background-image: var(--caret-img--up) !important;
+                }
+            }
+            .active-list-item {
+                @include textTruncate;
+                width: 100%;
+                padding-right: 20px;
+                color: var(--grey1);
+            }
+            .rc-tree-select-tree-node-selected {
+                border: none;
+            }
+            .rc-tree-select-tree-child-tree {
+                padding: 0 10px 0 15px;
+                margin: 7px -9px -7px;
+                background: var(--white);
+
+                > li {
+                    padding: 5px 24px;
+                    margin: 0 -10px 0 -15px;
+
+                    &.rc-tree-select-tree-treenode-disabled {
+                        font-weight: normal;
+                        .rc-tree-select-tree-title {
+                            .place-list-item {
+                                // font-weight: normal;
+                                opacity: 0.5;
+                            }
+                        }
+                    }
+                    &:not(.rc-tree-select-tree-treenode-disabled) {
+                        &:hover {
+                            cursor: pointer;
+                            background: var(--light-blue);
+                            .active-list-item {
+                                color: var(--dark);
+                            }
+                        }
+                    }
+
+                    &.rc-tree-select-tree-treenode-selected {
+                        font-weight: 700;
+                        background: transparent;
+                        position: relative;
+
+                        .rc-tree-select-tree-switcher {
+                            background: {
+                                image: url('../../assets/images/check.svg');
+                                size: 16px;
+                                repeat: no-repeat;
+                                position: center center;
+                            };
+
+                            position: absolute;
+                            top: 6px;
+                            right: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.airline-selector-dropdown {
+      max-width: 275px !important;
+      min-width: initial !important;
+
+      &--AA {
+        max-width: 201px !important;
+      }
+
+      .rc-tree-select-tree {
+        // padding-top: 12px;
+        padding: 6px;
+
+        & > li {
+          .active-list-item {
+            padding-right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          & > .rc-tree-select-tree-switcher {
+            width: 100%;
+            height: 44px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: none !important;
+
+            &_close,
+            &_open {
+              border: 0;
+
+              &::after {
+                content: '';
+                display: block;
+                margin: 0;
+                height: 6px;
+                width: 8px;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 14px;
+                border: 0;
+                background-size: 7px 5px !important;
+                background-repeat: no-repeat !important;
+              }
+            }
+            &_close {
+              &::after {
+                background-image: var(--caret-img--down) !important;
+              }
+            }
+            &_open {
+              &::after {
+                background-image: var(--caret-img--up) !important;
+              }
+            }
+          }
+        }
+      }
+
+      @media (max-width: 767px) {
+        max-width: calc(100% - 56px) !important;
+      }
+      &.calendarAirlineDropdown{
+        z-index: 99 !important;
+      }
+    }
+
+    @media (max-width: 479px) {
+        width: calc(100% - 57px)!important;
+    }
+
+}
+@media (max-width: 479px) {
+    .ui.grid > .row.search-panel__row > [class*="column"].search-panel__col {
+        width: 100% !important;
+    }
+}
+.flight-availability-page__header .search-panel-responsive{
+  @media (max-width: 767px) {
+   display:block !important;
+  }
+}
+.find-flight .date-select.date-select-responsive{
+  @media (max-width: 767px){
+    margin-top: 20px !important;
+  }
+}
+.search-panel-close-icon {
+    display: block;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    z-index: 10;
+    transition: all .2s ease-in;
+
+    &:hover {
+        cursor: pointer;
+        color: var(--black);
+        font-weight: 600;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        right: 25px;
+    }
+
+    @media (max-width: 767px) {
+        right: 30px;
+    }
+}
+
+.CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover{
+    background-color: var(--medium-blue) !important;
+}
+.CalendarDay__selected_span{
+    background-color: var(--light-blue) !important;
+    color:  var(--medium-blue) !important;
+}
+
+
+.elip{
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.mt-10{
+    margin-top:10px !important;
+}
+.singleWay{
+    .SingleDatePicker{
+        @media only screen
+        and (min-device-width: 375px)
+        and (max-device-width: 667px) {
+            width: 100% !important;
+        }
+        .SingleDatePickerInput{
+            .DateInput{
+
+                @media only screen
+                and (min-device-width: 375px)
+                and (max-device-width: 667px) {
+                    width: 100% !important;
+                }
+            }
+        }
+    }
+}
+
+.dropdown{
+    .ui.fluid.dropdown{
+        width: 100% !important;
+        background: var(--white);
+        height: 100%;
+        color: var(--dark);
+        border-radius: 6px;
+        border: 1px solid var(--light-blue);
+        line-height: 47px !important;/*45*/
+        padding-right: 30px !important;
+        padding-left: 15px !important;
+        .default.text{
+            color: var(--dark);
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        @media only screen and (device-width: 768px) {
+            // height: 50%;
+        }
+        .dropdown.icon{
+          position: absolute;
+          right: 15px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+    }
+    &.oneWayJourneyDatePick{
+        .SingleDatePicker{
+            .SingleDatePickerInput{
+                .DateInput{
+                    @media only screen and (device-width: 768px) {
+                        width:50px !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .SingleDatePicker{
+        background-image: var(--calendar-icon);
+        background-repeat: no-repeat;
+        background-size: 18px;
+        background-position: 13px center;
+        background-color: var(--white);
+        padding-left: 32px;
+        border-radius: 6px;
+        border: 1px solid var(--white);
+        // width: 100%;
+        &__picker {
+          z-index: 12;
+        }
+        &_picker {
+          z-index: 110;
+        }
+        .SingleDatePickerInput{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: transparent !important;
+            border: none !important;
+            //  width: 100%;
+            .SingleDatePicker_picker__directionLeft{
+                @media only screen and (device-width: 768px) {
+                    left: -195px !important;
+                }
+            }
+            .DateInput{
+                border-top-right-radius: 6px;
+                border-bottom-right-radius: 6px;
+                width: auto;
+                @media only screen and (device-width: 768px) {
+                    /* For general iPad layouts */
+                    // width: 110px !important;
+                    width:60px !important;
+                  }
+
+
+                // width: 100%;
+                .DateInput_input{
+                    border-top-right-radius: 6px;
+                    border-bottom-right-radius: 6px;
+                    font-size: 14px;
+                    display: block;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    padding: 10.5px 11px;
+                    // width: 100%;
+                    &.DateInput_input__focused {
+                        border-bottom:2px solid #fff;
+                        // border-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    &.oneWayJourney{
+        .SingleDatePicker{
+           .SingleDatePickerInput {
+               .DateInput{
+                   width: 70px !important;
+                   @media only screen and (min-width: 1920px){
+                    width: 150px !important;
+                    }
+                    @media only screen and (max-width: 1919px){
+                        width: 150px !important;
+                        }
+                    @media only screen and (max-width: 991px) and (min-width: 768px){
+                        width: 70px !important;
+                    }
+                   }
+               }
+           }
+       }
+}
+.doNotKnowSection {
+    .ui.fluid.dropdown {
+        .text {
+            color: var(--dark);
+            display: block;
+            overflow: hidden;
+            white-space: initial;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width:575px) {
+          > .menu {
+            min-width: initial;
+          }
+        }
+    }
+}
+
+.dont-know-start-end-date-grid {
+  > .row {
+    > [class*=column] {
+
+      @media (min-width: 768px) {
+        padding-left: 0 !important;
+      }
+
+      .SingleDatePicker {
+        width: 100%;
+
+        .SingleDatePickerInput {
+
+          > div.DateInput {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.mapView{
+    .SingleDatePicker{
+        .SingleDatePickerInput{
+            .DateInput{
+                @media only screen and (max-width: 768px) and (min-width: 668px){
+                    width: 80px !important;
+                }
+                @media only screen
+                and (min-device-width: 375px)
+                and (max-device-width: 667px) {
+                    width: 100% !important;
+                }
+
+            }
+        }
+    }
+}
+
+.airline-logo {
+  display: flex;
+  align-items: center;
+  align-content: center;
+
+  &__img {
+    width: 28px;
+    margin-right: 13px;
+    height: auto;
+  }
+}
+
+/* Passanger modal */
+
+.passengers-modal-ul{
+  padding: 0px;
+  margin: 0px;
+}
+.passengers_name {
+  color: var(--gray);
+  font-weight: 600;
+  font-size: 14px;
+  margin-right: 10px;
+  @media(max-width:360px){
+  font-size: 12px;
+  }
+}
+.passengers-modal-ul li .passengers_cta{
+  display: flex;
+  align-items: center;
+  min-width: 57px;
+  justify-content: space-between;
+}
+.passengers_cta button {
+  border: 0;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  background: var(--medium-blue);
+  outline:none;
+  color: var(--white);
+  transition: all 0.2s ease-in;
+  &.disabled-passenger-cta{
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  &:hover,
+  &:focus {
+    background: var(--medium-blue-hover);
+    cursor: pointer;
+  }
+
+  svg {
+    path {
+      fill:var(--white);
+    }
+  }
+}
+.passengers_cta .number_ui {
+    font-size: 14px;
+    color: var(--dark);
+    font-weight: 600;
+}
+.passengers-modal-ul li{
+  list-style-type: none;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  // margin-bottom: 17px;
+}
+
+.ad-right-info {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+//  css for my alerts page banner
+.myAlerts-wrap-banner{
+  display: flex;
+  display: -webkit-flex; 
+  & > p{
+    margin-left: 10px !important;
+  }
+  @media(max-width:767px){
+    margin-bottom: 5px;
+    svg{
+      height: 20px !important;
+    }
+  }
+}
+// Create Alert  popup CSS
+.signUpAvailability-modal {
+  padding: 20px 20px 40px 20px !important;
+  .cst-popup__title{
+    margin-bottom: 15px;
+  }
+  .cst-popup__text{
+    margin-bottom: 25px;
+  }
+}
+.create-alert-modal{
+  padding: 0  !important;
+  position: relative;
+  &.cst-popup{
+    max-width:450px !important;
+    width:100% !important;
+  }
+  svg.cst-popup__close {
+    position: absolute;
+    right: 23px;
+    top: 21px;
+    @media(max-width:600px){
+      top:13px;
+    }
+
+  }
+  .create-alert-modal-header{
+    padding:15px ​20px ​ ​!important;
+    border: 1px solid #bfbfbf !important;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+      .ui{
+    &.header{
+      padding: 0px !important;
+    }
+  }
+    h2{
+      display: flex;
+      justify-content: space-between;
+    svg{
+      width: 20px;
+      height: 20px;
+      position: relative;
+      right: 40px;
+      cursor: pointer;
+    }
+    }
+  }
+  .create-alert-modal-content{
+    padding: 20px 20px 20px 20px !important;
+    border-bottom-left-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+    min-height:90px;
+    .create-alert-modal-column{
+      padding-left:0px !important;
+      svg{
+        margin-right:12px;
+      }
+      .create-alert-text{
+        color: #132C52;
+        font-size:13px;
+      }
+      .alert-box__info-date-span {
+        margin-right:12px;
+        @media(max-width:600px){
+        margin-right:0px;
+        font-size: 11px;
+        }
+      }
+      .create-alert-buttons{
+        display: flex;
+        align-items: center;
+        align-items: center;
+        width: 100%;
+        flex-flow: row wrap;
+        span{
+          background: transparent;
+          padding: 4px 8px;
+          margin: 8px 5px;
+          border-radius: 4px;
+          text-transform: capitalize;
+          @media(max-width:991){
+            font-size: 12px;
+          }
+          @media(max-width:600px){
+            width:45%;
+            padding: 9px 5px;
+            font-size: 11px;
+            margin: 3px 3px;
+          }
+        }
+        .economy-btn{
+          border:1px solid  #2044FF;
+          color:#2044FF;
+        }
+        .premium_economy-btn{
+          border:1px solid #FEA41D;
+          color:#FEA41D;
+        }
+        .business-btn{
+          border:1px solid #A400F1;
+          color: #A400F1;
+        }
+        .first-btn{
+          border:1px solid #F31973;
+          color:#F31973;
+        }
+      }
+      .american-alert-popup__fields {
+        .airline-img{
+          margin-right:10px;
+          width:20px;
+        }
+        .member-text{
+          font-style: italic;
+          font-size: 13px;
+          color: rgba(19, 44, 82, 0.6);
+          display: inline-block;
+          margin-left: 10px;
+          }
+        .city-text-span{
+          font-family: Inter;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 13px;
+          line-height: 12px;
+          align-items: center;
+          color: #132C52;
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+}
+.loader-wrap{
+  .loader{
+    position: relative !important;
+    top: 20px !important;
+    &:after{
+      border-color: #000 transparent transparent !important;
+    }
+  }
+}
+.whereFromDropdown , .whereToDropdown , .airlineDropdown{
+  div[class*="menu"] > div {
+    padding:12px 2px 12px 2px !important ;
+   div[class*="option"] {
+    padding:5px 2px 5px 6px !important;
+  }
+  }
+}

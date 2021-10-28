@@ -1,0 +1,8 @@
+.americanairline_sub_title{
+    width:30%;
+    margin:0 auto;
+    line-height: 24px !important;
+    @media(max-width:767px){
+        width: 70%;
+    }
+}

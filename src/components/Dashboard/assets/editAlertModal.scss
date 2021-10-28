@@ -1,0 +1,495 @@
+@mixin textTruncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cst-popup {
+  // americal alert
+  &.american-alert-popup {
+    max-width: 510px !important;
+
+    .cst-popup {
+      &__close {
+        --popup-padding: 19px;
+      }
+      &__buttons {
+        max-width: initial;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        justify-content: space-evenly;
+        .ui.button{
+          width: 32% !important;
+          @media(max-width:767px){
+            width: 45% !important;
+            font-size: 14px;
+            padding: 9px !important;
+          }
+        }
+        .delete-btn{
+          background: transparent;
+          border: 1px solid var(--medium-blue) !important;
+          color:  var(--medium-blue) !important;
+        }
+      }
+    }
+    > .header {
+      padding: 15px var(--popup-padding) !important;
+      margin: calc(-1 * var(--popup-padding)) calc(-1 * var(--popup-padding)) 0 !important;
+      background: transparent !important;
+      border-bottom: 1px solid #EAEAEA !important;
+
+      .ui.header {
+        padding: 0 !important;
+        text-align: left;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 27px;
+        color: var(--dark);
+      }
+    }
+    > .content {
+      padding: var(--popup-padding) calc(var(--popup-padding) - 1rem) !important;
+      margin: 0 calc(-1 * var(--popup-padding)) calc(-1 * var(--popup-padding)) !important;
+      background: transparent !important;
+      width: auto !important;
+    }
+    .american-alert-popup__fields {
+      > label {
+        font-size: 12px;
+        line-height: 1.5;
+        margin-bottom: 8px;
+        color: var(--grey1);
+        display: block;
+        text-align: left;
+      }
+      &.date-error-field .DateRangePicker{
+        border: 2px solid #d67979 !important;
+      }
+      &.date-error-field .DateInput_input{
+        color: #9f3a38 !important;
+      }
+      &.date-error-field .DateInput_input::placeholder{
+        color: #9f3a38 !important;
+      }
+      .city-text-span{
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 12px;
+        display: flex;
+        align-items: center;
+        color: #132C52;
+      }
+      span.class-error-field {
+        color: #9f3a38;
+        display: inline-block;
+        text-align: left;
+        width: 100%;
+        font-size: 12px;
+        margin: 10px 0 0;
+      }
+      .passengers_name {
+        display: none;
+      }
+      .passengers_cta {
+        min-height: 40px;
+      }
+      .ui.fluid.dropdown {
+        width: 100% !important;
+        background: var(--white);
+        color: var(--dark);
+        border-radius: 3px;
+        border: 1px solid #EAEAEA;
+        line-height: 40px !important;
+        height: 40px;
+        padding-right: 30px !important;
+        padding-left: 10px !important;
+        position: relative;
+
+        > .text {
+          width: 100%;
+          @include textTruncate();
+          height: 38px;
+          line-height: 38px;
+        }
+        .icon {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        .menu {
+          width: 100%;
+        }
+      }
+
+      &--radio {
+        > div {
+          display: flex;
+          min-height: 40px;
+          align-items: center;
+
+          .field {
+
+            &:not(:last-child) {
+              margin-right: 15px;
+            }
+            label {
+              font-weight: 600;
+              font-size: 12px;
+              color: var(--dark);
+              white-space: nowrap;
+              padding-left: 20px;
+
+              &::before {
+                border-radius: 100%;
+                border-color: var(--dark);
+                
+              }
+              &::after {
+                // top: ;
+                border-radius: 100%;
+                background: var(--medium-blue) !important;
+              }
+            }
+            .checked{
+              label {
+                &::after {
+                  opacity: 1;
+                }
+              }
+            }
+          }
+        }
+      }
+      &--passenger{
+        label{
+          text-align: right;
+        }
+        .passengers-modal-ul{
+          li{
+              justify-content: flex-end;
+          }
+        }
+      }
+      .rc-tree-select,
+        .passengers-modal-container {
+            position: relative;
+            &:before {
+                content: var(--text);
+                display: block;
+                position: absolute;
+                left: 10px;
+                top: 0;//5px
+                color: var(--grey2);
+                font-size: 10px;
+            }
+            .rc-tree-select-arrow {
+                display: none;
+            }
+        }
+        .passengers-modal-container {
+            > span:first-child {
+                padding-left: 10px;
+            }
+        }
+
+        .DateRangePicker {
+            background-color: var(--white);
+            padding-left: 5px;
+            padding-right: 5px;
+            border-radius: 3px;
+            border: 1px solid #EAEAEA;
+            width: 100%;
+        }
+
+        .DateInput {
+            width: 100%;
+            background-color: transparent !important;
+            width: calc(calc(100% - 20px) / 2);
+        }
+        .DateInput_input {
+            padding: 0 5px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: var(--primary-font) !important;
+            background-color: transparent !important;
+            margin: 0;
+            min-height: 40px;
+            line-height: 40px;
+            border: none !important;
+            &.DateInput_input__disabled{
+                font-style: normal;
+                opacity: 0.5;
+            }
+        }
+        #rangeDepartEndDate , #rangeReturnEndDate{
+          text-align: right;
+        }
+        .DateRangePickerInput  {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .DateRangePickerInput_arrow {
+            width: 20px;
+
+            &:before {
+                content: '';
+                display: block;
+                height: 2px;
+                width: 100%;
+                max-width: 6px;
+                margin: 0 auto;
+                background-color: var(--dark);
+            }
+        }
+        .DateRangePickerInput_arrow_svg {
+            display: none;
+        }
+        .DateRangePicker_picker{
+          top:30px !important;
+        }
+    }
+    .classes-buttons {
+      display: flex;
+      @media(max-width:767px) and (orientation: portrait){
+        flex-wrap: wrap;
+      }
+
+      &__grp {
+        flex: 1 0 0;
+
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
+
+        &--business {
+          --color: var(--business-rgb);
+          svg {
+            rect{
+              fill:#B837F4;
+            }
+          }
+          label {
+            &:hover {
+              svg {
+                rect{
+                  fill: #fff;
+                }
+                path{
+                  stroke:#B837F4;
+                }
+              }
+            }
+          }
+        }
+        &--economy {
+          --color: var(--economy-rgb);
+          svg {
+            rect{
+              fill: #2448ff;
+            }
+          }
+          label {
+            &:hover {
+              svg {
+                rect{
+                  fill: #fff;
+                }
+                path{
+                  stroke:#2448ff;
+                }
+              }
+            }
+          }
+        }
+        &--first {
+          --color: var(--first-rgb);
+          svg {
+            rect{
+              fill:#F42F80;
+            }
+          }
+          label {
+            &:hover {
+              svg {
+                rect{
+                  fill: #fff;
+                }
+                path{
+                  stroke:#F42F80;
+                }
+              }
+            }
+          }
+        }
+        &--premium {
+          --color: var(--premium-rgb);
+          svg {
+            rect{
+              fill: #FEA725;
+            }
+          }
+          label {
+            &:hover {
+              svg {
+                rect{
+                  fill: #fff;
+                }
+                path{
+                  stroke:#FEA725;
+                }
+              }
+            }
+          }
+        }
+        input[type=radio],
+        input[type=checkbox] {
+          display: none;
+
+          // &:checked ~ label {
+          //   svg {
+          //     path {
+          //       opacity: 1;
+          //     }
+          //   }
+          // }
+        }
+        label {
+          font-weight: 600;
+          font-size: 13px;
+          padding: 10px;
+          border: 1px solid rgba(var(--color), .2);
+          color: rgba(var(--color), 1);
+          border-radius: 5px;
+          display: flex;
+          align-items: center;
+          text-transform: capitalize;
+          white-space: nowrap;
+          justify-content: center;
+          transition: all 0.2s ease-in;
+          &.inactive-cabin-class{
+            background: #c9c9c9 !important;
+            opacity: 0.4;
+            border: 1px solid #d9d9d9;
+            color: black;
+            svg {
+              rect{
+                fill: #656565;
+                stroke: #656565;
+              }
+            }
+           }
+          &:hover {
+            cursor: pointer;
+            background: rgba(var(--color), 1);
+            color: var(--white);
+          }
+
+          svg {
+            display: block;
+            margin-right: 5px;
+
+            // path {
+            //   opacity: 0;
+            // }
+          }
+        }
+
+        &.cabin-buttons_disable{
+          label{
+            cursor: not-allowed;
+            color: rgba(var(--color), .6);
+            &:hover {
+              cursor: not-allowed;
+              background: transparent;
+              color: rgba(var(--color), .6);
+            }
+          }
+        }
+      }
+    }
+    @media (max-width: 767px) {
+      .cst-popup__close {
+        --popup-padding: 14px;
+      }
+    }
+
+    @media (max-width: 540px) {
+      max-width: 90% !important;
+
+      .ui.grid>.row>[class*=column] {
+        width: 100% !important;
+
+        &:not(:last-child) {
+          padding-bottom: 1rem !important;
+        }
+
+        .classes-buttons {
+          margin: {
+            left: -5px;
+            right: -5px;
+          }
+
+          &__grp {
+            margin: 0 5px 10px !important;
+          }
+        }
+      }
+
+      .ui.grid.three>.row>[class*=column] {
+        &:nth-child(2),
+        &:nth-child(3) {
+          width: 50% !important;
+          padding-bottom: 1rem !important;
+        }
+      }
+
+    }
+    .DateRangePickerInput_clearDates{
+      margin: 0;
+      padding: 4px 8px;
+      top: 18px;
+      height: 32px;
+      right: 5px;
+      &:hover{
+        background-color: #d2d0d09c;
+      }
+    }
+  }
+  &.myProfileAlertPopup{
+    .content{
+      padding: 0 !important;
+      .innerContent{
+        padding: 10px;
+      }
+      .myProfileAlertPopupFooter{
+        background-color: #ebf9fc;
+        padding: 10px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        .activeAlertText{
+          font-size: 13px;
+          line-height: 22px;
+          text-align: center;
+          .color-red{
+            color:red;
+          }
+        }
+      }
+    }
+  }
+}
+.conditionalArrow{
+  .DayPickerNavigation_button{
+    &:nth-child(1) 
+    {
+        display: none;      
+    }
+  }
+}

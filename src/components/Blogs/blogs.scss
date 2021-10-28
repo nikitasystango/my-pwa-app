@@ -1,0 +1,120 @@
+// <!-- Blogs Page
+.blog-page {
+  max-width: 944px;
+  margin: 0 auto;
+  padding: 40px 0;
+
+  &__header {
+    text-align: center;
+  }
+  &__title {
+    font-size: 26px;
+    line-height: 36px;
+    margin: 0 0 35px;
+    color: var(--dark);
+    font-family: var(--primary-font) !important;
+  }
+  &__filter {
+    text-align: center;
+    margin-bottom: 1rem;
+
+    & &-btn {
+      padding: 12px 27px !important;
+      margin: 5px !important;
+      background: var(--white) !important;
+      border-color: #EAEAEA !important;
+      color: var(--text-light) !important;
+      text-transform: capitalize !important;
+      font-weight: normal !important;
+      border-radius: 3px !important;
+      white-space: nowrap;
+
+      &:hover:not(.is-active),
+      &.is-active {
+        background: var(--medium-blue) !important;
+        border-color: var(--medium-blue) !important;
+        color: var(--white) !important;
+      }
+
+    }
+  }
+  &__body {
+    @media (min-width: 768px) {
+      .ui.grid > .row > .column {
+        margin-bottom: 10px;
+        > div {
+          margin-bottom: 0;
+        }
+      }
+    }
+    @media (min-width: 992px) {
+      .ui.grid > .row > .column {
+        margin-bottom: 38px;
+      }
+    }
+  }
+
+  @media (max-width: 991px) {
+    padding: 40px 0;
+    &__filter {
+      & &-btn {
+        margin: 0 8px !important;
+        padding: 12px 22px !important;
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    padding: 20px 0;
+
+    &__title {
+      margin: 0 0 25px;
+    }
+
+    &__filter {
+      margin-bottom: 0;
+
+      & &-btn {
+        margin: 0 5px !important;
+        padding: 12px 20px !important;
+      }
+    }
+  }
+
+  @media (max-width: 575px) {
+    padding: 0;
+
+    &__filter {
+      display: flex !important;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+
+      & &-btn {
+        margin: 0 5px 10px !important;
+        flex: 1 0 0%;
+      }
+    }
+  }
+
+  // &__body {}
+}
+// Blogs -->
+.ui.pagination.menu {
+  margin: 0 0 87px !important;
+  .item{
+    margin-bottom: -1px;
+    &.active{
+      background-color: var(--medium-blue);
+      color: var(--white);
+      &:hover{
+        background-color: var(--medium-blue-hover);
+        color: var(--white);
+      }
+    }
+    &:hover{
+      background-color: var(--medium-blue-hover);
+      color: var(--white);
+    }
+  }
+}

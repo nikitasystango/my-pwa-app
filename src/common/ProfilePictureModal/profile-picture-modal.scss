@@ -1,0 +1,77 @@
+.uploadPhotoModal {
+
+    &.cst-popup {
+      @media (min-width: 421px) {
+        width: 100% !important;
+        max-width: 400px !important;
+      }
+      @media (max-width: 420px) {
+        width: 95% !important;
+      }
+    }
+
+    .inputfile-label {
+      display: block;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .user-image {
+      --size: auto;
+      margin-bottom: 0;
+      width: 117px;
+      height: 117px;
+      @media(max-width:767px){
+        margin: 0 auto;
+      }
+      img{
+        height: 117px;
+        width: 117px;
+        margin: 0;
+      }
+      svg {
+        box-shadow: 0 0 0 3px var(--light), 0 0 0 6px var(--light);
+        width: 102px;
+        height: 102px;
+        @media(max-width:767px){
+          border-radius: 50%;
+          margin: 6px;
+          background: var(--light);
+        }
+      }
+    }
+    
+    
+
+    .inputfile {
+        border: 1px solid rgba(34,36,38,.15);
+        border-radius: 6px;
+        padding: 10px 15px;
+        width: 100%;
+        display: none;
+    }
+
+    & &__btn {
+        min-width: initial !important;
+        font-size: 14px !important;
+        padding: 15px !important;
+
+        @media (max-width: 360px) {
+            font-size: 12px !important;
+        }
+    }
+
+    .thumbImageUi {
+        height: 117px;
+        canvas {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            border-radius: 50%;
+            width: 116px !important;
+            height: 116px !important;
+        }
+    }
+}

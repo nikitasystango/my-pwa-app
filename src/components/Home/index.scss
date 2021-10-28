@@ -1,0 +1,163 @@
+@import './assets/scss/testimonial.scss';
+
+.recent-blogs-wrapper {
+  background: linear-gradient(180deg, var(--white) 0%, rgba(255, 255, 255, 0) 100%), #C5F3FD;
+
+  h2 {
+    display: none;
+  }
+  .ui.button {
+    text-transform: capitalize !important;
+    font-weight: 600 !important;
+    margin-top: 17px !important;
+  }
+
+  > .container > div:first-child {
+    padding: 60px 0;
+    margin: 0;
+
+    .grid {
+      .column {
+
+        @media (min-width: 992px) {
+          > div {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 1140px) {
+      padding: 40px 0;
+    }
+
+    @media (max-width: 991px) {
+      padding: 20px 0;
+
+      .ui.button {
+        margin-top: 0 !important;
+      }
+    }
+
+    @media (max-width: 767px) {
+
+      .container {
+        padding: 0;
+
+        .ui.grid.stackable {
+          margin-left: -1rem !important;
+          margin-right: -1rem !important;
+        }
+      }
+    }
+  }
+}
+
+// Testimonial
+.cloud-bg {
+  background-image: url('./assets/clouds-bg.webp');
+  @supports (-ms-ime-align: auto) {
+    background-image: url('./assets/clouds-bg.png');
+    }
+    @supports (-ms-accelerator: true) {
+    background-image: url('./assets/clouds-bg.png');
+    }
+    @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+    background-image: url('./assets/clouds-bg.png');
+    }
+    @supports (display:-ms-grid) {
+    background-image: url('./assets/clouds-bg.png');
+    }
+    @media not all and (min-resolution:.001dpcm) {
+    background-image: url('./assets/clouds-bg.png');
+    }
+  background-size: 100% 100%;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+.mscw {
+  margin-top: 85px;
+
+  @media (max-width: 1140px) {
+    margin-top: 50px;
+  }
+  @media (max-width: 575px) {
+    margin-top: 35px;
+  }
+}
+
+.trustpilot {
+  text-align: center;
+}
+.american-about-img{
+  img{
+    max-height: 500px;
+    height: 100%;
+  }
+}
+.introbox-main-wrap-three {
+  padding-bottom: 20px !important;
+  
+}
+.intro-main-wrap{
+  background-image:  url("./assets/bg5.webp");
+  @supports (-ms-ime-align: auto) {
+    background-image:  url("./assets/bg5.png");
+    }
+    @supports (-ms-accelerator: true) {
+    background-image:  url("./assets/bg5.png");
+    }
+    @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+    background-image: url("./assets/bg5.png");
+    }
+    @supports (display:-ms-grid) {
+    background-image:  url("./assets/bg5.png");
+    }
+    @media not all and (min-resolution:.001dpcm) {
+    background-image:  url("./assets/bg5.png");
+    }
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  padding-top: 40px;
+}
+.homeSearchBg{
+  background-image:  url("./assets/search-bg.webp");
+  @supports (-ms-ime-align: auto) {
+    background-image:  url("./assets/search-bg.jpg");
+    }
+    @supports (-ms-accelerator: true) {
+    background-image:  url("./assets/search-bg.jpg");
+    }
+    @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+    background-image: url("./assets/search-bg.jpg");
+    }
+    @supports (display:-ms-grid) {
+    background-image:  url("./assets/search-bg.jpg");
+    }
+    @media not all and (min-resolution:.001dpcm) {
+    background-image:  url("./assets/search-bg.jpg");
+    }
+  background-position: bottom; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  padding-bottom:10px;
+  @media(max-width:767px){
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+.intro-main-wrap-logged-in{
+  background-image: url("./assets/bg5.png"); 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  .recent-blogs-head{
+    display: block;
+  }
+}
+.homeBgWrap{
+  padding: var(--header-height) 0 0px;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

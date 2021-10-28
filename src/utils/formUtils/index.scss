@@ -1,0 +1,24 @@
+.ui.radio.checkbox {
+	.box,
+	label {
+		&:after {
+			background-color: var(--text-light) !important;
+		}
+	}
+
+	input {
+		&:checked {
+			& ~ label,
+			& ~ .box {
+				&:after {
+					background-color: var(--text-light) !important;
+				}
+			}
+		}
+	}
+}
+.check {
+	&.icon{
+			color: green !important;
+	}
+}

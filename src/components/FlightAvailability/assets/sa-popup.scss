@@ -1,0 +1,218 @@
+.sa-popup {
+  --top-space: 15px;
+
+  // position: absolute;
+  // bottom: calc(100% + var(--top-space));
+  // padding: 15px;
+  border: 1px solid #E8E8EC;
+  border-radius: 4px;
+  box-shadow: 0px 0px 4.5px rgba(0, 0, 0, 0.09), 0px 10.5px 22.5px rgba(8, 8, 41, 0.24);
+  background-color: #fff;
+  z-index: 1;
+  // display: none;
+  width: 340px;
+  height: 185px;
+  // left: 50%;
+  // transform: translateX(-50%);
+
+  // animation: slideUp 0.2s ease-in;
+
+  // @keyframes slideUp {
+  //   0% {
+  //     // transform: translateX(-50%) translateY(50px);
+  //     transform: translateY(50px);
+  //     opacity: 0;
+  //   }
+  //   100% {
+  //     // transform: translateX(-50%) translateY(0);
+  //     transform: translateY(0);
+  //     opacity: 1;
+  //   }
+  // }
+
+  // &::before {
+  //   content: '';
+  //   display: block;
+  //   position: absolute;
+  //   bottom: calc(-1 * var(--top-space));
+  //   left: 0;
+  //   height: var(--top-space);
+  //   width: 100%;
+  // }
+
+  // &::after {
+  //   content: '';
+  //   border: 1px solid;
+  //   border-color: transparent transparent #E8E8EC #E8E8EC;
+  //   // border: 0;
+  //   border-radius: 0 0 0 4px;
+  //   display: block;
+  //   position: absolute;
+  //   bottom: -10px;
+  //   left: 50%;
+  //   transform: translateX(-50%) rotate(-45deg);
+  //   background-color: var(--white);
+  //   transform-origin: center;
+  //   transform-box: fill-box;
+  //   height: 20px;
+  //   width: 20px;
+  // }
+  @media (max-width: 991px) {
+    width: 320px;
+  }
+  @media (max-width: 359px) {
+    width: 300px;
+  }
+
+  --circle-size: 42px;
+
+  padding: 0 !important;
+
+  &__inner {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    width: 100%;
+    padding-top: calc(1 * (var(--circle-size) / 2));
+  }
+
+  &__circle {
+    width: var(--circle-size);
+    height: var(--circle-size);
+    position: absolute;
+    top: calc(-1 * (var(--circle-size) / 2));
+    left: 50%;
+    transform: translateX(-50%);
+
+    &::after {
+      content: '';
+      display: block;
+      width: var(--circle-size);
+      height: calc(var(--circle-size) / 2);
+      position: absolute;
+      top: 0;
+      background: var(--white);
+      z-index: 1;
+      border-radius: calc(var(--circle-size) / 2) calc(var(--circle-size) / 2) 0 0;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .color-circle {
+      z-index: 2;
+      background: var(--white);
+      border-radius: 50%;
+    }
+  }
+
+  &__header {
+    padding: 7px 0 3px;
+    text-align: center;
+
+    &-title {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--dark);
+      margin-bottom: 5px;
+    }
+    &-date {
+      font-size: 11px;
+      color: rgba(var(--dark-rgb), 0.8);
+      margin: 0 0 5px !important;
+    }
+  }
+
+  &__body {
+    padding: 0 20px;
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    &.sa-popup__row-single{
+    width: 55% !important;
+    }
+  }
+  &.sa-popup__row-single{
+  width: 55% !important;
+  }
+
+  &__col {
+    // width: 20%;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.5;
+
+    &:first-child {
+      width: 20%;
+
+      &:first-child {
+        text-align: left;
+
+        span {
+          &:first-child {
+            height: 28px;
+          }
+          &:nth-child(2) {
+            margin-bottom: 15px;
+          }
+        }
+      }
+    }
+    &:last-child {
+      width: 80%;
+
+      .sa-popup {
+        &__col {
+          width: auto;
+          text-align: center;
+        }
+      }
+    }
+
+    // &:first-child {
+    //   text-align: left;
+
+    //   span {
+    //     &:first-child {
+    //       height: 26px;
+    //     }
+    //     &:nth-child(2) {
+    //       margin-bottom: 15px;
+    //     }
+    //   }
+    // }
+
+    span {
+      display: block;
+    }
+
+    &-head {
+      color: rgba(var(--text-light-rgb), .8);
+      margin-bottom: 11px;
+
+      svg {
+        --size: 8px;
+        width: var(--size);
+        height: var(--size);
+        display: block;
+        margin: 0 auto 2px;
+      }
+    }
+
+    &-points,
+    &-seats {
+      color: rgba(var(--dark-rgb), 1);
+      font-weight: 700;
+    }
+    &-points {
+      margin-bottom: 15px;
+    }
+    &-seats {
+
+    }
+  }
+}

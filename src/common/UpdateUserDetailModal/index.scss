@@ -1,0 +1,115 @@
+.account-popup-setting {
+        .row > .column.change-alter-email-btn{
+          margin-top: 26px;
+        }
+  
+        &__heading {
+          color: var(--dark);
+          font-size: 16px;
+          margin-bottom: 16px;
+        }
+  
+        &__form {
+          label {
+            text-align: start;
+            font-weight: normal !important;
+            margin-bottom: 2px !important;
+            color: var(--text-dark) !important;
+  
+            strong {
+              font-weight: inherit !important;
+            }
+          }
+          .field {
+            margin-bottom: 15px !important;
+            .ui.dropdown{
+              .menu{
+                top: calc(100% + 1px);
+                border-color: var(--dark) !important;
+              }
+            }
+          }
+          .color-red{
+            color: #9f3a38;
+          }
+          .required-field {
+            label {
+              &:after {
+                content: "*";
+                color: #9f3a38;
+              }
+            }
+          }
+          .error-field > div:first-child { 
+            background: rgba(233,86,86,.10196078431372549)!important;
+            border-color: #e0b4b4;
+            color: #9f3a38;
+            box-shadow: none;
+          }
+          .error.field{
+            input{
+            background: rgba(233,86,86,.10196078431372549)!important;
+
+            }
+          }
+        }
+}
+.updateProfilePopup.cst-popup{
+  padding:0 !important;
+  max-width: 500px !important;
+  border-radius: 10px !important;
+  @media(max-width:767px){
+    max-width: 320px !important;
+  }
+  .j-c-c{
+    justify-content: center !important;
+    text-align: left;
+  }
+  .text-left{
+    text-align: left;
+  }
+  label{
+    display: block;
+    margin: 0 0 .28571429rem 0;
+    color: rgba(0,0,0,.87);
+    font-size: .92857143em;
+    font-weight: 700;
+    text-transform: none;
+  }
+  .ui.header{
+    padding: 13px !important;
+    text-align: center;
+    font-family: Open Sans !important;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 27px;
+    border-bottom: 1px solid #EAEAEA !important;
+    border-radius: 10px !important;
+  }
+  .content{
+    padding: 20px !important;
+    margin-top: 20px;
+  }
+  .primary.button{
+    width: 150px;
+    padding: 13px;
+  }
+  .ui.input input{
+    font-family: Open Sans;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 0px;
+    display: flex;
+    align-items: center;
+    color: #132C52;
+    text-transform: capitalize;
+  }
+  .field .ui.selection {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: #132C52;
+  }
+}

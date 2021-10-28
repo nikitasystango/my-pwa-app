@@ -1,18 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Web site created using create-react-app" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
+
+<head>
+  <!-- Google Tage Manager Start-->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', '%REACT_APP_GOOGLE_TAG_MANAGER_ID%');</script>
+  <!-- Google Tage Manager End -->
+
+
+  <meta charset="utf-8" />
+  <!-- <link rel="shortcut icon preload" href="%PUBLIC_URL%/favicon.ico" type="image/x-icon" /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.css' rel='stylesheet preload' />
+  <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.js'></script>
+  <meta name="theme-color" content="#6610f2" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="red">
+  <meta name="apple-mobile-web-app-title" content="Reward Flight Finder">
+  <!-- Tell the browser it's a PWA -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <!-- Tell iOS it's a PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Make sure theme-color is defined -->
+  <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <link rel="preconnect" href="https://prod-beta2020.rewardflightfinder.com">
+  <link rel="apple-touch-startup-image" href="/images/icons/launch.png" as="image" type="image/png">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" as="image" type="image/png">
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" as="fetch" type="application/json" />
+  <!-- <link rel="stylesheet" as="style" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin&display=swap"/> -->
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" as="style"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap"/>
+
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -21,20 +51,319 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+  <link rel="icon" media="(prefers-color-scheme:dark)" href="%PUBLIC_URL%/favicon-dark.ico" type="image/x-icon" />
+  <link rel="icon" media="(prefers-color-scheme:light)" href="%PUBLIC_URL%/favicon-light.ico" type="image/x-icon" />
+  <script type="application/javascript">
+    ; (function (mod) { function collectLinks() { return Array.prototype.slice.apply(document.head.querySelectorAll('link[rel*="icon"]')) } function applyLink(source, target) { target.setAttribute('type', source.getAttribute('type')); target.setAttribute('href', source.getAttribute('href')) } function initSwitcher(delay) { if (typeof window.matchMedia !== 'function') { return function noop() { } } var links = collectLinks(); var current = document.createElement('link'); var prevMatch; current.setAttribute('rel', 'shortcut icon'); document.head.appendChild(current); function faviconApplyLoop() { var matched; links.forEach(function (link) { if (window.matchMedia(link.media).matches) { matched = link } }); if (!matched) { return } if (matched.media !== prevMatch) { prevMatch = matched.media; applyLink(matched, current) } } var intervalId = setInterval(faviconApplyLoop, delay || 300); function unsubscribe() { clearInterval(intervalId); links.forEach(function (link) { document.head.appendChild(link) }) } faviconApplyLoop(); links.forEach(function (link) { document.head.removeChild(link) }); return unsubscribe } initSwitcher() })()
+  </script>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+  <script async src="lazysizes.min.js"></script>
+  <title>RFF</title>
+  <meta property="fb:app_id" content="547320892866347"/>
+  <!-- Add in some basic styles for our HTML -->
+
+  <!-- <script>
+    !function () {
+      var analytics = window.analytics = window.analytics || []; if (!analytics.initialize) if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice."); else {
+        analytics.invoked = !0; analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on"]; analytics.factory = function (t) { return function () { var e = Array.prototype.slice.call(arguments); e.unshift(t); analytics.push(e); return analytics } }; for (var t = 0; t < analytics.methods.length; t++) { var e = analytics.methods[t]; analytics[e] = analytics.factory(e) } analytics.load = function (t, e) { var n = document.createElement("script"); n.type = "text/javascript"; n.async = !0; n.src = "https://cdn.segment.com/analytics.js/v1/" + t + "/analytics.min.js"; var a = document.getElementsByTagName("script")[0]; a.parentNode.insertBefore(n, a); analytics._loadOptions = e }; analytics.SNIPPET_VERSION = "4.1.0";
+        analytics.load("OS8hdvHGwciyBduRRDqpG7HwXc89lUuJ");
+        analytics.page();
+      }
+    }();
+  </script> -->
+
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      font-display: swap;
+      src: local('Arvo'), url(https://fonts.gstatic.com/s/arvo/v9/rC7kKhY-eUDY-ucISTIf5PesZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
+    }
+
+    /**----Update Modal---**/
+    body.show {
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.show:after {
+      content: '';
+      display: block;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      position: fixed;
+      touch-action: none;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    .full-page-loader {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 999999999;
+      background: rgba(var(--dark-rgb), .7);
+    }
+
+    .full-page-loader img {
+      max-width: 150px;
+      max-height: 150px;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 0 10px 0 rgba(var(--dark-rgb), .25);
+      background: var(--white);
+    }
+
+    .offline-notification {
+      transition: transform 0.3s;
+      transform: translateX(-50%);
+      position: fixed;
+      left: 50%;
+      background: #3c021b;
+      padding: 7px 12px 10px;
+      text-align: center;
+      top: 25px;
+      color: #db0040;
+      font-size: 13px;
+      display: none;
+      font-weight: 500;
+      z-index: 99;
+      border-radius: 5px;
+    }
+
+    .offline {
+      display: block !important;
+    }
+
+    .offline-notification>img {
+      margin-right: 7px;
+      display: inline-block;
+      vertical-align: bottom;
+    }
+
+    .offline-notification button {
+      background: transparent;
+      border: 0;
+      outline: none;
+      cursor: pointer;
+      padding: 0;
+      margin-left: 10px;
+      transition: all 0.1s;
+    }
+
+    .offline-notification button:hover {
+      opacity: 0.5;
+    }
+
+    .notification-visible:after,
+    .notification-visible:before {
+      content: '';
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 5px;
+    }
+
+    .notification-visible:after {
+      background: #121729;
+      right: 0;
+      z-index: 1;
+    }
+
+    .notification-visible:before {
+      background: #db0040;
+      animation: dude 1s 1 forwards;
+      width: 0;
+      z-index: 2;
+    }
+
+    @keyframes dude {
+      0% {
+        width: 0;
+      }
+
+      100% {
+        width: 100%;
+      }
+    }
+
+    /* Cookie Consent */
+    .cc_css_reboot.cc_dialog {
+      width: 100%;
+      max-width: 435px !important;
+      background-color: #132C52 !important;
+      border-radius: 10px;
+      padding: 1.5rem;
+      bottom: 15px !important;
+      right: 15px !important;
+      text-align: justify;
+      text-align-last: center;
+    }
+
+    .cc_css_reboot.cc_dialog .cc_dialog_headline {
+      display: none !important;
+    }
+
+    .cc_css_reboot.cc_dialog .cc_dialog_text {
+      color: #fff !important;
+      margin-bottom: 15px;
+      font-size: 14px !important;
+    }
+
+    .cc_css_reboot.cc_dialog>div>div:last-of-type {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cc_css_reboot.cc_dialog button,
+    .cookie-consent-preferences-overlay .cookie-consent-preferences-dialog .cc_cp_container .cc_cp_footer .cc_cp_f_save button {
+      font-weight: normal !important;
+      border-radius: 5px !important;
+      text-transform: capitalize;
+      transition: all 0.2s ease-in;
+    }
+
+    .cc_css_reboot.cc_dialog .cc_b_ok {
+      order: 2;
+    }
+
+    .cc_css_reboot.cc_dialog .cc_b_cp {
+      order: 1;
+    }
+
+    .cc_css_reboot.cc_dialog .cc_b_ok,
+    .cookie-consent-preferences-overlay .cookie-consent-preferences-dialog .cc_cp_container .cc_cp_footer .cc_cp_f_save button {
+      background: #03B2D8 !important;
+      color: #fff !important;
+      border: 1px solid #03B2D8 !important;
+    }
+
+    .cc_css_reboot.cc_dialog .cc_b_ok:hover,
+    .cc_css_reboot.cc_dialog .cc_b_ok:focus {
+      background: #0285a2 !important;
+      border-color: #0285a2 !important;
+    }
+
+    .cc_css_reboot.cc_dialog .cc_b_cp {
+      background: transparent !important;
+      color: #fff !important;
+      border: 1px solid #fff !important;
+      margin-left: 0px !important;
+    }
+
+    .cc_css_reboot.cc_dialog .cc_b_cp:hover,
+    .cc_css_reboot.cc_dialog .cc_b_cp:focus {
+      box-shadow: 0 0 2px 0 rgba(255, 255, 255, .8) inset;
+    }
+
+    .cookie-consent-preferences-overlay .cookie-consent-preferences-dialog .cc_cp_container {
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .cookie-consent-preferences-overlay input[type="checkbox"].checkbox_cookie_consent:checked+label:before {
+      background: #03B2D8 !important;
+    }
+
+    @media (min-width: 455px) {
+      .cc_css_reboot.cc_dialog button {
+        width: calc((100% - 10px) / 2);
+      }
+    }
+
+    @media (max-width: 455px) {
+      .cc_css_reboot.cc_dialog {
+        max-width: calc(100% - 20px) !important;
+        left: 10px !important;
+        right: 10px !important;
+      }
+
+      .cc_css_reboot.cc_dialog button {
+        white-space: nowrap;
+        flex: 1 0 0;
+      }
+
+      .cc_css_reboot.cc_dialog .cc_b_ok {
+        margin-left: 10px !important;
+      }
+    }
+  </style>
+  <!-- TrustBox script -->
+  <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+  <!-- End TrustBox script -->
+</head>
+
+<body class="hide">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=%REACT_APP_GOOGLE_TAG_MANAGER_ID%" height="0"
+      width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root">
+    <!-- <p>Almost there!!</p> -->
+    <div class="full-page-loader">
+      <picture>
+        <source srcset="/loader.webp" data-srcset="/loader.gif" type="image/webp" />
+        <img width="150px" height="150px" src="/loader.gif" data-src="/loader.gif" alt="loading..." class="lazyload" />
+      </picture>
+    </div>
+  </div>
+
+  <script async>
+    function dismissOfflineNotification() {
+      console.log("dismissOfflineNotification()==");
+      var element = document.getElementById("offline-notification");
+      element.classList.remove("offline");
+      document.body.classList.remove("notification-visible");
+    }
+    function closeRefreshPopup() {
+      const { body } = document;
+      localStorage.setItem('isNewVersionDeployed', false)
+      body.className = 'hide';
+    }
+    window.addEventListener("load", () => {
+      function handleNetworkChange(event) {
+        var element = document.getElementById("offline-notification")
+        if (navigator.onLine) {
+          element.classList.remove("offline");
+          document.body.classList.remove("notification-visible")
+        } else {
+          element.classList.add("offline");
+          document.body.classList.add("notification-visible")
+        }
+      }
+      window.addEventListener("online", handleNetworkChange)
+      window.addEventListener("offline", handleNetworkChange)
+    });
+  </script>
+
+  <!-- Cookie Consent by https://www.freeprivacypolicy.com -->
+  <script type="text/javascript"
+    src="//www.freeprivacypolicy.com/public/cookie-consent/3.1.0/cookie-consent.js"></script>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      window.onload = function () {
+        setTimeout(function () {
+          cookieconsent.run({ "notice_banner_type": "simple", "consent_type": "express", "palette": "light", "language": "en", "website_name": "rewardflightfinder.com" });
+        }, 2000)
+      }
+    });
+  </script>
+  <noscript>Cookie Consent by <a href="https://www.freeprivacypolicy.com/">Free Privacy Policy</a></noscript>
+  <!-- End Cookie Consent -->
+</body>
+
 </html>

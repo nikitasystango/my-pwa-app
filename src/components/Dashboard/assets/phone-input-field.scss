@@ -1,0 +1,54 @@
+
+// phone-input-field
+.phone-input-field {
+  .react-tel-input {
+    .form-control {
+      color: var(--dark) !important;
+      font-weight: bold;
+      border-color: rgba(34,36,38,.15);
+      padding: 11px 14px 11px 50px !important;
+      min-height: 38px;
+
+      &:focus {
+        border-color: var(--dark) !important;
+      }
+    }
+    .flag-dropdown {
+      top: 1px;
+      bottom: 1px;
+      left: 1px;
+      border-color: transparent !important;
+      border-right-color: rgba(34,36,38,.15) !important;
+      background: transparent;
+      font-size: 14px;
+      line-height: 16px;
+
+      .selected-flag {
+        border-radius: 3px 0 0 3px !important;
+      }
+
+      .search {
+        padding: 6px;
+        margin: -6px -6px 0;
+        background-color: var(--white);
+
+        &-emoji {
+          display: none;
+        }
+      }
+      .country-list {
+        border-radius: 3px !important;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 11px rgba(0, 0, 0, 0.1) !important;
+        padding: 0 6px 6px;
+      }
+      .country {
+        color: var(--grey1);
+
+        &:hover {
+          background-color: var(--light-blue);
+          color: var(--dark);
+        }
+      }
+    }
+  }
+}

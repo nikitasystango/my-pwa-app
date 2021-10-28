@@ -1,0 +1,233 @@
+.static-page {
+  padding: 60px 0;
+  max-width: 915px;
+  margin: 0 auto;
+
+  // <!-- header
+  &__header {
+    margin-bottom: 50px;
+
+    p {
+      line-height: 1.5;
+      margin: 0 0 10px;
+      color: var(--grey2);
+    }
+  }
+  &__title {
+    font-size: 26px;
+    line-height: 1;
+    color: var(--dark);
+    margin: 0 0 20px;
+    font-family: var(--primary-font) !important;
+  }
+  & &__updated-date {
+    margin: 0;
+    color: #BDBDBD;
+  }
+  // header -->
+
+  // <!-- body
+  // &__body {
+  // }
+  .company-info {
+    padding: 30px 35px;
+    background: rgba(224, 224, 224, .25);
+    color: var(--grey2);
+    border-radius: 10px;
+    border-left: 9px solid var(--medium-blue);
+    margin-bottom: 50px;
+
+    p {
+      line-height: 1.5;
+      margin: 0 !important;
+    }
+  }
+  &__content {
+    h1,
+    h2,
+    h3,
+    h4 {
+      color: var(--dark);
+      line-height: 1.5;
+    }
+    h1,
+    h2 {
+      margin: 0 0 15px;
+      font-size: 22px;
+    }
+    h2 {
+
+      position: relative;
+      padding-left: 0px;
+
+      svg {
+        display: block;
+        margin: 0;
+        position: absolute;
+        left: 0;
+        top: 7px;
+      }
+    }
+    p {
+      line-height: 1.5;
+      color: var(--grey2);
+      margin-bottom: 15px;
+    }
+
+    ul,
+    ol {
+
+      &:not(.default-style) {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          padding-left: 30px;
+          position: relative;
+
+          &::before {
+            content: '';
+            display: block;
+            width: 18px;
+            height: 12.35px;
+            background-image: url('../../assets/images/flight.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: absolute;
+            left: 0;
+            top: 8px;
+          }
+        }
+      }
+    }
+    li {
+      margin-bottom: 14px;
+      line-height: 1.5;
+
+      h5,
+      strong {
+        color: var(--grey1);
+        font-size: 16px;
+        font-weight: 600;
+      }
+      h5 {
+        margin-bottom: 5px;
+      }
+    }
+  }
+  // body -->
+
+  @media (max-width: 991px) {
+    padding: 40px 0;
+
+    &__header {
+      margin-bottom: 35px;
+
+      p {
+        margin: 0 0 5px;
+      }
+    }
+    &__title {
+      font-size: 24px;
+      margin: 0 0 15px;
+    }
+    & &__updated-date {
+      font-size: 16px;
+    }
+
+    .company-info {
+      padding: 20px 25px;
+      border-left-width: 7px;
+      margin-bottom: 35px;
+    }
+
+    &__content {
+      h1,
+      h2 {
+        margin: 0 0 15px;
+        font-size: 20px;
+      }
+      h2 {
+        svg {
+          top: 5px;
+        }
+      }
+      p {
+        margin-bottom: 20px;
+      }
+
+      ol,
+      li {
+        &:not(.default-style) {
+          li {
+            padding-left: 30px;
+
+            &::before {
+              top: 6px;
+            }
+          }
+        }
+      }
+
+      li {
+        margin-bottom: 14px;
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    padding: 20px 0;
+
+    &__header {
+      margin-bottom: 20px;
+
+      p {
+        margin: 0 0 5px;
+      }
+    }
+    &__title {
+      font-size: 21px;
+      margin: 0 0 10px;
+    }
+
+    .company-info {
+      padding: 15px 20px;
+      border-left-width: 5px;
+      margin-bottom: 20px;
+    }
+
+    &__content {
+      h1,
+      h2 {
+        margin: 0 0 12px;
+        font-size: 18px;
+      }
+      h2 {
+        svg {
+          top: 3px;
+        }
+      }
+      p {
+        margin-bottom: 15px;
+      }
+      ul,
+      ol {
+        &:not(.default-style) {
+          li {
+            &::before {
+              top: 6px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.privacy-policy-wrap{
+  .static-page__content {
+    li{
+      font-weight:bold;
+    }
+  } 
+}

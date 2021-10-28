@@ -1,0 +1,548 @@
+.user-dashboard {
+  &__content {
+    .account-setting {
+      .row > .column.change-alter-email-btn{
+        margin-top: 26px;
+      }
+      .justify-content-between{
+        justify-content: space-between;
+      }
+      // &__note-box {
+      //     background: #E2F6FB;/*var(--light)*/
+      //     color: var(--dark);
+      //     padding: 10px;
+      //     border-radius: 6px;
+      //     max-width: 1140px;
+      //     margin: 0 auto;
+      //     text-align: left;
+      //     font-size: 14px;
+      //     line-height: 1.5;
+      //     font-family: 'Open Sans', sans-serif;
+      //     display: flex;
+      //     justify-content: space-between;
+      //     flex-wrap: wrap;
+      //     flex-direction: row;
+      //     align-items: center;
+      //     margin-bottom: 20px;
+
+      //     &-text {
+      //         width: calc(100% - 125px);
+      //         display: block;
+      //     }
+
+      //     &-btn {
+      //         min-width: initial !important;
+      //         padding: 15px !important;
+      //     }
+
+      //     @media (max-width: 479px) {
+      //         flex-direction: column;
+      //         justify-content: initial;
+      //         align-items: initial;
+      //         &-text {
+      //             margin-bottom: 10px;
+      //             width: 100%;
+      //         }
+      //     }
+      // }
+
+      &__heading {
+        color: var(--dark);
+        font-size: 16px;
+        margin-bottom: 16px;
+      }
+
+      &__form {
+        label {
+          font-weight: normal !important;
+          margin-bottom: 2px !important;
+          color: var(--text-dark) !important;
+          font-size: 14px !important;
+          strong {
+            font-weight: inherit !important;
+          }
+        }
+        .field {
+          .ui.dropdown{
+            .menu{
+              top: calc(100% + 1px);
+              border-color: var(--dark) !important;
+            }
+          }
+        }
+        .required-field {
+          label {
+            &:after {
+              content: "*";
+              color: #9f3a38;
+            }
+          }
+        }
+        .color-red{
+          color: #9f3a38;
+        }
+        .error-field > div:first-child { 
+          background: rgba(233,86,86,.10196078431372549)!important;
+          border-color: #e0b4b4;
+          color: #9f3a38;
+          box-shadow: none;
+        }
+        .error.field{
+          input{
+          background: rgba(233,86,86,.10196078431372549)!important;
+
+          }
+        }
+        .verify-email {
+          label {
+            color: #eb5757 !important;
+          }
+        }
+        &.ui.form {
+          .input {
+            input {
+              color: var(--dark);
+              font-weight: bold;
+              text-transform: capitalize !important; 
+              &::-webkit-input-placeholder {
+                font-weight: normal;
+              }
+              &::placeholder {
+                font-weight: normal;
+              }
+
+              &:focus {
+                border-color: var(--dark) !important;
+              }
+              &:-webkit-autofill:focus {
+                box-shadow: 0 0 0 100px white inset!important;
+                border-color: rgba(34,36,38,.15) !important;
+              }
+              &:-webkit-autofill {
+                box-shadow: 0 0 0 100px white inset!important;
+                border-color: rgba(34,36,38,.15) !important;
+              }
+            }
+          }
+          .error{
+            .input{
+              input{
+                &:-webkit-autofill:focus {
+                  box-shadow: 0 0 0 100px #fff6f6 inset!important;
+                    border-color: #e0b4b4 !important;
+                    color: #9f3a38;
+                }
+                &:-webkit-autofill {
+                  box-shadow: 0 0 0 100px #fff6f6 inset!important;
+                    border-color: #e0b4b4 !important;
+                    color: #9f3a38;
+                }
+              }
+              
+            }
+          }
+          .ui.dropdown {
+            > .text {
+              color: var(--dark);
+              font-weight: bold;
+            }
+          }
+          // .rvel-wrapper {
+          //   // position: relative;
+          // }
+          // .rvel {
+          //   // position: absolute;
+          //   // left: 110%;
+          //   // bottom: 20px;
+          //   color: var(--medium-blue);
+          //   max-width: 110px;
+          //   width: 100%;
+          //   text-align: center;
+          //   font-weight: 600;
+          //   font-size: 12px;
+          //   line-height: 15px;
+          //   text-decoration: underline;
+          //   cursor: pointer;
+
+          //   &:hover {
+          //     color: var(--medium-blue-hover);
+          //   }
+
+          //   @media (min-width: 992px) and (max-width: 1280px) {
+          //     font-size: 11px;
+          //     left: 100%;
+          //     max-width: 100px;
+          //   }
+          //   @media (max-width: 767px) {
+          //     position: static;
+          //   }
+          // }
+          .set-password-grid {
+            .column{
+              width: auto;
+              align-self: flex-end;
+            }
+            span{
+              display: block;
+              margin: 0 0 14px !important;
+              width: 100%;
+              font-size: .92857143em;
+              line-height: 16px;
+              color: #132c51;
+            }
+            .btn--account-setting{
+              color: #03b2db !important;
+              font-size: 14px !important;
+              padding: 9px 29px;
+              width: auto;
+              height: auto;
+              min-width: 0;
+              line-height: 19px !important;
+              &:hover{
+                color: #fff !important;
+                background-color: var(--medium-blue-hover) !important;
+              }
+            }
+          }
+          
+        }
+        .btn {
+          &--account-setting {
+            margin-bottom: 15px !important;
+            min-width: 200px;
+            min-height: 40px;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            &:not(:last-child) {
+              margin-right: 15px !important;
+            }
+          }
+        }
+        .selection.dropdown {
+          width: 100% !important;
+          min-width: initial !important;
+          &.active {
+            border-color: var(--dark) !important;
+          }
+        }
+
+        .row {
+          > .column {
+            margin-bottom: 15px !important;
+          }
+        }
+
+        .myprofile_cta {
+          font-weight: 600;
+          color: var(--medium-blue);
+          font-size: 12px;
+          line-height: 1.25;
+          text-decoration: underline;
+          transition: all 0.2s ease-in;
+
+          &:hover {
+            color: var(--medium-blue-hover) !important;
+            cursor: pointer;
+          }
+          @media (min-width: 768px) {
+            display: inline-block;
+            margin-bottom: 10px;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .ui.grid.accordion-myprofile > .row > .column {
+            padding-right: 0;
+          }
+        }
+
+        @media (min-width: 480px) and (max-width: 767px) {
+          &.ui.form {
+            .accordion-myprofile {
+              &.ui.grid {
+                > .row {
+                  > .column[class*="wide"] {
+                    &:nth-child(3),
+                    &:nth-child(6) {
+                      width: 100% !important;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        @media (max-width: 479px) {
+          .ui.grid > .row > [class*="column"] {
+            width: 100% !important;
+          }
+        }
+      }
+
+      &__info-text {
+        font-size: 14px;
+        line-height: 16px;
+        color: rgba(var(--dark-rgb), 0.7);
+        margin-bottom: 1.5rem;
+      }
+    }
+    
+    .phone_wrap{
+      position: relative;
+      .error{
+        font-size: 12px;
+        line-height: 16px;
+        color: #EB5757;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .phone_field{
+        width: 100%;
+        display: inline-block;
+        border: 1px solid rgba(34,36,38,.15);
+        background-color: #ffffff;
+        border-radius: .28571429rem;
+        padding: 7px 3px 6px 6px;
+        .dropdown {
+          display: inline-block;
+          vertical-align: middle;
+          width: 53px;
+          .menu{
+            max-height: 270px;
+            overflow: auto;
+            margin: 0;
+            top: calc(100% + 10px);
+            @media(max-width:767px){
+              height: 270px;
+            }
+          }
+        }
+        .field {
+          width: 50%;
+          width: calc(100% - 124px);
+          display: inline-block;
+          vertical-align: middle;
+          margin: 0;
+          input{
+            border: none;
+            width: 100% !important;
+            padding: 0 2px;
+            min-width: 0;
+            margin: 0;
+            box-sizing: border-box;
+          }
+        }
+        button.ui.button{
+          width: auto;
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 12px;
+          line-height: 16px;
+          color: #03B2D8;
+          border: 1px solid #03B2D8;
+          background-color: #fff;
+          padding: 3px 5px;
+          border-radius: 5px;
+        }
+      }
+     
+    }
+    .sms_notification_wrap{
+      padding: 12px 0 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      span{
+        font-size: 14px;
+        line-height: 16px;
+        color: #132C52;
+        display: inline-block;
+        vertical-align: middle;
+        &.sms_label{
+          font-weight: 600;
+          min-width: 145px;
+        }
+        &:last-child{
+          display: none;
+        }
+      }
+      .ui.fitted.toggle.checkbox {
+        display: inline-block;
+        vertical-align: middle;
+        width: 80px;
+        position: relative;
+        padding: 0 24px;
+        margin: 0 15px;
+        input{
+          width: 100%;
+        }
+        input~label:after{
+          width: 14px;
+          height: 14px;
+          background-color: #03B2D8;
+          box-shadow: none;
+          top: 2px;
+          left: 2.5px;
+        }
+        input:checked~label:after{
+          background-color: #EBE8E8;
+          left: auto;
+          right: 2.5px;
+        }
+        label{
+          margin: 0 !important;
+        }
+        label:before{
+          background-color: #EBE8E8 !important;
+          box-shadow: none;
+          width: 32.03px;
+          height: 18px;
+          border-radius: 9px;
+        }
+        input:checked~label:before{
+          background-color: #03B2D8 !important;
+        }
+        span{
+          position: absolute;
+          line-height: 0;
+          display: inline-block;
+          left: 0;
+          top: 1px;
+          right: 0;
+        }
+        span:after{
+          content: 'on';
+          color: #132C52;
+          opacity: .6;
+          font-size: 12px;
+          line-height: 16px;
+          position: absolute;
+          right: 0;
+        }
+        input:checked~span:after{
+          opacity: 1;
+          color: #03B2D8;
+        }
+        span:before{
+          content: 'off';
+          font-size: 12px;
+          line-height: 16px;
+          opacity: 1;
+          color: #03B2D8;
+          position: absolute;
+          left: 0;
+        }
+        input:checked~span:before{
+          color: #132C52;
+          opacity: .6;
+        }
+      }
+    }
+    
+    .alert_input{
+      .account-setting__heading{
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+}
+.email-notification {
+  padding-bottom: 4%;
+  &__title {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    color: #132C52;
+  }
+  &__cb-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  &__cb {
+    &:not(:last-child) {
+      margin-right: 40px;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+    svg,
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    svg {
+      margin-right: 8px;
+    }
+    span {
+      font-size: 14px;
+      line-height: 19px;
+      color: var(--text-dark);
+    }
+  }
+}
+.mr-n5{
+  margin: 0 8px;
+}
+.tabsHeading{
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  color: #132C52;
+  @media screen and (max-width: 1024px){
+    font-size: 18px;
+    line-height: 22px;
+  }
+  @media(max-width:767px){
+    font-size: 17px;
+    line-height: 19px;
+  }
+}
+.socialAccountText{
+  background: #03b2d840;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #03b2d8;
+  font-weight: 600;
+  font-size: 14px;
+  @media(max-width:767px){
+    font-size: 12px;
+  }
+}
+.account-setting__form .accordion-myprofile{
+  div[class*="singleValue"] {
+    color: var(--dark);
+    font-weight: bold;
+    text-transform: capitalize !important;
+  }
+  div[class*="indicatorContainer"]:nth-child(1) {
+   display: none;
+  }
+  div[class*="indicatorContainer"]  {
+   background-image: url('../assets/arrow-down-icon.svg');
+   background-repeat: no-repeat;
+    background-position: 2px;
+    background-size: 8px;
+    height: 20px;
+    width: 20px;
+    svg{
+      display: none;
+    }
+  }
+  div[class*="IndicatorsContainer"] {
+    span{
+      display: none;
+    }
+   }
+   div[class*="MenuList"] {
+    max-height: 180px;
+    overflow-y:auto;
+   }
+}

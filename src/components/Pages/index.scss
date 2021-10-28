@@ -1,0 +1,396 @@
+@mixin textTruncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// <!-- page
+.page {
+  padding: 40px 0;
+
+  &__header {
+    text-align: center;
+  }
+  &__title {
+    font-size: 26px;
+    line-height: 36px;
+    margin: 0 0 5px;
+    color: var(--dark);
+    font-family: var(--primary-font) !important;
+  }
+  &__sub-title {
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--dark);
+  }
+
+  // &__body {}
+// perosnlised screen
+.thankyou-popup{
+  .br-responsive{
+    @media(max-width:1024px){
+      display: none;
+    }
+  }
+  .onboarding-close-btn{
+    z-index: 999;
+    right: -15px;
+    top: -15px;
+    border-radius: 50%;
+    @media(max-width:767px){
+      top: -10px;
+      height: 35px;
+      width: 35px;
+    }
+  }
+  .control-dots{
+    display:none;
+  }
+  &.ui.modal {
+    text-align: center;
+    width: 80%;
+    padding: 0;
+    box-sizing: border-box;
+    .content{
+      @media(max-width:767px){
+        padding: 0  !important;
+      }
+    }
+    @media(max-width:1366px){
+      max-width: 900px;
+    }
+    @media(max-width:1024px){
+      max-width: 800px;
+    }   
+    @media(max-width:768px){
+      max-width: 600px;
+    }
+    @media(max-width:767px){
+      max-width: 400px;
+    }
+    @media(max-width:420px){
+      max-width:370px;
+    }
+    @media(max-width:420px){
+      max-width:280px;
+    }    
+    .carousel-status{
+      display:none;
+  
+    }
+  }
+ .carousel {
+  .slide{
+    justify-content: center;
+    display: flex;
+    background-color: #03B2D8;
+    padding:100px 0 100px;
+    @media(max-width:1366px){
+      padding:80px 0 80px;
+    }
+    @media(max-width:1024px){
+      padding: 75px 0 75px;
+    }   
+    @media(max-width:768px){
+      padding: 60px 0 60px;
+    }
+    @media(max-width:767px){
+      padding: 25px 0 35px;
+    }
+    }
+    .control-arrow{
+      top:91%;
+      background: #4FC9E4;
+      border-radius: 50%;
+      height: 35px;
+      width: 35px;
+      line-height: 21px;
+      opacity: 1;
+      @media(max-width:1440px){
+        top:86%;
+      }
+      @media(max-width:767px){
+        top:85%;
+      }
+    }
+    .control-prev {
+      left:46%;
+      &:before{
+        content:"";
+        width: 30px;
+        height: 30px;
+        background: url("./assets/images/signupscreens/slide-arrow-left.png") no-repeat;
+        top: 8px;
+        background-size: 11px;
+        right: -10px;
+        position: absolute;
+        display: inline-block;
+        border:unset  !important;
+      }
+      @media(max-width:1440px){
+        left:45%;
+      }
+      @media(max-width:1440px){
+        left:44%;
+      }
+      @media(max-width:767px){
+        left:35%;
+      } 
+    } 
+    .control-next{
+    left: 49%;
+    &:before{
+      content:"";
+      width: 30px;
+      height: 30px;
+      background: url("./assets/images/signupscreens/slide-arrow-right.png") no-repeat;
+      top: 8px;
+      background-size: 11px;
+      right: -15px;
+      position: absolute;
+      display: inline-block;
+      border:unset  !important;
+    }    
+    @media(min-width:768px) and (max-width:1024px){
+      left: 52%;
+    }    
+    @media(max-width:767px){
+      left:49%;
+    }
+    }
+ }
+  li.slide:after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 33%;
+    background: #fff;
+    right: 0;
+    z-index: 0;
+    @media(max-width:1024px){
+      width: 250px;
+    }   
+    @media(max-width:768px){
+      max-width: 200px;
+    }
+    @media(max-width:767px){
+      max-width: 100px;
+      content: none;
+    }
+    @media(max-width:420px){
+      width:80px;
+    }
+  }
+  .personolised-screen{
+    color:white;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    svg{
+      @media(max-width:1024px){
+        height:165px;
+        width:165px;
+        }
+      @media(max-width:1366px){
+        height:120px;
+        width:120px;
+        } 
+      @media(max-width:1024px){
+        height:100px;
+        width:100px;
+        }   
+        @media(max-width:767px){
+        height:70px;
+        width:70px;
+        }      
+    }
+    &.screen-0{
+      position: relative;
+    }
+    &.screen-6{
+      @media(min-width:768px){
+        text-align: left;
+      }
+    }
+    &.screen-boarding{
+      display:flex;
+      align-items: center;
+      flex-flow: row wrap;
+      .personolised-screen-content {
+        width:30%;
+        padding-left: 4%;
+        @media(max-width:767px){
+          flex:100%; 
+          padding-left: 3%;
+          padding-right: 3%;
+        }
+      }
+      .personolised-screen-img{
+        width: 70%;
+        padding-left: 5%;
+        padding-right: 3%;
+        @media(max-width:767px){
+          margin-top: 20px;
+          width:100%;
+          img{
+            width:75%;
+          }
+        }
+      }
+      h2{
+        text-align: left !important;
+        @media(max-width:767px){
+          text-align: center !important;
+        }
+      }
+      p{
+        text-align: left !important;
+        @media(max-width:767px){
+          text-align: center !important;
+        }
+      }
+    }
+    &.screen-5{
+      .personolised-screen-img{
+        position: relative;
+        img{
+          position: absolute;
+          left: 25%;
+          bottom: -372px;
+          width: 54%;
+          @media(max-width:1600px){
+            left: 17%;
+            bottom: -325px;
+            width: 56%;
+          }
+          @media(max-width:1440px){
+            bottom: -293px;
+          }
+          @media(max-width:1366px){
+            bottom: -240px;
+          }
+          @media(max-width:1024px){
+            bottom: -217px;
+          }
+          @media(max-width:768px){
+            bottom: -170px;
+          }
+          @media(max-width:767px){
+            position: relative;
+            bottom: -40px;
+            width: 68%;
+            left:0;
+          }
+        }
+      }
+    }
+    h2{
+      font-size: 45px !important;
+      line-height: 50px !important;
+      text-align: center !important;
+      color: #FFFFFF !important;
+      @media(max-width:1600px){
+        font-size: 30px !important;
+        line-height:40px !important;
+        }  
+      @media(max-width:1366px){
+        font-size: 22px !important;
+        line-height:30px !important;
+        }          
+      @media(max-width:1024px){
+      font-size: 25px !important;
+      line-height:30px !important;
+      } 
+      @media(max-width:768px){
+        font-size: 22px !important;
+        line-height: 26px !important
+      }   
+      @media(max-width:767px){
+      font-size: 18px !important;
+      line-height: 26px !important;
+      }
+    }
+    p{
+      font-size: 23px !important;
+      line-height: 38px !important;
+      text-align: center !important;
+      color: #FFFFFF !important;
+      @media(max-width:1600px){
+      font-size: 18px !important;
+      line-height: 28px !important;
+      }
+      @media(max-width:1024px){
+        font-size: 14px !important;
+        line-height: 25px !important;
+        }
+      @media(max-width:320px){
+          font-size: 12px !important;
+          line-height: 18px !important;
+        } 
+    }
+    button{
+      background-color: #132C52;
+      color:white;
+      padding: 20px;
+      font-size: 15px;
+      width: 195px;
+      text-align: center;
+      @media(max-width:767px){
+        padding: 15px;
+        font-size: 15px;
+        width: 170px;
+      }
+    }
+    }
+    .carousel .slide> div:first-child{
+      z-index:1;
+      }
+   li.slide:nth-child(1):after{
+        z-index: -1;
+      } 
+}
+// personalisec screen end
+  @media (max-width: 991px) {
+    &__title {
+      font-size: 24px;
+      line-height: 34px;
+    }
+    &__sub-title {
+      font-size: 18px;
+      line-height: 26px;
+    }
+  }
+
+  @media (max-width: 575px) {
+    &__title {
+      font-size: 21px;
+      line-height: 30px;
+    }
+    &__sub-title {
+      font-size: 16px;
+      line-height: 22px;
+    }
+  }
+}
+// page -->
+// virgin atlantic search panel CSS
+.virgin-search-panel {
+  &.ui.container{
+    @media(max-width:767px){
+      width: 85% !important;
+      margin: 0 auto !important;
+    }
+  }
+  .acd__text{
+    display: flex;
+    @media(max-width:767px){
+      display: block;
+    }
+  }
+  .search-panel__button{
+    width: 100%;
+  }
+  .select-location{
+    text-align: left;
+  }
+}

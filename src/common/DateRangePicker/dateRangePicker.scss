@@ -1,0 +1,882 @@
+.date-select {
+  margin-bottom: 0 !important;
+
+  .DateRangePicker {
+      // background-image: url('../../assets/images/calendar-icon.svg');
+      // background-image: url('../../assets/images/calendar.svg');
+      background-image: var(--calendar-icon);
+      background-repeat: no-repeat;
+      background-size: 18px;
+      background-position: 8px center;
+      background-color: var(--white);
+      padding-left: 28px;
+      // min-height: 47px;
+      // line-height: 47px;
+      border-radius: 6px;
+  }
+
+  .DateInput {
+      width: 100%;
+      background-color: transparent !important;
+      width: calc(calc(100% - 20px) / 2);
+  }
+  .DateInput_input {
+      padding: 0 5px;
+      font-size: 14px;
+      font-family: var(--primary-font) !important;
+      background-color: transparent !important;
+      margin: 0;
+      min-height: 47px;
+      line-height: 47px;
+      border: none !important;
+      text-align:center;
+      &:focus {
+        outline: none;
+      }
+
+      &.DateInput_input__disabled{
+        font-style: normal;
+        opacity: 0.5;
+    }
+  }
+
+  .DateRangePickerInput  {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: transparent !important;
+      border: none !important;
+      @media(max-width:767px){
+      justify-content: center;
+      }
+      .DateInput_1{
+        @media(max-width:767px){
+        width:30%;
+        } 
+        input{
+          @media(max-width:767px){
+          text-align: center;
+          } 
+        }
+      }
+  }
+  .DateRangePickerInput_arrow {
+      width: 20px;
+      position: relative;
+
+      &:before {
+          content: '';
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height:2px;
+          width: 6px;
+          margin: 0 auto;
+          position: absolute;
+          left: 50%;
+          background-color: var(--dark);
+          font-weight:600;
+          top: 50%;
+          transform: translate(-50%, -50%);
+
+      }
+  }
+  .DateRangePickerInput_arrow_svg {
+      display: none;
+  }
+
+  @media (min-width: 480px) and (max-width: 767px) {
+      &:nth-child(2) {
+          padding-right: .5rem !important;
+
+          .search-panel-close-icon {
+              right: 18px;
+          }
+      }
+      &:nth-child(3) {
+          padding-left: .5rem !important;
+      }
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+      &:first-child {
+          padding-right: .5rem !important;
+      }
+      &:nth-child(2) {
+          padding-left: .5rem !important;
+          padding-right: .5rem !important;
+
+          .search-panel-close-icon {
+              right: 18px;
+          }
+      }
+      &:nth-child(3) {
+          padding-left: .5rem !important;
+      }
+  }
+
+
+  margin: {
+      left: 0 !important;
+      right: 0 !important;
+  };
+
+  &__btn {
+      width: 100%;
+  }
+
+  &.ui.grid {
+      .row {
+          [class=column] {
+              &:not(:last-child) {
+                  padding-right: 0 !important;
+              }
+          }
+      }
+  }
+
+  label {
+      color: var(--grey1) !important;
+      margin-bottom: 5px;
+      display: block;
+  }
+
+  // .react-datepicker-wrapper {}
+
+  & &__btn {
+      min-width: initial !important;
+      padding: 15px !important;
+      // margin-top: 27px !important;
+      border-color: var(--dark) !important;
+
+      @media (max-width: 991px) {
+          margin-top: 15px !important;
+          width: 100% !important;
+      }
+  }
+
+  &.ui.grid {
+      > .row {
+          > [class*=column] {
+              @media (min-width: 768px) {
+                  &:first-child {
+                      padding-right: 0 !important;
+                  }
+              }
+
+              @media (min-width: 992px) {
+                  &:not(:last-child) {
+                      padding-right: 0 !important;
+                  }
+              }
+
+              @media (min-width: 576px) and (max-width: 767px) {
+                  &:first-child {
+                      padding-right: .5rem !important;
+                  }
+                  &:nth-child(2) {
+                      padding-left: .5rem !important;
+                  }
+              }
+
+              @media (max-width: 575px) {
+                  &:first-child,
+                  &:nth-child(2) {
+                      width: 100% !important;
+                  }
+                  &:first-child {
+                      margin-bottom: 15px !important;
+                  }
+              }
+          }
+      }
+  }
+
+  &--one-way {
+    &.ui.grid {
+      > .row {
+          > [class*=column] {
+
+              @media (min-width: 576px) and (max-width: 767px) {
+                  &:nth-child(2) {
+                      max-width: var(--col-width-button) !important;
+                      width: 100% !important;
+                  }
+              }
+
+              @media (max-width: 575px) {
+                  &:first-child {
+                      margin-bottom: 0 !important;
+                  }
+              }
+          }
+      }
+    }
+  }
+}
+
+.start-end-date-picker {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #fff;
+  max-width: 100%;//280px
+  border-radius: 5px;
+  --height: 46px;
+  --to-text-width: 30px;
+
+  .react-datepicker-wrapper {
+      width: calc((100% - var(--to-text-width)) / 2);
+      border: 1px solid var(--white);
+
+      input {
+          width: 100%;
+          background: var(--white);
+          border: none;
+          line-height: var(--height);
+          height: var(--height);
+          padding-left: 10px;
+
+          @media (min-width: 480px) and (max-width: 575px) {
+              padding-left: 5px;
+              font-size: 12px;
+          }
+      }
+      &:first-child {
+          border-radius: 6px 0 0 6px;
+      }
+      &:last-child {
+          border-radius: 0 6px 6px 0;
+      }
+  }
+  .react-datepicker-popper {
+      z-index: 5;
+  }
+  .to-text {
+      width: var(--to-text-width);
+      text-align: center;
+      // background: var(--grey5);
+      border-left: 1px solid var(--search-panel-bg);
+      border-right: 1px solid var(--search-panel-bg);
+      line-height: var(--height);
+      height: var(--height);
+      color: var(--dark);
+      font-weight: 600;
+      text-transform: capitalize;
+  }
+
+
+
+
+  @media (max-width: 991px) {
+      max-width: 100%;
+  }
+
+  @media (min-width: 480px) and (max-width: 575px) {
+      --to-text-width: 20px;
+  }
+}
+
+//
+.date-select-popup-overlay {
+display: none;
+background: rgba(var(--dark-rgb), .7);
+position: fixed;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+margin: 0 calc(-50vw + 50%);
+z-index: 15;
+
+&.show {
+  display: block;
+}
+}
+.date-select-popup {
+z-index: 16;
+position: absolute;
+background: var(--white);
+max-width: 570px;
+width: 100%;
+border: 1px solid #D3DFE1;
+box-shadow: 0px 8px 14px rgba(12, 26, 54, 0.4);
+border-radius: 10px;
+overflow: hidden;
+left: 50%;
+transform: translateX(-50%);
+// position: fixed;
+// top: 0;
+// right: 0;
+// bottom: 0;
+// left: 0;
+// background-color: rgba(var(--dark-rgb), .7);
+// width: 100vw;
+// height: 100vh;
+// margin: 0 calc(-50vw + 50%);
+
+// min-height: 200px;
+
+display: none;
+
+&.show {
+  display: block;
+}
+// &__inner {
+  // background: var(--white);
+  // max-width: 570px;
+  // width: 100%;
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  // border: 1px solid #D3DFE1;
+  // box-shadow: 0px 8px 14px rgba(12, 26, 54, 0.4);
+  // border-radius: 10px;
+  // overflow: hidden;
+// }
+
+&__grid {
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+&__header {
+  padding: 14px 9px 20px !important;
+  background: rgba(var(--medium-blue-rgb), 0.08);
+
+  label {
+    color: var(--grey1) !important;
+    margin-bottom: 5px;
+    display: block;
+  }
+ 
+}
+&__body {
+  height: 315px;
+}
+
+
+&__footer {
+  button {
+    text-transform: capitalize !important;
+    &:not(:last-child) {
+      margin-right: 15px !important;
+    }
+  }
+}
+
+.DateRangePicker {
+  background: none;
+  background-color: var(--white);
+  padding-left: 6px;
+  border-radius: 6px;
+  border: 1px solid var(--white);
+
+  &:focus {
+    border-color: var(--medium-blue);
+    outline: none;
+  }
+
+  &--focus {
+    border-color: var(--medium-blue);
+  }
+}
+
+.DateInput {
+    width: 100%;
+    background-color: transparent !important;
+    width: calc(calc(100% - 20px) / 2);
+}
+.DateInput_input {
+    padding: 0 5px;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: var(--primary-font) !important;
+    background-color: transparent !important;
+    margin: 0;
+    min-height: 47px;
+    line-height: 47px;
+    border: none !important;
+    color: var(--dark) !important;
+    text-align: center;
+    &:focus {
+      outline: none;
+    }
+
+    &.DateInput_input__disabled{
+      font-style: normal;
+      opacity: 0.5;
+  }
+}
+
+.DateRangePickerInput  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent !important;
+    border: none !important;
+}
+.DateRangePickerInput_arrow {
+    width: 20px;
+    position: relative;
+
+    &:before {
+        content: '';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height:2px;
+        width: 6px;
+        margin: 0 auto;
+        position: absolute;
+        left: 50%;
+        background-color: var(--dark);
+        font-weight:600;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+    }
+}
+.DateRangePickerInput_arrow_svg,
+.DateInput_fang {
+    display: none;
+}
+&__depart {
+  .DateRangePicker_picker {
+    left: -25px !important;
+  }
+}
+&__return {
+  .DateRangePicker_picker {
+    left: -301px !important;
+    @media  (max-device-width: 800px) and (orientation: landscape) {
+      left: -301px !important;
+    }
+    @media (max-width: 767px) {
+      left: -155px !important;
+    }
+  }
+}
+
+.DateRangePicker_picker {
+  top: 69px !important;
+  width: 570px;
+
+  .DayPicker {
+    width: 100% !important;
+    box-shadow: none;
+    border-radius: 0;
+
+    > div {
+      > div {
+        width: 100% !important;
+      }
+    }
+    .DayPicker_transitionContainer {
+      width: 100% !important;
+    }
+    .CalendarMonth {
+      padding: 0 !important;
+    }
+
+    .CalendarMonthGrid_month__horizontal {
+      width: 264px;
+      padding: 0;
+
+      &:not(:last-child) {
+        margin-right: 24px;
+      }
+    }
+  }
+}
+.DayPickerNavigation_button {
+  --size: 23px;
+  --offset: 15px;
+
+  width: var(--size);
+  height: var(--size);
+  border-radius: 5px;
+  background: rgba(var(--medium-blue-rgb), 0.06);
+  border: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: var(--offset);
+
+  &:hover {
+    background: rgba(var(--medium-blue-rgb), 0.15);
+  }
+
+  &:first-child {
+    left: var(--offset);
+    @media(max-width:767px){
+      left: 25px;
+    }
+  }
+  &:last-child {
+    left: calc(100% - (var(--size) + var(--offset)));
+  }
+}
+
+.CalendarMonth_caption {
+  font-size: 14px;
+  line-height: 23px;
+  color: var(--medium-blue);
+  padding: 15px 0 7px;
+  border-bottom: 1px solid rgba(var(--dark-rgb), 0.08);
+  margin: 0 8px 40px;
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+.DayPicker_weekHeaders {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  left: 0;
+  margin: 0 !important;
+  top: 46px;
+  margin-left: 8px !important;
+}
+
+.DayPicker_weekHeader {
+  padding: 0 !important;
+  width: 264px;
+  position: static;
+
+  &:not(:last-child) {
+    margin-right: 24px;
+  }
+
+  ul {
+    margin: 0;
+
+    li {
+      width: calc(100% / 7) !important;
+      height: 37px;
+      line-height: 37px;
+      position: relative;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(var(--dark-rgb), 0.4);
+
+      small {
+        color: transparent;
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        font-weight: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        color: inherit;
+        text-align: center;
+        background: var(--white);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      $days: "S", "M", "T", "W" , "T", "F", "S";
+      @for $i from 1 through length($days) {
+        &:nth-child(#{$i})::after {
+          content: nth($days, $i)
+        }
+      }
+    }
+  }
+}
+
+.CalendarMonthGrid__horizontal {
+  left: 8px !important;
+}
+
+.CalendarMonth_table {
+  width: 100%;
+
+  td {
+    & ~ .CalendarDay__selected_span:first-child {
+      border-radius: 50% 0 0 50%;
+    }
+    &:not([class]) {
+
+      & + .CalendarDay__selected_span {
+        border-radius: 50% 0 0 50%;
+      }
+    }
+  }
+
+  .CalendarDay {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 19px;
+    color: rgba(var(--dark-rgb), 1);
+    height: 38px !important;
+    position: relative;
+    padding: 2px;
+    outline: none !important;
+
+    &:focus {
+      outline: none !important;
+    }
+
+    &__Date {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      outline: none !important;
+
+      &:focus {
+        outline: none !important;
+      }
+    }
+
+    &__hovered_span,
+    &__hovered_span:hover,
+    &__hovered_span:active {
+      background: rgba(var(--medium-blue-rgb), .15) !important;
+      color: var(--dark);
+    }
+
+    // &:not(.CalendarDay__selected):not(.CalendarDay__selected_span) {
+    //   color: rgba(var(--dark-rgb), .25);
+    // }
+
+    &.CalendarDay__blocked_out_of_range {
+      color: rgba(var(--dark-rgb), .25);
+    }
+    // radial-gradient(ellipse, rgba(var(--medium-blue-rgb), .15) 60%, rgba(var(--medium-blue-rgb), .15) 65%, rgba(255,255,255, 1) 50%)
+    // radial-gradient(ellipse, rgba(var(--medium-blue-rgb), 0) 60%, rgba(var(--medium-blue-rgb), 0) 65%, rgba(255,255,255, 1) 50%)
+
+    &.CalendarDay__selected {
+      background: rgba(var(--medium-blue-rgb), .15) !important;
+      color: var(--white);
+
+      .CalendarDay__Date {
+        background-color: var(--dark);
+        border-radius: 50%;
+        position: relative;
+      }
+      // background-image: radial-gradient(ellipse, var(--dark) 60%, var(--dark) 65%, rgba(var(--medium-blue-rgb), 0.15) 50%);
+      // background-color: var(--white) !important;
+      // position: relative;
+
+      // &::after {
+      //   content: '';
+      //   display: block;
+      //   position: absolute;
+      //   z-index: -1;
+      //   height: 100%;
+      //   width: 50%;
+      //   border-radius: 50%;
+      // }
+
+    }
+
+    &.CalendarDay__selected_span {
+      background: rgba(var(--medium-blue-rgb), 0.15) !important;
+      color: var(--dark) !important;
+
+      &:first-child {
+        border-radius: 50% 0 0 50%;
+      }
+
+      &:last-child {
+        border-radius: 0 50% 50% 0;
+      }
+
+      // & + td:not([class]) {
+      //   border-radius: 0 50% 50% 0;
+      //   position: relative;
+
+      //   &::before {
+      //     content: '';
+      //     position: absolute;
+      //     top: 0;
+      //     bottom: 0;
+      //     left: -100%;
+      //     width: 100%;
+      //     height: 100%;
+      //     // background: var(--white);
+      //     background-image: radial-gradient(ellipse, rgba(var(--medium-blue-rgb), 0) 70%, rgba(var(--medium-blue-rgb), 0) 72%, white 50%);
+      //     background-clip: padding-box;
+      //     clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+      //     pointer-events: none
+      //   }
+      // }
+
+      & ~ .CalendarDay__selected_span:last-child {
+        border-radius: 0 50% 50% 0;
+      }
+    }
+
+    @mixin rangeArrows {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 2px;
+      border-width: 5px 5.5px;
+      border-style: solid;
+      border-color: transparent;
+      z-index: 1;
+    }
+
+    &.CalendarDay__selected_start {
+      // border-radius: 50% 0 0 50%;
+      border-top-left-radius: 50%;
+      border-bottom-left-radius: 50%;
+
+      .CalendarDay__Date {
+        &::before {
+          @include rangeArrows;
+          left: -12.5px;
+          border-right-color: var(--dark);
+        }
+      }
+    }
+
+    &.CalendarDay__selected_end {
+      // border-radius: 0 50% 50% 0;
+      border-top-right-radius: 50%;
+      border-bottom-right-radius: 50%;
+
+      .CalendarDay__Date {
+        &::after {
+          @include rangeArrows;
+          right: -12.5px;
+          border-left-color: var(--dark);
+        }
+      }
+    }
+
+  }
+}
+
+@media (max-width: 575px) {
+  max-width: 280px;
+
+  .DayPickerNavigation {
+    max-width: 290px;
+  }
+  &__grid {
+    &.ui.grid {
+      > .row {
+        [class*=column] {
+          &.date-select-popup {
+            &__depart,
+            &__return {
+              padding: {
+                left: .5rem !important;
+                right: .5rem !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  &--one-way {
+    .date-select-popup {
+      &__grid {
+        &.ui.grid {
+          > .row {
+            [class*=column] {
+              width: 100% !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  &__header {
+    padding: 14px 9px 20px !important;
+    @media(max-width:767px){
+      padding: 14px 0px 20px !important;
+    
+      }
+    .date-select-popup {
+      &__depart,
+      &__return {
+        padding: {
+          left: .5rem !important;
+          right: .5rem !important;
+        }
+
+        > label {
+          font-size: 11px;
+        }
+      }
+    }
+  }
+  .DateRangePicker {
+    padding-left: 0;
+    &_picker {
+      top: 55px !important;
+      .DayPicker {
+        .CalendarMonthGrid_month__horizontal {
+          width: 280px;
+
+          &:not(:last-child) {
+            margin: 0 9px !important;
+          }
+        }
+      }
+    }
+  }
+
+  .DayPickerNavigation_button {
+    &:last-child {
+      left: calc(100% - (var(--size)));
+    }
+  }
+  .DayPicker_weekHeader {
+    width: 280px;
+    margin-left: 10px;
+  }
+  .DateInput_input {
+    font-size: 9px;
+    min-height: 35px;
+    line-height: 35px;
+    padding:0 1px;
+  }
+}
+
+.DayPickerKeyboardShortcuts_buttonReset {
+  display: none;
+}
+}
+
+.mappageDatePicker  {
+  #departEndDate , #returnEndDate{
+    text-align: center !important;
+  }
+  .DateRangePickerInput_clearDates{
+    margin: 0;
+    top: 18px;
+    padding: 0px;
+    line-height: 0;
+    width: 28px;
+    height: 28px;
+    right: 5px;
+    &:hover{
+      background-color: #d2d0d09c;
+    }
+  }
+}
+.DayPickerNavigation_button__disabled{
+  display: none !important;     
+}
