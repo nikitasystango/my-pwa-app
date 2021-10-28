@@ -31,7 +31,6 @@ export default function MainApp() {
 
 
   const reloadAppHandler = (waitingWorker) => {
-    console.log('step2');
     waitingWorker
       && waitingWorker.postMessage
       && waitingWorker.postMessage({ type: 'SKIP_WAITING' });
@@ -40,15 +39,12 @@ export default function MainApp() {
   };
   let refreshing= false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    console.log('event called ', refreshing);
     if (refreshing) return;
     refreshing = true;
-      console.log('test issue case');
       window.location.reload();
   });
 
   const onServiceWorkerUpdate = (registration) => {
-    console.log('new version found 1234');
     // setWaitingWorker(registration.waiting);
     // setNewVersionAvailable(true);
     reloadAppHandler(registration.waiting);
@@ -64,17 +60,13 @@ export default function MainApp() {
   }, []);
 
   setTimeout(() => {
-    // console.log('0101010101')
     delay(1);
   }, 10000);
 
   function delay(count) {
-    // console.log('7777777777777')
     if ('serviceWorker' in navigator) {
-      console.log('step1');
       navigator.serviceWorker.getRegistrations().then((registrationsArray) => {
         if (registrationsArray && registrationsArray[0] && registrationsArray[0].waiting) {
-          // console.log('step2')
           onServiceWorkerUpdate(registrationsArray[0]);
         } else if (registrationsArray && registrationsArray[0]) {
           registrationsArray[0]
@@ -83,12 +75,10 @@ export default function MainApp() {
               registration.onupdatefound = () => {
                 const installingWorker = registration.installing;
                 if (installingWorker == null) {
-                  // console.log('step4')
                   return;
                 }
                 installingWorker.onstatechange = () => {
                   if (installingWorker.state === 'installed') {
-                    // console.log('step5')
                     if (navigator.serviceWorker.controller) {
                       onServiceWorkerUpdate(registration);
                     }
