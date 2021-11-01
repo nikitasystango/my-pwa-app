@@ -61,6 +61,25 @@ registerRoute(
   })
 );
 
+
+registerRoute(
+  // Add in any other file extensions or routing criteria as needed.
+  ({ url }) => new RegExp('(https:\/\/hb4rj6hzo7\.execute-api\.eu-west-2\.amazonaws\.com\/staging)'),
+  new StaleWhileRevalidate({
+    cacheName: 'routes-api-cache',
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 20,
+        purgeOnQuotaError: true,
+        maxAgeSeconds: 86400 * 1 // 1 Day
+       }),
+    ],
+  })
+);
+
+
+
+
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
