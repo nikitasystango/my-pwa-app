@@ -26,6 +26,7 @@ import 'react-dates/initialize'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import './index.scss'
+import { setInLocalStorage } from 'utils/helpers';
 
 export default function MainApp() {
 
@@ -41,7 +42,8 @@ export default function MainApp() {
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (refreshing) return;
     refreshing = true;
-      window.location.reload();
+    setInLocalStorage('isNewUpdate', true)
+      // window.location.reload();
   });
 
   const onServiceWorkerUpdate = (registration) => {
