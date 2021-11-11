@@ -330,6 +330,8 @@ const updateExistingEventId = () => {
 
   const updateSearchParams = (paramsData) => {
     const { getFlightAvailability } = props
+    const userValue = JSON.parse(retrieveFromLocalStorage('userDetails'))
+    const airlineTier = accessToken && airlineMembership ? airlineMembership : userValue && userValue.airline_memberships && userValue.airline_memberships.length && userValue.airline_memberships[0].membership ? userValue.airline_memberships[0].membership : Texts.DEFAULT_AIRLINE_TIER
     let data = {
       numberOfPassengers: 1,
       toggleClass: {
@@ -338,7 +340,7 @@ const updateExistingEventId = () => {
         first: paramsData.first === 'true',
         business: paramsData.business === 'true'
       },
-      tier: airlineMembership ? airlineMembership : Texts.DEFAULT_AIRLINE_TIER,
+      tier: airlineTier,
       sourceCode: paramsData.dId,
       destinationCode: paramsData.aId,
       airlineCode: selectedAirlineCode ? selectedAirlineCode : Texts.DEFAULT_AIRLINE_TIER_CODE
