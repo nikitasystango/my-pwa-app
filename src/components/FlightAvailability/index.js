@@ -29,6 +29,11 @@ import ResponsiveCreateAlert from './responsiveCreateAlert'
 import AlertPopUp from 'components/SearchPanel/alertPopUp'
 import FlightsHeader from './flightsHeader'
 import { AlertBellIcon } from 'utils/svgs'
+import Texts from 'constants/staticText'
+import AirlineMembershipModal from 'common/Modals/airlineMembershipModal'
+import intl from 'utils/intlMessage'
+import { pushNotification } from 'utils/notifications'
+import toustifyMessages from 'constants/messages/toustifyMessages'
 
 var header
 var sticky
@@ -42,10 +47,11 @@ const Home = (props) => {
     pageAnalytics,
     updateReducerState,
     userActionAudit,
-    searchPanel: { ticketsSearchBox, selectedAirlineCode, journeyType, availablePassengerCabinClasses },
+    searchPanel: { ticketsSearchBox, selectedAirlineCode, journeyType, availablePassengerCabinClasses, airlineMembership },
     myAlerts: { cancellingAlert },
     getAlertAvailability,
-    signup, user
+    signup, user,
+    common: { airlineMembershipToggle }
   } = props
   const { isEmailVerified } = user || ''
   const { numberOfPassengers } = ticketsSearchBox
@@ -84,6 +90,16 @@ const Home = (props) => {
     }
     // eslint-disable-next-line
   }, [flightsAvailability])
+
+  useEffect(()=> {
+    const { airlineMemberships } = user || {}
+    if(airlineMemberships && !airlineMemberships.length) {
+      updateReducerState('common', 'airlineMembershipToggle', true)
+    }else{
+      updateReducerState('common', 'airlineMembershipToggle', false)
+    }
+    // eslint-disable-next-line
+  }, [user])
 
   // To filter cabin class according to passenger count change
 const handleCabinClass = (flightsAvailabilityList) => {
@@ -172,7 +188,7 @@ const updateExistingEventId = () => {
         first: toggalClasses.first,
         business: toggalClasses.business
       },
-      tier: extractedParams.airlineMembership,
+      tier: airlineMembership ? airlineMembership : Texts.DEFAULT_AIRLINE_TIER,
       sourceCode: extractedParams.dId,
       destinationCode: extractedParams.aId,
       classFilter: true
@@ -255,6 +271,9 @@ const updateExistingEventId = () => {
   }
 
   useEffect(() => {
+    if(!accessToken) {
+      pushNotification(intl(toustifyMessages.currentAirlineMembershipText), 'success', 'TOP_CENTER', 5000)
+    }
     const scrollCallBack = window.addEventListener('scroll', () => {
       header = document.getElementById('myHeader')
       sticky = header?.offsetTop
@@ -295,12 +314,9 @@ const updateExistingEventId = () => {
       extractedParams &&
       extractedParams.aId &&
       extractedParams.aPlace &&
-      extractedParams.aCode &&
-      extractedParams.airlineMembership &&
       extractedParams.dId &&
       extractedParams.dPlace &&
-      extractedParams.jType &&
-      extractedParams.airlineSelected
+      extractedParams.jType 
     ) {
        updateSearchParams(extractedParams)
     } else {
@@ -322,12 +338,12 @@ const updateExistingEventId = () => {
         first: paramsData.first === 'true',
         business: paramsData.business === 'true'
       },
-      tier: paramsData.airlineMembership,
+      tier: airlineMembership ? airlineMembership : Texts.DEFAULT_AIRLINE_TIER,
       sourceCode: paramsData.dId,
       destinationCode: paramsData.aId,
-      airlineCode: paramsData.aCode
+      airlineCode: selectedAirlineCode ? selectedAirlineCode : Texts.DEFAULT_AIRLINE_TIER_CODE
     }
-    if(paramsData.aCode === 'VA') {
+    if(selectedAirlineCode === 'VA') {
       data = {
         ...data,
         toggalClasses: {
@@ -341,8 +357,6 @@ const updateExistingEventId = () => {
     userActionAudit(details)
     getFlightAvailability(data)
     let dataJson = {
-      selectedAirline: paramsData.airlineSelected,
-      airlineMembership: paramsData.airlineMembership,
       departure: {
         name: paramsData.dPlace,
         value: paramsData.dId
@@ -351,9 +365,7 @@ const updateExistingEventId = () => {
         name: paramsData.aPlace,
         value: paramsData.aId
       },
-      membership: paramsData.airlineMembership,
       journeyType: paramsData.jType,
-      selectedAirlineCode: paramsData.aCode,
       ticketsSearchBox: {
         numberOfPassengers: Number(paramsData.numberOfPassengers),
         numberOfInfantsOnLap: 0,
@@ -369,7 +381,7 @@ const updateExistingEventId = () => {
         business: paramsData.business === 'true' ? true : false
       }
     }
-    if(paramsData.aCode === 'VA') {
+    if(selectedAirlineCode === 'VA') {
       dataJson = {
         ...dataJson,
         toggalClasses: {
@@ -381,15 +393,12 @@ const updateExistingEventId = () => {
     }
     if (
       dataJson &&
-      dataJson.selectedAirline &&
-      dataJson.airlineMembership &&
       dataJson.departure &&
       dataJson.arrival &&
-      dataJson.selectedAirlineCode &&
       dataJson.ticketsSearchBox
     ) {
       Object.keys(dataJson).map((item) => (
-        updateReducerState('searchPanel', item, dataJson[item])
+         updateReducerState('searchPanel', item, dataJson[item])
       ))
     }
   }
@@ -562,6 +571,7 @@ const updateExistingEventId = () => {
               activeAirlineClass={activeAirlineClass}
               availablePassengerCabinClasses={availablePassengerCabinClasses}
               setOnRunTimeUpdate={setOnRunTimeUpdate}
+              numberOfPassengers={numberOfPassengers}
             />
             <div className="full-width flight-availability-page__calender-wrapper" onMouseEnter={()=> updateReducerState('flights', 'isCalendarHover', true)}>
               <div className="flight-availability-page__calender-wrapper-inner">
@@ -708,6 +718,16 @@ const updateExistingEventId = () => {
         handlerToggalAlertModal={() => setToggalAlertModal(!toggalAlertModal)}
         updateReducerState={updateReducerState}
       />
+      {airlineMembershipToggle && !flightsLoading &&
+      <AirlineMembershipModal
+        airlineMembershipToggle={airlineMembershipToggle}
+        searchPanel={props.searchPanel}
+        getAirlineList={props.getAirlineList}
+        updateReducerState={updateReducerState}
+        updateProfileDetails={props.updateProfileDetails}
+        user={user}
+      />
+      }
     </>
   )
 }
@@ -723,7 +743,9 @@ Home.propTypes = {
   userActionAudit: PropTypes.func,
   searchPanel: PropTypes.object,
   myAlerts: PropTypes.object,
-  getAlertAvailability: PropTypes.func
+  getAlertAvailability: PropTypes.func,
+  common: PropTypes.object,
+  getAirlineList: PropTypes.func
 }
 
 export default Home

@@ -214,7 +214,14 @@ const SeoTexts = {
     DELTA_DESCRIPTION: intl(seoMessages.seoDeltaAirlinesDesc),
     DELTA_CANONICAL: `${baseURL}${AppRoutes.DELTA_AIRLINES}/`,
     DELTA_OG_IMAGE_URL: `${baseURL}${deltaAirlines}`,
-    DELTA_TWITTER_IMAGE_URL: `${baseURL}${deltaAirlines}`
+    DELTA_TWITTER_IMAGE_URL: `${baseURL}${deltaAirlines}`,
+
+    // New profile page
+    NEW_PROFILE_TITLE: intl(seoMessages.seoNewProfilePageTitle),
+    NEW_PROFILE_DESCRIPTION: intl(seoMessages.seoNewProfilePageDesc),
+    NEW_PROFILE_CANONICAL: `${baseURL}${AppRoutes.PROFILE_DETAILS}/`,
+    NEW_PROFILE_OG_IMAGE_URL: `${baseURL}${LogoFull}`,
+    NEW_PROFILE_TWITTER_IMAGE_URL: `${baseURL}${LogoFull}`
 }
 
 export default SeoTexts

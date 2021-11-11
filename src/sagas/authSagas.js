@@ -65,7 +65,7 @@ function* handleLogin(action) {
           history.push(path)
         }
       } else {
-        history.push(AppRoutes.HOME)
+        history.push(AppRoutes.PROFILE_DETAILS)
       }
       // window.location.reload()
     }
@@ -94,7 +94,7 @@ function* handleSignUp(action) {
       const userId = response?.headers?.location?.split('/')?.pop()
       yield put(signupSuccess(response.data))
       yield put(getProfileDetails(userId))
-      history.push(AppRoutes.THANK_YOU)
+      history.push(AppRoutes.PROFILE_DETAILS)
     }
   } catch (error) {
     if (error && error.response && error.response.data && error.response.data.error) {
@@ -125,12 +125,8 @@ function* facebookLogin(action) {
         yield put(getPreSignedUrlAuth({ token: response.headers.accesstoken, image, type: 'fb', userId, isFirstTimeLogin }))
       } else {
         yield put(facebookLoginRequestSuccess(userId))
-        // yield put(getProfileDetails(userId))
+         yield put(getProfileDetails(userId))
         isFirstTimeLoginHandler(isFirstTimeLogin)
-      }
-      if(isFirstTimeLogin) {
-        setInLocalStorage('firstTimeSignup', 'true')
-        history.push(AppRoutes.THANK_YOU)
       }
     }
   } catch (error) {
@@ -166,10 +162,6 @@ function* googleLogin(action) {
         yield put(getProfileDetails(userId))
         isFirstTimeLoginHandler(isFirstTimeLogin)
       }
-      if(isFirstTimeLogin) {
-        setInLocalStorage('firstTimeSignup', 'true')
-        history.push(AppRoutes.THANK_YOU)
-      }
     }
   } catch (error) {
     if (error && error.response && error.response.data && error.response.data.error) {
@@ -199,10 +191,6 @@ function* appleLogin(action) {
         yield put(appleLoginRequestSuccess(userId))
         yield put(getProfileDetails(userId))
         isFirstTimeLoginHandler(isFirstTimeLogin)
-        if(isFirstTimeLogin) {
-          setInLocalStorage('firstTimeSignup', 'true')
-          history.push(AppRoutes.THANK_YOU)
-        }
     }
   } catch (error) {
     if (error && error.response && error.response.data && error.response.data.error) {

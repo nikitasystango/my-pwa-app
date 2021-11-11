@@ -317,7 +317,7 @@ export const openCalendarPageHandler = (locationDetail, flightDetails, airportsW
 export const isFirstTimeLoginHandler = (value) => {
   if (value) {
     setInLocalStorage('firstTimeSignup', 'true')
-    history.push(AppRoutes.THANK_YOU)
+    history.push(AppRoutes.PROFILE_DETAILS)
   } else {
     history.push(AppRoutes.HOME)
   }

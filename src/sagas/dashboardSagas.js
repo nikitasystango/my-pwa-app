@@ -19,8 +19,6 @@ import {
   TOGGLE_EMAILS_NOTIFICATION,
   DELETE_PHONE_NUMBER,
   CANCEL_DOWNGRADE_SUBSCRIPTION,
-  GET_CITY_LIST, 
-  GET_STATE_LIST,
   GET_COUNTRIES_LIST
 } from 'actions/Dashboard/actionTypes'
 import { all, put, call, takeLatest, select, takeEvery, take } from 'redux-saga/effects'
@@ -47,9 +45,7 @@ import {
   deletePhoneNumberSuccess, deletePhoneNumberFailed,
   cancelDowngradeSubscriptionSuccess,
   cancelDowngradeSubscriptionFailed,
-  getCountriesListFailed, getCountriesListSuccess,
-  getStateListSuccess, getStateListFailed,
-  getCityListSuccess, getCityListFailed
+  getCountriesListFailed, getCountriesListSuccess
 } from 'actions/Dashboard'
 import { patchRequestRuby, getRequestRuby, putRequestRuby, deleteRequestRuby, postRequestRuby } from './request'
 import URls from 'constants/urls'
@@ -60,6 +56,7 @@ import { resetAuthState } from 'actions/Auth'
 import { AppRoutes } from 'constants/appRoutes'
 import intl from 'utils/intlMessage'
 import toustifyMessages from 'constants/messages/toustifyMessages'
+import { updateReducerAirlineData } from 'utils/commonFunction'
 
 // ********** Profile Picture Remove**********
 function* removeProfilePicture(action) {
@@ -138,11 +135,10 @@ function* updateProfileDetails(action) {
     if (response && response.status && response.status === 204) {
       yield put(getProfileDetailsUser(user?.id))
       yield put(handleUpdateProfileSuccess())
+      updateReducerState('common', 'airlineMembershipToggle', false)
       if(onboardingExistingUser && onboardingExistingUser !== null) {
         yield put(updateReducerState('pages', 'toggleSignupOnBoardingModal', false))
       }
-      // To close update profile modal once user details stored successfully
-      yield put(updateReducerState('pages', 'toggleUpdateProfileDetailsModal', false))
     }
   } catch (error) {
     if (error?.response?.data?.error) {
@@ -211,9 +207,11 @@ function* getProfileDetails(action) {
         flightsTakenAnnually: userValue?.flights_taken_annually || null,
         gender: userValue?.gender || null,
         travellingAbroad: userValue?.travelling_abroad_in_next_12_months || null,
-        redeemedCouponIds: userValue?.redeemed_coupon_ids || null
+        redeemedCouponIds: userValue?.redeemed_coupon_ids || null,
+        airlineMemberships: userValue?.airline_memberships || []
       }
       yield put(updateReducerState('auth', 'user', data))
+      updateReducerData(data?.airlineMemberships)
       yield put(getProfileDetailsSuccess(data))
     }
   } catch (error) {
@@ -225,6 +223,15 @@ function* getProfileDetails(action) {
     yield put(resetAuthState())
     navigateToRespectivePage(AppRoutes.HOME)
     yield put(getProfileDetailsFailed())
+  }
+}
+
+const updateReducerData = (airlineMemberships) => {
+  if(airlineMemberships && airlineMemberships.length) {
+    const dataJson = updateReducerAirlineData(airlineMemberships)
+    Object.keys(dataJson).map((item) => (
+      updateReducerState('searchPanel', item, dataJson[item])
+    ))
   }
 }
 
@@ -720,37 +727,6 @@ function* watchGetCountriesList() {
   yield takeLatest(GET_COUNTRIES_LIST, getCountries)
 }
 
-// Get state list
-function* getStatesList() {
-  try {
-    const response = yield call(getRequestRuby, URls.GET_STATE_LIST)
-    if (response?.status === 200 && response?.data) {
-      yield put(getStateListSuccess(response.data))
-    }
-  } catch (error) {
-    yield put(getStateListFailed())
-  }
-}
-
-function* watchGetStateList() {
-  yield takeLatest(GET_STATE_LIST, getStatesList)
-}
-
-// Get city list
-function* getCitiesList() {
-  try {
-    const response = yield call(getRequestRuby, URls.GET_CITY_LIST)
-    if (response?.status === 200 && response?.data) {
-      yield put(getCityListSuccess(response.data))
-    }
-  } catch (error) {
-    yield put(getCityListFailed())
-  }
-}
-
-function* watchGetCityList() {
-  yield takeLatest(GET_CITY_LIST, getCitiesList)
-}
 
 export default function* dashboardSagas() {
   yield all([
@@ -774,8 +750,6 @@ export default function* dashboardSagas() {
     watchToggleEmailsNotification(),
     watchDeletePhoneNumber(),
     watchCancelDowngradeSubscription(),
-    watchGetCountriesList(),
-    watchGetStateList(),
-    watchGetCityList()
+    watchGetCountriesList()
   ])
 }

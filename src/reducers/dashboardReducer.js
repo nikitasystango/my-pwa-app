@@ -48,7 +48,7 @@ import {
   TOGGLE_EMAILS_NOTIFICATION, TOGGLE_EMAILS_NOTIFICATION_SUCCESS, TOGGLE_EMAILS_NOTIFICATION_FAILED,
   DELETE_PHONE_NUMBER, DELETE_PHONE_NUMBER_SUCCESS, DELETE_PHONE_NUMBER_FAILED,
   CANCEL_DOWNGRADE_SUBSCRIPTION, CANCEL_DOWNGRADE_SUBSCRIPTION_SUCCESS, CANCEL_DOWNGRADE_SUBSCRIPTION_FAILURE,
-  GET_COUNTRIES_LIST_SUCCESS, GET_STATE_LIST_SUCCESS, GET_CITY_LIST_SUCCESS
+  GET_COUNTRIES_LIST_SUCCESS
 } from 'actions/Dashboard/actionTypes'
 
 const initialState = {
@@ -656,21 +656,6 @@ const getCountryListSuccess = (state, action) => {
   }
 }
 
-const getCitiesListSuccess = (state, action) => {
-  const { data } = action.payload || ''
-  return {
-    ...state,
-    citiesList: data?.cities || []
-  }
-}
-
-const getStateListSuccess = (state, action) => {
-  const { data } = action.payload || ''
-  return {
-    ...state,
-    statesList: data?.states || []
-  }
-}
 
 const dashboardReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -740,8 +725,6 @@ const dashboardReducer = (state = initialState, action) => {
     case CANCEL_DOWNGRADE_SUBSCRIPTION_SUCCESS: return cancelDowngradeSubscriptionSuccess(state, action)
     case CANCEL_DOWNGRADE_SUBSCRIPTION_FAILURE: return cancelDowngradeSubscriptionFailed(state, action)
     case GET_COUNTRIES_LIST_SUCCESS: return getCountryListSuccess(state, action)
-    case GET_STATE_LIST_SUCCESS: return getStateListSuccess(state, action)
-    case GET_CITY_LIST_SUCCESS: return getCitiesListSuccess(state, action)
     default: return state
   }
 }

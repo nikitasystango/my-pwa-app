@@ -7,12 +7,15 @@ import {
 } from 'actions/SearchPanel'
 import MapView from 'components/MapView'
 import { userActionAudit } from 'actions/FlightAvailability'
+import { updateProfileDetails } from 'actions/Dashboard'
 
 const mapStateToProps = state => ({
   mapData: state.mapData,
   searchPanel: state.searchPanel,
   flightsAvailability: state.flights.flightsAvailability,
-  isUserBronzeMember: state.auth.user.isUserBronzeMember
+  isUserBronzeMember: state.auth.user.isUserBronzeMember,
+  common: state.common,
+  user: state.auth.user
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -23,7 +26,8 @@ const mapDispatchToProps = dispatch => ({
   updateToggalClassesState: (name, value) => dispatch(updateToggalClassesState(name, value)),
   userActionAudit: (data) => dispatch(userActionAudit(data)),
   getSouDesPossibleRoutes: (data) => dispatch(getSouDesPossibleRoutes(data)),
-  getSouDesLocations: (data) => dispatch(getSouDesLocations(data))
+  getSouDesLocations: (data) => dispatch(getSouDesLocations(data)),
+  updateProfileDetails: (data) => dispatch(updateProfileDetails(data))
 })
 
 export default connect(

@@ -8,7 +8,8 @@ const initialState = {
   testimonialsArray: [],
   pageContentLoading: false,
   pageContentDetails: null,
-  updateUserNameLoading: false
+  updateUserNameLoading: false,
+  airlineMembershipToggle: false
 }
 
 const getTestimonials = (state, action) => ({

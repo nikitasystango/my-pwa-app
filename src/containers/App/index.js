@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { PrivateRoute } from 'utils/privateRoute'
-import { AppRoutes } from 'constants/appRoutes'
+import { AppRoutes } from '../../constants/appRoutes'
 import HomeContainer from 'containers/Home'
 // import MapView from 'containers/MapView'
 import AuthContainer from 'containers/Auth'
@@ -17,7 +17,7 @@ import Pages from 'containers/Pages'
 import ProxyLoginComponent from 'containers/ProxyLogin'
 import history from 'utils/history'
 import SubscriptionThankyouPage from 'containers/SubscriptionThankyouPage'
-import { retrieveFromLocalStorage, removeFromLocalStorage } from 'utils/helpers'
+import ProfileDetails from 'containers/ProfileDetails'
 
 // Lazy load heavy dom components
 const MapView = React.lazy(() => import('containers/MapView'))
@@ -31,25 +31,12 @@ export default function App() {
   useEffect(() => {
     history.listen((location, action) => {
       // check for sw updates on page change
-      const isNewUpdate = retrieveFromLocalStorage('isNewUpdate')
-      if(isNewUpdate){
-        handleCacheClear()
-      }
+      navigator.serviceWorker
+        .getRegistrations()
+        .then((regs) => regs.forEach((reg) => reg.update()))
     })
     // eslint-disable-next-line
   }, [window.location.pathname])
-
-  function handleCacheClear() {
-          caches.keys().then(function (names) {
-            // delete the available cache for
-            caches.delete('workbox-precache')
-            caches.delete('images')
-            caches.delete('api-cache')
-          })
-          console.log('isNewUpdateisNewUpdate');
-          removeFromLocalStorage('isNewUpdate')
-          window.location.reload()
-  }
 
   return (
     <Fragment>
@@ -361,7 +348,11 @@ export default function App() {
             component={SubscriptionThankyouPage}
         />
         {/* Subscription thankyou  URL end */}
-
+        <PrivateRoute
+            exact
+            path={AppRoutes.PROFILE_DETAILS}
+            component={ProfileDetails}
+        />
         <PrivateRoute
             exact
             path={AppRoutes.CANCEL_ELITE_MEMBER}

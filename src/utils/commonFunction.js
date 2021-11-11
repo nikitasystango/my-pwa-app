@@ -3,6 +3,8 @@ import { virginAtlanticAvailableClass, BritishAirwaysAvailableClass } from 'cons
 import { AppRoutes } from 'constants/appRoutes'
 import { getRedirectionURL, setInLocalStorage } from './helpers'
 import history from 'utils/history'
+import Texts from 'constants/staticText'
+import { airlineName } from 'constants/globalConstants'
 
 
   //  filter nested object
@@ -185,28 +187,21 @@ export const existsArray = (value, array) => array.some(e => e === value)
   // Update class in query params
  export const updateQueryParams = (searchPanel, name, value) => {
     const {
-      toggalClasses,
-      airlineMembership,
       selectedAirline,
+      toggalClasses,
       departure,
       arrival,
       calendarSupport,
-      selectedAirlineCode,
       journeyType,
-      membership,
       ticketClass,
       ticketsSearchBox: { numberOfPassengers }
     } = searchPanel
       let data = {
-        selectedAirline,
         departure,
         arrival,
-        selectedAirlineCode,
-        airlineMembership,
         numberOfPassengers,
         ticketClass,
         toggalClasses,
-        membership,
         journeyType,
         calendarSupport
       }
@@ -251,4 +246,17 @@ export const removeFalsyElement = object => {
     }
   })
   return newObject
+}
+
+export const updateReducerAirlineData = (airlineMemberships) => {
+  // Store airlineMemberships data in all airline's state [currently we have done only for BA]
+  const airlineBA = airlineMemberships && airlineMemberships.length ? airlineMemberships[0].membership : Texts.DEFAULT_AIRLINE_TIER_CODE
+  const airlineCode = airlineMemberships && airlineMemberships.length && airlineMemberships[0].airline === airlineName.BRITISH_AIRWAYS ? 'BA' : 'VA'
+  const dataJson = {
+    airlineMembership: airlineBA,
+    membership: airlineBA || null,
+    selectedAirlineCode: airlineCode,
+    selectedAirline: `${airlineCode}_${airlineBA}`
+  }
+ return dataJson
 }

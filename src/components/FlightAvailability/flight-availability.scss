@@ -37,7 +37,6 @@
         padding: 0;
         border-radius: 6px;
         position: relative;
-        z-index: 110;
 
         @media (max-width: 1199px) {
           padding: 0 0 .5rem;
@@ -865,7 +864,7 @@
                 background: #F5F8F9 !important;
                &.inactive-cabin-class{
                 background: #c9c9c9 !important;
-                opacity: 0.4;
+                opacity: 0.3;
                 padding: 9px 8px !important;
                 svg {
                   rect{
@@ -896,6 +895,17 @@
 
                 &:hover {
                   opacity: .75;
+                }
+                &.alertBoxClasses{
+                  position: relative;
+                  .__react_component_tooltip{
+                    top: -28px!important;
+                    width: 250px;
+                    position: absolute !important;
+                    left: 50% !important;
+                    transform: translate(-50%, 0);
+                    z-index: 999;
+                  }
                 }
             }
 
@@ -1086,6 +1096,11 @@
         max-width: 915px;
         width: 100%;
         margin: 0 auto;
+        .whereFromDropdown , .whereToDropdown {
+          div[class*="menu"]  {
+            width:245px;            
+          }
+        }
       }
       will-change: transform;
       padding-top: 10px;
@@ -1839,35 +1854,106 @@
      transform: translateY(0%);
    }
    .cst-popup__close{
-    fill: #ffffff3b;
-    stroke: #ffffff5c;
-    --icon-color: #ffffff08;
+    fill: #03B2D8;
+    stroke: #03B2D8;
+    --icon-color: #03B2D8;
+    z-index: 9;
+    @media(max-width:767px){
+      margin-right: 12px;
+      }
    }
-  max-width: 500px !important;
+  max-width: 800px !important;
   background-image: url("../FlightAvailability/assets/su-popup-bg.png") !important; 
-  height: 470px; 
+  height: 600px; 
   background-position: center; 
   background-repeat: no-repeat; 
-  background-size: cover; 
+  background-size: contain; 
   background-color: unset !important;
-  bottom: 0px;
+  bottom: -20px;
   transform: translateY(100%);
   transition:2s ease all;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0!important;
+  @media(max-width:767px){
+  background-image: url("../FlightAvailability/assets/su-popup-bg-mobile.png") !important; 
+  }
   .content{
     margin: 0 !important;
-  background: unset !important;
-  background-color: unset !important;
+    background: unset !important;
+    background-color: unset !important;
+    .bottom-content{
+      position: absolute;
+      bottom: 0px;
+      left:50%;
+      transform: translate(-50%, -50%);
+      @media(max-width:767px){
+        bottom: -31px;
+        }
+    }
+    .top-content{
+      display: flex;
+      justify-content: space-around;
+      position: relative;
+      top:-15px;
+      .desktop-only{
+        display: flex;
+        justify-content: space-around;
+        position: relative;
+        width: 100%;
+        top: 10px;
+      }
+      .mobile-only{
+        display:none;
+      }
+      @media(max-width:767px){
+        .desktop-only{
+          display:none
+        }
+        .mobile-only{
+          display: flex;
+          justify-content: space-around;
+          position: relative;
+          align-items: center;
+          top: 0px;
+          width: 100%;
+          p{
+            color: #03B2D8;
+            border-bottom: 2px solid #31c0df;
+            line-height: 25px;
+            margin-bottom: 0;
+          }
+          p.inbound-text{
+            color:#97ADB6;
+            border-bottom:unset;
+          }
+        }
+      }
+      p{
+        font-family: Open Sans;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 20px;
+        color: #132C52;
+        svg{
+          position: relative;
+          top: 2px;
+          left: -5px;
+        }
+      }
+    }
+    button{
+      width: 222px !important;
+    }
   .co-pass {
-    padding-left: 5px;
+    padding-left: 15px;
   }
     h2{
       font-weight: bold;
       font-size: 21px;
       line-height: 26px;
       text-align: center;
-      color: #FFFFFF;
+      color: #132C52;
     }
     .signin-signup-form.ui.form{
       .error-message{
@@ -1882,6 +1968,14 @@
       }
     }
     .signin-signup-form.ui.form .field {
+      // &.signin-signup-form__first-name{
+      //   padding-left: 1rem;
+      //   padding-right: 1rem;
+      // }
+      // &.signin-signup-form__last-name{
+      //   padding-left: 1rem;
+      //   padding-right: 1rem;
+      // }
       label{
         font-family: Open Sans;
         text-align: center;

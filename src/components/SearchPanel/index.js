@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Grid, Button } from 'semantic-ui-react'
 import { withRouter } from 'react-router'
 import moment from 'moment'
-import AirlineSelector from './airlineSelector'
 import history from 'utils/history'
 import SourceAutocomplete from 'components/SearchPanel/sourceAutocomplete'
 import DestinationAutocomplete from 'components/SearchPanel/destinationAutocomplete'
@@ -14,7 +13,6 @@ import {
   retrieveFromLocalStorage,
   removeFromLocalStorage,
   getRedirectionURL,
-  extractURLParams
 } from 'utils/helpers'
 import DateSelect from 'components/Subscribe'
 import { jsonToQueryString } from 'utils/helpers'
@@ -60,13 +58,11 @@ const SearchPanel = (props) => {
       rangeReturnEndDate,
       rangeReturnStartDate,
       airlines,
-      airlinesLoading,
       sendAlertLoading,
       previewAlertId,
       selectedAirlineCode,
       journeyType,
       ticketsSearchBox,
-      membership,
       departure: { value: depCode },
       arrival: { value: arrCode },
       activeAlertError,
@@ -80,7 +76,6 @@ const SearchPanel = (props) => {
     onSendMeAlert,
     updateTicketsSearchBox,
     updateDoNotKnowSearch,
-    getAirlineList,
     getSouDesLocations,
     getSouDesPossibleRoutes,
     flightsAvailability,
@@ -97,16 +92,12 @@ const SearchPanel = (props) => {
     setOnRunTimeUpdate
   } = props
   const { ticketClass, numberOfPassengers } = ticketsSearchBox
-  const { search, state } = location
-  let extractedParams = null
-  if (search) {
-    extractedParams = extractURLParams(search)
-  }
+  const { state } = location
+
   const [toggalAlertModal, setToggalAlertModal] = useState(false)
   const [errors, setErrors] = useState({
     sourceError: false,
     destinationError: false,
-    airlineError: false,
     startDateError: false,
     endDateError: false
   })
@@ -207,9 +198,6 @@ const SearchPanel = (props) => {
       }
     }else{
      const data = {
-      selectedAirline: null,
-      airlineMembership: null,
-      selectedAirlineCode: null,
       departure: {
         name: '',
         value: ''
@@ -230,10 +218,9 @@ const SearchPanel = (props) => {
   // Get Airlines List
   useEffect(() => {
     getClientIp()
-    const airlineSel = location.pathname === AppRoutes.HOME ? 'BA' : location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS ? 'VA' : extractedParams && extractedParams.aCode ? extractedParams.aCode : 'BA'
+    const airlineSel = location.pathname === AppRoutes.HOME ? 'BA' : location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS ? 'VA' : selectedAirlineCode ? selectedAirlineCode : 'BA'
     const values = retrieveFromLocalStorage(`${airlineSel === 'BA' ? 'recentSearch' : 'recentSearchVA'} `)
 
-      getAirlineList({ isSetDefault: !Boolean(values), selectedAirline: airlineSel })
       getSouDesLocations({ selectedAirline: airlineSel })
       getSouDesPossibleRoutes({ selectedAirline: airlineSel })
     if (location.pathname === AppRoutes.HOME || location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS) {
@@ -244,7 +231,6 @@ const SearchPanel = (props) => {
       searchErrors: {
         sourceError: false,
         destinationError: false,
-        airlineError: false,
         startDateError: false,
         endDateError: false
       }
@@ -294,17 +280,13 @@ const SearchPanel = (props) => {
       }
       updateReducerState('searchPanel', 'ticketsSearchBox', passengerData)
     }
-    if (selectedAirline && airlineMembership) {
-      handlerSetError('airlineError', false)
-    }
+
     // eslint-disable-next-line
   }, [props.searchPanel.airlines])
 
   // Handle search click
   const handleSearchClick = (passengerCountData) => {
-    if (!selectedAirline && !airlineMembership) {
-      handlerSetError('airlineError', true)
-    } else if (!departure.value) {
+    if (!departure.value) {
       handlerSetError('sourceError', true)
     } else if (!arrival.value) {
       handlerSetError('destinationError', true)
@@ -336,15 +318,11 @@ const SearchPanel = (props) => {
         return
       }
       let data = {
-        selectedAirline,
         departure,
         arrival,
-        selectedAirlineCode,
-        airlineMembership,
         numberOfPassengers: passengerCountData ? passengerCountData : numberOfPassengers ,
         ticketClass,
         toggalClasses,
-        membership,
         journeyType,
         calendarSupport
       }
@@ -412,10 +390,6 @@ const SearchPanel = (props) => {
       end_date: moment(rangeDepartEndDate).format('DD-MM-YYYY')
     }
 
-    if (!selectedAirline && !airlineMembership) {
-      handlerSetError('airlineError', true)
-      return
-    }
     if (!depCode) {
       handlerSetError('sourceError', true)
       return
@@ -524,10 +498,7 @@ const SearchPanel = (props) => {
       mapDepartureDate,
       mapDestinationDate
     } = doNotKnowObj
-    if (!selectedAirline && !airlineMembership) {
-      handlerSetError('airlineError', true)
-      return
-    }
+
     if (travelFromTo === 'fromTravel' && !flyFrom) {
       handlerSetDontKnowErrors('dontKnowSourceError', true)
       return
@@ -582,14 +553,14 @@ const SearchPanel = (props) => {
         <Fragment>
           <Grid.Column
             mobile={16}
-            tablet={6}
+            tablet={5}
             computer={
               props.location.pathname === AppRoutes.HOME ||
               props.location.pathname === AppRoutes.LOCATION
                 ? props.location.pathname === AppRoutes.HOME && !calendarSupport
                   ? 3
-                  : 4
-                : 4
+                  : 5
+                : 5
             }
             widescreen={
               props.location.pathname === AppRoutes.HOME ||
@@ -597,7 +568,7 @@ const SearchPanel = (props) => {
                 ? props.location.pathname === AppRoutes.HOME && !calendarSupport
                   ? 3
                   : 5
-                : 4
+                : 5
             }
             className="search-panel__col search-panel__col--source-autocomplete whereFromDropdown"
           >
@@ -618,14 +589,14 @@ const SearchPanel = (props) => {
           </Grid.Column>
           <Grid.Column
             mobile={16}
-            tablet={6}
+            tablet={5}
             computer={
               props.location.pathname === AppRoutes.HOME ||
               props.location.pathname === AppRoutes.LOCATION
                 ? props.location.pathname === AppRoutes.HOME && !calendarSupport
                   ? 3
-                  : 4
-                : 4
+                  : 5
+                : 5
             }
             widescreen={
               props.location.pathname === AppRoutes.HOME ||
@@ -753,63 +724,16 @@ const SearchPanel = (props) => {
         </Grid>
         <Grid columns={4} className="search-panel search-panel-responsive">
           <Grid.Row className="search-panel__row ">
-            <Grid.Column
-              mobile={
-                props.location.pathname === AppRoutes.HOME
-                  ? 16
-                  : props.location.pathname === AppRoutes.LOCATION
-                  ? 16
-                  : 16
-              }
-              tablet={4}
-              computer={
-                props.location.pathname === AppRoutes.HOME ||
-                props.location.pathname === AppRoutes.LOCATION
-                  ? props.location.pathname === AppRoutes.HOME &&
-                    !calendarSupport
-                    ? 3
-                    : 4
-                  : 4
-              }
-              widescreen={
-                props.location.pathname === AppRoutes.HOME ||
-                props.location.pathname === AppRoutes.LOCATION
-                  ? props.location.pathname === AppRoutes.HOME &&
-                    !calendarSupport
-                    ? 3
-                    : 4
-                  : 4
-              }
-              className="search-panel__col search-panel__col--airline-selector"
-            >
-              <AirlineSelector
-                searchPanel={searchPanel}
-                airlines={airlines}
-                fetchingAirlines={airlinesLoading}
-                updateReducerState={updateReducerState}
-                dropdownClassName={`airLineDropdown airline-selector-dropdown calendarAirlineDropdown ${
-                  selectedAirlineCode === 'AA'
-                    ? 'airline-selector-dropdown--AA'
-                    : ''
-                }`}
-                className={errors.airlineError ? 'error-field' : ''}
-                handlerSetError={handlerSetError}
-                getSouDesLocations ={getSouDesLocations}
-                 getSouDesPossibleRoutes = {getSouDesPossibleRoutes}
-                 location={props.location.pathname}
-                 isCalendarHover={flights.isCalendarHover}
-              />
-            </Grid.Column>
             {getSerchPanelComponent()}
             <Grid.Column
               mobile={props.location.pathname === AppRoutes.HOME ? 16 : 16}
-              tablet={props.location.pathname === AppRoutes.HOME ? 16 : 16}
+              tablet={props.location.pathname === AppRoutes.HOME ? 5 : 5}
               computer={
                 props.location.pathname === AppRoutes.HOME
-                  ? 4
+                  ? 5
                   : props.location.pathname === AppRoutes.LOCATION
                   ? 3
-                  : 4
+                  : 5
               }
               widescreen={
                 props.location.pathname === AppRoutes.HOME

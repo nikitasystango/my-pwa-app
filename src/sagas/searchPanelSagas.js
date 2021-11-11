@@ -27,10 +27,11 @@ import { availableAirways } from 'constants/globalConstants'
 
 function* handleGetAirlinesList(action) {
   const { payload } = action
+  const user = yield select(state => state.auth.user)
   try {
     const response = yield call(getRequestNode, URls.AIRLINES_LIST)
     if (response && response.status && response.status === 200 && response.data) {
-      yield put(getAirlineListSuccess({ data: response.data, payloadData: payload }))
+      yield put(getAirlineListSuccess({ data: response.data, payloadData: payload, user }))
     }
   } catch (error) {
     yield put(getAirlineListFailure())

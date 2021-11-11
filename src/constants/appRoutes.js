@@ -77,5 +77,6 @@ export const AppRoutes = {
  DOWNGRADE_SILVER_TO_BRONZE: '/downgraded-to-bronze-from-silver',
  DOWNGRADE_GOLD_TO_BRONZE: '/downgraded-to-bronze-from-gold',
  DOWNGRADE_SILVER_TO_GOLD: '/downgraded-to-silver-from-gold',
- PRICING_SIGNUP: '/choose-your-plan'
+ PRICING_SIGNUP: '/choose-your-plan',
+ PROFILE_DETAILS: '/profile'
 }

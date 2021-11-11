@@ -1160,7 +1160,11 @@ export const calendarDefaultRouteSearcParams = {
     },
     {
       value: 'Other',
-      label: 'I\'d prefer not to say'
+      label: 'Other'
+    },
+    {
+      value: 'Prefer Not To Say',
+      label: 'Prefer Not To Say'
     }
   ]
 
@@ -1189,4 +1193,10 @@ export const calendarDefaultRouteSearcParams = {
   premium: true,
   first: true,
   business: true
+ }
+
+ export const airlineName = {
+   BRITISH_AIRWAYS: 'british_airways',
+   VIRGIN_AIRWAYS: 'virgin_atlantic',
+   AMERICAN_AIRWAYS: 'american_airlines'
  }

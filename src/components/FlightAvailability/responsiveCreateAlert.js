@@ -24,6 +24,7 @@ import searchPanelMessages from 'constants/messages/searchPanelMessages'
 import flightMessages from 'constants/messages/flightMessages'
 import { jsonToQueryString } from 'utils/helpers'
 import { retrieveFromLocalStorage } from 'utils/helpers'
+import Texts from 'constants/staticText'
 
 const ResponsiveCreateAlert = (props) => {
   const {
@@ -41,7 +42,6 @@ const ResponsiveCreateAlert = (props) => {
       selectedAirlineCode,
       journeyType,
       ticketsSearchBox,
-      membership,
       activeAlertError,
       searchErrors,
       sendAlertLoading
@@ -320,17 +320,13 @@ const ResponsiveCreateAlert = (props) => {
         return
       }
       let data = {
-        selectedAirline,
         departure,
         arrival,
-        selectedAirlineCode,
-        airlineMembership,
         numberOfPassengers: passengerCountData
           ? passengerCountData
           : numberOfPassengers,
         ticketClass,
         toggalClasses,
-        membership,
         journeyType,
         calendarSupport
       }
@@ -369,8 +365,7 @@ const ResponsiveCreateAlert = (props) => {
     const sendAlertHandler = () => {
     // const availabilityURL = window.location.pathname + window.location.search
     if (extractedParams && extractedParams.dId && extractedParams.aId &&
-      extractedParams.jType && extractedParams.airlineMembership &&
-      extractedParams.airlineSelected) {
+      extractedParams.jType) {
 
       const selectedClasses = []
       Object.keys(toggalClasses).map(item => {
@@ -385,13 +380,9 @@ const ResponsiveCreateAlert = (props) => {
         return
       }
       const url = {
-        airlineSelected: extractedParams.airlineSelected,
-        airlineMembership: extractedParams.membership,
-        aCode: extractedParams.aCode,
         numberOfPassengers: numberOfPassengers || 1,
-        tclass: extractedParams.tclass,
-        tValue: extractedParams.tValue,
-        membership: extractedParams.membership,
+        tclass: extractedParams?.tclass || 'Economy',
+        tValue: extractedParams?.tValue || 'economy',
         jType: journeyType || 'return',
         dPlace: departure?.name,
         dId: departure?.value,
@@ -414,9 +405,9 @@ const ResponsiveCreateAlert = (props) => {
       })
       let payload = {
         source_code: departure?.value,
-        membership_type: extractedParams.airlineMembership,
+        membership_type: airlineMembership ? airlineMembership : Texts.DEFAULT_AIRLINE_TIER,
         destination_code: arrival?.value,
-        airline_name: extractedParams.aCode === 'AA' ? 'american_airlines' : 'british_airways',
+        airline_name: selectedAirlineCode === 'AA' ? 'american_airlines' : 'british_airways',
         travel_classes: selectedClasses?.toString(),
         number_of_passengers: numberOfPassengers || 1,
         trip_type: 'one_way',

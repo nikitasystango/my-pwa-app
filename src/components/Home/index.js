@@ -36,7 +36,6 @@ import staticMessage from 'constants/messages/homeMessages'
 import commonMessages from 'constants/messages/commonMessages'
 import { handleFingerPrintScrapper } from 'utils/FingerprintScrapper/source'
 import SignupOnBoardingModal from '../Pages/signupOnBoardingModal'
-import UpdateUserDetailModal from 'common/UpdateUserDetailModal'
 // Import page css to fix onboarding sceen design
 import '../Pages/index.scss'
 import ProgressiveImage from 'utils/progressiveImage'
@@ -55,13 +54,8 @@ const Home = (props) => {
     location,
     addFingerprintScapperData,
     accountSettings: { userDetails },
-    pages: { toggleSignupOnBoardingModal, toggleUpdateProfileDetailsModal },
+    pages: { toggleSignupOnBoardingModal },
     updateProfileDetails,
-    updateUserName,
-    updateUserNameLoading,
-    getSouDesLocations,
-    getSouDesPossibleRoutes,
-    searchPanel,
     getProfileDetails
   } = props
 
@@ -100,14 +94,8 @@ const Home = (props) => {
   }, [])
 
   useEffect(() => {
-    const { firstName, lastName, address, country, gender, ageBand, flightsTakenAnnually } = userDetails || {}
     if (userDetails && userDetails.onboarded === false) {
       updateReducerState('pages', 'toggleSignupOnBoardingModal', true)
-    }
-    if (token && userDetails && (!firstName || !lastName || !country || !address?.address1 || !address?.state || !gender || !ageBand || !flightsTakenAnnually)) {
-      updateReducerState('pages', 'toggleUpdateProfileDetailsModal', true)
-      document.body.style.position = 'fixed'
-      document.body.style.width = '100%'
     }
     // eslint-disable-next-line
   }, [userDetails])
@@ -289,18 +277,6 @@ const Home = (props) => {
         toggleSignupOnBoardingModal={toggleSignupOnBoardingModal}
         updateReducerState={updateReducerState}
         redirectToPricing={redirectToPricing}
-      />
-      <UpdateUserDetailModal
-        {...props}
-        toggleModal={toggleUpdateProfileDetailsModal}
-        updateReducerState={updateReducerState}
-        updateUserName={updateUserName}
-        updateUserNameLoading={updateUserNameLoading}
-        getSouDesLocations={getSouDesLocations}
-        getSouDesPossibleRoutes={getSouDesPossibleRoutes}
-        searchPanel={searchPanel}
-        userDetails={userDetails || {}}
-        userId={userId}
       />
     </>
   )

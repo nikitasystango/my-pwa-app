@@ -300,5 +300,17 @@ export default defineMessages({
   upgradePlanText: {
     id: 'dashboard.upgradePlanText',
     defaultMessage: 'Upgrade Plan'
+  },
+  pleaseSelectMembershipTier: {
+    id: 'dashboard.pleaseSelectMembershipTier',
+    defaultMessage: '{data} your airline membership tier'
+  },
+  movedAirlineNoticeTop: {
+    id: 'dashboard.movedAirlineNotice',
+    defaultMessage: 'We’ve moved this setting away from the search bar.'
+  },
+  movedAirlineNoticeBottom: {
+    id: 'dashboard.movedAirlineNotice',
+    defaultMessage: 'If you need to update it in the future you can do so in your User Dashboard.'
   }
 })

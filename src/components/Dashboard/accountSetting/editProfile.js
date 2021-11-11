@@ -10,15 +10,15 @@ import { retrieveFromLocalStorage, sortSlectedRouteValue } from 'utils/helpers'
 import ReactSelect from 'components/SearchPanel/reactSelect'
 import CommonReactSelect from 'common/CommonReactSelect'
 import { postcodeValidator } from 'postcode-validator'
-import searchPanelMessages from 'constants/messages/searchPanelMessages'
 import {
   genderOptions,
   ageBandOption,
   approxNumberFlights,
   travelAbroadOptions
 } from 'constants/globalConstants'
-import { getStatesOfCountry } from 'utils/commonFunction'
 import { preferredCountriesForPhoneInput } from 'constants/phoneNumberConstant'
+import profileDetailsMessages from 'constants/messages/profileDetailsMessages'
+import validationMessages from 'constants/messages/validationMessages'
 
 const EditProfile = (props) => {
   const {
@@ -35,7 +35,7 @@ const EditProfile = (props) => {
       souDesAirports
     },
     updateUserProfileLoading,
-    dashboard: { countriesList, statesList, citiesList }
+    dashboard: { countriesList }
   } = props
   const {
     firstName,
@@ -65,7 +65,7 @@ const EditProfile = (props) => {
       flightsTakenAnnually,
       travellingAbroad
     } = userDetails || {}
-    const { address1, address2, city, zip, airpot_city } = address || {}
+    const { address1, address2, city, zip, airpot_city, state } = address || {}
     setUserData({
       ...userData,
       firstName: firstName ? firstName : '',
@@ -74,13 +74,8 @@ const EditProfile = (props) => {
       addressSecond: address2 || '',
       postCode: zip || '',
       country: getCountry(),
-      city: city
-        ? {
-            label: city || '',
-            value: city || ''
-          }
-        : null,
-      state: getState(),
+      city: city || '',
+      state: state || '',
       departureCity: airpot_city ? JSON.parse(airpot_city) : {},
       gender: gender
         ? genderOptions.find((data) => data.value === gender)
@@ -109,7 +104,7 @@ const EditProfile = (props) => {
       isPost = postcodeValidator(postCode, country?.sortname)
     }
     if (name === 'postCode' && errors?.postCode === undefined && !isPost) {
-      text = 'Invalid postal code'
+      text = intl(validationMessages.invalidPostalCode)
     }
     setErrors({ ...error, [name]: text })
   }
@@ -119,7 +114,7 @@ const EditProfile = (props) => {
     if (isValid) {
       const isPost = postcodeValidator(postCode, country.sortname)
       if (!isPost) {
-        setErrors({ ...error, postCode: 'Invalid postal code' })
+        setErrors({ ...error, postCode: intl(validationMessages.invalidPostalCode) })
         return true
       }
       const data = {
@@ -130,8 +125,8 @@ const EditProfile = (props) => {
           address1: addressFirst,
           address2: addressSecond,
           country: country?.sortname,
-          city: city?.value,
-          state: state?.value,
+          city: city,
+          state: state,
           postal_code: postCode.toString().replace(/\s+/g, ''),
           airpot_city: JSON.stringify(departureCity),
           gender: gender?.value,
@@ -146,7 +141,7 @@ const EditProfile = (props) => {
       const isPost = postcodeValidator(postCode, country.sortname)
       setErrors({
         ...errors,
-        postCode: !isPost ? 'Invalid postal code' : null
+        postCode: !isPost ? intl(validationMessages.invalidPostalCode) : null
       })
     }
   }
@@ -157,23 +152,10 @@ const EditProfile = (props) => {
       firstName: ['minLength|2', 'noSpecialCharacter'],
       lastName: ['minLength|2', 'noSpecialCharacter'],
       addressFirst: ['minLength|2'],
-      addressSecond: ['minLength|2']
-      // state: ['required'],
-      // country: ['required'],
-      // postCode: ['required'],
-      // departureCity: ['required'],
-      // gender: ['required'],
-      // ageGroup: ['required'],
-      // approxFlightNum: ['required'],
-      // travelAbroad: ['required']
-      // // currency: ['required']
+      addressSecond: ['minLength|2'],
+      city: ['minLength|2'],
+      state: ['minLength|2']
     }
-    // if (cityList.length) {
-    //   list = {
-    //     ...list,
-    //     city: ['required']
-    //   }
-    // }
     const validate = Validator.createValidator(
       list,
       {
@@ -181,9 +163,9 @@ const EditProfile = (props) => {
         lastName: lastName,
         addressFirst: addressFirst,
         addressSecond: addressSecond,
-        state: state?.value,
+        state: state,
         country: country?.value,
-        city: city?.value,
+        city: city,
         postCode: postCode,
         departureCity: departureCity?.value,
         gender: gender?.value,
@@ -225,21 +207,12 @@ const EditProfile = (props) => {
   const handlerSetData = (data, name) => {
     setUserData({
       ...userData,
-      country: name === 'country' ? data : country,
-      state: name === 'state' ? data : name === 'country' ? null : state,
-      city:
-        name === 'city'
-          ? data
-          : name === 'country'
-          ? null
-          : name === 'state'
-          ? null
-          : city
+      country: data
     })
     if (name === 'country' && postCode && data?.value) {
       const isPost = postcodeValidator(postCode, data?.sortname)
       setErrors({ ...error, city: null,
-        state: null, postCode: !isPost ? 'Invalid postal code' : null })
+        state: null, postCode: !isPost ? intl(validationMessages.invalidPostalCode) : null })
     }else {
       setErrors({ ...error, city: null, state: null })
     }
@@ -272,36 +245,6 @@ const EditProfile = (props) => {
     // eslint-disable-next-line
   }, [countriesList]);
 
-  const stateList = React.useMemo(() => {
-    const list = getStatesOfCountry(statesList, country?.value, 'country_id')
-    const data = []
-    // eslint-disable-next-line
-    list.map((state) => {
-      data.push({
-        label: state.name,
-        value: state.id,
-        countryId: state.country_id
-      })
-    })
-    return data
-    // eslint-disable-next-line
-  }, [country]);
-
-  const cityList = React.useMemo(() => {
-    const list = getStatesOfCountry(citiesList, state?.value, 'state_id')
-    const data = []
-    // eslint-disable-next-line
-    list.map((city) => {
-      data.push({
-        label: city.name,
-        value: city.name,
-        stateId: city.state_id
-      })
-    })
-    return data
-    // eslint-disable-next-line
-  }, [state, country, citiesList]);
-
   const handlerGetGroupOptions = () =>
     sortSlectedRouteValue(
       possibleRoutes,
@@ -322,28 +265,7 @@ const EditProfile = (props) => {
     }
   }
 
-  const getState = () => {
-    const selectedCountry = countriesList.find(
-      (item) => item.sortname === userDetails?.country
-    )
-    const list = getStatesOfCountry(
-      statesList,
-      selectedCountry?.id,
-      'country_id'
-    )
-    const selectedState = list.find(
-      (item) => item.id === userDetails?.address?.state
-    )
-    if (selectedState && selectedState.name) {
-      return {
-        label: selectedState?.name || undefined,
-        value: selectedState?.id || undefined,
-        countryId: selectedState?.country_id || undefined
-      }
-    } else {
-      return null
-    }
-  }
+
   const errorCond = (error && (error.firstName || error.lastName || error.addressFirst
     || error.country
     || error.state
@@ -354,19 +276,18 @@ const EditProfile = (props) => {
     || error.travelAbroad
     || error.approxNumberFlights
     )) ? true : false
-    const cityCond = cityList?.length ? !city ? true : false : false
+
   const isDisabled =
    (!firstName ||
     !lastName ||
     !addressFirst ||
     !country ||
-    !state ||
-    !departureCity ||
+    !city ||
     !ageGroup ||
     !gender ||
     !postCode ||
     !travelAbroad ||
-    !approxNumberFlights) || errorCond || cityCond
+    !approxNumberFlights) || errorCond
 
   return (
     <Form className="account-setting__form">
@@ -486,41 +407,46 @@ const EditProfile = (props) => {
           </Grid.Column>
 
           <Grid.Column mobile={8} tablet={5} computer={7}>
-            <label>
-              {intl(commonMessages.stateText)}
-              <span className="color-red">*</span>
-            </label>
-            <CommonReactSelect
-              groupedOptions={stateList}
-              handlerSetData={(data) => handlerSetData(data, 'state')}
-              selectedValue={state}
-              className={error.state ? 'error-field' : ''}
-              placeholder={intl(commonMessages.stateText)}
-              isDisabled={!country?.value}
-              validateOnBlur={() => validateOnBlur('state')}
+            <InputBox
+              label={intl(commonMessages.cityText)}
+              placeholder={intl(commonMessages.cityText)}
+              errorMessage={error.city}
+              type={'text'}
+              name={'city'}
+              value={city}
+              onChange={(name) =>
+                handleInputChange('city', name.trimStart())
+              }
+              onBlur={(e) => validateOnBlur(e.target.name)}
+              className="required-field"
             />
+            {error && error.city &&
+              <span className="error-text">{error.city}</span>
+               }
           </Grid.Column>
         </Grid.Row>
         <Grid.Row className="py-0 j-c-c">
           <Grid.Column mobile={8} tablet={5} computer={7} className="mt-1">
-            <label>
-              {intl(commonMessages.cityText)}{' '}
-              {cityList.length ? <span className="color-red">*</span> : ''}
-            </label>
-            <CommonReactSelect
-              groupedOptions={cityList}
-              handlerSetData={(data) => handlerSetData(data, 'city')}
-              selectedValue={city}
-              className={error.city ? 'error-field' : ''}
-              placeholder={intl(commonMessages.cityText)}
-              isDisabled={!state?.value || !cityList.length}
-              validateOnBlur={() => validateOnBlur('city')}
+            <InputBox
+              label={intl(profileDetailsMessages.countyStateText)}
+              placeholder={intl(profileDetailsMessages.countyStateText)}
+              errorMessage={error.state}
+              type={'text'}
+              name={'state'}
+              value={state}
+              onChange={(name) =>
+                handleInputChange('state', name.trimStart())
+              }
+              onBlur={(e) => validateOnBlur(e.target.name)}
             />
+            {error && error.state &&
+              <span className="error-text">{error.state}</span>
+               }
           </Grid.Column>
           <Grid.Column mobile={8} tablet={5} computer={7} className="mt-1">
             <InputBox
-              label={intl(commonMessages.postCodeNum)}
-              placeholder={intl(commonMessages.postCodeNum)}
+              label={intl(profileDetailsMessages.postalZipCode)}
+              placeholder={intl(profileDetailsMessages.postalZipCode)}
               errorMessage={error.postCode}
               type={'text'}
               name={'postCode'}
@@ -529,22 +455,23 @@ const EditProfile = (props) => {
                 handleInputChange('postCode', name.trimStart())
               }
               maxLength={25}
-              onBlur={(e) => validateOnBlur(e.target.name)}
+              onBlur={(e) => e.target.value && validateOnBlur(e.target.name)}
               className="required-field"
             />
+            {error && error.postCode &&
+            <span className="error-text">{error.postCode}</span>
+               }
           </Grid.Column>
         </Grid.Row>
         <Grid.Row className="py-0 text-left">
           <Grid.Column mobile={8} tablet={5} computer={7}>
             <label>
-              {intl(commonMessages.departure)}
-              <span className="color-red">*</span>
+              {intl(profileDetailsMessages.closestAirport)}
             </label>
             <ReactSelect
               handlerSetData={handlerSetDeptData}
               selectedValue={departureCity}
               className={error.departureCity ? 'error-field' : ''}
-              placeholder={intl(searchPanelMessages.departureCityAirport)}
               groupedOptions={handlerGetGroupOptions()}
               validateOnBlur={() => validateOnBlur('departureCity')}
               setIsOpen={setIsOpen}

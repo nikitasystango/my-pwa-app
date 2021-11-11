@@ -419,7 +419,7 @@ export default defineMessages({
   },
   updateProfileDetails: {
     id: 'commonText.common.updateProfileDetails',
-    defaultMessage: 'Update Profile'
+    defaultMessage: 'My Profile'
   },
   newVersionAvailable: {
     id: 'commonText.newVersionAvailable',
@@ -490,8 +490,8 @@ export default defineMessages({
     defaultMessage: 'Age Band'
   },
   approxFlights: {
-    id: 'commonText.postCodeNum',
-    defaultMessage: 'Approx number of flights they take annually'
+    id: 'commonText.approxFlights',
+    defaultMessage: 'Average number of return flights taken a year'
   },
   genderSelection: {
     id: 'commonText.genderSelection',
@@ -499,7 +499,7 @@ export default defineMessages({
   },
   howLikelyYouTravel: {
     id: 'commonText.howLikelyYouTravel',
-    defaultMessage: 'How likely you travel abroad in next 12 months?'
+    defaultMessage: 'Do you plan to travel abroad in the next 12 months?'
   },
   personalDetailsDesc: {
     id: 'commonText.personalDetailsDesc',

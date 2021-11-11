@@ -99,6 +99,14 @@ export default defineMessages({
   },
   notAvailableForPassengerCount: {
     id: 'flightAvailability.notAvailableForPassengerCount',
-    defaultMessage: 'Not available for this passenger count currently'
+    defaultMessage: '{data} available currently'
+  },
+  seatsText: {
+    id: 'flightAvailability.seatsText',
+    defaultMessage: 'seats aren\'t'
+  },
+  singleSeatText: {
+    id: 'flightAvailability.singleSeatText',
+    defaultMessage: 'seat isn’t'
   }
 })

@@ -15,10 +15,11 @@ import flightMessages from 'constants/messages/flightMessages'
 import searchPanelMessages from 'constants/messages/searchPanelMessages'
 import { Link } from 'react-router-dom'
 import { checkDifference, getDifferenceInDays, handleSpecificErrorAlertRange } from 'utils/commonFunction'
+import Texts from 'constants/staticText'
 
 const DateSelect = (props) => {
   const { flightsAvailability, callCreateAlertAPi, sendAlertLoading, updateReducerState,
-    searchPanel: { departStartDate, departEndDate, returnStartDate, returnEndDate, journeyType, toggalAlertDatesModal, ticketsSearchBox, searchErrors },
+    searchPanel: { departStartDate, departEndDate, returnStartDate, returnEndDate, journeyType, toggalAlertDatesModal, ticketsSearchBox, searchErrors, airlineMembership, selectedAirlineCode },
     location, toggalClasses, activeAlertError, isUserGoldMember, allowedAlertDateRange, isUserSilverMember, errors, setErrors, handlerToggalAlertModal, handleUpdateReducer } = props
   const { numberOfPassengers } = ticketsSearchBox
   const extractedParams = location?.search && extractURLParams(location.search)
@@ -30,8 +31,7 @@ const DateSelect = (props) => {
   const sendAlertHandler = () => {
     // const availabilityURL = window.location.pathname + window.location.search
     if (extractedParams && extractedParams.dId && extractedParams.aId &&
-      extractedParams.jType && extractedParams.airlineMembership &&
-      extractedParams.airlineSelected) {
+      extractedParams.jType) {
 
       const selectedClasses = []
       Object.keys(toggalClasses).map(item => {
@@ -46,13 +46,9 @@ const DateSelect = (props) => {
         return
       }
       const url = {
-        airlineSelected: extractedParams.airlineSelected,
-        airlineMembership: extractedParams.membership,
-        aCode: extractedParams.aCode,
         numberOfPassengers: numberOfPassengers || 1,
-        tclass: extractedParams.tclass,
-        tValue: extractedParams.tValue,
-        membership: extractedParams.membership,
+        tclass: extractedParams?.tclass || 'Economy',
+        tValue: extractedParams?.tValue || 'economy',
         jType: journeyType || 'return',
         dPlace: extractedParams.dPlace,
         dId: extractedParams.dId,
@@ -75,9 +71,9 @@ const DateSelect = (props) => {
       })
       let payload = {
         source_code: extractedParams.dId,
-        membership_type: extractedParams.airlineMembership,
+        membership_type: airlineMembership ? airlineMembership : Texts.DEFAULT_AIRLINE_TIER,
         destination_code: extractedParams.aId,
-        airline_name: extractedParams.aCode === 'AA' ? 'american_airlines' : 'british_airways',
+        airline_name: selectedAirlineCode === 'AA' ? 'american_airlines' : 'british_airways',
         travel_classes: selectedClasses?.toString(),
         number_of_passengers: numberOfPassengers || 1,
         trip_type: 'one_way',

@@ -86,7 +86,7 @@ export const AirlineClassesDropdown = styled.div`
             color: rgba(var(--black-rgb), .95)
           }
           &.inactive-cabin-class{
-            opacity: 0.4;
+            opacity: 0.3;
             svg {
               rect{
                 fill: #656565;
