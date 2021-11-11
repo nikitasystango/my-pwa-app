@@ -30,16 +30,12 @@ const RegisterForm = (props) => {
   } = props
   // state manupulation
   const [signupDetails, setSinupDetails] = useState({
-    firstName: '',
-    lastName: '',
     email: '',
     password: '',
     confirmPassword: ''
   })
   const [error, setErrors] = useState({})
   const {
-    firstName,
-    lastName,
     email,
     password,
     confirmPassword
@@ -61,22 +57,16 @@ const RegisterForm = (props) => {
     }
     const validate = Validator.createValidator(
       {
-        firstName: ['minLength|2', 'noSpecialCharacter'],
-        lastName: ['minLength|2', 'noSpecialCharacter'],
         password: ['minLength|8', 'strongPassword'],
         confirmPassword: ['match|password']
       },
       {
-        firstName: signupDetails.firstName,
-        lastName: signupDetails.lastName,
         email: signupDetails.email,
         password: signupDetails.password,
         confirmPassword: signupDetails.confirmPassword
       },
       field,
       {
-        firstName: '',
-        lastName: '',
         email: '',
         password: '',
         confirmPassword: ''
@@ -155,8 +145,6 @@ const RegisterForm = (props) => {
       )
       const data = {
         user: {
-          first_name: firstName,
-          last_name: lastName,
           email: email.toLowerCase(),
           password: password,
           password_confirmation: confirmPassword,
@@ -171,16 +159,13 @@ const RegisterForm = (props) => {
   }
   const errorCond =
     error &&
-    (error.firstName ||
-      error.lastName ||
+    (
       error.email ||
       error.password ||
       error.confirmPassword)
       ? true
       : false
   const isDisabled =
-    !firstName ||
-    !lastName ||
     !email ||
     !password ||
     !confirmPassword ||
@@ -197,68 +182,6 @@ const RegisterForm = (props) => {
       />
       <Form className="signin-signup-form">
         <Grid>
-          <Grid.Row>
-            <Grid.Column mobile={16} tablet={8} computer={8} widescreen={8}>
-              <InputBox
-                errorMessage={error.firstName}
-                label={intl(commonMessages.firstName)}
-                placeholder={intl(commonMessages.firstName)}
-                type={'text'}
-                name={'firstName'}
-                onBlur={(e) =>
-                  validateOnBlur(
-                    e.target.name,
-                    e.target.value.trimStart().replace(/[^A-Za-z]/gi, '')
-                  )
-                }
-                onChange={(value) =>
-                  handlerSetSignupdetails(
-                    'firstName',
-                    value.trimStart().replace(/[^A-Za-z]/gi, '')
-                  )
-                }
-                value={firstName}
-                maxLength={25}
-                className=" required-field signin-signup-form__first-name"
-              />
-              {error && error.firstName && (
-                <span className="error-message">{error.firstName}</span>
-              )}
-            </Grid.Column>
-            <Grid.Column
-              className="last_name_column"
-              mobile={16}
-              tablet={8}
-              computer={8}
-              widescreen={8}
-            >
-              <InputBox
-                errorMessage={error.lastName}
-                label={intl(commonMessages.lastName)}
-                placeholder={intl(commonMessages.lastName)}
-                type={'text'}
-                name={'lastName'}
-                onBlur={(e) =>
-                  validateOnBlur(
-                    e.target.name,
-                    e.target.value.trimStart().replace(/[^A-Za-z]/gi, '')
-                  )
-                }
-                onChange={(value) =>
-                  handlerSetSignupdetails(
-                    'lastName',
-                    value.trimStart().replace(/[^A-Za-z]/gi, '')
-                  )
-                }
-                value={lastName}
-                maxLength={25}
-                className="required-field signin-signup-form__last-name"
-              />
-              {error && error.lastName && (
-                <span className="error-message">{error.lastName}</span>
-              )}
-            </Grid.Column>
-          </Grid.Row>
           <InputBox
             errorMessage={error.email}
             label={intl(commonMessages.emailAddress)}
@@ -288,7 +211,7 @@ const RegisterForm = (props) => {
             name={'password'}
             value={password}
             className={`required-field ${
-              label === 'signupPopup' ? 'signin-signup-form__first-name' : ''
+              label === 'signupPopup' ? '' : ''
             }`}
           />
           {password &&
@@ -309,7 +232,7 @@ const RegisterForm = (props) => {
             value={confirmPassword}
             className={`required-field ${
               label === 'signupPopup'
-                ? 'signin-signup-form__last-name co-pass'
+                ? ' co-pass'
                 : ''
             }`}
           />

@@ -23,25 +23,49 @@ import '../SearchPanel/index.scss'
 import './style.scss'
 import { removeFromLocalStorage } from 'utils/helpers'
 import { ifObjectValueFalse, setObjectValueTrue } from 'utils/commonFunction'
+import Texts from 'constants/staticText'
+import AirlineMembershipModal from 'common/Modals/airlineMembershipModal'
+import { pushNotification } from 'utils/notifications'
+import toustifyMessages from 'constants/messages/toustifyMessages'
 
 
 const MapView = (props) => {
   const { updateReducerState, location: { pathname, search }, getMapLocations, searchPanel,
     updateTicketsSearchBox, flightsAvailability, getAirlineList, mapData, isUserBronzeMember, updateToggalClassesState, getSouDesPossibleRoutes,
-    getSouDesLocations
+    getSouDesLocations,
+    common: { airlineMembershipToggle },
+    user
   } = props
-  const { airlines, toggalMapEliteLoginPopUp, toggalClasses, airportsWithMultiCity, souDesAirports,
-    ticketsSearchBox: { numberOfPassengers }, selectedAirlineCode } = searchPanel
+  const { toggalMapEliteLoginPopUp, toggalClasses, airportsWithMultiCity, souDesAirports,
+    ticketsSearchBox: { numberOfPassengers }, selectedAirlineCode, selectedAirline,
+    airlineMembership } = searchPanel
+    const { airlineMemberships } = user || {}
   const { toggleSideBar, mapLocations, getLocationLoading, availablePopupCabinClass, mapLocationsError } = mapData || ''
 
   const [searchLocation, setSearchLocation] = React.useState('')
   const [mapLocationsData, setMapLocationsData] = React.useState(null)
   // onRunTimeUpdate state is use to restrict API calling when change cabin class
   const [onRunTimeUpdate, setOnRunTimeUpdate] = React.useState(false)
+  const token = retrieveFromLocalStorage('token')
 
   const { available_destinations, source } = mapLocationsData || ''
 
+  useEffect(()=> {
+    if(airlineMemberships && !airlineMemberships.length) {
+      updateReducerState('common', 'airlineMembershipToggle', true)
+    }else{
+      updateReducerState('common', 'airlineMembershipToggle', false)
+    }
+    // eslint-disable-next-line
+  }, [user])
 
+  // Show toaster message on component did mount
+  useEffect(()=> {
+  if(!token) {
+    pushNotification(intl(toustifyMessages.currentAirlineMembershipText), 'success', 'TOP_CENTER', 5000)
+  }
+    // eslint-disable-next-line
+  }, [])
   useEffect(() => {
     if(mapLocations && mapLocations.available_destinations) {
       updateReducerState('mapData', 'getLocationLoading', false)
@@ -92,20 +116,15 @@ const updateLocation = () => {
 
   useEffect(() => {
     removeFromLocalStorage('callbackUrl')
-    const token = retrieveFromLocalStorage('token')
-    if (!airlines.length) {
-      getAirlineList({ isSetDefault: !Boolean(search), selectedAirline: 'BA' })
-    }
-
     if (search && token && !onRunTimeUpdate) {
       const extractedParams = extractURLParams(search)
-      if (extractedParams.tier && extractedParams.jType
+      if (extractedParams.jType
         && extractedParams.passenger && extractedParams.ouStartDate && extractedParams.ouEndDate
-        && extractedParams.dId && extractedParams.dPlace && extractedParams.airline && extractedParams.airlineCode &&
+        && extractedParams.dId && extractedParams.dPlace &&
         extractedParams.eclass && extractedParams.pclass && extractedParams.fclass && extractedParams.bclass) {
-        const { tier, jType, dPlace, dId, passenger, airlineCode, ouStartDate, ouEndDate, airline, inStartDate, inEndDate, desId, desPlace, eclass, pclass, fclass, bclass } = extractedParams || ''
+        const { tier, jType, dPlace, dId, passenger, airlineCode, ouStartDate, ouEndDate, inStartDate, inEndDate, desId, desPlace, eclass, pclass, fclass, bclass } = extractedParams || ''
         let data = {
-          tier,
+          tier: airlineMembership ? airlineMembership : Texts.DEFAULT_AIRLINE_TIER,
           travel_class: 'economy',
           trip_type: 'one_way',
           number_of_passengers: passenger,
@@ -123,10 +142,11 @@ const updateLocation = () => {
           }
         }
          getMapLocations(data)
+
         const dataJson = {
-          selectedAirline: airline,
-          airlineMembership: tier,
-          selectedAirlineCode: airlineCode,
+          selectedAirline: selectedAirline ? selectedAirline : `${Texts.DEFAULT_AIRLINE_TIER_CODE}_${Texts.DEFAULT_AIRLINE_TIER}`,
+          airlineMembership: airlineMembership ? airlineMembership : Texts.DEFAULT_AIRLINE_TIER,
+          selectedAirlineCode: selectedAirlineCode ? selectedAirlineCode : Texts.DEFAULT_AIRLINE_TIER_CODE,
           membership: tier,
           ticketsSearchBox: {
             numberOfPassengers: Number(passenger),
@@ -268,7 +288,16 @@ const updateLocation = () => {
         toggalMapEliteLoginPopUp={toggalMapEliteLoginPopUp}
         updateReducerState={updateReducerState}
       />
-
+      {airlineMembershipToggle &&
+      <AirlineMembershipModal
+        airlineMembershipToggle={airlineMembershipToggle}
+        searchPanel={searchPanel}
+        getAirlineList={getAirlineList}
+        updateReducerState={updateReducerState}
+        updateProfileDetails={props.updateProfileDetails}
+        user={user}
+      />
+      }
     </Layout>
   )
 }
@@ -285,8 +314,10 @@ MapView.propTypes = {
   isUserBronzeMember: PropTypes.bool,
   updateToggalClassesState: PropTypes.func,
   mapData: PropTypes.object,
-  userActionAudit: PropTypes.func,
-  getSouDesPossibleRoutes: PropTypes.func
+  getSouDesLocations: PropTypes.func,
+  getSouDesPossibleRoutes: PropTypes.func,
+  common: PropTypes.object,
+  user: PropTypes.object
 }
 
 export default MapView

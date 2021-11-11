@@ -11,8 +11,11 @@ import URls from 'constants/urls'
 import intl from 'utils/intlMessage'
 import toustifyMessages from 'constants/messages/toustifyMessages'
 import { pushNotification } from 'utils/notifications'
-import { updateReducerState } from 'actions/Common'
 import { getProfileDetails as getProfileDetailsUser } from 'actions/Dashboard'
+import { navigateToRespectivePage } from 'utils/helpers'
+
+const appendParams = sessionStorage.getItem('queryParamsGA')
+
 // get Testimonial data
 function* getTestimonials() {
   try {
@@ -51,18 +54,17 @@ function* watchGetPageContent() {
 }
 
 function* updateProfileDetailsPopup(action) {
-  const { data } = action.payload.data
+  const { data, redirectToPath } = action.payload.data
   const user = yield select(state => state.auth.user)
   const url = `/v1/users/${user && user.id}${URls.UPDATE_PROFILE_NAME}`
+  console.log('redirectToPath', redirectToPath)
   try {
     const response = yield call(putRequestRuby, url, data)
     if (response && response.status && response.status === 204) {
       yield put(getProfileDetailsUser(user?.id))
       yield put(updateUserNameSuccess())
-      document.body.style.position = "static"
-      document.body.style.width = "100%"
       // To close update profile modal once user details stored successfully
-      yield put(updateReducerState('pages', 'toggleUpdateProfileDetailsModal', false))
+      navigateToRespectivePage(redirectToPath, appendParams)
     }
   } catch (error) {
     if (error?.response?.data?.error) {

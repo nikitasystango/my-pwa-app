@@ -6,7 +6,6 @@ import TravellerCount from 'components/SearchPanel/travellerCount'
 import JourneyTypeSelector from 'components/SearchPanel/journeyTypeSelector'
 import AirlineClasses from 'components/SearchPanel/airlineClasses'
 import SourceAutocomplete from 'components/SearchPanel/sourceAutocomplete'
-import AirlineSelector from 'components/SearchPanel/airlineSelector'
 import SelectDateRange from 'common/DateRangePicker'
 import { retrieveFromLocalStorage, jsonToQueryString, setInLocalStorage } from 'utils/helpers'
 import moment from 'moment'
@@ -17,17 +16,18 @@ import FlyToSearchSelector from './flyToSearchSelector'
 import DestinationAutocomplete from 'components/SearchPanel/destinationAutocomplete'
 import { handleSetTrueToCabinClass } from 'utils/commonFunction'
 import { AppRoutes } from 'constants/appRoutes'
+import Texts from 'constants/staticText'
 
 const MapSearch = (props) => {
   const { searchPanel, updateTicketsSearchBox, updateReducerState, flightsAvailability, pathName,
     mapData: { startDateDep, endDateDep, startDateReturn, endDateReturn, toggleSideBar, sourceLocation, destinationLocation, flyToSearch }, isUserBronzeMember,
     searchQuery, setSearchLocation, location, mapLocationsError, setOnRunTimeUpdate } = props
-  const { ticketsSearchBox, journeyType, airlines, selectedAirlineCode, airlinesLoading,
+  const { ticketsSearchBox, journeyType, selectedAirlineCode,
     toggalClasses, airlineMembership, selectedAirline } = searchPanel || ''
   const { numberOfPassengers } = ticketsSearchBox || ''
+
   const [errors, setErrors] = useState({
     sourceError: false,
-    airlineError: false,
     departureDateError: false,
     returnDateError: false,
     destinationError: false
@@ -95,10 +95,7 @@ const MapSearch = (props) => {
   }
 
   const searchHandler = () => {
-    if (!selectedAirline && !airlineMembership) {
-      handlerSetError('airlineError', true)
-      return
-    } else if (flyToSearch === 'travelFrom' && !sourceLocation.value) {
+   if (flyToSearch === 'travelFrom' && !sourceLocation.value) {
       handlerSetError('sourceError', true)
       return
     }else if (flyToSearch === 'travelTo' && !destinationLocation.value) {
@@ -115,9 +112,9 @@ const MapSearch = (props) => {
     }
 
     let data = {
-      tier: airlineMembership,
-      airline: selectedAirline,
-      airlineCode: selectedAirlineCode,
+      tier: airlineMembership ? airlineMembership : Texts.DEFAULT_AIRLINE_TIER,
+      airline: selectedAirline ? selectedAirline : `${Texts.DEFAULT_AIRLINE_TIER}_${Texts.DEFAULT_AIRLINE_TIER_CODE}`,
+      airlineCode: selectedAirlineCode ? selectedAirlineCode : Texts.DEFAULT_AIRLINE_TIER_CODE,
       jType: 'one_way',
       passenger: numberOfPassengers,
       ouStartDate: moment(startDateDep).format('YYYY-MM-DD'),
@@ -203,17 +200,6 @@ const MapSearch = (props) => {
           />
 
         </div>
-        <AirlineSelector
-          searchPanel={searchPanel}
-          airlines={airlines}
-          fetchingAirlines={airlinesLoading}
-          updateReducerState={updateReducerState}
-          dropdownClassName={`airline-selector-dropdown search-map-view  ${selectedAirlineCode === 'AA' ? 'airline-selector-dropdown--AA' : ''}`}
-          className={errors.airlineError ? 'error-field' : ''}
-          handlerSetError={handlerSetError}
-          location={pathName}
-          mapData={props.mapData}
-        />
         {journeyType !== 'return' &&
         <FlyToSearchSelector
           selectedValue = {flyToSearch}

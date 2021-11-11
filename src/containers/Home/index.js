@@ -1,9 +1,8 @@
 import { connect } from 'react-redux'
 import Home from 'components/Home'
-import { updateReducerState, pageAnalytics, getWordpressContent, updateUserName } from 'actions/Common'
+import { updateReducerState, pageAnalytics, getWordpressContent } from 'actions/Common'
 import { addFingerprintScapperData } from 'actions/Layout'
 import { updateProfileDetails, getProfileDetails, getCountriesList, getStateList, getCityList } from 'actions/Dashboard'
-import { getSouDesLocations, getSouDesPossibleRoutes, getUserNearestAirport } from 'actions/SearchPanel'
 
 const mapStateToProps = state => ({
   home: state.home,
@@ -13,10 +12,8 @@ const mapStateToProps = state => ({
   testimonialLoader: state.common.testimonialLoader,
   user: state.auth.user,
   mapPageUrl: state.mapData.mapPageUrl,
-  searchPanel: state.searchPanel,
   accountSettings: state.dashboard.accountSettings,
   pages: state.pages,
-  updateUserNameLoading: state.common.updateUserNameLoading,
   dashboard: state.dashboard
 })
 
@@ -26,10 +23,6 @@ const mapDispatchToProps = dispatch => ({
   updateReducerState: (reducerKey, key, value) => dispatch(updateReducerState(reducerKey, key, value)),
   addFingerprintScapperData: (data) => dispatch(addFingerprintScapperData(data)),
   updateProfileDetails: (data) => dispatch(updateProfileDetails(data)),
-  updateUserName: (data) => dispatch(updateUserName(data)),
-  getSouDesLocations: (data) => dispatch(getSouDesLocations(data)),
-  getSouDesPossibleRoutes: (data) => dispatch(getSouDesPossibleRoutes(data)),
-  getUserNearestAirport: (data) => dispatch(getUserNearestAirport(data)),
   getProfileDetails: (userId) => dispatch(getProfileDetails(userId)),
   getCountriesList: (data) => dispatch(getCountriesList(data)),
   getStateList: (data) => dispatch(getStateList(data)),

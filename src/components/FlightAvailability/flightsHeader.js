@@ -30,7 +30,8 @@ const FlightsHeader = (props) => {
     journeyType,
     activeAirlineClass,
     availablePassengerCabinClasses,
-    setOnRunTimeUpdate
+    setOnRunTimeUpdate,
+    numberOfPassengers
   } = props
   return (
     <header
@@ -64,7 +65,7 @@ const FlightsHeader = (props) => {
                      data-tip data-for={`notAvailableForPassengerCount${item.name}_${index + 1}`}
                     key={`${item.name}_${index + 1}`}
                     onClick={() => availablePassengerCabinClasses[item.cabinClass] ? handleClassChange(item.cabinClass) : null}
-                    className={`buttons_element__button buttons_element__button--${
+                    className={`alertBoxClasses buttons_element__button buttons_element__button--${
                       item.cabinClass
                     } ${
                       toggalClasses[item.cabinClass] ? 'active' : ''
@@ -77,10 +78,12 @@ const FlightsHeader = (props) => {
                       checked={toggalClasses[item.cabinClass]}
                       />
                       <span>{item.title}</span>
+                      <ReactTooltip id={`notAvailableForPassengerCount${item.name}_${index + 1}`} disable={!availablePassengerCabinClasses[item.cabinClass] ? false: true} >
+                        <span>
+                          {`${numberOfPassengers} ${intl(flightMessages.notAvailableForPassengerCount, numberOfPassengers > 1 ? intl(flightMessages.seatsText) : intl(flightMessages.singleSeatText))}`}
+                        </span>
+                      </ReactTooltip>
                     </Button>
-                    <ReactTooltip id={`notAvailableForPassengerCount${item.name}_${index + 1}`} disable={!availablePassengerCabinClasses[item.cabinClass] ? false: true} >
-                      <span>{intl(flightMessages.notAvailableForPassengerCount)}</span>
-                    </ReactTooltip>
                   </>
                 )
               }
@@ -193,7 +196,8 @@ FlightsHeader.propTypes = {
   journeyType: PropTypes.string,
   activeAirlineClass: PropTypes.array,
   availablePassengerCabinClasses: PropTypes.object,
-  setOnRunTimeUpdate: PropTypes.bool
+  setOnRunTimeUpdate: PropTypes.bool,
+  numberOfPassengers: PropTypes.number
 }
 
 export default FlightsHeader

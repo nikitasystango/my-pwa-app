@@ -1,0 +1,106 @@
+.update-profile-wrapper{
+    background-image: url("../ProfileDetails/assets/flight-image-profile.png"); 
+    background-color: #cccccc; 
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: cover;
+    .update-profile-content-wrap{
+        justify-content: space-between !important;
+        .profile-details-wrap{
+            @media(max-width:767px){
+                position: relative;
+                top: 20px;
+            }
+        }
+        .updateProfilePopup {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0px 4px 65px rgba(0, 0, 0, 0.04);
+            @media(max-width:767px){
+                border-radius: 8px;
+            }
+           .select-wrap{
+            span{
+                display: none;
+            }
+           }
+           div[class*=menu] {
+                div[class*=MenuList] > div {
+                    background-color: #fff !important;
+                    div[class*=option]{
+                        &:hover{
+                            background-color: #fff !important;
+                            color: #000;
+                        }
+                    }
+                }
+            }
+            div[class*=indicatorSeparator] {
+                display: none;
+            }
+             div[class*=indicatorContainer] {
+                background-image: url('../ProfileDetails/assets/arrow-down-icon.svg');
+                background-repeat: no-repeat;
+                background-position: 2px;
+                background-size: 8px;
+                height: 20px;
+                width: 20px;
+               
+            }
+            .mb-1-s{
+                @media (max-width:767px) {
+                    margin-bottom: 10px !important;
+                }
+            }
+             div[class*=singleValue] {
+                color: var(--dark);
+                font-weight: 700;
+                text-transform: capitalize!important;
+            }
+            label{
+                font-family: Open Sans;
+                font-size: 12px;
+                line-height:16px;
+                color: #484848;
+                &.ageBandText{
+                    @media(min-width:1024px){
+                      display: block;
+                      margin-bottom: 20px!important;
+                      margin-top: 1px;
+                    }
+                }
+            }
+            .error-text{
+                margin-bottom: 10px;
+                display: block;
+            }
+            form{
+                .ui.grid{
+                    padding: 30px;    
+                    @media(max-width:767px){
+                        padding: 15px;    
+                        margin-bottom: 20px;
+                    }
+                    .field{
+                        .input {
+                            input{
+                                color: var(--dark);
+                                font-weight: 700;
+                                text-transform: capitalize!important;
+                            }
+                        }
+                    }        
+                }
+            }
+            .button-profile{
+                width: 144px;
+                background: #132C52;
+                border-radius: 4px;
+                height: 44px;
+                &:hover{
+                    background-color: var(--dark-hover);
+                }
+            }
+        }
+    }
+}

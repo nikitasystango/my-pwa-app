@@ -14,7 +14,6 @@ const initialState = {
   toggleThankyouVaModal: false,
   vaEmail: '',
   toggleSignupOnBoardingModal: false,
-  toggleUpdateProfileDetailsModal: false,
   toggleCouponsModal: false,
   couponsList: [],
   couponsListLoading: false,

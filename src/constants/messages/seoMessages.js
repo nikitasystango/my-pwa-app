@@ -397,6 +397,14 @@ export default defineMessages({
   seoPricingSecondTitle: {
     id: 'pages.seo.seoPricingSecondTitle',
     defaultMessage: 'Choose Your Plan | Reward Flight Finder'
+  },
+   seoNewProfilePageTitle: {
+    id: 'pages.seo.seoNewProfilePageTitle',
+    defaultMessage: 'Profile | Reward Flight Finder'
+  },
+  seoNewProfilePageDesc: {
+    id: 'pages.seo.seoNewProfilePageTitle',
+    defaultMessage: 'Keep your profile updated to get the relevant travel tips, advice and news.'
   }
 })
 

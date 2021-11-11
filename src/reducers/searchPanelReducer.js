@@ -15,6 +15,8 @@ import {
   GET_SOU_DES_POSSIBLE_ROUTES, GET_SOU_DES_POSSIBLE_ROUTES_SUCCESS, GET_SOU_DES_POSSIBLE_ROUTES_FAILURE,
   GET_USER_NEAREST_AIRPORT_SUCCESS
 } from 'actions/SearchPanel/actionTypes'
+import { airlineName } from 'constants/globalConstants'
+import Texts from 'constants/staticText'
 import { splitArrayAsUNiqueCombination } from 'utils/helpers'
 
 const initialState = {
@@ -103,8 +105,10 @@ const getAirlineList = (state) => ({
 })
 
 const getAirlineListSuccess = (state, action) => {
-  const { data, payloadData } = action.payload
+  const { data, payloadData, user: { airlineMemberships } } = action.payload
   const { isSetDefault } = payloadData
+  const airlineBA = airlineMemberships && airlineMemberships.length ? airlineMemberships[0].membership : Texts.DEFAULT_AIRLINE_TIER
+  const airlineCode = airlineMemberships && airlineMemberships.length ? airlineMemberships[0].airline === airlineName.BRITISH_AIRWAYS ? 'BA' : 'VA' : 'BA'
   let airlineData = []
   let selectedClasses = {}
   data.map((item) => {
@@ -124,7 +128,6 @@ const getAirlineListSuccess = (state, action) => {
         [str]: true
       }
   })
-
   if (isSetDefault) {
     selectedTierList.memberships.map(item => {
       if ((item?.value === 'blue' || item?.value === 'red') && state.selectedAirlineCode === null) {
@@ -139,6 +142,14 @@ const getAirlineListSuccess = (state, action) => {
       }
       return true
     })
+  }else{
+    state = {
+      ...state,
+      airlineMembership: airlineBA,
+      membership: airlineBA,
+      selectedAirlineCode: airlineCode,
+      selectedAirline: `${airlineCode}_${airlineBA}`
+    }
   }
 }
   return ({

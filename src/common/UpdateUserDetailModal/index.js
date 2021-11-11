@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, Button, Form, Grid, Header } from 'semantic-ui-react'
+import { Button, Form, Grid } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import { InputBox } from 'utils/formUtils'
 import intl from 'utils/intlMessage'
@@ -8,7 +8,6 @@ import { retrieveFromLocalStorage, sortSlectedRouteValue } from 'utils/helpers'
 import Validator from 'utils/validator'
 import ReactSelect from 'components/SearchPanel/reactSelect'
 import './index.scss'
-import searchPanelMessages from 'constants/messages/searchPanelMessages'
 import CommonReactSelect from 'common/CommonReactSelect'
 import { postcodeValidator } from 'postcode-validator'
 import {
@@ -18,7 +17,9 @@ import {
   travelAbroadOptions
 } from 'constants/globalConstants'
 import { preferredCountriesForPhoneInput } from 'constants/phoneNumberConstant'
-import { getStatesOfCountry } from 'utils/commonFunction'
+import profileDetailsMessages from 'constants/messages/profileDetailsMessages'
+import { AppRoutes } from 'constants/appRoutes'
+import validationMessages from 'constants/messages/validationMessages'
 
 const UpdateUserDetailModal = (props) => {
   const [error, setErrors] = useState({})
@@ -40,7 +41,6 @@ const UpdateUserDetailModal = (props) => {
   })
 
   const {
-    toggleModal,
     updateUserName,
     updateUserNameLoading,
     getSouDesLocations,
@@ -54,9 +54,8 @@ const UpdateUserDetailModal = (props) => {
     userDetails,
     userId,
     getCountriesList,
-    getStateList,
-    getCityList,
-    dashboard: { countriesList, statesList, citiesList }
+    dashboard: { countriesList },
+    userRegisterConfirmation
   } = props
   const token = retrieveFromLocalStorage('token')
   const {
@@ -79,8 +78,6 @@ const UpdateUserDetailModal = (props) => {
     getSouDesLocations({ selectedAirline: 'BA' })
     getSouDesPossibleRoutes({ selectedAirline: 'BA' })
     getCountriesList()
-    getStateList()
-    getCityList()
     // eslint-disable-next-line
   }, []);
 
@@ -94,7 +91,7 @@ const UpdateUserDetailModal = (props) => {
       flightsTakenAnnually,
       travellingAbroad
     } = userDetails || {}
-    const { address1, address2, city, zip, airpot_city } = address || {}
+    const { address1, address2, city, zip, airpot_city, state } = address || {}
     setUserData({
       ...userData,
       firstName: firstName ? firstName : '',
@@ -103,13 +100,8 @@ const UpdateUserDetailModal = (props) => {
       addressSecond: address2 || '',
       postCode: zip || '',
       country: getCountry() || null,
-      city: city
-        ? {
-            label: city || '',
-            value: city || ''
-          }
-        : null,
-      state: getState(),
+      city: city,
+      state: state || '',
       departureCity: airpot_city ? JSON.parse(airpot_city) : {},
       gender: gender
         ? genderOptions.find((data) => data.value === gender)
@@ -127,37 +119,14 @@ const UpdateUserDetailModal = (props) => {
         : null
     })
     // eslint-disable-next-line
-  }, [userDetails, countriesList, statesList, citiesList]);
-
-  const getState = () => {
-    const selectedCountry = countriesList.find(
-      (item) => item.sortname === userDetails?.country
-    )
-    const list = getStatesOfCountry(
-      statesList,
-      selectedCountry?.id,
-      'country_id'
-    )
-    const selectedState = list.find(
-      (item) => item.id === userDetails?.address?.state
-    )
-    if (selectedState && selectedState.name) {
-      return {
-        label: selectedState?.name || undefined,
-        value: selectedState?.id || undefined,
-        countryId: selectedState?.country_id || undefined
-      }
-    } else {
-      return null
-    }
-  }
+  }, [userDetails, countriesList ]);
 
   const formSubmitHandlerClick = () => {
     const { isValid } = _isValid()
     if (isValid) {
       const isPost = postcodeValidator(postCode, country?.sortname)
       if (!isPost) {
-        setErrors({ ...error, postCode: 'Invalid postal code' })
+        setErrors({ ...error, postCode: intl(validationMessages.invalidPostalCode) })
         return true
       }
       const data = {
@@ -168,8 +137,8 @@ const UpdateUserDetailModal = (props) => {
           address1: addressFirst,
           address2: addressSecond,
           country: country?.sortname,
-          city: city?.value,
-          state: state?.value,
+          city: city,
+          state: state,
           postal_code: postCode.toString().replace(/\s+/g, ''),
           airpot_city: JSON.stringify(departureCity),
           gender: gender?.value,
@@ -179,7 +148,9 @@ const UpdateUserDetailModal = (props) => {
         },
         id: userId
       }
-      updateUserName({ data })
+
+      const redirectToPath = !retrieveFromLocalStorage('firstTimeSignup') && !userRegisterConfirmation ? AppRoutes.HOME : AppRoutes.THANK_YOU
+      updateUserName({ data, redirectToPath })
     } else {
       const { errors } = _isValid()
       setErrors({ ...errors })
@@ -195,33 +166,21 @@ const UpdateUserDetailModal = (props) => {
       isPost = postcodeValidator(postCode, country?.sortname)
     }
     if (name === 'postCode' && errors?.postCode === undefined && !isPost) {
-      text = 'Invalid postal code'
+      text = intl(validationMessages.invalidPostalCode)
     }
     setErrors({ ...error, [name]: text })
   }
 
   // For profile form validation
   const _isValid = (field = null) => {
-    let list = {
+    const list = {
       firstName: ['minLength|2', 'noSpecialCharacter'],
       lastName: ['minLength|2', 'noSpecialCharacter'],
       addressFirst: ['minLength|2'],
-      addressSecond: ['minLength|2']
-      // state: ['required'],
-      // country: ['required'],
-      // postCode: ['required'],
-      // departureCity: ['required'],
-      // gender: ['required'],
-      // ageGroup: ['required'],
-      // approxFlightNum: ['required'],
-      // travelAbroad: ['required']
+      addressSecond: ['minLength|2'],
+      state: ['minLength|2'],
+      city: ['minLength|2']
     }
-    // if (cityList.length) {
-    //   list = {
-    //     ...list,
-    //     city: ['required']
-    //   }
-    // }
     const validate = Validator.createValidator(
       list,
       {
@@ -229,9 +188,9 @@ const UpdateUserDetailModal = (props) => {
         lastName: lastName,
         addressFirst: addressFirst,
         addressSecond: addressSecond,
-        state: state?.value,
+        state: state,
         country: country?.value,
-        city: city?.value,
+        city: city,
         postCode: postCode,
         departureCity: departureCity?.value,
         gender: gender?.value,
@@ -263,16 +222,7 @@ const UpdateUserDetailModal = (props) => {
   const handlerSetData = (data, name) => {
     setUserData({
       ...userData,
-      country: name === 'country' ? data : country,
-      state: name === 'state' ? data : name === 'country' ? null : state,
-      city:
-        name === 'city'
-          ? data
-          : name === 'country'
-          ? null
-          : name === 'state'
-          ? null
-          : city
+      country: data
     })
     if (name === 'country' && postCode && data?.sortname) {
       const isPost = postcodeValidator(postCode, data?.sortname)
@@ -280,7 +230,7 @@ const UpdateUserDetailModal = (props) => {
         ...error,
         city: null,
         state: null,
-        postCode: !isPost ? 'Invalid postal code' : null
+        postCode: !isPost ? intl(validationMessages.invalidPostalCode) : null
       })
     } else {
       setErrors({ ...error, city: null, state: null })
@@ -314,36 +264,6 @@ const UpdateUserDetailModal = (props) => {
     // eslint-disable-next-line
   }, [countriesList]);
 
-  const stateList = React.useMemo(() => {
-    const list = getStatesOfCountry(statesList, country?.value, 'country_id')
-    const data = []
-    // eslint-disable-next-line
-    list.map((state) => {
-      data.push({
-        label: state.name,
-        value: state.id,
-        countryId: state.country_id
-      })
-    })
-    return data
-    // eslint-disable-next-line
-  }, [country]);
-
-  const cityList = React.useMemo(() => {
-    const list = getStatesOfCountry(citiesList, state?.value, 'state_id')
-    const data = []
-    // eslint-disable-next-line
-    list.map((city) => {
-      data.push({
-        label: city.name,
-        value: city.name,
-        stateId: city.state_id
-      })
-    })
-    return data
-    // eslint-disable-next-line
-  }, [state, country]);
-
   const handlerGetGroupOptions = () =>
     sortSlectedRouteValue(
       possibleRoutes,
@@ -374,36 +294,29 @@ const UpdateUserDetailModal = (props) => {
 
   const errorCond = (error && (error.firstName || error.lastName || error.addressFirst
     || error.country
-    || error.state
-    || error.departureCity
+    || error.city
     || error.ageGroup
-    || error.gender
     || error.postCode
     || error.travelAbroad
     || error.approxNumberFlights
     )) ? true : false
-    const cityCond = cityList?.length ? !city ? true : false : false
+
   const isDisabled =
    (!firstName ||
     !lastName ||
     !addressFirst ||
     !country ||
-    !state ||
-    !departureCity ||
+    !city ||
     !ageGroup ||
-    !gender ||
     !postCode ||
     !travelAbroad ||
-    !approxNumberFlights) || errorCond || cityCond
+    !approxNumberFlights) || errorCond
 
   return (
-    <Modal
-      open={toggleModal}
-      closeOnDimmerClick={false}
-      className="cst-popup updateProfilePopup"
+    <div
+      className="updateProfilePopup"
     >
-      <Header content={intl(commonMessages.updateProfileDetails)} />
-      <Modal.Content className="p-0 mb-1">
+      <div className="p-0 mb-1">
         <>
           <Form className="account-popup-setting__form">
             <Grid className="">
@@ -467,7 +380,7 @@ const UpdateUserDetailModal = (props) => {
                     autoComplete="address"
                   />
                   {error && error.addressFirst &&
-              <span className="error-text">{error.addressFirst}</span>
+                  <span className="error-text">{error.addressFirst}</span>
                }
                 </Grid.Column>
 
@@ -487,7 +400,7 @@ const UpdateUserDetailModal = (props) => {
                     autoComplete="address"
                   />
                   {error && error.addressSecond &&
-              <span className="error-text">{error.addressSecond}</span>
+                  <span className="error-text">{error.addressSecond}</span>
                }
                 </Grid.Column>
               </Grid.Row>
@@ -504,62 +417,57 @@ const UpdateUserDetailModal = (props) => {
                       handlerSetData(data, 'country')
                     }}
                     selectedValue={country}
-                    className={error.country ? 'error-field' : ''}
+                    className={`select-wrap ${error.country ? 'error-field' : ''}`}
                     placeholder={intl(commonMessages.county)}
                     validateOnBlur={() => validateOnBlur('country')}
                   />
                 </Grid.Column>
 
                 <Grid.Column mobile={8} tablet={8} computer={8}>
-                  <label>
-                    {intl(commonMessages.stateText)}
-                    <span className="color-red">*</span>
-                  </label>
-                  <CommonReactSelect
-                    groupedOptions={stateList}
-                    handlerSetData={(data) => handlerSetData(data, 'state')}
-                    selectedValue={state}
-                    className={error.state ? 'error-field' : ''}
-                    placeholder={intl(commonMessages.stateText)}
-                    isDisabled={!country?.value}
-                    validateOnBlur={() => validateOnBlur('state')}
+                  <InputBox
+                    label={intl(commonMessages.cityText)}
+                    placeholder={intl(commonMessages.cityText)}
+                    errorMessage={error.city}
+                    type={'text'}
+                    name={'city'}
+                    value={city}
+                    onChange={(name) =>
+                      handleInputChange('city', name.trimStart())
+                    }
+                    onBlur={(e) => validateOnBlur(e.target.name)}
+                    className="required-field"
                   />
+                  {error && error.city &&
+                    <span className="error-text">{error.city}</span>
+                  }
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row className="py-0 j-c-c">
-                <Grid.Column
-                  mobile={8}
-                  tablet={8}
-                  computer={8}
-                  className="mt-1"
-                >
-                  <label>
-                    {intl(commonMessages.cityText)}{' '}
-                    {cityList.length ? (
-                      <span className="color-red">*</span>
-                    ) : (
-                      ''
-                    )}
-                  </label>
-                  <CommonReactSelect
-                    groupedOptions={cityList}
-                    handlerSetData={(data) => handlerSetData(data, 'city')}
-                    selectedValue={city}
-                    className={error.city ? 'error-field' : ''}
-                    placeholder={intl(commonMessages.cityText)}
-                    isDisabled={!state?.value || !cityList.length}
-                    validateOnBlur={() => validateOnBlur('city')}
+                <Grid.Column mobile={8} tablet={8} computer={8} >
+                  <InputBox
+                      label={intl(profileDetailsMessages.countyStateText)}
+                      placeholder={intl(profileDetailsMessages.countyStateText)}
+                      errorMessage={error.state}
+                      type={'text'}
+                      name={'state'}
+                      value={state}
+                      onChange={(name) =>
+                        handleInputChange('state', name.trimStart())
+                      }
+                      onBlur={(e) => validateOnBlur(e.target.name)}
                   />
+                  {error && error.state &&
+                    <span className="error-text">{error.state}</span>
+                  }
                 </Grid.Column>
                 <Grid.Column
                   mobile={8}
                   tablet={8}
                   computer={8}
-                  className="mt-1"
                 >
                   <InputBox
-                    label={intl(commonMessages.postCodeNum)}
-                    placeholder={intl(commonMessages.postCodeNum)}
+                    label={intl(profileDetailsMessages.postalZipCode)}
+                    placeholder={intl(profileDetailsMessages.postalZipCode)}
                     errorMessage={error.postCode}
                     type={'text'}
                     name={'postCode'}
@@ -568,22 +476,23 @@ const UpdateUserDetailModal = (props) => {
                       handleInputChange('postCode', name.trimStart())
                     }
                     maxLength={25}
-                    onBlur={(e) => validateOnBlur(e.target.name)}
+                    onBlur={(e) => e.target.value && validateOnBlur(e.target.name)}
                     className="required-field"
                   />
+                  {error && error.postCode &&
+                  <span className="error-text">{error.postCode}</span>
+                  }
                 </Grid.Column>
               </Grid.Row>
-              <Grid.Row className="py-0 text-left">
-                <Grid.Column mobile={16} tablet={8} computer={8}>
+              <Grid.Row className="py-0 text-left mb-1">
+                <Grid.Column className="mb-1-s" mobile={16} tablet={8} computer={8}>
                   <label>
-                    {intl(commonMessages.departure)}
-                    <span className="color-red">*</span>
+                    {intl(profileDetailsMessages.closestAirport)}
                   </label>
                   <ReactSelect
                     handlerSetData={handlerSetDeptData}
                     selectedValue={departureCity}
-                    className={error.departureCity ? 'error-field' : ''}
-                    placeholder={intl(searchPanelMessages.departureCityAirport)}
+                    className={`select-wrap ${error.departureCity ? 'error-field' : ''}`}
                     groupedOptions={handlerGetGroupOptions()}
                     validateOnBlur={() => validateOnBlur('departureCity')}
                     setIsOpen={setIsOpen}
@@ -591,26 +500,25 @@ const UpdateUserDetailModal = (props) => {
                     locationLabel={'profileDetailsModal'}
                   />
                 </Grid.Column>
-                <Grid.Column mobile={8} tablet={8} computer={8}>
+                <Grid.Column mobile={16} tablet={8} computer={8}>
                   <label>
-                    {intl(commonMessages.ageBand)}
-                    <span className="color-red">*</span>
+                    {intl(commonMessages.genderSelection)}
                   </label>
                   <CommonReactSelect
-                    groupedOptions={ageBandOption}
-                    handlerSetData={(data) => {
-                      handleInputChange('ageGroup', data)
-                    }}
-                    selectedValue={ageGroup}
-                    className={error.ageGroup ? 'error-field' : ''}
-                    placeholder={intl(commonMessages.ageBand)}
-                    validateOnBlur={() => validateOnBlur('ageGroup')}
+                    groupedOptions={genderOptions}
+                    handlerSetData={(data) =>
+                      handleInputChange('gender', data)
+                    }
+                    selectedValue={gender}
+                    className={`select-wrap ${error.gender ? 'error-field' : ''}`}
+                    placeholder={intl(commonMessages.genderSelection)}
+                    validateOnBlur={() => validateOnBlur('gender')}
                   />
                 </Grid.Column>
               </Grid.Row>
 
-              <Grid.Row className="py-0 j-c-c mt-1 mb-1">
-                <Grid.Column mobile={8} tablet={8} computer={8}>
+              <Grid.Row className="py-0 j-c-c  mb-1">
+                <Grid.Column className="mb-1-s" mobile={16} tablet={8} computer={8}>
                   <label>
                     {intl(commonMessages.approxFlights)}
                     <span className="color-red">*</span>
@@ -621,32 +529,30 @@ const UpdateUserDetailModal = (props) => {
                       handleInputChange('approxFlightNum', data)
                     }}
                     selectedValue={approxFlightNum}
-                    className={error.approxFlightNum ? 'error-field' : ''}
+                    className={`select-wrap ${error.approxFlightNum ? 'error-field' : ''}`}
                     placeholder={intl(commonMessages.select)}
                     validateOnBlur={() => validateOnBlur('approxFlightNum')}
                   />
                 </Grid.Column>
-
-                <Grid.Column mobile={8} tablet={8} computer={8}>
-                  <label>
-                    {intl(commonMessages.genderSelection)}
+                <Grid.Column mobile={16} tablet={8} computer={8} >
+                  <label className="ageBandText">
+                    {intl(commonMessages.ageBand)}
                     <span className="color-red">*</span>
                   </label>
                   <CommonReactSelect
-                    groupedOptions={genderOptions}
-                    handlerSetData={(data) =>
-                      handleInputChange('gender', data)
-                    }
-                    selectedValue={gender}
-                    className={error.gender ? 'error-field' : ''}
-                    placeholder={intl(commonMessages.genderSelection)}
-                    validateOnBlur={() => validateOnBlur('gender')}
+                    groupedOptions={ageBandOption}
+                    handlerSetData={(data) => {
+                      handleInputChange('ageGroup', data)
+                    }}
+                    selectedValue={ageGroup}
+                    className={`select-wrap ${error.ageGroup ? 'error-field' : ''}`}
+                    placeholder={intl(commonMessages.ageBand)}
+                    validateOnBlur={() => validateOnBlur('ageGroup')}
                   />
                 </Grid.Column>
               </Grid.Row>
-
               <Grid.Row className="py-0">
-                <Grid.Column mobile={16} tablet={8} computer={8}>
+                <Grid.Column mobile={16} tablet={16} computer={16}>
                   <label>
                     {intl(commonMessages.howLikelyYouTravel)}
                     <span className="color-red">*</span>
@@ -657,7 +563,7 @@ const UpdateUserDetailModal = (props) => {
                       handleInputChange('travelAbroad', data)
                     }}
                     selectedValue={travelAbroad}
-                    className={error.travelAbroad ? 'error-field' : ''}
+                    className={`select-wrap ${error.travelAbroad ? 'error-field' : ''}`}
                     placeholder={intl(commonMessages.select)}
                     validateOnBlur={() => validateOnBlur('travelAbroad')}
                   />
@@ -673,22 +579,21 @@ const UpdateUserDetailModal = (props) => {
                     loading={Boolean(updateUserNameLoading)}
                     size={'small'}
                     primary
-                    content={intl(commonMessages.save)}
+                    content={intl(commonMessages.update)}
                     onClick={formSubmitHandlerClick}
-                    className="btn btn--medium-blue btn--account-setting"
+                    className="button-profile "
                   />
                 </Grid.Column>
               </Grid.Row>
             </Grid>
           </Form>
         </>
-      </Modal.Content>
-    </Modal>
+      </div>
+    </div>
   )
 }
 
 UpdateUserDetailModal.propTypes = {
-  toggleModal: PropTypes.bool,
   updateUserName: PropTypes.func,
   updateUserNameLoading: PropTypes.bool,
   getSouDesLocations: PropTypes.func,
@@ -697,9 +602,8 @@ UpdateUserDetailModal.propTypes = {
   userDetails: PropTypes.object,
   userId: PropTypes.number,
   getCountriesList: PropTypes.func,
-  getStateList: PropTypes.func,
-  getCityList: PropTypes.func,
-  dashboard: PropTypes.object
+  dashboard: PropTypes.object,
+  userRegisterConfirmation: PropTypes.bool
 }
 
 export default UpdateUserDetailModal

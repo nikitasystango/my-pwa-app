@@ -104,5 +104,9 @@ export default defineMessages({
    invalidCoupon: {
     id: 'validation.invalidCoupon',
     defaultMessage: 'This coupon is invalid'
+   },
+   invalidPostalCode: {
+       id: 'validation.invalidPostalCode',
+       defaultMessage: 'Invalid postal code'
    }
 })

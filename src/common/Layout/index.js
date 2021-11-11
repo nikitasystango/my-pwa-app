@@ -13,7 +13,7 @@ import { movePointerOnTop } from 'utils/helpers'
 import { AppRoutes } from 'constants/appRoutes'
 import history from 'utils/history'
 import env from 'utils/env_variables'
-import { trackUserIdConversion } from 'utils/commonFunction'
+import { trackUserIdConversion, updateReducerAirlineData } from 'utils/commonFunction'
 
 const Layout = (props) => {
   const { isSidebarVisible, toggleSidebar, user, updateReducerState, className,
@@ -64,7 +64,14 @@ const Layout = (props) => {
     }
   }
 
-
+  const updateReducerData = (airlineMemberships) => {
+    if(airlineMemberships && airlineMemberships.length) {
+    const dataJson = updateReducerAirlineData(airlineMemberships)
+     Object.keys(dataJson).map((item) => (
+       updateReducerState('searchPanel', item, dataJson[item])
+     ))
+    }
+   }
 
   if (token && user && !user.id) {
     const userValue = JSON.parse(retrieveFromLocalStorage('userDetails'))
@@ -107,12 +114,17 @@ const Layout = (props) => {
       flightsTakenAnnually: userValue?.flights_taken_annually || null,
       gender: userValue?.gender || null,
       travellingAbroad: userValue?.travelling_abroad_in_next_12_months || null,
-      redeemedCouponIds: userValue?.redeemed_coupon_ids || null
+      redeemedCouponIds: userValue?.redeemed_coupon_ids || null,
+      airlineMemberships: userValue?.airline_memberships || []
     }
     if (data && data.id) {
+      updateReducerData(data?.airlineMemberships)
       updateReducerState('auth', 'user', data)
     }
   }
+
+
+
 
   return (
     <Fragment>

@@ -244,5 +244,9 @@ export default defineMessages({
   resetPasswordSuccess: {
     id: 'mapPage.resetPasswordSuccess',
     defaultMessage: 'Your password has been changed successfully'
+  },
+  currentAirlineMembershipText: {
+    id: 'mapPage.currentAirlineMembershipText',
+    defaultMessage: 'Current Airline Membership Tier is Blue, Please select desired Membership Tier at User Dashboard'
   }
 })

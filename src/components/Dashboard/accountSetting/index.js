@@ -64,7 +64,9 @@ const AccountSetting = (props) => {
     updateReducerState,
     getSouDesLocations,
     getSouDesPossibleRoutes,
-    getUserNearestAirport
+    getUserNearestAirport,
+    getAirlineList,
+    searchPanel
   } = props
   const {
     userDetails,
@@ -227,7 +229,14 @@ const AccountSetting = (props) => {
           />
         )
       case 5:
-        return <MembershipTier />
+        return (
+          <MembershipTier
+           getAirlineList={getAirlineList}
+           searchPanel={searchPanel}
+           updateReducerState={updateReducerState}
+           updateProfileDetails={updateProfileDetails}
+           userDetails={userDetails}
+          />)
 
       default:
           return <CardNavigation updateReducerState={updateReducerState} />
@@ -293,6 +302,11 @@ AccountSetting.propTypes = {
   setEmailPrimaryLoading: PropTypes.bool,
   toggleSmsOtpSection: PropTypes.bool,
   deletePhoneNumber: PropTypes.func,
-  updateReducerState: PropTypes.func
+  updateReducerState: PropTypes.func,
+  getSouDesLocations: PropTypes.func,
+  getSouDesPossibleRoutes: PropTypes.func,
+  getUserNearestAirport: PropTypes.func,
+  getAirlineList: PropTypes.func,
+  searchPanel: PropTypes.object
 }
 export default AccountSetting

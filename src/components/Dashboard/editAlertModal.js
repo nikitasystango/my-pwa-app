@@ -19,12 +19,14 @@ import toustifyMessages from 'constants/messages/toustifyMessages'
 import { Link } from 'react-router-dom'
 import ReactTooltip from 'react-tooltip'
 import flightMessages from 'constants/messages/flightMessages'
+import Texts from 'constants/staticText'
+import { airlineName } from 'constants/globalConstants'
 
 const EditAlertModal = (props) => {
   const { data, airlines, toggleEditAlertModal, setToggleEditAlertModal, toggleDeleteAlertModal,
     handelDeleteAlert, setToggleDeleteALertModal, editAlert, extractedParams, getFlightAvailability, flights, allowedAlertDateRange, isUserGoldMember, isUserSilverMember, availablePassengerCabinClasses } = props
   const { number_of_passengers, trip_type, start_date, end_date, arrival_start_date,
-    arrival_end_date, membership_type, travel_classes, id, available_travel_classes, destination_code, source_code } = data || ''
+    arrival_end_date, membership_type, travel_classes, id, available_travel_classes, destination_code, source_code, airline_name } = data || ''
     const { flightsAvailability } = flights || {}
 
   const [editAlertState, SetEditAlertState] = useState({
@@ -96,7 +98,7 @@ const EditAlertModal = (props) => {
       tier: membership_type,
       sourceCode: source_code,
       destinationCode: destination_code,
-      airlineCode: extractedParams?.aCode
+      airlineCode: airline_name === airlineName.VIRGIN_AIRWAYS ? 'VA' : Texts.DEFAULT_AIRLINE_TIER_CODE 
     }
     getFlightAvailability(data)
   }
@@ -219,13 +221,9 @@ const EditAlertModal = (props) => {
     }
 
     const url = {
-      airlineSelected: `${extractedParams?.aCode}_${airlineMembership}`,
-      airlineMembership: airlineMembership,
-      aCode: extractedParams?.aCode,
       numberOfPassengers: numberOfPassengers,
       tclass: 'Economy',
       tValue: 'economy',
-      membership: airlineMembership,
       jType: journeyType,
       dPlace: extractedParams?.dPlace,
       dId: source_code,
@@ -472,7 +470,7 @@ const handleAlertRangeError = (alert) => {
                     </div>
                   </Grid.Column>
                   <Grid.Column>
-                    <div className="american-alert-popup__fields american-alert-popup__fields--radio">
+                    <div className="alert-popup-wrap american-alert-popup__fields american-alert-popup__fields--radio">
                       <label>{intl(dashboardMessages.editAlertModalFlightType)}</label>
                       <div>
                         <InputRadio
@@ -564,17 +562,19 @@ const handleAlertRangeError = (alert) => {
                           return (
                             <>
                               <div key={`${item.cabinClass}_${index}_3`}
-                              className={`${!availableSeats ? 'cabin-buttons_disable' : ''} classes-buttons__grp classes-buttons__grp--${item.cabinClass}`}
                               data-tip data-for={`notAvailableForPassengerCount${item.cabinClass}_${index}_3`}
+                              className={`${!availableSeats ? 'cabin-buttons_disable' : ''} alertBoxClasses classes-buttons__grp classes-buttons__grp--${item.cabinClass}`}
                               >
                                 <input disabled={!availableSeats} type="checkbox" name="airline-class" id={item.cabinClass}
                               onClick={() => passengerToggleClass[item.cabinClass] ? handlerClassChange(item.cabinClass, !cabinClasses[item.cabinClass]) : null }
                                 />
                                 <label htmlFor={item.cabinClass} className={`${!passengerToggleClass[item.cabinClass] ? 'inactive-cabin-class' : ''}`} ><CheckCircle color="var(--medium-blue)" checked={cabinClasses[item.cabinClass]} />{item.title}</label>
+                                <ReactTooltip id={`notAvailableForPassengerCount${item.cabinClass}_${index}_3`} disable={!passengerToggleClass[item.cabinClass] ? false: true} >
+                                  <span>
+                                    {`${numberOfPassengers} ${intl(flightMessages.notAvailableForPassengerCount, numberOfPassengers > 1 ? intl(flightMessages.seatsText) : intl(flightMessages.singleSeatText))}`}
+                                  </span>
+                                </ReactTooltip>
                               </div>
-                              <ReactTooltip id={`notAvailableForPassengerCount${item.cabinClass}_${index}_3`} disable={!passengerToggleClass[item.cabinClass] ? false: true} >
-                                <span>{intl(flightMessages.notAvailableForPassengerCount)}</span>
-                              </ReactTooltip>
                             </>
                           )
                         })

@@ -6,6 +6,22 @@
 
 .cst-popup {
   // americal alert
+  .alert-popup-wrap{
+    .ui.radio{
+      label{
+        &:before{
+          border:1px solid #d4d4d5 !important;
+        }
+      }
+      &.checked{
+        label{
+          &:before{
+            border:1px solid var(--medium-blue) !important;
+          }
+        }
+      }
+    }
+  }
   &.american-alert-popup {
     max-width: 510px !important;
 
@@ -375,9 +391,9 @@
           transition: all 0.2s ease-in;
           &.inactive-cabin-class{
             background: #c9c9c9 !important;
-            opacity: 0.4;
+            opacity: 0.3;
             border: 1px solid #d9d9d9;
-            color: black;
+            color: black !important;
             svg {
               rect{
                 fill: #656565;
@@ -402,6 +418,7 @@
         }
 
         &.cabin-buttons_disable{
+          position: relative;
           label{
             cursor: not-allowed;
             color: rgba(var(--color), .6);
@@ -412,6 +429,15 @@
             }
           }
         }
+      }
+    }
+    .alertBoxClasses{
+      position: relative;
+      .__react_component_tooltip{
+        left: -78px!important;
+        top: -35px!important;
+        width: 250px;
+        position: absolute !important;
       }
     }
     @media (max-width: 767px) {

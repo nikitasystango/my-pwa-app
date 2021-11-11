@@ -115,6 +115,10 @@
 .find-flight {
     font-display: swap;
     position: relative;
+    @media(min-width:800px){
+      max-width: 865px;
+      margin: 0 auto;
+    }
     .radio-buttons {
       margin-top: 0 !important;
     }
@@ -132,12 +136,13 @@
 .search-panel {
     background: var(--light-blue);
     border-radius: 0 0 10px 10px;
-
+    justify-content: center;
     &__row {
         padding: {
             top: 0px !important;
             bottom: 23px !important;
         };
+        justify-content: center !important;
 
         @media (max-width: 991px) {
           padding: {
@@ -322,7 +327,6 @@
                 }
               }
               @media (max-width: 991px) {
-                padding-top: 1rem !important;
               }
             }
 
@@ -1457,6 +1461,9 @@
 .whereFromDropdown , .whereToDropdown , .airlineDropdown{
   div[class*="menu"] > div {
     padding:12px 2px 12px 2px !important ;
+    div[class*="group"] {
+      padding-left:6px !important;
+    }
    div[class*="option"] {
     padding:5px 2px 5px 6px !important;
   }
