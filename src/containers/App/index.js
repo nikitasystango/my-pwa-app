@@ -31,12 +31,25 @@ export default function App() {
   useEffect(() => {
     history.listen((location, action) => {
       // check for sw updates on page change
-      navigator.serviceWorker
-        .getRegistrations()
-        .then((regs) => regs.forEach((reg) => reg.update()))
+      const isNewUpdate = retrieveFromLocalStorage('isNewUpdate')
+      if(isNewUpdate){
+        handleCacheClear()
+      }
     })
     // eslint-disable-next-line
   }, [window.location.pathname])
+
+  function handleCacheClear() {
+          caches.keys().then(function (names) {
+            // delete the available cache for
+            caches.delete('workbox-precache')
+            caches.delete('images')
+            caches.delete('api-cache')
+          })
+          console.log('isNewUpdateisNewUpdate');
+          removeFromLocalStorage('isNewUpdate')
+          window.location.reload()
+  }
 
   return (
     <Fragment>
