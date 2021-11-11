@@ -18,6 +18,7 @@ import ProxyLoginComponent from 'containers/ProxyLogin'
 import history from 'utils/history'
 import SubscriptionThankyouPage from 'containers/SubscriptionThankyouPage'
 import ProfileDetails from 'containers/ProfileDetails'
+import { retrieveFromLocalStorage, removeFromLocalStorage } from 'utils/helpers'
 
 // Lazy load heavy dom components
 const MapView = React.lazy(() => import('containers/MapView'))
