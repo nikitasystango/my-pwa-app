@@ -20,6 +20,7 @@ import { AppRoutes } from 'constants/appRoutes'
 import 'semantic-ui-css/components/popup.min.css'
 import intl from 'utils/intlMessage'
 import commonMessages from 'constants/messages/commonMessages'
+import { airlineName } from 'constants/globalConstants'
 
 const AlertBox = (props) => {
   const {
@@ -140,12 +141,12 @@ const avabilitySplit = availability_url ? availability_url.split('?')[1] : ''
               <span className="alert-box__info-airline">
                 <img
                   className="lazyload airline-icon"
-                  src={airline_name === 'american_airlines' ? AAIcon : BAIcon}
+                  src={airline_name === airlineName.AA.AIRWAYS_NAME ? AAIcon : BAIcon}
                   alt="airlines"
                 />
-                {airline_name === 'american_airlines'
-                  ? 'American Airlines'
-                  : 'British Airways'}
+                {airline_name === airlineName.AA.AIRWAYS_NAME
+                  ? airlineName.AA.AIRLINE
+                  : airlineName.BA.AIRLINE}
                 <Popup
                   content={`${membership_type} ${intl(commonMessages.member)}`}
                   size="mini"

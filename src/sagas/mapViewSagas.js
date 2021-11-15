@@ -7,14 +7,14 @@ import {
 import { getRequestNode } from './request'
 import URls from 'constants/urls'
 import { jsonToQueryString } from 'utils/helpers'
-import { availableAirways } from 'constants/globalConstants'
+import { availableAirways, airlineName } from 'constants/globalConstants'
 import intl from 'utils/intlMessage'
 import toustifyMessages from 'constants/messages/toustifyMessages'
 
 // get locations for map
 function* handleMapLocations(action) {
   const { data } = action.payload
-  const airlinePath = data && data.airlineCode && data.airlineCode === 'VA' ? availableAirways.VIRGIN_ATLANTIC :availableAirways.BRITISH_AIRWAYS
+  const airlinePath = data && data.airlineCode && data.airlineCode === airlineName.VA.CODE ? availableAirways.VIRGIN_ATLANTIC :availableAirways.BRITISH_AIRWAYS
   const selectedAirlineURL = `${URls.GET_FLIGHTS_AVAILABILITY}/${airlinePath}`
   const url = `${selectedAirlineURL}${jsonToQueryString(data)}`
   try {

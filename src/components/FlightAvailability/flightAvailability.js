@@ -49,6 +49,7 @@ const FlightAvailability = (props) => {
             </div>
           </div>
         </div>
+        <p className="avios-point-text"> {intl(flightMessages.aviosPointsInAccurate)} </p>
       </div>
     </>
   )

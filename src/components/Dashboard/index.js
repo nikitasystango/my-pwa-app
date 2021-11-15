@@ -19,7 +19,7 @@ import commonMessages from 'constants/messages/commonMessages'
 
 const Dashboard = (props) => {
   const { editAlert, getAirlineList, airlines, user, getSubscribedAlerts, cancelSubscribedAlerts, getProfileDetails, location: { pathname, search },
-    dashboard: { myAlerts, accountSettings: { fetchingProfileDetails } }, pageAnalytics, updateReducerState, getFlightAvailability, flights , getCountriesList, getStateList, getCityList, searchPanel } = props
+    dashboard: { myAlerts, accountSettings: { fetchingProfileDetails } }, pageAnalytics, updateReducerState, getFlightAvailability, flights , getCountriesList, searchPanel } = props
   const [activeView, setActiveView] = useState(null)
   const { isUserBronzeMember, isUserSilverMember, isUserGoldMember } = user || {}
   useEffect(() => {
@@ -29,8 +29,6 @@ const Dashboard = (props) => {
 
   useEffect(()=> {
     getCountriesList()
-    getStateList()
-    getCityList()
     // eslint-disable-next-line
   }, [])
 
@@ -204,8 +202,6 @@ Dashboard.propTypes = {
   getFlightAvailability: PropTypes.func,
   flights: PropTypes.object,
   getCountriesList: PropTypes.func,
-  getStateList: PropTypes.func,
-  getCityList: PropTypes.func,
   searchPanel: PropTypes.object
 }
 export default Dashboard

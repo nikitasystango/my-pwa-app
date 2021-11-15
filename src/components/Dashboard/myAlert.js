@@ -16,6 +16,7 @@ import commonMessages from 'constants/messages/commonMessages'
 import dashboardMessages from 'constants/messages/dashboardMessages'
 import './assets/my-alert.scss'
 import { sortText } from 'utils/helpers'
+import { airlineName } from 'constants/globalConstants'
 
 const MyAlert = (props) => {
   const {
@@ -77,7 +78,7 @@ const MyAlert = (props) => {
 
   useEffect(() => {
     if (!airlines.length) {
-      getAirlineList({ isSetDefault: false, selectedAirline: 'BA' })
+      getAirlineList({ isSetDefault: false, selectedAirline: airlineName.BA.CODE })
     }
     pageAnalytics()
     // eslint-disable-next-line

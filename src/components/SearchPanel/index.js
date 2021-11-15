@@ -12,7 +12,7 @@ import {
   setInLocalStorage,
   retrieveFromLocalStorage,
   removeFromLocalStorage,
-  getRedirectionURL,
+  getRedirectionURL
 } from 'utils/helpers'
 import DateSelect from 'components/Subscribe'
 import { jsonToQueryString } from 'utils/helpers'
@@ -33,6 +33,7 @@ import toustifyMessages from 'constants/messages/toustifyMessages'
 import searchPanelMessages from 'constants/messages/searchPanelMessages'
 import publicIp from 'public-ip'
 import { checkDifference, handleSpecificErrorAlertRange, removeFalsyElement } from 'utils/commonFunction'
+import { airlineName } from 'constants/globalConstants'
 
 const SearchPanel = (props) => {
   const {
@@ -218,8 +219,8 @@ const SearchPanel = (props) => {
   // Get Airlines List
   useEffect(() => {
     getClientIp()
-    const airlineSel = location.pathname === AppRoutes.HOME ? 'BA' : location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS ? 'VA' : selectedAirlineCode ? selectedAirlineCode : 'BA'
-    const values = retrieveFromLocalStorage(`${airlineSel === 'BA' ? 'recentSearch' : 'recentSearchVA'} `)
+    const airlineSel = location.pathname === AppRoutes.HOME ? airlineName.BA.CODE : location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS ? airlineName.VA.CODE : selectedAirlineCode ? selectedAirlineCode : airlineName.BA.CODE
+    const values = retrieveFromLocalStorage(`${airlineSel === airlineName.BA.CODE ? 'recentSearch' : 'recentSearchVA'} `)
 
       getSouDesLocations({ selectedAirline: airlineSel })
       getSouDesPossibleRoutes({ selectedAirline: airlineSel })
@@ -320,7 +321,7 @@ const SearchPanel = (props) => {
       let data = {
         departure,
         arrival,
-        numberOfPassengers: passengerCountData ? passengerCountData : numberOfPassengers ,
+        numberOfPassengers: passengerCountData ? passengerCountData : numberOfPassengers,
         ticketClass,
         toggalClasses,
         journeyType,
@@ -338,8 +339,8 @@ const SearchPanel = (props) => {
         ...data,
         label: location.pathname === AppRoutes.CALENDER ? 'calendar' : 'home'
       }
-      const airlineSel = location.pathname === AppRoutes.HOME ? 'BA' : location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS ? 'VA' : selectedAirline ? selectedAirline.split('_')[0] : ''
-      setInLocalStorage(`${airlineSel === 'BA' ? 'recentSearch' : 'recentSearchVA'} `, values.join(';'))
+      const airlineSel = location.pathname === AppRoutes.HOME ? airlineName.BA.CODE : location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS ? airlineName.VA.CODE : selectedAirline ? selectedAirline.split('_')[0] : ''
+      setInLocalStorage(`${airlineSel === airlineName.BA.CODE ? 'recentSearch' : 'recentSearchVA'} `, values.join(';'))
       setOnRunTimeUpdate && !passengerCountData && setOnRunTimeUpdate(false)
       // creating url
       const url = getRedirectionURL(data)
@@ -380,8 +381,7 @@ const SearchPanel = (props) => {
       source_code: depCode,
       membership_type: airlineMembership,
       destination_code: arrCode,
-      airline_name:
-        selectedAirlineCode === 'AA' ? 'american_airlines' : 'british_airways',
+      airline_name: selectedAirlineCode ? airlineName[selectedAirlineCode].AIRWAYS_NAME : airlineName.BA.AIRWAYS_NAME,
       number_of_passengers: numberOfPassengers,
       travel_class:
         ticketClass && ticketClass.value ? ticketClass.value : 'economy',

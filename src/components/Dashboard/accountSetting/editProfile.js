@@ -269,9 +269,7 @@ const EditProfile = (props) => {
   const errorCond = (error && (error.firstName || error.lastName || error.addressFirst
     || error.country
     || error.state
-    || error.departureCity
     || error.ageGroup
-    || error.gender
     || error.postCode
     || error.travelAbroad
     || error.approxNumberFlights
@@ -284,7 +282,6 @@ const EditProfile = (props) => {
     !country ||
     !city ||
     !ageGroup ||
-    !gender ||
     !postCode ||
     !travelAbroad ||
     !approxNumberFlights) || errorCond
@@ -498,7 +495,6 @@ const EditProfile = (props) => {
           <Grid.Column mobile={8} tablet={5} computer={4}>
             <label>
               {intl(commonMessages.genderSelection)}
-              <span className="color-red">*</span>
             </label>
             <CommonReactSelect
               groupedOptions={genderOptions}

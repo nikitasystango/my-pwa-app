@@ -34,7 +34,8 @@ const MapView = (props) => {
     updateTicketsSearchBox, flightsAvailability, getAirlineList, mapData, isUserBronzeMember, updateToggalClassesState, getSouDesPossibleRoutes,
     getSouDesLocations,
     common: { airlineMembershipToggle },
-    user
+    user,
+    accountSettings : { updateUserProfileLoading }
   } = props
   const { toggalMapEliteLoginPopUp, toggalClasses, airportsWithMultiCity, souDesAirports,
     ticketsSearchBox: { numberOfPassengers }, selectedAirlineCode, selectedAirline,
@@ -296,6 +297,7 @@ const updateLocation = () => {
         updateReducerState={updateReducerState}
         updateProfileDetails={props.updateProfileDetails}
         user={user}
+        updateUserProfileLoading={updateUserProfileLoading}
       />
       }
     </Layout>

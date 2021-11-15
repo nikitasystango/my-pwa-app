@@ -72,7 +72,7 @@ const initialState = {
     userDetails: null,
     changeUserPasswordModal: false,
     changeUserPasswordLoading: false,
-    updateUserProfileLoading: '',
+    updateUserProfileLoading: false,
     toggleSetSocialUserPasswordModal: false,
     setSocialUserPasswordLoading: false,
     toggleSetAlternateEmailsModal: false,

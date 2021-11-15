@@ -15,12 +15,27 @@
 }
 .membership-dropdown{
     width: 350px !important;
-    border: unset !important;
     padding-top: 6px !important;
     padding-bottom: 6px !important;
-    padding-left: 0 !important;
+    border-color:#96c8da !important;
     .ui.header{
         color:#03B2D8;
+    }
+    .dropdown.icon{
+        &:after{
+            top: 20% !important;
+            left: 35% !important;
+            border-color: #03B2D8 transparent transparent !important;
+            width: 20px !important;
+            height: 20px !important;
+        }
+    }
+    &.dropdown-icon-hide{
+        .dropdown.icon{
+            &:before{
+                content: none !important;
+            }
+        }
     }
     .text{
         display: flex !important;
@@ -39,7 +54,6 @@
         }
     }
     .visible.menu.transition{
-        border: unset !important;
         box-shadow: none !important;
         .item{
             padding-left: 44px !important;
@@ -113,14 +127,13 @@
     }
     .membership-dropdown{
         &.visible {
-            margin-bottom: 200px;
+            margin-bottom: 165px;
             transition: all 700ms;
         }
         transition: all 700ms;
         margin-top: 15px;
         margin-bottom: 30px;
         margin-left: 20px;
-        padding-left: 0 !important;
         @media(max-width:767px){
             width: 100%;
             max-width: 300px !important;

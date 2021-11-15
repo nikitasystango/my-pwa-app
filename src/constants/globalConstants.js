@@ -1195,8 +1195,9 @@ export const calendarDefaultRouteSearcParams = {
   business: true
  }
 
+
  export const airlineName = {
-   BRITISH_AIRWAYS: 'british_airways',
-   VIRGIN_AIRWAYS: 'virgin_atlantic',
-   AMERICAN_AIRWAYS: 'american_airlines'
- }
+  BA: { AIRWAYS_NAME: 'british_airways', CODE: 'BA', AIRLINE: 'British Airways' },
+  VA: { AIRWAYS_NAME: 'virgin_atlantic', CODE: 'VA', AIRLINE: 'Virgin Atlantic' },
+  AA: { AIRWAYS_NAME: 'american_airlines', CODE: 'AA', AIRLINE: 'American Airlines' }
+}

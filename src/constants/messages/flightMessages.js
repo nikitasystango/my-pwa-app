@@ -108,5 +108,9 @@ export default defineMessages({
   singleSeatText: {
     id: 'flightAvailability.singleSeatText',
     defaultMessage: 'seat isn’t'
+  },
+  aviosPointsInAccurate: {
+    id: 'flightAvailability.aviosPointsInAccurate',
+    defaultMessage: 'Avios point pricing may be inaccurate. We’re working on a fix.'
   }
 })

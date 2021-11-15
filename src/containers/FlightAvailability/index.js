@@ -19,7 +19,8 @@ const mapStateToProps = state => ({
   facebookLoginLoading: state.auth.facebookLoginLoading,
   googleLoginLoading: state.auth.googleLoginLoading,
   appleLoginLoading: state.auth.appleLoginLoading,
-  user: state.auth.user
+  user: state.auth.user,
+  accountSettings: state.dashboard.accountSettings
 })
 
 const mapDispatchToProps = dispatch => ({

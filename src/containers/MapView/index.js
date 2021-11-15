@@ -15,7 +15,8 @@ const mapStateToProps = state => ({
   flightsAvailability: state.flights.flightsAvailability,
   isUserBronzeMember: state.auth.user.isUserBronzeMember,
   common: state.common,
-  user: state.auth.user
+  user: state.auth.user,
+  accountSettings: state.dashboard.accountSettings
 })
 
 const mapDispatchToProps = dispatch => ({

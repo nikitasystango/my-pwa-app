@@ -16,6 +16,7 @@ import searchPanelMessages from 'constants/messages/searchPanelMessages'
 import { Link } from 'react-router-dom'
 import { checkDifference, getDifferenceInDays, handleSpecificErrorAlertRange } from 'utils/commonFunction'
 import Texts from 'constants/staticText'
+import { airlineName } from 'constants/globalConstants'
 
 const DateSelect = (props) => {
   const { flightsAvailability, callCreateAlertAPi, sendAlertLoading, updateReducerState,
@@ -73,7 +74,7 @@ const DateSelect = (props) => {
         source_code: extractedParams.dId,
         membership_type: airlineMembership ? airlineMembership : Texts.DEFAULT_AIRLINE_TIER,
         destination_code: extractedParams.aId,
-        airline_name: selectedAirlineCode === 'AA' ? 'american_airlines' : 'british_airways',
+        airline_name: selectedAirlineCode ? airlineName[selectedAirlineCode].AIRWAYS_NAME : airlineName.BA.AIRWAYS_NAME,
         travel_classes: selectedClasses?.toString(),
         number_of_passengers: numberOfPassengers || 1,
         trip_type: 'one_way',

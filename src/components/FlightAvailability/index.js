@@ -34,6 +34,7 @@ import AirlineMembershipModal from 'common/Modals/airlineMembershipModal'
 import intl from 'utils/intlMessage'
 import { pushNotification } from 'utils/notifications'
 import toustifyMessages from 'constants/messages/toustifyMessages'
+import { airlineName } from 'constants/globalConstants'
 
 var header
 var sticky
@@ -51,7 +52,8 @@ const Home = (props) => {
     myAlerts: { cancellingAlert },
     getAlertAvailability,
     signup, user,
-    common: { airlineMembershipToggle }
+    common: { airlineMembershipToggle },
+    accountSettings : { updateUserProfileLoading }
   } = props
   const { isEmailVerified } = user || ''
   const { numberOfPassengers } = ticketsSearchBox
@@ -345,7 +347,7 @@ const updateExistingEventId = () => {
       destinationCode: paramsData.aId,
       airlineCode: selectedAirlineCode ? selectedAirlineCode : Texts.DEFAULT_AIRLINE_TIER_CODE
     }
-    if(selectedAirlineCode === 'VA') {
+    if(selectedAirlineCode === airlineName.VA.CODE) {
       data = {
         ...data,
         toggalClasses: {
@@ -383,7 +385,7 @@ const updateExistingEventId = () => {
         business: paramsData.business === 'true' ? true : false
       }
     }
-    if(selectedAirlineCode === 'VA') {
+    if(selectedAirlineCode === airlineName.VA.CODE) {
       dataJson = {
         ...dataJson,
         toggalClasses: {
@@ -728,6 +730,7 @@ const updateExistingEventId = () => {
         updateReducerState={updateReducerState}
         updateProfileDetails={props.updateProfileDetails}
         user={user}
+        updateUserProfileLoading={updateUserProfileLoading}
       />
       }
     </>

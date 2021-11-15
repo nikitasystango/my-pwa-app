@@ -73,7 +73,7 @@ const changeObjectValue = (mainObj) => {
 
 export const handleSetTrueToCabinClass = (airlineCode) => {
   let selectedClasses = {}
-  const toggleData = airlineCode === 'VA' ? virginAtlanticAvailableClass : BritishAirwaysAvailableClass
+  const toggleData = airlineCode === airlineName.VA.CODE ? virginAtlanticAvailableClass : BritishAirwaysAvailableClass
   toggleData.map(item => {
     const str = item === 'premium_economy' ? 'premium' : item
      return selectedClasses = {
@@ -222,8 +222,8 @@ export const existsArray = (value, array) => array.some(e => e === value)
         ...data,
         label: window.location.pathname === AppRoutes.CALENDER ? 'calendar' : 'home'
       }
-      const airlineSel = window.location.pathname === AppRoutes.HOME ? 'BA' : window.location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS ? 'VA' : selectedAirline ? selectedAirline.split('_')[0] : ''
-      setInLocalStorage(`${airlineSel === 'BA' ? 'recentSearch' : 'recentSearchVA'} `, values.join(';'))
+      const airlineSel = window.location.pathname === AppRoutes.HOME ? airlineName.BA.CODE : window.location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS ? airlineName.VA.CODE : selectedAirline ? selectedAirline.split('_')[0] : ''
+      setInLocalStorage(`${airlineSel === airlineName.BA.CODE ? 'recentSearch' : 'recentSearchVA'} `, values.join(';'))
 
       // creating url
       const url = getRedirectionURL(data)
@@ -251,7 +251,7 @@ export const removeFalsyElement = object => {
 export const updateReducerAirlineData = (airlineMemberships) => {
   // Store airlineMemberships data in all airline's state [currently we have done only for BA]
   const airlineBA = airlineMemberships && airlineMemberships.length ? airlineMemberships[0].membership : Texts.DEFAULT_AIRLINE_TIER_CODE
-  const airlineCode = airlineMemberships && airlineMemberships.length && airlineMemberships[0].airline === airlineName.BRITISH_AIRWAYS ? 'BA' : 'VA'
+  const airlineCode = airlineMemberships && airlineMemberships.length && airlineMemberships[0].airline === airlineName.BA.AIRWAYS_NAME ? airlineName.BA.CODE : airlineName.VA.CODE
   const dataJson = {
     airlineMembership: airlineBA,
     membership: airlineBA || null,

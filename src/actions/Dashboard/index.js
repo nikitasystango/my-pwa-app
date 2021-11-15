@@ -50,9 +50,7 @@ import {
   CANCEL_DOWNGRADE_SUBSCRIPTION,
   CANCEL_DOWNGRADE_SUBSCRIPTION_SUCCESS,
   CANCEL_DOWNGRADE_SUBSCRIPTION_FAILURE,
-  GET_COUNTRIES_LIST, GET_COUNTRIES_LIST_FAILED, GET_COUNTRIES_LIST_SUCCESS,
-  GET_STATE_LIST, GET_STATE_LIST_SUCCESS, GET_STATE_LIST_FAILED,
-  GET_CITY_LIST, GET_CITY_LIST_SUCCESS, GET_CITY_LIST_FAILED
+  GET_COUNTRIES_LIST, GET_COUNTRIES_LIST_FAILED, GET_COUNTRIES_LIST_SUCCESS
 } from './actionTypes'
 
 // Account settings
@@ -370,32 +368,4 @@ export const getCountriesListSuccess = (data) => ({
 
 export const getCountriesListFailed = () => ({
   type: GET_COUNTRIES_LIST_FAILED
-})
-
-// GET STATE LIST
-export const getStateList = () => ({
-  type: GET_STATE_LIST
-})
-
-export const getStateListSuccess = (data) => ({
-  type: GET_STATE_LIST_SUCCESS,
-  payload: { data }
-})
-
-export const getStateListFailed = () => ({
-  type: GET_STATE_LIST_FAILED
-})
-
-// GET CITY LIST
-export const getCityList = () => ({
-  type: GET_CITY_LIST
-})
-
-export const getCityListSuccess = (data) => ({
-  type: GET_CITY_LIST_SUCCESS,
-  payload: { data }
-})
-
-export const getCityListFailed = () => ({
-  type: GET_CITY_LIST_FAILED
 })

@@ -3,6 +3,8 @@ import history from './history'
 import { AppRoutes } from 'constants/appRoutes'
 import { v4 as uuidv4 } from 'uuid'
 import moment from 'moment'
+import { airlineName } from 'constants/globalConstants'
+const appendParams = sessionStorage.getItem('queryParamsGA')
 
 export const setInLocalStorage = (name, data) => {
   localStorage.setItem(name, data)
@@ -19,7 +21,6 @@ export const removeFromLocalStorage = (name) => {
 
 export const navigateToRespectivePage = (path, params) =>
 {
-  const appendParams = sessionStorage.getItem('queryParamsGA')
   history.push({
     pathname: path,
     search: params ? params : appendParams ? appendParams : null
@@ -330,7 +331,7 @@ export const handleAuditUser = (data, extractedParams, state) => {
   const eventId = retrieveFromLocalStorage('event_id')
   const classT = []
   const airlineSplit = airlineSelected ? airlineSelected.split('_')[0] : null
-  const airlineStr = airlineSplit === 'BA' ? 'british_airways' : 'virgin_atlantic'
+  const airlineStr = airlineSplit ? airlineName[airlineSplit].AIRWAYS_NAME : airlineName.BA.AIRWAYS_NAME
   Object.keys(data.toggleClass).map(item => {
     if (data.toggleClass[item]) {
       classT.push(item === 'premium' ? 'premium_economy' : item)

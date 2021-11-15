@@ -15,7 +15,7 @@ import AAIcon from '../../assets/images/aa-icon.png'
 import BAIcon from '../../assets/images/ba-icon.svg'
 import moment from 'moment'
 import { Loader } from 'semantic-ui-react'
-import { BritishAirwaysAvailableClass } from 'constants/globalConstants'
+import { BritishAirwaysAvailableClass, airlineName } from 'constants/globalConstants'
 
 const PreviewAlertModal = (props) => {
   const {
@@ -188,14 +188,14 @@ const PreviewAlertModal = (props) => {
                       <img
                         className="lazyload airline-img"
                         src={
-                          airline_name === 'american_airlines' ? AAIcon : BAIcon
+                          airline_name === airlineName.AA.AIRWAYS_NAME ? AAIcon : BAIcon
                         }
                         alt="airlines"
                       />
                       <label className=" create-alert-text">
-                        {airline_name === 'american_airlines'
-                          ? 'American Airlines'
-                          : 'British Airways'}
+                        {airline_name === airlineName.AA.AIRWAYS_NAME
+                          ? airlineName.AA.AIRLINE
+                          : airlineName.BA.AIRLINE}
                       </label>
                       <div className="classes-buttons member-text">
                         {`${membership_type} ${intl(commonMessages.member)}`}

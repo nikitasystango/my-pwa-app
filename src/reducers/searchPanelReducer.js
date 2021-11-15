@@ -108,7 +108,7 @@ const getAirlineListSuccess = (state, action) => {
   const { data, payloadData, user: { airlineMemberships } } = action.payload
   const { isSetDefault } = payloadData
   const airlineBA = airlineMemberships && airlineMemberships.length ? airlineMemberships[0].membership : Texts.DEFAULT_AIRLINE_TIER
-  const airlineCode = airlineMemberships && airlineMemberships.length ? airlineMemberships[0].airline === airlineName.BRITISH_AIRWAYS ? 'BA' : 'VA' : 'BA'
+  const airlineCode = airlineMemberships && airlineMemberships.length ? airlineMemberships[0].airline === airlineName.BA.AIRWAYS_NAME ? airlineName.BA.CODE : airlineName.VA.CODE: airlineName.BA.CODE
   let airlineData = []
   let selectedClasses = {}
   data.map((item) => {
@@ -119,7 +119,7 @@ const getAirlineListSuccess = (state, action) => {
   })
 
   if (airlineData?.length && airlineData[0]?.memberships) {
-  const selectedTierList = state.selectedAirlineCode === 'VA' ? airlineData[1] : airlineData[0]
+  const selectedTierList = state.selectedAirlineCode === airlineName.VA.CODE ? airlineData[1] : airlineData[0]
 
   selectedTierList.classes.map(item => {
     const str = item.value === 'premium_economy' ? 'premium' : item.value

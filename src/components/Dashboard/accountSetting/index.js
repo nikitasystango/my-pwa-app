@@ -19,7 +19,7 @@ import NotificationSetting from './notificationSettings'
 import ChangePassword from './changePassword'
 import AlternativeEmail from './alternateEmails'
 import SocialUserPasswordModal from './socialUserPasswordModal'
-import { profileCardDetails } from 'constants/globalConstants'
+import { profileCardDetails, airlineName } from 'constants/globalConstants'
 import { GreaterIcon } from 'utils/svgs'
 import publicIp from 'public-ip'
 
@@ -104,8 +104,8 @@ const AccountSetting = (props) => {
   const token = retrieveFromLocalStorage('token')
 
   useEffect(()=> {
-    getSouDesLocations({ selectedAirline: 'BA' })
-    getSouDesPossibleRoutes({ selectedAirline: 'BA' })
+    getSouDesLocations({ selectedAirline: airlineName.BA.CODE })
+    getSouDesPossibleRoutes({ selectedAirline: airlineName.BA.CODE })
     getClientIp()
     // eslint-disable-next-line
   }, [])
@@ -236,6 +236,7 @@ const AccountSetting = (props) => {
            updateReducerState={updateReducerState}
            updateProfileDetails={updateProfileDetails}
            userDetails={userDetails}
+           updateUserProfileLoading={updateUserProfileLoading}
           />)
 
       default:

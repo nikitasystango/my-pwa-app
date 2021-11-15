@@ -23,9 +23,7 @@ import {
   toggleEmailsNotification,
   deletePhoneNumber,
   cancelDowngradeSubscription,
-  getCountriesList,
-  getStateList,
-  getCityList
+  getCountriesList
 } from 'actions/Dashboard'
 import { getFlightAvailability } from 'actions/FlightAvailability'
 import { getAirlineList, getSouDesLocations, getSouDesPossibleRoutes, getUserNearestAirport } from 'actions/SearchPanel'
@@ -70,9 +68,7 @@ const mapDispatchToProps = dispatch => ({
   getSouDesLocations: (data) => dispatch(getSouDesLocations(data)),
   getSouDesPossibleRoutes: (data) => dispatch(getSouDesPossibleRoutes(data)),
   getUserNearestAirport: (data) => dispatch(getUserNearestAirport(data)),
-  getCountriesList: (data) => dispatch(getCountriesList(data)),
-  getStateList: (data) => dispatch(getStateList(data)),
-  getCityList: (data) => dispatch(getCityList(data))
+  getCountriesList: (data) => dispatch(getCountriesList(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)

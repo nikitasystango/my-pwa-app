@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import Home from 'components/Home'
 import { updateReducerState, pageAnalytics, getWordpressContent } from 'actions/Common'
 import { addFingerprintScapperData } from 'actions/Layout'
-import { updateProfileDetails, getProfileDetails, getCountriesList, getStateList, getCityList } from 'actions/Dashboard'
+import { updateProfileDetails, getProfileDetails, getCountriesList } from 'actions/Dashboard'
 
 const mapStateToProps = state => ({
   home: state.home,
@@ -24,9 +24,7 @@ const mapDispatchToProps = dispatch => ({
   addFingerprintScapperData: (data) => dispatch(addFingerprintScapperData(data)),
   updateProfileDetails: (data) => dispatch(updateProfileDetails(data)),
   getProfileDetails: (userId) => dispatch(getProfileDetails(userId)),
-  getCountriesList: (data) => dispatch(getCountriesList(data)),
-  getStateList: (data) => dispatch(getStateList(data)),
-  getCityList: (data) => dispatch(getCityList(data))
+  getCountriesList: (data) => dispatch(getCountriesList(data))
 })
 
 export default connect(

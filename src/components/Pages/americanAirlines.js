@@ -32,6 +32,7 @@ import aerLingusMessages from 'constants/messages/aerLingusMessages'
 import americanAirlineMessages from 'constants/messages/americanAirlineMessages'
 import staticMessage from 'constants/messages/homeMessages'
 import ProgressiveImage from 'utils/progressiveImage'
+import { airlineName } from 'constants/globalConstants'
 
 const AmericanAirlines = (props) => {
   const {
@@ -96,7 +97,7 @@ const AmericanAirlines = (props) => {
       const data = {
         upcoming_airline_request: {
           email: details.email,
-          airline_name: 'american_airlines'
+          airline_name: airlineName.AA.AIRWAYS_NAME
         }
       }
       updateReducerState('pages', 'vaEmail', details.email)
@@ -111,7 +112,7 @@ const AmericanAirlines = (props) => {
     const data = {
       upcoming_airline_request: {
         email: userEmail,
-        airline_name: 'american_airlines'
+        airline_name: airlineName.AA.AIRWAYS_NAME
       }
     }
     addEmail(data)

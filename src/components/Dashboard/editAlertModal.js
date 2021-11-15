@@ -98,7 +98,7 @@ const EditAlertModal = (props) => {
       tier: membership_type,
       sourceCode: source_code,
       destinationCode: destination_code,
-      airlineCode: airline_name === airlineName.VIRGIN_AIRWAYS ? 'VA' : Texts.DEFAULT_AIRLINE_TIER_CODE 
+      airlineCode: airline_name === airlineName.VA.AIRWAYS_NAME ? airlineName.VA.CODE : Texts.DEFAULT_AIRLINE_TIER_CODE 
     }
     getFlightAvailability(data)
   }
@@ -122,7 +122,7 @@ const EditAlertModal = (props) => {
   const getAmericanMemberShip = () => {
     let member = []
     airlines.map(item => {
-      if (item.value === 'BA' && item.memberships) {
+      if (item.value === airlineName.BA.CODE && item.memberships) {
         member = item.memberships
       }
       return member

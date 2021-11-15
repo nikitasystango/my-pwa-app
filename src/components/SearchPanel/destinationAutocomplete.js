@@ -6,6 +6,7 @@ import intl from 'utils/intlMessage'
 import searchPanelMessages from 'constants/messages/searchPanelMessages'
 import { AppRoutes } from 'constants/appRoutes'
 import { sourceCodeOptionVirginAtlantic, sourceCodeOption } from 'constants/globalConstants'
+import { airlineName } from 'constants/globalConstants'
 
 const DestinationAutocomplete = (props) => {
   const { searchPanel: { departure: { value: selectedDepartureValue }, arrival: { value: selectedArrivalName }, souDesAirports, airportsWithMultiCity, possibleRoutes, selectedAirlineCode },
@@ -26,7 +27,7 @@ const DestinationAutocomplete = (props) => {
 
   const handlerGetGroupOptions = () => {
     if (location?.pathname === AppRoutes.LOCATION) {
-      return selectedAirlineCode === 'VA' ? sourceCodeOptionVirginAtlantic : sourceCodeOption
+      return selectedAirlineCode === airlineName.VA.CODE ? sourceCodeOptionVirginAtlantic : sourceCodeOption
     } else {
       return sortSlectedRouteValue(possibleRoutes, selectedDepartureValue, souDesAirports, airportsWithMultiCity)
     }

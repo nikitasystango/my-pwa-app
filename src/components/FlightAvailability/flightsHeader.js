@@ -13,6 +13,7 @@ import './flight-availability.scss'
 import 'react-day-picker/lib/style.css'
 import intl from 'utils/intlMessage'
 import flightMessages from 'constants/messages/flightMessages'
+import { airlineName } from 'constants/globalConstants'
 import ReactTooltip from 'react-tooltip'
 
 const FlightsHeader = (props) => {
@@ -96,8 +97,7 @@ const FlightsHeader = (props) => {
             verticalAlign="middle"
             className="pop-wrapper"
             >
-              { selectedAirlineCode &&
-              selectedAirlineCode === 'BA' && (
+              {selectedAirlineCode && selectedAirlineCode === airlineName.BA.CODE && (
                 <div className="pop">
                   <div
                     onClick={() => handleOffPeakHighlight()}
