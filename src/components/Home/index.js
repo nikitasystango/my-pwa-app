@@ -150,7 +150,7 @@ const Home = (props) => {
                     : intl(staticMessage.sectionTitle)}
                 </SectionTitle>
                 <SectionSubTitle>
-                  {intl(staticMessage.sectionSubTitle)} check deployment
+                  {intl(staticMessage.sectionSubTitle)}
                 </SectionSubTitle>
               </HeaderContent>
             )}
