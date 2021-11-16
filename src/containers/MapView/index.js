@@ -1,13 +1,14 @@
 import { connect } from 'react-redux'
 import { getMapLocations } from 'actions/MapView'
 import { updateReducerState } from 'actions/Common'
-import { getAirlineList } from 'actions/SearchPanel'
+import { getAirlineList, getSouDesPossibleRoutes, getSouDesLocations } from 'actions/SearchPanel'
 import {
-  updateTicketsSearchBox, updateToggalClassesState, getSouDesPossibleRoutes, getSouDesLocations
+  updateTicketsSearchBox, updateToggalClassesState
 } from 'actions/SearchPanel'
 import MapView from 'components/MapView'
 import { userActionAudit } from 'actions/FlightAvailability'
 import { updateProfileDetails } from 'actions/Dashboard'
+
 
 const mapStateToProps = state => ({
   mapData: state.mapData,
@@ -15,7 +16,8 @@ const mapStateToProps = state => ({
   flightsAvailability: state.flights.flightsAvailability,
   isUserBronzeMember: state.auth.user.isUserBronzeMember,
   common: state.common,
-  user: state.auth.user
+  user: state.auth.user,
+  accountSettings: state.dashboard.accountSettings
 })
 
 const mapDispatchToProps = dispatch => ({

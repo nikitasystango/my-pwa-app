@@ -28,7 +28,7 @@ const ReactSelect = (props) => {
   const SelectMenuButton = (props) => (
     <components.MenuList {...props}>
       {locationLabel=== 'mapview' &&
-      <span className='header-menulist'>
+      <span className="header-menulist">
         {intl(mapViewMessages.directlyOperatedByBA, journeyType !== 'return' && flyToSearch === 'travelTo' ? 'from' : 'to')}
       </span>
        }
@@ -94,7 +94,7 @@ const ReactSelect = (props) => {
       noOptionsMessage={() => locationLabel=== 'mapview' ? null : intl(commonMessages.noOptions)}
       styles={locationLabel=== 'mapview' && selectStyles}
       menuIsOpen={isOpen}
-      onMenuOpen={()=> setIsOpen(!isOpen)}
+      onMenuOpen={()=> setIsOpen(true)}
       onMenuClose={()=> setIsOpen(false)}
       onBlur={()=> {locationLabel === 'profileDetailsModal' ? handleDeptBlur() : setIsOpen(false)}}
       onKeyDown={onKeyDown}

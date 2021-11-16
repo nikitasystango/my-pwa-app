@@ -34,7 +34,7 @@ const EliteMemberShipHelp = (props) => {
     if (token) {
       //  window.location.href = `${env.REDIRECT_ON_RUBY}/chargebee/self_serve_portal?user_id=${user?.id}`
         const url = `${env.REDIRECT_ON_RUBY}/chargebee/self_serve_portal?user_id=${user?.id}`
-        const newWin = window.open(url)
+        const newWin = window.open(`${url}${appendParams ? appendParams.replace('?', '&') : ''}`)
         if(!newWin || newWin.closed || typeof newWin.closed=='undefined')
         {
           pushNotification(Messages.ENABLED_POPUP, 'error', 'TOP_CENTER', 3000)

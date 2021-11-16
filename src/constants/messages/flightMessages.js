@@ -7,7 +7,7 @@ export default defineMessages({
   },
   outboundSeats: {
     id: 'flightAvailability.outboundSeats',
-    defaultMessage: 'Outbound seats'
+    defaultMessage: 'Outbound seats available on'
   },
   outboundSeatsText: {
     id: 'flightAvailability.outboundSeatsText',
@@ -27,7 +27,7 @@ export default defineMessages({
   },
   returnSeats: {
     id: 'flightAvailability.returnSeats',
-    defaultMessage: 'Inbound seats'
+    defaultMessage: 'Inbound seats available on'
   },
   noFlightsFound: {
     id: 'flightAvailability.noFlightsFound',
@@ -108,5 +108,13 @@ export default defineMessages({
   singleSeatText: {
     id: 'flightAvailability.singleSeatText',
     defaultMessage: 'seat isn’t'
+  },
+  aviosPointsInAccurateTop: {
+    id: 'flightAvailability.aviosPointsInAccurateTop',
+    defaultMessage: 'Avios point pricing may be inaccurate.'
+  },
+  aviosPointsInAccurateBottom: {
+    id: 'flightAvailability.aviosPointsInAccurateBottom',
+    defaultMessage: 'We’re working on a fix.'
   }
 })

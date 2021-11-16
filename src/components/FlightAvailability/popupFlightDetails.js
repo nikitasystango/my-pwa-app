@@ -40,7 +40,7 @@ const PopupFlightDetails = forwardRef((props, ref) => {
           flightsAvailability.inbound_availability[currentDayIdentifier]
             ?.peak
         }
-                        />
+        />
       return (
         <div className={`sa-popup ${'react-datepicker__tooltip-box' ? 'react-datepicker__tooltip-box' : ''}`}>
           <div className="sa-popup__inner">
@@ -75,7 +75,7 @@ const PopupFlightDetails = forwardRef((props, ref) => {
           flightsAvailability.outbound_availability[currentDayIdentifier]
             ?.peak
         }
-                        />
+      />
       return (
         <div className={`sa-popup ${'react-datepicker__tooltip-box' ? 'react-datepicker__tooltip-box' : ''}`}>
           <div className="sa-popup__inner">

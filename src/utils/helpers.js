@@ -3,6 +3,8 @@ import history from './history'
 import { AppRoutes } from 'constants/appRoutes'
 import { v4 as uuidv4 } from 'uuid'
 import moment from 'moment'
+import { airlineName } from 'constants/globalConstants'
+const appendParams = sessionStorage.getItem('queryParamsGA')
 
 export const setInLocalStorage = (name, data) => {
   localStorage.setItem(name, data)
@@ -103,7 +105,7 @@ export const getRedirectionURL = (data) => {
 
  const redirectData = {
     pathname: AppRoutes.CALENDER,
-    search: jsonToQueryString(json),
+    search: `${jsonToQueryString(json)}${appendParams ? appendParams.replace('?', '&'): ''}`,
     state: { sourcePage: label, startDate: null,
     endDate: null,
     arrivalStartDate: null,
@@ -311,15 +313,15 @@ export const openCalendarPageHandler = (locationDetail, flightDetails, airportsW
       aId: locationDetail.code
     }
   }
-    history.push(`${AppRoutes.CALENDER}${jsonToQueryString(details)}`)
+    history.push(`${AppRoutes.CALENDER}${jsonToQueryString(details)}${appendParams ? appendParams.replace('?', '&'): ''}`)
 }
 
 export const isFirstTimeLoginHandler = (value) => {
   if (value) {
     setInLocalStorage('firstTimeSignup', 'true')
-    history.push(AppRoutes.PROFILE_DETAILS)
+    navigateToRespectivePage(AppRoutes.THANK_YOU, appendParams)
   } else {
-    history.push(AppRoutes.HOME)
+    navigateToRespectivePage(AppRoutes.HOME, appendParams)
   }
 }
 
@@ -330,7 +332,7 @@ export const handleAuditUser = (data, extractedParams, state) => {
   const eventId = retrieveFromLocalStorage('event_id')
   const classT = []
   const airlineSplit = airlineSelected ? airlineSelected.split('_')[0] : null
-  const airlineStr = airlineSplit === 'BA' ? 'british_airways' : 'virgin_atlantic'
+  const airlineStr = airlineSplit ? airlineName[airlineSplit].AIRWAYS_NAME : airlineName.BA.AIRWAYS_NAME
   Object.keys(data.toggleClass).map(item => {
     if (data.toggleClass[item]) {
       classT.push(item === 'premium' ? 'premium_economy' : item)
@@ -372,6 +374,25 @@ export const checkAnyTrueObjectValue = (objData) => {
  const isTrue = Object.values(objData).some(item => item)
  return isTrue
 }
+
+// Get first true value from object
+export const getTrueKey = (obj) => {
+  for (const key in obj) {
+    if (obj[key]) return key
+  };
+  return undefined
+}
+
+export const isEmpty = (objectToCheck) => Object.entries(objectToCheck).length === 0
+
+export const getLodash = (value, path, defaultValue) => String(path).split('.').reduce((acc, v) => {
+      try {
+        acc = (acc[v] !== undefined && acc[v] !== null) ? acc[v] : defaultValue
+      } catch (e) {
+        return defaultValue
+      }
+      return acc
+    }, value)
 
 export const splitArrayAsUNiqueCombination = (dataset) => {
   const result = dataset.reduce((acc, item) => {

@@ -11,7 +11,7 @@
   z-index: 1;
   // display: none;
   width: 340px;
-  height: 185px;
+  height: 225px;
   // left: 50%;
   // transform: translateX(-50%);
 
@@ -124,6 +124,13 @@
 
   &__body {
     padding: 0 20px;
+    .avios-point-text{
+      position: relative;
+      top: 0px;
+      margin: 0;
+      text-align: center;
+      color: #132c52;
+    }
   }
 
   &__row {

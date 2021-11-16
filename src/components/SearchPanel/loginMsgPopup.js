@@ -2,8 +2,7 @@ import React from 'react'
 import { Close, PlaneCircle } from 'utils/svgs'
 import PropTypes from 'prop-types'
 import { Button, Modal } from 'semantic-ui-react'
-import { retrieveFromLocalStorage } from 'utils/helpers';
-import history from 'utils/history'
+import { retrieveFromLocalStorage, navigateToRespectivePage } from 'utils/helpers';
 import { AppRoutes } from 'constants/appRoutes'
 import intl from 'utils/intlMessage'
 import commonMessages from 'constants/messages/commonMessages'
@@ -12,6 +11,7 @@ import searchPanelMessages from 'constants/messages/searchPanelMessages';
 const LoginMagPopup = (props) => {
   const { toggalMapEliteLoginPopUp, updateReducerState } = props
   const token = retrieveFromLocalStorage('token')
+  const appendParams = sessionStorage.getItem('queryParamsGA')
 
   const toggalMapElitePopuphandler = () => {
     updateReducerState('searchPanel', 'toggalMapEliteLoginPopUp', !toggalMapEliteLoginPopUp)
@@ -19,7 +19,7 @@ const LoginMagPopup = (props) => {
 
   const redirectHandler = (path) => {
     toggalMapElitePopuphandler()
-    history.push(path)
+    navigateToRespectivePage(path, appendParams)
   }
 
   return (

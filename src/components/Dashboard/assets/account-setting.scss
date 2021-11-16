@@ -505,17 +505,6 @@
     line-height: 19px;
   }
 }
-.socialAccountText{
-  background: #03b2d840;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: #03b2d8;
-  font-weight: 600;
-  font-size: 14px;
-  @media(max-width:767px){
-    font-size: 12px;
-  }
-}
 .account-setting__form .accordion-myprofile{
   div[class*="singleValue"] {
     color: var(--dark);
@@ -540,9 +529,5 @@
     span{
       display: none;
     }
-   }
-   div[class*="MenuList"] {
-    max-height: 180px;
-    overflow-y:auto;
    }
 }

@@ -6,11 +6,13 @@ import intl from 'utils/intlMessage'
 import searchPanelMessages from 'constants/messages/searchPanelMessages'
 import { AppRoutes } from 'constants/appRoutes'
 import { sourceCodeOptionVirginAtlantic, sourceCodeOption } from 'constants/globalConstants'
+import { airlineName } from 'constants/globalConstants'
 
 const DestinationAutocomplete = (props) => {
   const { searchPanel: { departure: { value: selectedDepartureValue }, arrival: { value: selectedArrivalName }, souDesAirports, airportsWithMultiCity, possibleRoutes, selectedAirlineCode },
     setSelectedLocation, handlerSetError, location, destinationLocation, isCalendarHover, updateReducerState } = props
     const [isOpen, setIsOpen] = useState(false)
+  
   const handlerSetData = (data) => {
     const selectedLocation = {
       name: data.label,
@@ -26,7 +28,7 @@ const DestinationAutocomplete = (props) => {
 
   const handlerGetGroupOptions = () => {
     if (location?.pathname === AppRoutes.LOCATION) {
-      return selectedAirlineCode === 'VA' ? sourceCodeOptionVirginAtlantic : sourceCodeOption
+      return selectedAirlineCode === airlineName.VA.CODE ? sourceCodeOptionVirginAtlantic : sourceCodeOption
     } else {
       return sortSlectedRouteValue(possibleRoutes, selectedDepartureValue, souDesAirports, airportsWithMultiCity)
     }
@@ -43,7 +45,7 @@ const DestinationAutocomplete = (props) => {
       setSelectedLocation('searchPanel', 'arrival', selectedLocation)
     }
   }
-const closeCondition = location?.pathname === AppRoutes.LOCATION ? destinationLocation?.value ? 'flex' : 'none' : !selectedArrivalName ? 'none' : 'flex'
+  const closeCondition = location?.pathname === AppRoutes.LOCATION ? destinationLocation?.value ? 'flex' : 'none' : !selectedArrivalName ? 'none' : 'flex'
 
   return (
     <>
@@ -59,8 +61,9 @@ const closeCondition = location?.pathname === AppRoutes.LOCATION ? destinationLo
         isOpen={isOpen}
         isCalendarHover={isCalendarHover}
         updateReducerState={updateReducerState}
+        locationLabel={props.locationLabel}
       />
-      <span onClick={handleResetSource} className="search-panel-close-icon crossBtn" style={{ display: closeCondition }}>&times;</span>
+      <span onClick={handleResetSource} className="search-panel-close-icon" style={{ display: closeCondition }}>&times;</span>
     </>
   )
 }
@@ -70,8 +73,6 @@ DestinationAutocomplete.propTypes = {
   setSelectedLocation: PropTypes.func,
   className: PropTypes.string,
   handlerSetError: PropTypes.func,
-  location: PropTypes.object,
-  destinationLocation: PropTypes.object,
   isCalendarHover: PropTypes.bool
 }
 

@@ -39,7 +39,7 @@ const TravellerCount = (props) => {
             <SubractCount />
           </button>
           <div className="number_ui animated pulse">{numberOfPassengers}</div>
-          <button className="addPas" onClick={add} aria-label="add">
+          <button className="addPas" aria-label="addPas" onClick={add}>
             <AddCount />
           </button>
         </div>

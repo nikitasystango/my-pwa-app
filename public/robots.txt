@@ -1,3 +1,59 @@
 User-agent: *
 
-Disallow: /
+Disallow: /404
+Disallow: /thank-you
+Disallow: /gold-signup-thankyou
+Disallow: /silver-signup-thankyou
+Disallow: /vrigin-atlantic-reward-flights
+Disallow: /help/cancelling-your-elite-membership
+Disallow: /help/how-do-alerts-work
+Disallow: /help/managing-your-alerts
+Disallow: /help/updating-your-account
+Disallow: /help/updating-your-payment-details
+Disallow: /hourly-alerts
+Disallow: /privacy-notice
+Disallow: /users/password/new
+Disallow: /users/sign_in
+Disallow: /users/sign_up
+Disallow: /insideflyer
+Disallow: /head-for-points
+Disallow: /explore
+Disallow: /alerts
+Disallow: /trustpilot.com
+Disallow: /privacy-notice.pdf
+Disallow: /elite-offer
+Disallow: /cancellations/new
+Disallow: /payment_methods/edit
+
+Sitemap: https://rewardflightfinder.com/sitemap.xml
+Sitemap: https://rewardflightfinder.com/urllist.txt
+
+User-agent: FacebookBot
+
+Disallow: /404
+Disallow: /thank-you
+Disallow: /gold-signup-thankyou
+Disallow: /silver-signup-thankyou
+Disallow: /vrigin-atlantic-reward-flights
+Disallow: /help/cancelling-your-elite-membership
+Disallow: /help/how-do-alerts-work
+Disallow: /help/managing-your-alerts
+Disallow: /help/updating-your-account
+Disallow: /help/updating-your-payment-details
+Disallow: /hourly-alerts
+Disallow: /privacy-notice
+Disallow: /users/password/new
+Disallow: /users/sign_in
+Disallow: /users/sign_up
+Disallow: /insideflyer
+Disallow: /head-for-points
+Disallow: /explore
+Disallow: /alerts
+Disallow: /trustpilot.com
+Disallow: /privacy-notice.pdf
+Disallow: /elite-offer
+Disallow: /cancellations/new
+Disallow: /payment_methods/edit
+
+Sitemap: https://rewardflightfinder.com/sitemap.xml
+Sitemap: https://rewardflightfinder.com/urllist.txt

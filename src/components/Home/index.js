@@ -12,9 +12,11 @@ import {
   SectionSubTitle,
   BgWrap,
   BgWrapInner,
-  FeaturedLogos
+  FeaturedLogos,
+  SearchImageWrapper
 } from './style'
 import SeoTexts from 'constants/seoConstants'
+import SeoTags from 'common/SeoTags'
 import { HomeRichSnippet } from 'constants/seoScriptConstants'
 import GetAhead from './getAhead'
 import MiniSignupCard from './miniSignup'
@@ -36,10 +38,11 @@ import staticMessage from 'constants/messages/homeMessages'
 import commonMessages from 'constants/messages/commonMessages'
 import { handleFingerPrintScrapper } from 'utils/FingerprintScrapper/source'
 import SignupOnBoardingModal from '../Pages/signupOnBoardingModal'
+import UpdateUserDetailModal from 'common/UpdateUserDetailModal'
 // Import page css to fix onboarding sceen design
 import '../Pages/index.scss'
+import { virtualPageTracking } from 'utils/utils'
 import ProgressiveImage from 'utils/progressiveImage'
-import SeoTags from 'common/SeoTags'
 import HomeIntroBox from './homeIntroBox'
 
 const Home = (props) => {
@@ -54,8 +57,13 @@ const Home = (props) => {
     location,
     addFingerprintScapperData,
     accountSettings: { userDetails },
-    pages: { toggleSignupOnBoardingModal },
+    pages: { toggleSignupOnBoardingModal, toggleUpdateProfileDetailsModal },
     updateProfileDetails,
+    updateUserName,
+    updateUserNameLoading,
+    getSouDesLocations,
+    getSouDesPossibleRoutes,
+    searchPanel,
     getProfileDetails
   } = props
 
@@ -63,7 +71,8 @@ const Home = (props) => {
   const userData = JSON.parse(retrieveFromLocalStorage('userDetails'))
   const userId = userData && userData.id ? userData.id : retrieveFromLocalStorage('userId')
   useEffect(() => {
-    const isWebScrapper = retrieveFromLocalStorage('webScrapper')
+  const isWebScrapper = retrieveFromLocalStorage('webScrapper')
+  virtualPageTracking()
     if (location?.search) {
       const data = extractURLParams(location.search)
       const arrData = Object.keys(data)
@@ -94,8 +103,15 @@ const Home = (props) => {
   }, [])
 
   useEffect(() => {
+    const { firstName, lastName } = userDetails || {}
     if (userDetails && userDetails.onboarded === false) {
       updateReducerState('pages', 'toggleSignupOnBoardingModal', true)
+    }
+    // if (token && userDetails && (!firstName || !lastName || !country || !address?.address1 || !address?.state || !gender || !ageBand || !flightsTakenAnnually)) {
+      if (token && userDetails && (!firstName || !lastName)) {
+      updateReducerState('pages', 'toggleUpdateProfileDetailsModal', true)
+      // document.body.style.position = 'fixed'
+      // document.body.style.width = '100%'
     }
     // eslint-disable-next-line
   }, [userDetails])
@@ -137,8 +153,22 @@ const Home = (props) => {
         richSnippet={HomeRichSnippet}
       />
       <Layout className="p-0">
-        <BgWrap className="homeBgWrap">
-          <BgWrapInner className="homeSearchBg">
+        <BgWrap>
+          <SearchImageWrapper>
+            <picture className="d-b">
+              <source
+                srcSet={require('./assets/search-bg.webp')}
+                type="image/webp"
+              />
+              <img
+                src={require('./assets/search-bg-low.jpg')}
+                data-src={require('./assets/search-bg.jpg')}
+                className="lazyload"
+                alt="Search Background"
+              />
+            </picture>
+          </SearchImageWrapper>
+          <BgWrapInner>
             {pageContentLoading ? (
               <HeaderPlaceholder />
             ) : (
@@ -277,6 +307,17 @@ const Home = (props) => {
         toggleSignupOnBoardingModal={toggleSignupOnBoardingModal}
         updateReducerState={updateReducerState}
         redirectToPricing={redirectToPricing}
+      />
+      <UpdateUserDetailModal
+        toggleModal={toggleUpdateProfileDetailsModal}
+        updateReducerState={updateReducerState}
+        updateUserName={updateUserName}
+        updateUserNameLoading={updateUserNameLoading}
+        getSouDesLocations={getSouDesLocations}
+        getSouDesPossibleRoutes={getSouDesPossibleRoutes}
+        searchPanel={searchPanel}
+        userDetails={userDetails || {}}
+        userId={userId}
       />
     </>
   )

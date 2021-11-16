@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { Grid, Container, Button } from 'semantic-ui-react'
 import Layout from 'containers/Layout'
 import { extractURLParams, handleAuditUser, retrieveFromLocalStorage, setInLocalStorage, removeFromLocalStorage } from 'utils/helpers'
-import { fetchAvailableCabinClass, getPassengerCountFilteredData, getDummyData, updateQueryParams } from 'utils/commonFunction'
+import { fetchAvailableCabinClass, getPassengerCountFilteredData, updateQueryParams } from 'utils/commonFunction'
 import DayPicker from 'react-day-picker'
-import SeoHelmet from 'utils/seoHelmet'
+import SeoTexts from 'constants/seoConstants'
 import moment from 'moment'
 // Components
 import './flight-availability.scss'
@@ -14,26 +14,22 @@ import ColorCircleBox from './colorCircle'
 import Loader from 'components/LoadingSpinner'
 import 'react-day-picker/lib/style.css'
 import {
-  britishAirwaysClasses,
   calendarMonthsLength,
-  virginAtlanticClass,
   calendarDefaultRouteSearcParams
 } from 'constants/globalConstants'
 import history from 'utils/history'
 import { AppRoutes } from 'constants/appRoutes'
-import SeoTexts from 'constants/seoConstants'
 import DateAvailibilityModal from './dateAvailabilityModal'
-import CalendarSignupPopup from './calendarSignupPopup'
-import { isElementXPercentInViewport, getElementHeight } from 'utils/commonFunction'
-import ResponsiveCreateAlert from './responsiveCreateAlert'
-import AlertPopUp from 'components/SearchPanel/alertPopUp'
+import { getElementHeight } from 'utils/commonFunction'
 import FlightsHeader from './flightsHeader'
 import { AlertBellIcon } from 'utils/svgs'
+import SeoHelmet from 'utils/seoHelmet'
 import Texts from 'constants/staticText'
 import AirlineMembershipModal from 'common/Modals/airlineMembershipModal'
 import intl from 'utils/intlMessage'
 import { pushNotification } from 'utils/notifications'
 import toustifyMessages from 'constants/messages/toustifyMessages'
+import { airlineName } from 'constants/globalConstants'
 
 var header
 var sticky
@@ -41,7 +37,7 @@ const Home = (props) => {
   const flightDetailsRef = useRef()
   const {
     toggalClasses,
-    flights: { flightsAvailability, flightsLoading, toggalDateAvailibilityModal, availabilityAlertData, availabilityAlertLoading, calendarSignupModal },
+    flights: { flightsAvailability, flightsLoading, toggalDateAvailibilityModal, availabilityAlertData, availabilityAlertLoading },
     updateToggalClassesState,
     location: { search, state },
     pageAnalytics,
@@ -50,11 +46,13 @@ const Home = (props) => {
     searchPanel: { ticketsSearchBox, selectedAirlineCode, journeyType, availablePassengerCabinClasses, airlineMembership },
     myAlerts: { cancellingAlert },
     getAlertAvailability,
-    signup, user,
-    common: { airlineMembershipToggle }
+    user,
+    common: { airlineMembershipToggle },
+    accountSettings : { updateUserProfileLoading }
   } = props
   const { isEmailVerified } = user || ''
   const { numberOfPassengers } = ticketsSearchBox
+
   let extractedParams = null
   if (search) {
     extractedParams = extractURLParams(search)
@@ -62,29 +60,17 @@ const Home = (props) => {
   const [showReturnDates, showReturnDatesHandle] = useState('outbound-seats')
   const [showMobileSearch, toggleMobileSearch] = useState(false)
   const [highlightOffPeak, setHighlightOffPeak] = useState(false)
-  const [toggalAlertModal, setToggalAlertModal] = useState(false)
    // onRunTimeUpdate state is use to restrict API calling when change cabin class & passenger count
   const [onRunTimeUpdate, setOnRunTimeUpdate] = useState(false)
 
   const [flightsAvailabilityList, setFlightsAvailabilityList] = useState({})
   const accessToken = retrieveFromLocalStorage('token')
 
-    // select cabin classes according to selected airline code
-    const activeAirlineClass = React.useMemo(() =>
-    selectedAirlineCode === 'VA' ? virginAtlanticClass : britishAirwaysClasses
-    , [selectedAirlineCode]
-  )
-
   // Set Availability list
   useEffect(() => {
     if (flightsAvailability) {
-      // Show dummy data when needs to show sign up popup
-      if(!accessToken && search) {
-        dummyObjectCreation()
-      }else{
-        filterObject()
-        setFlightsAvailabilityList(flightsAvailability)
-      }
+      filterObject()
+      setFlightsAvailabilityList(flightsAvailability)
       // update flightsLoading to false once its setstate
       updateReducerState('flights', 'flightsLoading', false)
     }
@@ -114,30 +100,12 @@ const handleCabinClass = (flightsAvailabilityList) => {
   useEffect(() => {
     const objectLength = Object.keys(flightsAvailability).length
     if (numberOfPassengers && objectLength) {
-      if(!accessToken && search) {
-          // Show dummy data when needs to show sign up popup
-        dummyObjectCreation()
-      }else{
-        filterObject()
-      }
+    filterObject()
     updateExistingEventId()
     }
     // eslint-disable-next-line
   }, [numberOfPassengers])
 
-
-const dummyObjectCreation = () => {
-  let mainObj = JSON.parse(JSON.stringify(flightsAvailability))
-  const objectLength = Object.keys(mainObj).length
-  if (objectLength) {
-    mainObj = {
-      ...mainObj,
-      inbound_availability: getDummyData(mainObj, 'inbound_availability'),
-      outbound_availability: getDummyData(mainObj, 'outbound_availability')
-    }
-  }
-  setFlightsAvailabilityList(mainObj)
-}
 
 
   const filterObject = () => {
@@ -194,7 +162,7 @@ const updateExistingEventId = () => {
       classFilter: true
     }
     const details = handleAuditUser(data, extractedParams, state)
-    userActionAudit(details)
+    // userActionAudit(details)
   }
 }
 
@@ -211,7 +179,7 @@ const updateExistingEventId = () => {
     setTimeout(() => {
       handleScrollToCreatedAlert()
     }, 2000)
-    toggleShowAlertModal()
+    // toggleShowAlertModal()
     updateReducerState('searchPanel', 'toggalAlertDatesModal', false)
     // eslint-disable-next-line
   }, [props.location.search])
@@ -238,7 +206,7 @@ const updateExistingEventId = () => {
       }
     }
   }
-
+// eslint-disable-next-line
   const toggleShowAlertModal = () => {
     if(extractedParams && extractedParams.alertId) {
       if(accessToken) {
@@ -254,20 +222,32 @@ const updateExistingEventId = () => {
 
   // eslint-disable-next-line
   const handleCloudTransition = () => {
-    const cloudFooter = document.getElementsByClassName('cal-popup')
+    const cloudFooter = document.getElementsByClassName('cloudwrap')
     const element = document.getElementsByClassName('DayPicker')
-    const fullPageLoader = document.getElementsByClassName('full-page-loader')
-
-    const checkElement = [element[3], element[5], element[8], element[10], element[12]]
-    const isInViewport = isElementXPercentInViewport(checkElement, 0)
-    if (isInViewport && !flightsLoading && fullPageLoader.length === 0) {
-      updateReducerState('flights', 'calendarSignupModal', true)
+    const isInViewport = isElementXPercentInViewport(element[element.length - 1], 60)
+    if (isInViewport) {
       cloudFooter && cloudFooter.length && cloudFooter[0].classList.add('footercloudtop')
-      document.body.style.overflowY = 'scroll'
+      if (window.pageYOffset > 600) {
+        cloudFooter && cloudFooter.length && cloudFooter[0].classList.remove('footercloudstick')
+      }
     }
-    // else {
-    //   cloudFooter && cloudFooter.length && cloudFooter[0].classList.remove('footercloudtop')
-    // }
+    else {
+      cloudFooter && cloudFooter.length && cloudFooter[0].classList.remove('footercloudtop')
+    }
+  }
+
+  // Check if element is partially visible in viewport by %
+  const isElementXPercentInViewport = (el, percentVisible) => {
+    if(el && el !== undefined) {
+    const rect = el.getBoundingClientRect(),
+      windowHeight = (window.innerHeight || document.documentElement.clientHeight)
+    return !(
+      Math.floor(100 - (((rect.top >= 0 ? 0 : rect.top) / +-rect.height) * 100)) < percentVisible ||
+      Math.floor(100 - ((rect.bottom - windowHeight) / rect.height) * 100) < percentVisible
+    )
+    }else{
+        return true
+    }
   }
 
   useEffect(() => {
@@ -321,7 +301,7 @@ const updateExistingEventId = () => {
        updateSearchParams(extractedParams)
     } else {
       // if(accessToken) {
-      //   history.push(AppRoutes.HOME)
+      //   navigateToRespectivePage(AppRoutes.HOME, appendParams)
       // }else {
         updateSearchParams(calendarDefaultRouteSearcParams)
       // }
@@ -345,7 +325,7 @@ const updateExistingEventId = () => {
       destinationCode: paramsData.aId,
       airlineCode: selectedAirlineCode ? selectedAirlineCode : Texts.DEFAULT_AIRLINE_TIER_CODE
     }
-    if(selectedAirlineCode === 'VA') {
+    if(selectedAirlineCode === airlineName.VA.CODE) {
       data = {
         ...data,
         toggalClasses: {
@@ -356,7 +336,7 @@ const updateExistingEventId = () => {
       }
     }
     const details = handleAuditUser(data, paramsData, state)
-    userActionAudit(details)
+    // userActionAudit(details)
     getFlightAvailability(data)
     let dataJson = {
       departure: {
@@ -383,7 +363,7 @@ const updateExistingEventId = () => {
         business: paramsData.business === 'true' ? true : false
       }
     }
-    if(selectedAirlineCode === 'VA') {
+    if(selectedAirlineCode === airlineName.VA.CODE) {
       dataJson = {
         ...dataJson,
         toggalClasses: {
@@ -447,8 +427,7 @@ const updateExistingEventId = () => {
               ? parseInt(numberOfPassengers)
               : 1
           }
-          highlightOffPeak={highlightOffPeak}
-          sourceLocCode={flightsAvailabilityList?.source?.code}
+          highlightOffPeak = {highlightOffPeak}
         />
       )
       return (
@@ -502,8 +481,7 @@ const updateExistingEventId = () => {
               ? parseInt(numberOfPassengers)
               : 1
           }
-          highlightOffPeak={highlightOffPeak}
-          sourceLocCode={flightsAvailabilityList?.source?.code}
+          highlightOffPeak = {highlightOffPeak}
         />
       )
       return (
@@ -538,6 +516,7 @@ const updateExistingEventId = () => {
     )
   }
 
+
   const date = new Date(), y = date.getFullYear(), m = date.getMonth()
   const firstDay = new Date(y, m, 1)
   const lastWeek = moment().startOf('week').format('MMM DD, YYYY HH:MM')
@@ -550,6 +529,7 @@ const updateExistingEventId = () => {
 
   const currentMonthNumber = Number(moment().format('M')) - 1
   const currentYearNumber = Number(moment().format('YYYY'))
+
   return (
     <>
       {(flightsLoading || cancellingAlert) && <Loader />}
@@ -570,7 +550,6 @@ const updateExistingEventId = () => {
               showReturnDatesHandle={showReturnDatesHandle}
               selectedAirlineCode={selectedAirlineCode}
               journeyType={journeyType}
-              activeAirlineClass={activeAirlineClass}
               availablePassengerCabinClasses={availablePassengerCabinClasses}
               setOnRunTimeUpdate={setOnRunTimeUpdate}
               numberOfPassengers={numberOfPassengers}
@@ -657,7 +636,7 @@ const updateExistingEventId = () => {
                             }, 1000)
                           }}
                           modifiers={modifiers}
-                                                                 />)}
+                                                               />)}
                     </Grid.Column>
                     {/* } */}
                   </Grid.Row>
@@ -665,19 +644,6 @@ const updateExistingEventId = () => {
               </div>
             </div>
           </div>
-          <ResponsiveCreateAlert
-           {...props}
-           flightsAvailabilityList={flightsAvailabilityList}
-           handleClassChange={handleClassChange}
-           activeAirlineClass={activeAirlineClass}
-           extractedParams={extractedParams}
-           flightsAvailability={flightsAvailability}
-           handlerToggalAlertModal={() =>
-            setToggalAlertModal(!toggalAlertModal)
-          }
-          toggalAlertModal={toggalAlertModal}
-          setToggalAlertModal={setToggalAlertModal}
-          />
         </Container>
         {!showMobileSearch ? (
           <Button
@@ -709,17 +675,6 @@ const updateExistingEventId = () => {
       />
      }
 
-      <CalendarSignupPopup
-       {...props}
-        calendarSignupModal = {calendarSignupModal}
-        updateReducerState={updateReducerState}
-        handleRegister={(data)=> signup(data)}
-      />
-      <AlertPopUp
-        toggalAlertModal={toggalAlertModal}
-        handlerToggalAlertModal={() => setToggalAlertModal(!toggalAlertModal)}
-        updateReducerState={updateReducerState}
-      />
       {airlineMembershipToggle && !flightsLoading &&
       <AirlineMembershipModal
         airlineMembershipToggle={airlineMembershipToggle}
@@ -728,6 +683,7 @@ const updateExistingEventId = () => {
         updateReducerState={updateReducerState}
         updateProfileDetails={props.updateProfileDetails}
         user={user}
+        updateUserProfileLoading={updateUserProfileLoading}
       />
       }
     </>

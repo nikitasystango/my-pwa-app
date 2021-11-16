@@ -4,15 +4,12 @@ import SeoTags from 'common/SeoTags'
 import { Container, Grid, Button } from 'semantic-ui-react'
 import RecentBlogs from 'common/RecentBlogs'
 import Testimonials from 'common/Testimonials'
-import TrustBox from '../../common/Trustpilot'
-// import GetUsOn from 'components/Home/getuson'
-import history from 'utils/history'
 import {
   SearchImageWrapper, BgWrap, BgWrapInner, SectionTitle, SectionSubTitle
 } from '../Home/style'
 import MapBox from 'components/Home/mapBox'
 import './assets/scss/virginAtlantic.scss'
-import { retrieveFromLocalStorage } from 'utils/helpers'
+import { retrieveFromLocalStorage, navigateToRespectivePage } from 'utils/helpers'
 import { VaSearchIcon, VaMusicIcon, VaPoundIcon } from '../../utils/svgs'
 import ThankyouVirginModal from './thankyouVirginModal'
 import { InputBox } from 'utils/formUtils'
@@ -32,6 +29,7 @@ const Iberia = (props) => {
   })
   const [error, setErrors] = useState({})
   const token = retrieveFromLocalStorage('token')
+  const appendParams = sessionStorage.getItem('queryParamsGA')
 
   useEffect(() => {
     setDetails({
@@ -110,7 +108,7 @@ const Iberia = (props) => {
         twitterImgUrl={SeoTexts.IBERIA_TWITTER_IMAGE_URL}
         richSnippet={iberiaAirlineSnippet}
       />
-      <BgWrap className="atlantics-banner">
+     <BgWrap className="atlantics-banner">
         <SearchImageWrapper className="atlantics-banner-img">
           <picture className="d-b">
             <source data-srcSet={require('./assets/images/iberiaairlines/iberiaairlines-bg.png')} type="image/webp" />
@@ -235,9 +233,9 @@ const Iberia = (props) => {
                 </Grid.Column>
                 <Grid.Column mobile={16} tablet={6} computer={4} widescreen={4} textAlign="right" className="mini-signup-card__col-right">
                   {token ?
-                    <Button className="btn btn--medium-blue" onClick={() => history.push(AppRoutes.HOME)}>{intl(pagesMessages.searchNow)}</Button>
+                    <Button className="btn btn--medium-blue" onClick={() => navigateToRespectivePage(AppRoutes.HOME, appendParams)}>{intl(pagesMessages.searchNow)}</Button>
                     :
-                    <Button className="btn btn--medium-blue" onClick={() => history.push(AppRoutes.SIGN_UP)}>{intl(commonMessages.signUpNow)}</Button>}
+                    <Button className="btn btn--medium-blue" onClick={() => navigateToRespectivePage(AppRoutes.SIGN_UP, appendParams)}>{intl(commonMessages.signUpNow)}</Button>}
                 </Grid.Column>
               </Grid.Row>
             </Grid>
@@ -336,11 +334,11 @@ const Iberia = (props) => {
               <div className="testimonial__body">
                 <Testimonials />
               </div>
-              <div className="testimonial__footer">
+              {/* <div className="testimonial__footer">
                 <div className="trustpilot">
                   <TrustBox />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -355,9 +353,9 @@ const Iberia = (props) => {
                 </Grid.Column>
                 <Grid.Column mobile={16} tablet={6} computer={4} widescreen={4} textAlign="right" className="mini-signup-card__col-right">
                   {token ?
-                    <Button className="btn btn--medium-blue" onClick={() => history.push(AppRoutes.HOME)}>{intl(pagesMessages.searchNow)}</Button>
+                    <Button className="btn btn--medium-blue" onClick={() => navigateToRespectivePage(AppRoutes.HOME, appendParams)}>{intl(pagesMessages.searchNow)}</Button>
                     :
-                    <Button className="btn btn--medium-blue" onClick={() => history.push(AppRoutes.SIGN_UP)}>{intl(commonMessages.signUpTitle)}</Button>}
+                    <Button className="btn btn--medium-blue" onClick={() => navigateToRespectivePage(AppRoutes.SIGN_UP, appendParams)}>{intl(commonMessages.signUpTitle)}</Button>}
                 </Grid.Column>
               </Grid.Row>
             </Grid>

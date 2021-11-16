@@ -12,7 +12,6 @@ export const HeaderContent = styled.div`
 `
 
 export const SectionTitle = styled.h1`
-    font-display: swap;
     text-align: center;
     font-size: 40px;
     line-height: 1.2;
@@ -33,7 +32,7 @@ export const SectionTitle = styled.h1`
 export const SectionSubTitle = styled.p`
   font-size: 16px;
   line-height: 1.1;
-  font-display: swap;
+
   @media (max-width: 767px) {
     font-size: 14px;
   }

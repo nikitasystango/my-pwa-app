@@ -96,7 +96,7 @@ export const DatePickerWrapper = styled.div`
 
   .DateRangePicker_picker {
     top: 69px !important;
-    width: 300px;
+    width:300px;
     border: 1px solid rgba(var(--black-rgb), .1);
     overflow: hidden;
 

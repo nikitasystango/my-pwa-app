@@ -13,6 +13,7 @@ import './flight-availability.scss'
 import 'react-day-picker/lib/style.css'
 import intl from 'utils/intlMessage'
 import flightMessages from 'constants/messages/flightMessages'
+import { britishAirwaysClasses, airlineName } from 'constants/globalConstants'
 import ReactTooltip from 'react-tooltip'
 
 const FlightsHeader = (props) => {
@@ -28,15 +29,14 @@ const FlightsHeader = (props) => {
     showReturnDatesHandle,
     selectedAirlineCode,
     journeyType,
-    activeAirlineClass,
     availablePassengerCabinClasses,
     setOnRunTimeUpdate,
     numberOfPassengers
   } = props
   return (
     <header
-    id="myHeader"
-    className={`header ${showMobileSearch ? 'header--mobile' : ''}`}
+      id="myHeader"
+      className={`header ${showMobileSearch ? 'header--mobile' : ''}`}
     >
       <div className="header__inner">
         <div className="flight-availability-page__header">
@@ -48,13 +48,13 @@ const FlightsHeader = (props) => {
         <Grid className="my-0 flight-classes">
           <Grid.Row className="py-0">
             <Grid.Column
-            className="buttons_element left-classes-wrap"
-            mobile={16}
-            tablet={16}
-            computer={9}
+              className="buttons_element left-classes-wrap"
+              mobile={16}
+              tablet={16}
+              computer={9}
             >
               {/* eslint-disable-next-line */}
-            {activeAirlineClass.map((item, index) => {
+            {britishAirwaysClasses.map((item, index) => {
               if (
                 flightsAvailabilityList?.availability &&
                 flightsAvailabilityList.availability[item.cabinClass]
@@ -90,14 +90,13 @@ const FlightsHeader = (props) => {
             })}
             </Grid.Column>
             <Grid.Column
-            mobile={16}
-            tablet={16}
-            computer={7}
-            verticalAlign="middle"
-            className="pop-wrapper"
+              mobile={16}
+              tablet={16}
+              computer={7}
+              verticalAlign="middle"
+              className="pop-wrapper"
             >
-              { selectedAirlineCode &&
-              selectedAirlineCode === 'BA' && (
+              {selectedAirlineCode && selectedAirlineCode === airlineName.BA.CODE && (
                 <div className="pop">
                   <div
                     onClick={() => handleOffPeakHighlight()}
@@ -115,9 +114,7 @@ const FlightsHeader = (props) => {
                         highlightOffPeak ? 'active' : ''
                       }`}
                     >
-                      <span>
-                        {intl(flightMessages.highlightOffPeak)}
-                      </span>
+                      <span>{intl(flightMessages.highlightOffPeak)}</span>
                     </Button>
                     {highlightOffPeak ? (
                       <div className="offcircleupdated">
@@ -138,30 +135,8 @@ const FlightsHeader = (props) => {
                 {intl(flightMessages.outboundSeats)}
               </h3>
               <h3
-              className={`flight-availability-page__calender-heading flight-availability-page__calender-heading--mobile-only ${
-                showReturnDates === 'outbound-seats'
-                  ? 'flight-availability-page__calender-heading--active'
-                  : ''
-              } ${
-                journeyType === 'return'
-                  ? 'flight-availability-page__calender-heading--return'
-                  : ''
-              }`}
-              onClick={() => showReturnDatesHandle('outbound-seats')}
-              >
-                <Outbound />
-                {intl(flightMessages.outboundSeatsText)}{' '}
-              </h3>
-            </Grid.Column>
-            {journeyType === 'return' && (
-            <Grid.Column>
-              <h3 className="flight-availability-page__calender-heading">
-                <Inbound />
-                {intl(flightMessages.returnSeats)}
-              </h3>
-              <h3
                 className={`flight-availability-page__calender-heading flight-availability-page__calender-heading--mobile-only ${
-                  showReturnDates === 'return-seats'
+                  showReturnDates === 'outbound-seats'
                     ? 'flight-availability-page__calender-heading--active'
                     : ''
                 } ${
@@ -169,13 +144,35 @@ const FlightsHeader = (props) => {
                     ? 'flight-availability-page__calender-heading--return'
                     : ''
                 }`}
-                onClick={() => showReturnDatesHandle('return-seats')}
+                onClick={() => showReturnDatesHandle('outbound-seats')}
               >
-                <Inbound />
-                {intl(flightMessages.inboundSeatsText)}{' '}
+                <Outbound />
+                {intl(flightMessages.outboundSeatsText)}{' '}
               </h3>
             </Grid.Column>
-          )}
+            {journeyType === 'return' && (
+              <Grid.Column>
+                <h3 className="flight-availability-page__calender-heading">
+                  <Inbound />
+                  {intl(flightMessages.returnSeats)}
+                </h3>
+                <h3
+                  className={`flight-availability-page__calender-heading flight-availability-page__calender-heading--mobile-only ${
+                    showReturnDates === 'return-seats'
+                      ? 'flight-availability-page__calender-heading--active'
+                      : ''
+                  } ${
+                    journeyType === 'return'
+                      ? 'flight-availability-page__calender-heading--return'
+                      : ''
+                  }`}
+                  onClick={() => showReturnDatesHandle('return-seats')}
+                >
+                  <Inbound />
+                  {intl(flightMessages.inboundSeatsText)}{' '}
+                </h3>
+              </Grid.Column>
+            )}
           </Grid.Row>
         </Grid>
       </div>
@@ -194,7 +191,6 @@ FlightsHeader.propTypes = {
   showReturnDatesHandle: PropTypes.func,
   selectedAirlineCode: PropTypes.string,
   journeyType: PropTypes.string,
-  activeAirlineClass: PropTypes.array,
   availablePassengerCabinClasses: PropTypes.object,
   setOnRunTimeUpdate: PropTypes.bool,
   numberOfPassengers: PropTypes.number

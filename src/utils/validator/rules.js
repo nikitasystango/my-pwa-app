@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { isEmpty as isEmptyObject, isNull, each } from "lodash";
 import moment from "moment";
 import intl from 'utils/intlMessage'
 import validationMessages from 'constants/messages/validationMessages'
 import { disposalEmails } from 'constants/globalConstants'
+import {isEmpty as isEmptyObject} from 'utils/helpers'
 
-export const isEmpty = value => value === undefined || isNull(value) || value === "";
+export const isEmpty = value => value === undefined || value === null || value === "";
 
 export const join = rules => (value, data, validationMessage) =>
   rules
@@ -40,7 +40,7 @@ export function required(value, state, validationMessage) {
 }
 
 export function onlyPast(value) {
-  if (!isNull(value) && moment(value).isValid() && moment().isBefore(value)) {
+  if (value !== null && moment(value).isValid() && moment().isBefore(value)) {
     return intl(validationMessages.cannotSelectFutureDate);
   }
 }
@@ -55,7 +55,7 @@ export function fileSize(maxSize) {
 }
 
 export function file(value) {
-  if (isEmpty(value) || isNull(value)) {
+  if (isEmpty(value) || value === null) {
     return intl(validationMessages.fieldRequired);
   }
 }

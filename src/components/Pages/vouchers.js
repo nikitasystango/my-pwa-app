@@ -6,7 +6,7 @@ import SeoTexts from 'constants/seoConstants'
 import { Title, Para, PoniterSection, PoniterSectionCount, PoniterSectionTitle, PoniterSectionText } from './style'
 import { voucherCampain } from 'constants/seoScriptConstants'
 import { GoogleAdsParam } from 'constants/globalConstants'
-import { extractURLParams } from 'utils/helpers'
+import { extractURLParams, navigateToRespectivePage } from 'utils/helpers'
 import history from 'utils/history'
 import { Tickets } from 'utils/svgs'
 import intl from 'utils/intlMessage'
@@ -17,6 +17,7 @@ import './assets/scss/voucher.scss'
 
 const Vouchers = (props) => {
   const { pageAnalytics, location } = props
+  const appendParams = sessionStorage.getItem('queryParamsGA')
 
   useEffect(() => {
     if (location?.search) {
@@ -67,8 +68,8 @@ const Vouchers = (props) => {
               <GridColumn width={16}>
                 <div className="content-with-bg-img">
                   <picture>
-                    <source data-srcSet={require('../../assets/images/plane-bg.webp')} type="image/webp" />
-                    <img data-src={require('assets/images/plane-bg.jpg')} alt="✈️" className="content-with-bg-img__img lazyload" />
+                    {/* <source srcSet={require('../../assets/images/plane-bg.webp')} type="image/webp" /> */}
+                    <img src={require('assets/images/plane-bg.webp')} alt="✈️" className="content-with-bg-img__img lazyload" />
                   </picture>
                   <div className="content-with-bg-img__row">
                     <div className="content-with-bg-img__content">
@@ -88,8 +89,8 @@ const Vouchers = (props) => {
             <GridRow>
               <GridColumn mobile={16} tablet={8} computer={8}>
                 <picture>
-                  <source data-srcSet={require('../../assets/images/cards.webp')} type="image/webp" />
-                  <img data-src={require('assets/images/cards.png')} alt="cards💳" className="cards-section__img lazyload" />
+                  <source srcSet={require('../../assets/images/cards.webp')} type="image/webp" />
+                  <img src={require('assets/images/cards.png')} alt="cards💳" className="cards-section__img lazyload" />
                 </picture>
               </GridColumn>
               <GridColumn mobile={16} tablet={8} computer={8}>
@@ -118,8 +119,8 @@ const Vouchers = (props) => {
               <GridColumn mobile={16} tablet={7} computer={7}>
                 <div className="solution-section__box">
                   <picture>
-                    <source data-srcSet={require('../../assets/images/airplane-image.webp')} type="image/webp" />
-                    <img data-src={require('assets/images/airplane-image.jpg')} alt="flight✈️" className="solution-section__img lazyload" />
+                    <source srcSet={require('../../assets/images/airplane-image.webp')} type="image/webp" />
+                    <img src={require('assets/images/airplane-image.jpg')} alt="flight✈️" className="solution-section__img lazyload" />
                   </picture>
                   <span className="solution-section__floating-label">{intl(pagesMessages.trackDownTitle)}</span>
                 </div>
@@ -179,8 +180,8 @@ const Vouchers = (props) => {
               <GridColumn width={16}>
                 <div className="full-width content-with-bg-img content-with-bg-img--light">
                   <picture>
-                    <source data-srcSet={require('assets/images/airpot.webp')} type="image/webp" />
-                    <img data-src={require('assets/images/airpot.jpg')} alt="airport✈️" className="content-with-bg-img__img lazyload" />
+                    <source srcSet={require('assets/images/airpot.webp')} type="image/webp" />
+                    <img src={require('assets/images/airpot.jpg')} alt="airport✈️" className="content-with-bg-img__img lazyload" />
                   </picture>
                   <div className="content-with-bg-img__row">
                     <div className="content-with-bg-img__content">
@@ -202,8 +203,8 @@ const Vouchers = (props) => {
               <GridColumn width={16}>
                 <div className="content-with-bg-img">
                   <picture>
-                    <source data-srcSet={require('../../assets/images/sergio.webp')} type="image/webp" />
-                    <img data-src={require('assets/images/sergio.jpg')} alt="sergio" className="content-with-bg-img__img lazyload" />
+                    <source srcSet={require('../../assets/images/sergio.webp')} type="image/webp" />
+                    <img src={require('assets/images/sergio.jpg')} alt="sergio" className="content-with-bg-img__img lazyload" />
                   </picture>
                   <div className="content-with-bg-img__row">
                     <div className="content-with-bg-img__content">
@@ -229,7 +230,7 @@ const Vouchers = (props) => {
                         <h5 className="mini-banner-with-cta__text">{intl(pagesMessages.tryRffYourSelf)}</h5>
                       </Grid.Column>
                       <Grid.Column mobile={7} tablet={8} computer={8} widescreen={8} textAlign="right" className="mini-banner-with-cta__col-right">
-                        <Button className="btn btn--medium-blue" onClick={() => history.push(AppRoutes.HOME)}>{intl(pagesMessages.getStarted)}</Button>
+                        <Button className="btn btn--medium-blue" onClick={() => navigateToRespectivePage(AppRoutes.HOME, appendParams)}>{intl(pagesMessages.getStarted)}</Button>
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>

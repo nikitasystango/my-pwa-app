@@ -1,14 +1,3 @@
-.cloud-shadow{
-  height: 200px;
-  top: -27px;
-  background:linear-gradient(#ffffff52, #ffffffad, #b99d9d00);
-  width: 100%;
-  z-index: 9;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  position: absolute;
-}
 .cloudwrap {
   position: relative;
   &.footercloud{
@@ -59,12 +48,11 @@
     .cloudContent{
       text-align: center;
       position: absolute;
-      bottom: 10%;
+      bottom: -2%;
       left: 50%;
       transform: translate(-50%, -50%);
       @media(max-width:767px){
         width: 100%;
-        bottom: -2%;
         .cloudwrap h2 {
           font-size: 21px;   
           line-height: 25px;

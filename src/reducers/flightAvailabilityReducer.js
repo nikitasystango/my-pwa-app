@@ -13,8 +13,7 @@ const initialState = {
   toggalDateAvailibilityModal: false,
   availabilityAlertLoading: false,
   availabilityAlertData: {},
-  isCalendarHover: false,
-  calendarSignupModal: false
+  isCalendarHover: false
 }
 
 const getFlightAvailabilityStart = (state) => ({

@@ -33,6 +33,7 @@ const CommonReactSelect = (props) => {
       className={className ? className : ''}
       placeholder={placeholder ? placeholder : intl(commonMessages.select)}
       noOptionsMessage={() => intl(commonMessages.noOptions)}
+      isClearable
       isDisabled={isDisabled}
     />
   )

@@ -19,13 +19,13 @@ const HomeIntroBox = () => {
                 <div className="IntroBox-image-wrap">
                   <picture className="d-b">
                     <source
-                      srcSet={require('./assets/introbox-img-1.webp')}
-                      type="image/webp"
+                    srcSet={require('./assets/introbox-img-1.webp')}
+                    type="image/webp"
                     />
                     <img
-                      data-src={require('./assets/introbox-img-1.png')}
-                      alt="Introbox-img"
-                      className="lazyload"
+                        data-src={require('./assets/introbox-img-1.png')}
+                        alt="Introbox-img"
+                        className="lazyload"
                     />
                   </picture>
                 </div>
@@ -45,10 +45,8 @@ const HomeIntroBox = () => {
                   <p>{intl(homeMessages.joinRewardFlightFinderText)}</p>
                   <p>{intl(homeMessages.sundayTimesText)}</p>
                   <button
-                    onClick={() =>
-                      navigateToRespectivePage(AppRoutes.SIGN_UP, appendParams)
-                    }
-                    className="ui button btn btn--medium-blue mt-2"
+                  onClick={() => navigateToRespectivePage(AppRoutes.SIGN_UP, appendParams)}
+                  className="ui button btn btn--medium-blue mt-2"
                   >
                     {intl(homeMessages.joinNowText)}
                   </button>
@@ -66,30 +64,30 @@ const HomeIntroBox = () => {
                 <div className="IntroBox-image-wrap">
                   <picture className="d-b">
                     <source
-                      srcSet={require('./assets/introbox-img-2.webp')}
-                      type="image/webp"
-                      className="introbox-two-desk-img"
+                    srcSet={require('./assets/introbox-img-2.webp')}
+                    type="image/webp"
+                    className="introbox-two-desk-img"
                     />
                     <img
-                      data-src={require('./assets/introbox-img-2.png')}
-                      alt="Introbox-img"
-                      className="lazyload introbox-two-desk-img"
-                      width="399"
-                      height="491"
+                        data-src={require('./assets/introbox-img-2.png')}
+                        alt="Introbox-img"
+                        className="lazyload introbox-two-desk-img"
+                        width="399"
+                        height="491"
                     />
                   </picture>
                   <picture className="d-b">
                     <source
-                      srcSet={require('./assets/introbox-img-2-mobile.webp')}
-                      type="image/webp"
-                      className="introbox-two-mobile-img"
+                    srcSet={require('./assets/introbox-img-2-mobile.webp')}
+                    type="image/webp"
+                    className="introbox-two-mobile-img"
                     />
                     <img
-                      data-src={require('./assets/introbox-img-2-mobile.png')}
-                      alt="Introbox-img"
-                      className="lazyload introbox-two-mobile-img"
-                      width="399"
-                      height="388"
+                        data-src={require('./assets/introbox-img-2-mobile.png')}
+                        alt="Introbox-img"
+                        className="lazyload introbox-two-mobile-img"
+                        width="399"
+                        height="388"
                     />
                   </picture>
                 </div>
@@ -108,8 +106,8 @@ const HomeIntroBox = () => {
                   <p>{intl(homeMessages.keepSearchingText)}</p>
                   <p>{intl(homeMessages.homeSimpleText)}</p>
                   <button
-                    onClick={() => navigateToRespectivePage(AppRoutes.HOW_IT_WORKS, appendParams)}
-                    className="ui button btn btn--medium-blue mt-2"
+                  onClick={() => navigateToRespectivePage(AppRoutes.HOW_IT_WORKS, appendParams)}
+                  className="ui button btn btn--medium-blue mt-2"
                   >
                     {intl(layoutMessages.howItWorksLabel)}
                   </button>
@@ -127,16 +125,16 @@ const HomeIntroBox = () => {
                 <div className="IntroBox-image-wrap">
                   <picture className="d-b">
                     <source
-                      srcSet={require('./assets/introbox-img-3.webp')}
-                      type="image/webp"
-                      className="introbox-two-desk-img"
+                    srcSet={require('./assets/introbox-img-3.webp')}
+                    type="image/webp"
+                    className="introbox-two-desk-img"
                     />
                     <img
-                      data-src={require('./assets/introbox-img-3.png')}
-                      alt="Introbox-img"
-                      className="lazyload introbox-two-desk-img"
-                      width="399"
-                      height="422"
+                        data-src={require('./assets/introbox-img-3.png')}
+                        alt="Introbox-img"
+                        className="lazyload introbox-two-desk-img"
+                        width="399"
+                        height="422"
                     />
                   </picture>
                 </div>
@@ -147,10 +145,14 @@ const HomeIntroBox = () => {
                     {intl(homeMessages.upgradesAvailableText)}
                   </h3>
                   <p>{intl(homeMessages.unlockHandyText)}</p>
-                  <p>{intl(homeMessages.silverMembershipAvailabilityText)}</p>
+                  <p>
+                    {intl(
+                    homeMessages.silverMembershipAvailabilityText
+                  )}
+                  </p>
                   <button
-                    onClick={() => navigateToRespectivePage(AppRoutes.PRICING, appendParams)}
-                    className="ui button btn btn--medium-blue mt-2"
+                  onClick={() => navigateToRespectivePage(AppRoutes.PRICING, appendParams)}
+                  className="ui button btn btn--medium-blue mt-2"
                   >
                     Find Out More
                   </button>

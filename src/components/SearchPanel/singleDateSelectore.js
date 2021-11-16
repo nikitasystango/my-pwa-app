@@ -3,7 +3,6 @@ import { SingleDatePicker } from 'react-dates'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { ArrowNext, ArrowPrev } from '../../utils/svgs'
-// import './assets/singleDateSelectore.scss'
 import { SingleDatePickerWrapper } from './style'
 
 const SingleDateSelectore = (props) => {

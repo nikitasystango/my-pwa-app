@@ -12,8 +12,10 @@ import { errorPageSnippet } from 'constants/seoScriptConstants'
 import { AppRoutes } from '../../constants/appRoutes'
 import intl from 'utils/intlMessage'
 import erroMessages from 'constants/messages/errorMessages'
+import { navigateToRespectivePage } from 'utils/helpers'
 
 const ErrorPage = (props) => {
+  const appendParams = sessionStorage.getItem('queryParamsGA')
 
   useEffect(() => {
 
@@ -23,7 +25,7 @@ const ErrorPage = (props) => {
 // eslint-disable-next-line
   }, [])
   const redirectToHomepage = () => {
-    history.push(AppRoutes.HOME)
+    navigateToRespectivePage(AppRoutes.HOME, appendParams)
   }
 
   return (

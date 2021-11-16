@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { extractURLParams, retrieveFromLocalStorage } from 'utils/helpers'
+import { extractURLParams, retrieveFromLocalStorage, navigateToRespectivePage } from 'utils/helpers'
 import { pushNotification } from 'utils/notifications'
 import SeoHelmet from 'utils/seoHelmet'
 import SeoTexts from 'constants/seoConstants'
-import history from 'utils/history'
 import { WelcomeImage } from 'utils/svgs'
 import './assets/scss/thankyou.scss'
 import { AppRoutes } from '../../constants/appRoutes'
@@ -16,6 +15,7 @@ const VerifyUserNewEmail = (props) => {
 
   const { location, getProfileDetails } = props
   const [error, setError] = useState(null)
+  const appendParams = sessionStorage.getItem('queryParamsGA')
 
   useEffect(() => {
     const token = retrieveFromLocalStorage('token')
@@ -30,11 +30,11 @@ const VerifyUserNewEmail = (props) => {
       } else if (data?.error === 'Email has already been taken') {
         setError(intl(toustifiyMessages.emailAlreadyTaken))
       } else {
-         history.push(AppRoutes.HOME)
+        navigateToRespectivePage(AppRoutes.HOME, appendParams)
         pushNotification(intl(toustifiyMessages.somethingWentWrong), 'error', 'TOP_CENTER', 3000)
       }
     }else {
-       history.push(AppRoutes.HOME)
+      navigateToRespectivePage(AppRoutes.HOME, appendParams)
     }
     // eslint-disable-next-line
   }, [])

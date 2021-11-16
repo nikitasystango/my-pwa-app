@@ -1,9 +1,6 @@
 import React from 'react'
 import { Grid } from 'semantic-ui-react'
-// import LeftArrow from '../../assets/images/get-us-on-left-arrow.svg'
-// import RightArrow from '../../assets/images/get-us-on-right-arrow.svg'
 import './assets/scss/getUsOn.scss'
-
 import { AppStore, AppStoreText } from './style'
 import { Apple, GooglePlay, GetUsOnLeftArrow, GetUsOnRightArrow } from '../../utils/svgs'
 import intl from 'utils/intlMessage'
@@ -38,8 +35,8 @@ export const GetUsOn = () => (
               {/* <img src={RightArrow} alt="⇨" className="get-us-on__right-arrow lazyload" /> */}
               <GetUsOnRightArrow className="get-us-on__right-arrow lazyload" />
               <picture>
-                <source className="lazyload" data-srcSet={WebPMobileImage} type="image/webp" />
-                <img data-src={MobileImage} alt="📱" className="get-us-on__img lazyload" />
+                <source className="lazyload" srcSet={WebPMobileImage} type="image/webp" />
+                <img src={MobileImage} alt="📱" className="get-us-on__img lazyload" />
               </picture>
             </div>
           </Grid.Column>

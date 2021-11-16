@@ -41,7 +41,6 @@ const JourneyTypeSelector = (props) => {
         placeholder={intl(commonMessages.journey)}
         value={journeyType}
         onChange={onJourneyChange}
-        aria-label="return"
       />
     </Grid.Row>
   )

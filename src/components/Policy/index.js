@@ -19,7 +19,7 @@ const Policy = (props) => {
       const arrData = Object.keys(data)
       const isExist = GoogleAdsParam.includes(arrData[0])
           if(!isExist) {
-            history.push(AppRoutes.PAGE_NOT_FOUND)
+           history.push(AppRoutes.PAGE_NOT_FOUND)
           }
     }
     movePointerOnTop()

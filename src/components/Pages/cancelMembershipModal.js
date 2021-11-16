@@ -5,10 +5,9 @@ import { Close, CancelEliteMembershipImage } from 'utils/svgs'
 import intl from 'utils/intlMessage'
 import pagesMessages from 'constants/messages/pagesMessages'
 import commonMessages from 'constants/messages/commonMessages'
-import { AppRoutes } from 'constants/appRoutes'
 
 const CancelMembershipModal = (props) => {
-  const { toggleCaneleMembershipModal, toggleModal, cancelEliteMembership, cancelEliteLoading, isUserSilverMember } = props
+  const { toggleCaneleMembershipModal, toggleModal, cancelEliteMembership, cancelEliteLoading } = props
   return (
     <Modal
       open={toggleCaneleMembershipModal}
@@ -25,7 +24,7 @@ const CancelMembershipModal = (props) => {
           <h5 className="cancel-elite-membership__subhead  mx-auto mb-10">{intl(pagesMessages.areYouSure)}</h5>
           <div className="cst-popup__buttons justify-content-center">
             <Button disabled={cancelEliteLoading} onClick={() => toggleModal(false)} className="btn btn--dark cancel-elite-membership__btn">{intl(commonMessages.no)}</Button>
-            <Button disabled={cancelEliteLoading} loading={cancelEliteLoading} className="btn btn--medium-blue cancel-elite-membership__btn" onClick={() => cancelEliteMembership({ type: 'changePlan', path: isUserSilverMember ? AppRoutes.DOWNGRADE_SILVER_TO_BRONZE : AppRoutes.DOWNGRADE_GOLD_TO_BRONZE })}>{intl(commonMessages.yes)}</Button>
+            <Button disabled={cancelEliteLoading} loading={cancelEliteLoading} className="btn btn--medium-blue cancel-elite-membership__btn" onClick={() => cancelEliteMembership({ type: 'changePlan' })}>{intl(commonMessages.yes)}</Button>
           </div>
 
         </>
@@ -38,8 +37,7 @@ CancelMembershipModal.propTypes = {
   toggleCaneleMembershipModal: PropTypes.bool,
   toggleModal: PropTypes.func,
   cancelEliteMembership: PropTypes.func,
-  cancelEliteLoading: PropTypes.bool,
-  isUserSilverMember: PropTypes.bool
+  cancelEliteLoading: PropTypes.bool
 }
 
 export default CancelMembershipModal

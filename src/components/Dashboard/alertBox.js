@@ -15,11 +15,12 @@ import AAIcon from '../../assets/images/aa-icon.png'
 import BAIcon from '../../assets/images/ba-icon.svg'
 import { extractURLParams } from 'utils/helpers'
 import EditAlertModal from './editAlertModal'
-import { GoogleAdsParam, BritishAirwaysAvailableClass } from 'constants/globalConstants'
+import { GoogleAdsParam } from 'constants/globalConstants'
 import { AppRoutes } from 'constants/appRoutes'
 import 'semantic-ui-css/components/popup.min.css'
 import intl from 'utils/intlMessage'
 import commonMessages from 'constants/messages/commonMessages'
+import { airlineName } from 'constants/globalConstants'
 
 const AlertBox = (props) => {
   const {
@@ -53,13 +54,14 @@ const AlertBox = (props) => {
     number_of_passengers,
     availability_url
   } = data || ''
+
+  const appendParams = sessionStorage.getItem('queryParamsGA')
   const extractedParams =
     availability_url && extractURLParams(availability_url)
   const [toggleEditAlertModal, setToggleEditAlertModal] = useState(false)
   const [toggleDeleteAlertModal, setToggleDeleteALertModal] = useState('edit')
   let cabinClasses = travel_classes ? travel_classes.split(',') : []
-
-  const allCabinClass = BritishAirwaysAvailableClass
+  const allCabinClass = ['economy', 'premium_economy', 'business', 'first']
   if (cabinClasses?.length > 1) {
     cabinClasses = allCabinClass.filter((item) => cabinClasses.includes(item))
   }
@@ -107,7 +109,7 @@ const AlertBox = (props) => {
     updateReducerState('flights', 'flightsAvailability', {})
     history.push({
       pathname: AppRoutes.CALENDER,
-      search: `?${avabilitySplit}&alertId=${id}`,
+      search: `?${avabilitySplit}${appendParams ? appendParams.replace('?', '&'): ''}`,
       state: { sourcePage: 'alerts', startDate: start_date,
       endDate: end_date,
       arrivalStartDate: arrival_start_date,
@@ -140,12 +142,12 @@ const avabilitySplit = availability_url ? availability_url.split('?')[1] : ''
               <span className="alert-box__info-airline">
                 <img
                   className="lazyload airline-icon"
-                  src={airline_name === 'american_airlines' ? AAIcon : BAIcon}
+                  src={airline_name === airlineName.AA.AIRWAYS_NAME ? AAIcon : BAIcon}
                   alt="airlines"
                 />
-                {airline_name === 'american_airlines'
-                  ? 'American Airlines'
-                  : 'British Airways'}
+                {airline_name === airlineName.AA.AIRWAYS_NAME
+                  ? airlineName.AA.AIRLINE
+                  : airlineName.BA.AIRLINE}
                 <Popup
                   content={`${membership_type} ${intl(commonMessages.member)}`}
                   size="mini"

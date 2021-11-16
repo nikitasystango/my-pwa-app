@@ -8,17 +8,18 @@ import MobileSidebar from 'components/SideBar'
 import Footer from '../Footer'
 import { MainContent, MainContentWrap } from './style'
 import ProfilePictureModal from 'common/ProfilePictureModal'
-import { retrieveFromLocalStorage, removeFromLocalStorage } from 'utils/helpers'
-import { movePointerOnTop } from 'utils/helpers'
+import { retrieveFromLocalStorage, removeFromLocalStorage, extractURLParams, movePointerOnTop, navigateToRespectivePage } from 'utils/helpers'
 import { AppRoutes } from 'constants/appRoutes'
-import history from 'utils/history'
 import env from 'utils/env_variables'
+import { GAParameters } from 'constants/globalConstants'
 import { trackUserIdConversion, updateReducerAirlineData } from 'utils/commonFunction'
 
 const Layout = (props) => {
   const { isSidebarVisible, toggleSidebar, user, updateReducerState, className,
     logoutUserLoading, mapPageUrl, location } = props
   const token = retrieveFromLocalStorage('token')
+  const appendParams = sessionStorage.getItem('queryParamsGA')
+
   useEffect(() => {
     const { getProfileDetails } = props
     const userId = retrieveFromLocalStorage('userId')
@@ -31,6 +32,24 @@ const Layout = (props) => {
     movePointerOnTop()
     // eslint-disable-next-line
   }, [])
+
+useEffect(()=> {
+  storeGAInSessionStorage()
+  // eslint-disable-next-line 
+}, [location?.search])
+
+//  Check & to store google ads params to sesssion storage for managing it in routing throughout user journey
+const storeGAInSessionStorage = () => {
+  if (location?.search) {
+    const data = extractURLParams(location.search)
+    const arrData = Object.keys(data)
+    const found = arrData.filter(e => GAParameters.indexOf(e)===-1) || []
+    const isExist = GAParameters.includes(arrData[0])
+       if(isExist && found.length === 0) {
+         sessionStorage.setItem('queryParamsGA', location?.search)
+       }
+    }
+}
 
   useEffect(() => {
   const token = retrieveFromLocalStorage('token')
@@ -54,7 +73,7 @@ const Layout = (props) => {
     if(userIdproxy) {
       removeFromLocalStorage('token')
       removeFromLocalStorage('userIdproxy')
-      history.push(AppRoutes.HOME)
+      navigateToRespectivePage(AppRoutes.HOME, appendParams)
       const url = `${env.REDIRECT_ON_RUBY}/admin/users/${userIdproxy}?active=yes`
       window.open(url, '_blank')
     }else{
@@ -107,14 +126,13 @@ const Layout = (props) => {
       activeAlertsCount: userValue?.current_active_alerts || 0,
       downgradeMembership: userValue?.gold_to_silver_downgrade || false,
       allowedAlertDateRange: userValue?.allowed_date_range_for_alerts || 0,
-      trialEligibilty: userValue?.trial_eligibility || {},
+      trialEligibilty: userValue?.trial_eligibilty || {},
       downgradedPlan: userValue?.downgraded_plan || null,
       address: userValue?.address || {},
       ageBand: userValue?.age_band || null,
       flightsTakenAnnually: userValue?.flights_taken_annually || null,
       gender: userValue?.gender || null,
       travellingAbroad: userValue?.travelling_abroad_in_next_12_months || null,
-      redeemedCouponIds: userValue?.redeemed_coupon_ids || null,
       airlineMemberships: userValue?.airline_memberships || []
     }
     if (data && data.id) {

@@ -3,11 +3,10 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import ReactHtmlParser from 'react-html-parser'
 import { Grid, Image, Button } from 'semantic-ui-react'
-import history from 'utils/history'
 import Layout from 'containers/Layout'
 import Loader from 'components/LoadingSpinner'
 import { AngleLeft } from '../../utils/svgs'
-import { checkImageFormateIsWebp } from 'utils/helpers'
+import { checkImageFormateIsWebp, navigateToRespectivePage } from 'utils/helpers'
 import SeoTags from 'common/SeoTags'
 import { AppRoutes } from 'constants/appRoutes'
 import 'semantic-ui-css/components/image.min.css'
@@ -18,15 +17,17 @@ import SeoTexts from 'constants/seoConstants'
 
 const BlogDetails = (props) => {
 
-  const { getBlogDetails, match, blogDetail, blogDetailsLoading, location } = props
+  const { getBlogDetails, match, blogDetail, blogDetailsLoading } = props
   const { author, title, created_at: date, image, content, seoMetaDesc, seoTitle, tags, richSnippet, twitterTag, ogTag, slug } = (blogDetail?.length && blogDetail[0])|| ''
   const webpImage = checkImageFormateIsWebp(image?.url)
   const { type = 'WebPage', name = '' } = richSnippet ? richSnippet : {}
+  const appendParams = sessionStorage.getItem('queryParamsGA')
+
   useEffect(() => {
-    if (match?.params?.slug && !location?.search) {
+    if (match?.params?.slug) {
       getBlogDetails(match.params.slug)
     } else {
-      history.push(AppRoutes.NEWS_AND_ADVICE)
+      navigateToRespectivePage(AppRoutes.NEWS_AND_ADVICE, appendParams)
     }
     // eslint-disable-next-line
   }, [])
@@ -58,7 +59,7 @@ const BlogDetails = (props) => {
         <Grid className="m-0">
           <Grid.Row className="">
             <Grid.Column width={16}>
-              <button className="blog-detail-page__back-to-blog" onClick={() => history.push(AppRoutes.NEWS_AND_ADVICE)}>
+              <button className="blog-detail-page__back-to-blog" onClick={() => navigateToRespectivePage(AppRoutes.NEWS_AND_ADVICE, appendParams)}>
                 <AngleLeft />{intl(commonMessages.blog)}
               </button>
             </Grid.Column>
@@ -80,8 +81,8 @@ const BlogDetails = (props) => {
               <Grid.Column width={16}>
                 <div className="blog-detail-page__feature-image">
                   <picture>
-                    <source data-srcSet={webpImage} type="image/webp" className="lazyload" />
-                    <Image data-src={image?.url} className="lazyload" fluid />
+                    <source srcSet={webpImage} type="image/webp" className="lazyload" />
+                    <Image src={image?.url} className="lazyload" fluid />
                   </picture>
                 </div>
                 <div className="blog-detail-page__content">
@@ -95,7 +96,7 @@ const BlogDetails = (props) => {
       <div className="blog-detail-page__tags">
         <div className="blog-detail-page__tags_inner">
           {tags?.map((item, index) => {
-            return <Button key={`tags_${index}`} onClick={() => history.push(`${AppRoutes.TAGS}/${item.slug}`)}>{item.name}</Button>
+            return <Button key={`tags_${index}`} onClick={() => navigateToRespectivePage(`${AppRoutes.TAGS}/${item.slug}`, appendParams)}>{item.name}</Button>
           })
           }
         </div>

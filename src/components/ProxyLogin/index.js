@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { AppRoutes } from 'constants/appRoutes'
-import { extractURLParams, setInLocalStorage } from 'utils/helpers'
-import history from 'utils/history'
+import { extractURLParams, setInLocalStorage, navigateToRespectivePage } from 'utils/helpers'
 import Loader from 'components/LoadingSpinner'
 
 const ProxyLoginComponent = (props) => {
     const { location: { search }, getProfileDetails } = props
+    const appendParams = sessionStorage.getItem('queryParamsGA')
 
     useEffect(()=>{
         let extractedParams = null
@@ -16,7 +16,7 @@ const ProxyLoginComponent = (props) => {
           setInLocalStorage('token', extractedParams.token)
           setInLocalStorage('userIdproxy', extractedParams.userId)
           getProfileDetails(extractedParams.userId)
-          history.push(AppRoutes.HOME)
+          navigateToRespectivePage(AppRoutes.HOME, appendParams)
           }
         }
         // eslint-disable-next-line

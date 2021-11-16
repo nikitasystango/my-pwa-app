@@ -14,7 +14,9 @@ import commonMessages from 'constants/messages/commonMessages';
 import 'semantic-ui-css/components/header.min.css'
 import 'semantic-ui-css/components/loader.min.css'
 import 'semantic-ui-css/components/menu.min.css'
+import '../Dashboard/dashboard.scss'
 import { getInitialsProfileImage } from 'utils/helpers'
+const appendParams = sessionStorage.getItem('queryParamsGA')
 
 class Sidebar extends Component {
   constructor(props) {
@@ -63,20 +65,21 @@ class Sidebar extends Component {
 
     this.setState({ activeView: activeView })
     const { toggleSidebar } = this.props
+
     toggleSidebar()
-    navigateToRespectivePage(url)
+    navigateToRespectivePage(url, appendParams)
   }
 
   loginHandler = () => {
     const { toggleSidebar } = this.props
     toggleSidebar()
-    navigateToRespectivePage(AppRoutes.SIGN_IN)
+    navigateToRespectivePage(AppRoutes.SIGN_IN, appendParams)
   }
 
   registerHandler = () => {
     const { toggleSidebar } = this.props
     toggleSidebar()
-    navigateToRespectivePage(AppRoutes.SIGN_UP)
+    navigateToRespectivePage(AppRoutes.SIGN_UP, appendParams)
   }
 
   handleSignoutToggle = () => {

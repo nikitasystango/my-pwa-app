@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import { Grid, Button } from 'semantic-ui-react'
 import { SendMeAlertCard } from './style'
 import { BellIcon, BellIconBlue } from 'utils/svgs'
-import { retrieveFromLocalStorage } from 'utils/helpers'
-import history from 'utils/history'
+import { retrieveFromLocalStorage, navigateToRespectivePage } from 'utils/helpers'
 import { AppRoutes } from 'constants/appRoutes'
 import intl from 'utils/intlMessage'
 import searchPanelMessages from 'constants/messages/searchPanelMessages'
@@ -13,6 +12,7 @@ import commonMessages from 'constants/messages/commonMessages'
 const SendAlertCard = (props) => {
   const { isUserSilverMember, isUserGoldMember, pathname, handleScrollToStickyHeader, label= null, alertMessage, hideSearchButton } = props
   const token = retrieveFromLocalStorage('token')
+  const appendParams = sessionStorage.getItem('queryParamsGA')
 
   return (
     <>
@@ -30,13 +30,13 @@ const SendAlertCard = (props) => {
                 {token && !isUserSilverMember && !isUserGoldMember && label === null &&
                   <>
                     <p>{intl(searchPanelMessages.bronzeDailyAlertTitle)}</p>
-                    <p className="cursor-pointer hover-text-underline" onClick={() => history.push(AppRoutes.PRICING)}>{intl(searchPanelMessages.upgradeToMembership)} <b>{intl(searchPanelMessages.upgradeToBronzeChance)}</b> {intl(searchPanelMessages.upgradeToBronzeHourCheck)}</p>
+                    <p className="cursor-pointer hover-text-underline" onClick={() => navigateToRespectivePage(AppRoutes.PRICING, appendParams)}>{intl(searchPanelMessages.upgradeToMembership)} <b>{intl(searchPanelMessages.upgradeToBronzeChance)}</b> {intl(searchPanelMessages.upgradeToBronzeHourCheck)}</p>
                   </>
                 }
                 {isUserSilverMember &&
                   <>
                     <p>{intl(searchPanelMessages.silverHourAlertTitle)}</p>
-                    <p className="cursor-pointer hover-text-underline" onClick={() => history.push(AppRoutes.PRICING)}>{intl(searchPanelMessages.upgradeToMembership)} <b>{intl(searchPanelMessages.upgradeToSilverChance)}</b> {intl(searchPanelMessages.upgradeToSilverMultiCheck)}</p>
+                    <p className="cursor-pointer hover-text-underline" onClick={() => navigateToRespectivePage(AppRoutes.PRICING, appendParams)}>{intl(searchPanelMessages.upgradeToMembership)} <b>{intl(searchPanelMessages.upgradeToSilverChance)}</b> {intl(searchPanelMessages.upgradeToSilverMultiCheck)}</p>
                   </>
                 }
                 {isUserGoldMember &&
@@ -58,7 +58,7 @@ const SendAlertCard = (props) => {
               </Grid.Column>
               <Grid.Column mobile={16} tablet={4} computer={4} widescreen={4}>
                 {label === 'myAlerts' ?
-                  !hideSearchButton && <Button primary className="btn btn--dark" onClick={()=> history.push(AppRoutes.HOME)}>{intl(commonMessages.search)} </Button>
+                  !hideSearchButton && <Button primary className="btn btn--dark" onClick={()=> navigateToRespectivePage(AppRoutes.HOME, appendParams)}>{intl(commonMessages.search)} </Button>
                 :
                   <Button primary className="btn btn--dark" onClick={handleScrollToStickyHeader}>{intl(searchPanelMessages.createAlert)} <BellIcon /></Button>
                 }

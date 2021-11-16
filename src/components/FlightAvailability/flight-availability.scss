@@ -24,7 +24,7 @@
     
     .flight-availability-page__calender-wrapper{
       background-color: #F5F8F9;
-      padding: 5px 0 0;
+      padding: 20px 0 0;
       .DayPicker{
         background: transparent !important;
         .DayPicker-Month{
@@ -598,7 +598,7 @@
             line-height: 1.5;
         }
 
-        @media (min-width: 1px) {
+        @media (min-width: 641px) {
           &--mobile-only {
               display: none;
           }
@@ -607,11 +607,11 @@
         @media (max-width: 640px) {
             font-size: 12px;
             line-height: 1.35;
-            margin: 5px 0 !important;
+            margin: 15px 0 !important;
             padding-bottom: 5px;
 
             &:not(&--mobile-only) {
-              display: block;
+              display: none;
             }
 
             &--return {
@@ -668,8 +668,7 @@
             &.calendar-wrapper {
                 --col: 1;
                 --col-gap: 0px;
-                padding-left: 0.2rem !important;
-                padding-right: 0.2rem !important;
+
                 &--active {
                   display: flex !important;
                   justify-content: space-between;
@@ -702,7 +701,28 @@
               }
             }
 
-            
+            @media (max-width: 640px) {
+                --col: 1;
+                --col-gap: 0px;
+                &.calendar-wrapper {
+                    --col: 1;
+                    --col-gap: 0px;
+                    width: 100% !important;
+                    display: none !important;
+                    padding: {
+                      left: 0 !important;
+                      right: 0 !important;
+                    };
+
+                    &--active {
+                        display: inline-block !important;
+
+                        .DayPicker__hidden {
+                            visibility: visible !important;
+                        }
+                    }
+                }
+            }
         }
 
         // .CalendarMonthGrid {
@@ -805,9 +825,8 @@
         //     }
         // }
 
-        @media (max-width: 840px) {
-          max-width: 750px !important;
-          width:100% !important;
+        @media (max-width: 640px) {
+          max-width: 375px;
           margin: {
             left: auto !important;
             right: auto !important;
@@ -1239,10 +1258,7 @@
     .header {
       &:not(.header--mobile) {
         .flight-availability-page__header {
-          display: block;
-          .dataSelectCompress  {
-            display:none;
-          }
+          display: none;
         }
       }
 
@@ -1367,7 +1383,7 @@
       &-Week {
         display: flex;
         flex-direction: row;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
         margin-top: 4px;
         margin-bottom: 4px;
@@ -1409,7 +1425,7 @@
         &-Caption {
           padding: 14px 10px 10px;
           > div {
-            font-size: 12px;
+            font-size: 14px;
             line-height: 18px;
           }
         }
@@ -1417,14 +1433,14 @@
           padding: 15px 11px 7px;
         }
         &-Body {
-          padding: 0 4px 6px;
+          padding: 0 11px 6px;
         }
         &-Day {
           height: 40px;
 
           .date-svg {
-            max-width: 22px;
-            max-height: 22px;
+            max-width: 30px;
+            max-height: 30px;
 
             &__icon {
               --bdr-width: 2px;
@@ -1661,7 +1677,7 @@
   }
 }
 .DayPicker-Day--highlighted {
-   display:none !important; 
+  display:none !important; 
  }
 
  .availabilityPopups{
@@ -1710,6 +1726,12 @@
         padding-left: 0px !important;
         padding-right: 0px !important;
         }
+    }
+    .inbound-wrap{
+      margin-top: 15px;
+      @media(max-width:767px){
+        margin-bottom: 15px;
+      }
     }
     .boundText{
       font-size: 14px;
@@ -1819,8 +1841,8 @@
           text-align: center;
           color: #132C52;
           @media(max-width:767px){
-            font-size: 10px;
-            line-height: 10px;
+            font-size:10px;
+            line-height:10px;
           }
         }
       }
@@ -1849,197 +1871,4 @@
 
     }
  }
- .cal-popup.ui.modal{
-   &.footercloudtop{
-     transform: translateY(0%);
-   }
-   .cst-popup__close{
-    fill: #03B2D8;
-    stroke: #03B2D8;
-    --icon-color: #03B2D8;
-    z-index: 9;
-    @media(max-width:767px){
-      margin-right: 12px;
-      }
-   }
-  max-width: 800px !important;
-  background-image: url("../FlightAvailability/assets/su-popup-bg.png") !important; 
-  height: 600px; 
-  background-position: center; 
-  background-repeat: no-repeat; 
-  background-size: contain; 
-  background-color: unset !important;
-  bottom: -20px;
-  transform: translateY(100%);
-  transition:2s ease all;
-  border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 0!important;
-  @media(max-width:767px){
-  background-image: url("../FlightAvailability/assets/su-popup-bg-mobile.png") !important; 
-  }
-  .content{
-    margin: 0 !important;
-    background: unset !important;
-    background-color: unset !important;
-    .bottom-content{
-      position: absolute;
-      bottom: 0px;
-      left:50%;
-      transform: translate(-50%, -50%);
-      @media(max-width:767px){
-        bottom: -31px;
-        }
-    }
-    .top-content{
-      display: flex;
-      justify-content: space-around;
-      position: relative;
-      top:-15px;
-      .desktop-only{
-        display: flex;
-        justify-content: space-around;
-        position: relative;
-        width: 100%;
-        top: 10px;
-      }
-      .mobile-only{
-        display:none;
-      }
-      @media(max-width:767px){
-        .desktop-only{
-          display:none
-        }
-        .mobile-only{
-          display: flex;
-          justify-content: space-around;
-          position: relative;
-          align-items: center;
-          top: 0px;
-          width: 100%;
-          p{
-            color: #03B2D8;
-            border-bottom: 2px solid #31c0df;
-            line-height: 25px;
-            margin-bottom: 0;
-          }
-          p.inbound-text{
-            color:#97ADB6;
-            border-bottom:unset;
-          }
-        }
-      }
-      p{
-        font-family: Open Sans;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 16px;
-        line-height: 20px;
-        color: #132C52;
-        svg{
-          position: relative;
-          top: 2px;
-          left: -5px;
-        }
-      }
-    }
-    button{
-      width: 222px !important;
-    }
-  .co-pass {
-    padding-left: 15px;
-  }
-    h2{
-      font-weight: bold;
-      font-size: 21px;
-      line-height: 26px;
-      text-align: center;
-      color: #132C52;
-    }
-    .signin-signup-form.ui.form{
-      .error-message{
-        display: block;
-        width: 100%;
-        text-align: left;
-      }
-      .field.required-field {
-        label:after{
-          color: #ffffff !important;
-        }
-      }
-    }
-    .signin-signup-form.ui.form .field {
-      // &.signin-signup-form__first-name{
-      //   padding-left: 1rem;
-      //   padding-right: 1rem;
-      // }
-      // &.signin-signup-form__last-name{
-      //   padding-left: 1rem;
-      //   padding-right: 1rem;
-      // }
-      label{
-        font-family: Open Sans;
-        text-align: center;
-        font-weight: normal;
-        font-size: 12px;
-        line-height: 16px;
-        color: #FFFFFF !important;
-        text-align: left;
-      }
-    }
-    .social-login-wrap{
-      .social-login {
-        button{
-          background-color: transparent !important;
-          border:unset !important;
-          width: 30px !important;
-          height: 30px !important;
-          margin: 0 5px !important;
-          padding: 0 !important;
-          background-size: 27px !important;
-          background-repeat: no-repeat !important;
-          cursor: pointer;
-          &.google-login-btn{
-            background-image: url(../FlightAvailability/assets/google-icon.svg) !important;
-          }
-          &.fb-login-btn {
-            background-image: url(../FlightAvailability/assets/fb-icon-popup.svg) !important;
-          }
-          &.apple-log-btn{
-            background-image: url(../FlightAvailability/assets/apple-icon.svg) !important;
-          }
-        }
-        .btn{
-          padding: 0 !important;
-          border:unset !important;
-          background-color: transparent !important;
-          svg{
-            display: none;
-          }
-          span{
-            display:none;
-          }
-        }
-      }
-    }
-    .signup-button{
-      justify-content: center;
-      button{
-        max-width: 120px;
-        background: #03B2D8!important;
-        border: unset !important;
-      padding: 11px 0 !important;
-      }
-    }
-    .divider--with-text {
-      span{
-        color: white;
-      }
-    }
-  }
-  .cal-social-login-wrap{
-    display:none;
-    svg{
-      margin: 0 5px;
-    }
-  }
- }
+ 

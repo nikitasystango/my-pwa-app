@@ -3,7 +3,7 @@ import { Grid, Button } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import { CheckCircle } from 'utils/svgs'
 import { AirlineClassesDropdown } from './style'
-import { britishAirwaysClasses, virginAtlanticClass } from 'constants/globalConstants'
+import { britishAirwaysClasses } from 'constants/globalConstants'
 import { AppRoutes } from 'constants/appRoutes'
 import intl from 'utils/intlMessage'
 import commonMessages from 'constants/messages/commonMessages'
@@ -15,7 +15,6 @@ const AirlineClasses = (props) => {
     updateReducerState,
     flightsAvailability,
     location,
-    searchPanel: { selectedAirlineCode },
     setOnRunTimeUpdate
   } = props
   const [toggleCabinClassModal, setToggleCabinClassPopup] = useState(false)
@@ -26,12 +25,6 @@ const AirlineClasses = (props) => {
     setCabinClasses(toggalClasses)
     // eslint-disable-next-line
   }, [toggalClasses])
-
-  // select cabin classes according to selected airline code
-  const activeAirlineClass = React.useMemo(() =>
-  selectedAirlineCode === 'VA' ? virginAtlanticClass : britishAirwaysClasses
-  , [selectedAirlineCode]
-)
 
   const toggleClasses = (name) => {
     const checkedClassLength =
@@ -81,7 +74,7 @@ const AirlineClasses = (props) => {
       return (
         <>
           {/* eslint-disable-next-line */}
-          {activeAirlineClass.map((item, index) => {
+          {britishAirwaysClasses.map((item, index) => {
             if (flightsAvailability.availability[item.cabinClass]) {
               return (
                 <li
@@ -106,7 +99,7 @@ const AirlineClasses = (props) => {
     } else {
       return (
         <>
-          {activeAirlineClass.map((item, index) => (
+          {britishAirwaysClasses.map((item, index) => (
             <li
               key={`${item.cabinClass}_${index}_223`}
               onClick={() => toggleClasses(item.cabinClass)}

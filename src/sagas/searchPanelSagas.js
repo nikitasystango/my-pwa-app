@@ -23,7 +23,7 @@ import { getProfileDetails, getSubscribedAlerts } from 'actions/Dashboard'
 import intl from 'utils/intlMessage'
 import toustifyMessages from 'constants/messages/toustifyMessages'
 import { updateReducerState } from 'actions/Common'
-import { availableAirways } from 'constants/globalConstants'
+import { availableAirways, airlineName } from 'constants/globalConstants'
 
 function* handleGetAirlinesList(action) {
   const { payload } = action
@@ -107,7 +107,7 @@ function* watchSendMeAlert() {
 function* handleSouDesLocations(action) {
   const { selectedAirline } = action.payload
   try {
-    const airlinePath = selectedAirline === 'VA' ? availableAirways.VIRGIN_ATLANTIC : availableAirways.BRITISH_AIRWAYS 
+    const airlinePath = selectedAirline === airlineName.VA.CODE ? availableAirways.VIRGIN_ATLANTIC : availableAirways.BRITISH_AIRWAYS 
     const pathUrl = `${URls.GET_SOU_DES_LOCATION_URL}/${airlinePath}`
     const response = yield call(getRequestNode, pathUrl)
     if (response && response.status && response.status === 200 && response.data) {
@@ -127,8 +127,7 @@ function* watchGetSouDesLocation() {
 function* handleSouDesPossibleRoutes(action) {
   const { selectedAirline } = action.payload
   try {
-    const pathUrl = `${URls.GET_SOU_DES_POSSIBLE_ROUTES_URL}/${selectedAirline === 'VA' ? availableAirways.VIRGIN_ATLANTIC : availableAirways.BRITISH_AIRWAYS }`
-
+    const pathUrl = `${URls.GET_SOU_DES_POSSIBLE_ROUTES_URL}/${selectedAirline === airlineName.VA.CODE ? availableAirways.VIRGIN_ATLANTIC : availableAirways.BRITISH_AIRWAYS }`
     const response = yield call(getRequestNode, pathUrl)
     if (response && response.status && response.status === 200 && response.data) {
       yield put(getSouDesPossibleRoutesSuccess(response.data))

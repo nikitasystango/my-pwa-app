@@ -1198,6 +1198,23 @@
       }
     }
   }
+  .DateRangePickerInput_clearDates{
+    right:-5px;
+    padding: 0px;
+    line-height: 0;
+    width: 28px;
+    height: 28px;
+    &:hover{
+    background-color: #d2d0d09c;
+    }
+    @media(max-width:767px){
+      top:55%;
+      .DateRangePickerInput_clearDates_svg {
+        height: 10px;
+        width: 10px;
+      }
+    }
+  }
 }
 .airline-selector-dropdown.search-map-view{
   max-width: 100% !important;
@@ -1253,12 +1270,22 @@
   }
 
 .leaflet-popup{
-  margin-bottom: 45px !important;
- 
+  margin-bottom: 52px !important;
+  left: -157px !important;
+  min-width:319px;
 }  
 .leaflet-popup-content-wrapper{
   width: fit-content;
   margin: 0 auto;
+}
+.map-search-place{
+  position:relative;
+}
+.leaflet-popup-close-button{
+  display: none;
+}
+.map-search-place .leaflet-popup-close-button{
+  display: block;
 }
 .dest-option-text{
   font-size: 16px;
@@ -1269,15 +1296,8 @@
 .leaflet-popup.popup-bottom {
   top:-10px;
   } 
-
-  .leaflet-popup.popup-right {
-    left:-250px !important;
-  } 
   
-  .leaflet-popup.popup-right  .leaflet-popup-tip-container{
-    left: 78.5%;
-    bottom: -19px;
-  }
+  
   
   .leaflet-popup.popup-bottom  .leaflet-popup-tip-container{
     top: -20px;

@@ -10,11 +10,10 @@ import commonMessages from 'constants/messages/commonMessages'
 import { AppRoutes } from 'constants/appRoutes'
 import history from 'utils/history'
 import { retrieveFromLocalStorage } from 'utils/helpers'
-import { handleSetTrueToCabinClass } from 'utils/commonFunction'
 
 const AirlineSelector = (props) => {
   const { airlines, handlerSetError, getSouDesLocations, getSouDesPossibleRoutes, location, isCalendarHover, updateReducerState } = props
-
+  const appendParams = sessionStorage.getItem('queryParamsGA')
   const [isOpen, setIsOpen] = useState(false)
 
   React.useMemo(()=> {
@@ -32,7 +31,8 @@ const AirlineSelector = (props) => {
     const { airlineCode, membershipCode } = data
     if(location !== AppRoutes.CALENDER && location !== AppRoutes.LOCATION) {
       history.push({
-        pathname: data.airlineCode === 'VA' ? AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS : AppRoutes.HOME,
+        pathname: data.airlineCode === airlineName.VA.CODE ? AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS : AppRoutes.HOME,
+        search: appendParams || '',
         state: {
           selectedAirline: `${airlineCode}_${membershipCode}`,
           selectedAirlineCode: airlineCode,
@@ -52,7 +52,7 @@ const AirlineSelector = (props) => {
       updateReducerState('searchPanel', 'calendarSupport', data.calendarSupport ? data.calendarSupport : false)
     }
     if(selectedAirlineCode !== data.airlineCode && location === AppRoutes.CALENDER) {
-      const values = retrieveFromLocalStorage(`${data.airlineCode === 'BA' ? 'recentSearch' : 'recentSearchVA'} `)
+      const values = retrieveFromLocalStorage(`${data.airlineCode === airlineName.BA.CODE ? 'recentSearch' : 'recentSearchVA'} `)
       let dataJson = {}
       if(values) {
         const data = values.split(';')
@@ -70,17 +70,8 @@ const AirlineSelector = (props) => {
         name: '',
         value: ''
       })
-
-      // To filter cabin class according to membership tier selection
-      const selectedClasses = handleSetTrueToCabinClass(data.airlineCode)
-      updateReducerState('searchPanel', 'toggalClasses', selectedClasses)
-
     } else if(selectedAirlineCode !== data.airlineCode && location === AppRoutes.LOCATION) {
       updateReducerState('mapData', 'sourceLocation', {
-        name: '',
-        value: ''
-      })
-      updateReducerState('mapData', 'destinationLocation', {
         name: '',
         value: ''
       })
@@ -194,7 +185,7 @@ const AirlineSelector = (props) => {
         <div className="airline-logo">
           {/* <img className="airline-logo__img lazyload" src={selectedAirlineCode === 'AA' ? AmericanLogo : BritishLogo} alt="airlines✈️" /> */}
           {
-            selectedAirlineCode === 'AA'
+            selectedAirlineCode === airlineName.AA.CODE
               ?
                 <img className="airline-logo__img lazyload" src={AmericanLogo} alt="✈️airlines" />
               :

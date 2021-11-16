@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as rules from "./rules";
-import { get } from "lodash";
+import { getLodash } from  'utils/helpers';
 
 class Validator {
   constructor(rules) {
@@ -50,7 +50,7 @@ class Validator {
     let fieldName = field;
 
     if (field.indexOf("[") >= 0) {
-      item = get(state, field);
+      item = getLodash(state, field);
       fieldName = field.replace(/\[\d+\]/, ".*");
     }
 

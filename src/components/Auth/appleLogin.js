@@ -77,7 +77,7 @@ const LoginWithApple = (props) => {
           <button className={`btn w-100 apple-log-btn ${appleLoginLoading ? 'btn--loader btn--disabled' : ''}`} {...props}>
             <p>
               <AppleIcon />
-              <span> {intl(commonMessages.apple)}</span>
+              {intl(commonMessages.apple)}
             </p>
           </button>
         )}

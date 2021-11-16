@@ -8,8 +8,10 @@ import {
 import { getCmsRequest } from './request'
 import URls from 'constants/urls'
 import textContent from 'constants/staticText'
-import history from 'utils/history'
 import { AppRoutes } from 'constants/appRoutes'
+import { navigateToRespectivePage } from 'utils/helpers'
+
+const appendParams = sessionStorage.getItem('queryParamsGA')
 
 function* getBlogs(action) {
 
@@ -34,8 +36,8 @@ function* getBlogs(action) {
   try {
     const response = yield call(getCmsRequest, url)
     if (response?.status === 200 && response?.data) {
-      if(type === 'tags' && !response?.data?.entries?.length){
-        history.push(AppRoutes.NEWS_AND_ADVICE)
+      if(type === 'tags' && !response?.data?.entries?.length) {
+        navigateToRespectivePage(AppRoutes.NEWS_AND_ADVICE, appendParams)
       }
       yield put(getBlogsSuccess(response.data, type))
     }

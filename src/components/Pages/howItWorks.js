@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Grid } from 'semantic-ui-react'
 import { howItWorksSnippet } from 'constants/seoScriptConstants'
+import SeoTags from 'common/SeoTags'
+import SeoTexts from 'constants/seoConstants'
 import history from 'utils/history'
 import { GoogleAdsParam } from 'constants/globalConstants'
 import { extractURLParams } from 'utils/helpers'
@@ -11,9 +13,7 @@ import pagesMessages from 'constants/messages/pagesMessages'
 import commonMessages from 'constants/messages/commonMessages'
 import './index.scss'
 import './assets/scss/how-its-work.scss'
-import SeoTexts from 'constants/seoConstants'
 import ProgressiveImage from 'utils/progressiveImage'
-import SeoTags from 'common/SeoTags'
 
 const HowItWorks = (props) => {
   const { location } = props

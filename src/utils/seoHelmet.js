@@ -6,7 +6,7 @@ import { checkRoutesForScript } from 'constants/globalConstants'
 const SeoHelmet = ({ title, richSnippet, canonicalLink, match }) => (
   <Helmet>
     <meta charSet="utf-8" />
-    {title ? <title>{title}</title> : null}
+    <title>{title}</title>
     {richSnippet ? richSnippet : null}
 
     {/* canonical tag link */}

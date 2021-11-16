@@ -69,8 +69,8 @@ export const howItWorksSnippet = (
   <script type="application/ld+json">{`{
     "@context": "http://schema.org",
     "@type": "WebPage",
-    "name": "How Reward Flight Finder Works: A Complete Guide",
-    "url": "${baseURL}${AppRoutes.HOW_IT_WORKS}", 
+    "name": "How It Works | Reward Flight Finder",
+    "url": "${baseURL}${AppRoutes.HOW_IT_WORKS}",
     "description": "RFF makes your BA reward flight search easy by sending you hourly reward flight seat availability alerts. Check out our complete guide to learn how easily Reward Flight Finder works!"
     }`}
   </script>

@@ -3,10 +3,6 @@ import FlightAvailabilityComponent from 'components/FlightAvailability'
 import { getFlightAvailability, userActionAudit, getAlertAvailability } from 'actions/FlightAvailability'
 import { updateReducerState, pageAnalytics } from 'actions/Common'
 import { changeTicketClass, updateToggalClassesState, updateTicketsSearchBox, SendMeAlert, getAirlineList } from 'actions/SearchPanel'
-import { signup, facebookLoginRequest, googleLoginRequest,
-  facebookLoginRequestSuccess, googleLoginRequestSuccess,
-  appleLoginRequest, appleLoginRequestSuccess
-} from 'actions/Auth'
 import { updateProfileDetails } from 'actions/Dashboard'
 
 const mapStateToProps = state => ({
@@ -19,7 +15,8 @@ const mapStateToProps = state => ({
   facebookLoginLoading: state.auth.facebookLoginLoading,
   googleLoginLoading: state.auth.googleLoginLoading,
   appleLoginLoading: state.auth.appleLoginLoading,
-  user: state.auth.user
+  user: state.auth.user,
+  accountSettings: state.dashboard.accountSettings
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -30,13 +27,6 @@ const mapDispatchToProps = dispatch => ({
   updateReducerState: (reducerKey, key, value) => dispatch(updateReducerState(reducerKey, key, value)),
   userActionAudit: (data) => dispatch(userActionAudit(data)),
   getAlertAvailability: (data) => dispatch(getAlertAvailability(data)),
-  signup: (data) => dispatch(signup(data)),
-  facebookLoginRequest: (data) => dispatch(facebookLoginRequest(data)),
-  googleLoginRequest: (data) => dispatch(googleLoginRequest(data)),
-  appleLoginRequest: (data) => dispatch(appleLoginRequest(data)),
-  appleLoginRequestSuccess: (data) => dispatch(appleLoginRequestSuccess(data)),
-  facebookLoginRequestSuccess: (data) => dispatch(facebookLoginRequestSuccess(data)),
-  googleLoginRequestSuccess: (data) => dispatch(googleLoginRequestSuccess(data)),
   updateTicketsSearchBox: (name, value) => dispatch(updateTicketsSearchBox({ name, value })),
   onSendMeAlert: (data) => dispatch(SendMeAlert(data)),
   getAirlineList: (data) => dispatch(getAirlineList(data)),

@@ -42,8 +42,7 @@ const initialState = {
     createAlertsLimit: 0,
     activeAlertsCount: 0,
     downgradeMembership: false,
-    onboarded: null,
-    trialEligibilty: {}
+    onboarded: null
   },
   facebookLoginLoading: false,
   googleLoginLoading: false,

@@ -4,10 +4,8 @@ import { FooterWrap, FooterInner, FooterTop, FooterDivider, FooterBottom, Copyri
 import { connect } from 'react-redux'
 import { getWordpressContent } from 'actions/Common'
 import PropTypes from 'prop-types'
-import history from 'utils/history'
 import { Facebook, Twitter, Linkedin, Instagram } from '../../utils/svgs'
-import TrustBox from '../Trustpilot'
-import { openUrlOnNewTab } from 'utils/helpers'
+import { openUrlOnNewTab, navigateToRespectivePage } from 'utils/helpers'
 import { AppRoutes } from 'constants/appRoutes'
 import intl from 'utils/intlMessage'
 import commonMessages from 'constants/messages/commonMessages'
@@ -18,6 +16,7 @@ import './footer.scss'
 
 const Footer = (props) => {
   const { pageContentLoading, getWordpressContent, pageContentDetails } = props
+  const appendParams = sessionStorage.getItem('queryParamsGA')
   useEffect(() => {
     if (pageContentDetails === null && !pageContentLoading) {
       getWordpressContent()
@@ -26,29 +25,28 @@ const Footer = (props) => {
   }, [])
 
   return (
-    <>
-      <FooterWrap className="footer">
-        <FooterInner>
-          <FooterTop>
-            <Grid className="m-0">
-              <GridRow className="py-0">
-                <GridColumn mobile={16} tablet={9} computer={8} widescreen={8} className="footer-col footer-col--links">
-                  <List horizontal className="footer-col__list">
-                    <List.Item className="footer-col__list-item" onClick={() => history.push(AppRoutes.CAMPANION_VOUCHER)}>{intl(layoutMessages.companionVoucherGuide)}</List.Item>
-                    <List.Item className="footer-col__list-item" onClick={() => history.push(AppRoutes.NEWS_AND_ADVICE)}>{intl(commonMessages.blog)}</List.Item>
-                    <List.Item className="footer-col__list-item" onClick={() => history.push({ pathname: AppRoutes.PRICING })}>{intl(layoutMessages.pricingTitle)}</List.Item>
-                    <List.Item className="footer-col__list-item" onClick={() => history.push(AppRoutes.FAQ)}>{intl(layoutMessages.faqTitle)}</List.Item>
-                  </List>
-                  <List horizontal className="footer-col__list">
-                    <List.Item className="footer-col__list-item" onClick={() => history.push(AppRoutes.PRIVACY_POLICY)}>{intl(layoutMessages.privacyPolicyTitle)}</List.Item>
-                    <List.Item className="footer-col__list-item" onClick={() => history.push(AppRoutes.DISCLAIMER)}>{intl(layoutMessages.disclaimerTitle)}</List.Item>
-                    <List.Item className="footer-col__list-item" onClick={() => history.push(AppRoutes.TERMS_OF_USE)}>{intl(layoutMessages.termsOfUseTitle)}</List.Item>
-                    <List.Item className="footer-col__list-item" onClick={() => history.push(AppRoutes.COOKIE_POLICY)}>{intl(layoutMessages.cookiePolicyTitle)}</List.Item>
-                  </List>
-                </GridColumn>
-                <GridColumn mobile={16} tablet={7} computer={4} widescreen={4} className="footer-col footer-col--trustpilot">
-                  <TrustBox />
-                </GridColumn>
+    <FooterWrap className="footer">
+      <FooterInner>
+        <FooterTop>
+          <Grid className="m-0">
+            <GridRow className="py-0">
+              <GridColumn mobile={16} tablet={9} computer={8} widescreen={8} className="footer-col footer-col--links">
+                <List horizontal className="footer-col__list">
+                  <List.Item className="footer-col__list-item" onClick={() => navigateToRespectivePage(AppRoutes.CAMPANION_VOUCHER, appendParams)}>{intl(layoutMessages.companionVoucherGuide)}</List.Item>
+                  <List.Item className="footer-col__list-item" onClick={() => navigateToRespectivePage(AppRoutes.NEWS_AND_ADVICE, appendParams)}>{intl(commonMessages.blog)}</List.Item>
+                  <List.Item className="footer-col__list-item" onClick={() => navigateToRespectivePage(AppRoutes.PRICING, appendParams)}>{intl(layoutMessages.pricingTitle)}</List.Item>
+                  <List.Item className="footer-col__list-item" onClick={() => navigateToRespectivePage(AppRoutes.FAQ, appendParams ? `${appendParams}&category=1`: '')}>{intl(layoutMessages.faqTitle)}</List.Item>
+                </List>
+                <List horizontal className="footer-col__list">
+                  <List.Item className="footer-col__list-item" onClick={() => navigateToRespectivePage(AppRoutes.PRIVACY_POLICY, appendParams)}>{intl(layoutMessages.privacyPolicyTitle)}</List.Item>
+                  <List.Item className="footer-col__list-item" onClick={() => navigateToRespectivePage(AppRoutes.DISCLAIMER, appendParams)}>{intl(layoutMessages.disclaimerTitle)}</List.Item>
+                  <List.Item className="footer-col__list-item" onClick={() => navigateToRespectivePage(AppRoutes.TERMS_OF_USE, appendParams)}>{intl(layoutMessages.termsOfUseTitle)}</List.Item>
+                  <List.Item className="footer-col__list-item" onClick={() => navigateToRespectivePage(AppRoutes.COOKIE_POLICY, appendParams)}>{intl(layoutMessages.cookiePolicyTitle)}</List.Item>
+                </List>
+              </GridColumn>
+              {/* <GridColumn mobile={16} tablet={7} computer={4} widescreen={4} className="footer-col footer-col--trustpilot">
+                <TrustBox />
+              </GridColumn> */}
                 {/* <GridColumn mobile={16} tablet={16} computer={4} widescreen={4} className="footer-col footer-col--app-store-btns">
                 <AppStore>
                   <GooglePlay />
@@ -90,7 +88,6 @@ const Footer = (props) => {
           </FooterBottom>
         </FooterInner>
       </FooterWrap>
-    </>
   )
 }
 

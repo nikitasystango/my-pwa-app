@@ -11,9 +11,7 @@ import { retrieveFromLocalStorage, extractURLParams, checkAnyTrueObjectValue } f
 import SidebarSearch from './sideBarSearch'
 import { ShowBtnArrow } from '../../utils/svgs'
 import LoginMagPopup from 'components/SearchPanel/loginMsgPopup'
-import history from 'utils/history'
 import { GoogleAdsParam } from 'constants/globalConstants'
-import { AppRoutes } from 'constants/appRoutes'
 import intl from 'utils/intlMessage'
 import commonMessages from 'constants/messages/commonMessages'
 import flightMessages from 'constants/messages/flightMessages'
@@ -31,10 +29,10 @@ import toustifyMessages from 'constants/messages/toustifyMessages'
 
 const MapView = (props) => {
   const { updateReducerState, location: { pathname, search }, getMapLocations, searchPanel,
-    updateTicketsSearchBox, flightsAvailability, getAirlineList, mapData, isUserBronzeMember, updateToggalClassesState, getSouDesPossibleRoutes,
-    getSouDesLocations,
+    updateTicketsSearchBox, flightsAvailability, getAirlineList, mapData, isUserBronzeMember, updateToggalClassesState,
     common: { airlineMembershipToggle },
-    user
+    user,
+    accountSettings : { updateUserProfileLoading }
   } = props
   const { toggalMapEliteLoginPopUp, toggalClasses, airportsWithMultiCity, souDesAirports,
     ticketsSearchBox: { numberOfPassengers }, selectedAirlineCode, selectedAirline,
@@ -50,6 +48,10 @@ const MapView = (props) => {
 
   const { available_destinations, source } = mapLocationsData || ''
 
+  let extractedParams = {}
+  if (search) {
+    extractedParams = extractURLParams(search)
+  }
   useEffect(()=> {
     if(airlineMemberships && !airlineMemberships.length) {
       updateReducerState('common', 'airlineMembershipToggle', true)
@@ -82,11 +84,6 @@ const MapView = (props) => {
     // eslint-disable-next-line
   }, [toggalClasses])
 
-  useEffect(()=> {
-    getSouDesPossibleRoutes({ selectedAirline: selectedAirlineCode })
-    getSouDesLocations({ selectedAirline: selectedAirlineCode })
-    // eslint-disable-next-line
-  }, [selectedAirlineCode])
 
 const updateLocation = () => {
   setMapLocationsData({
@@ -122,7 +119,7 @@ const updateLocation = () => {
         && extractedParams.passenger && extractedParams.ouStartDate && extractedParams.ouEndDate
         && extractedParams.dId && extractedParams.dPlace &&
         extractedParams.eclass && extractedParams.pclass && extractedParams.fclass && extractedParams.bclass) {
-        const { tier, jType, dPlace, dId, passenger, airlineCode, ouStartDate, ouEndDate, inStartDate, inEndDate, desId, desPlace, eclass, pclass, fclass, bclass } = extractedParams || ''
+        const { tier, jType, dPlace, dId, passenger, airlineCode, ouStartDate, ouEndDate, inStartDate, inEndDate, eclass, pclass, fclass, bclass } = extractedParams || ''
         let data = {
           tier: airlineMembership ? airlineMembership : Texts.DEFAULT_AIRLINE_TIER,
           travel_class: 'economy',
@@ -169,10 +166,6 @@ const updateLocation = () => {
           sourceLocation: {
             name: dPlace,
             value: dId
-          },
-          destinationLocation: {
-            name: desPlace,
-            value: desId
           }
         }
         Object.keys(mapSearchJson).map(item => (
@@ -182,13 +175,12 @@ const updateLocation = () => {
         const arrData = Object.keys(extractedParams)
         const isExist = GoogleAdsParam.includes(arrData[0])
           if(!isExist) {
-            history.push(AppRoutes.PAGE_NOT_FOUND)
+            // history.push(AppRoutes.PAGE_NOT_FOUND)
           }
       }
     }
     // eslint-disable-next-line
   }, [props.location.search])
-
 
 // Filter toggle cabin class according to available destinations
   const handleInitialToggle = () => {
@@ -231,7 +223,7 @@ const updateLocation = () => {
         </Button>
       }
       {getLocationLoading && <Loader />}
-      {!search || (!getLocationLoading && available_destinations?.length) ?
+      {(extractedParams && !extractedParams.airlineCode) || (!getLocationLoading && available_destinations?.length) ?
         <LocationMap
           mapLocations={available_destinations}
           source={source}
@@ -296,6 +288,7 @@ const updateLocation = () => {
         updateReducerState={updateReducerState}
         updateProfileDetails={props.updateProfileDetails}
         user={user}
+        updateUserProfileLoading={updateUserProfileLoading}
       />
       }
     </Layout>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Modal, Dropdown, Header, Grid } from 'semantic-ui-react'
 import moment from 'moment'
@@ -6,7 +6,7 @@ import { InputRadio } from 'utils/formUtils'
 import { Close, CheckCircle, DeleteAlertIcon } from 'utils/svgs'
 import { britishAirwaysClasses, defaultBACabinClass } from 'constants/globalConstants'
 import TravellerCount from 'components/SearchPanel/travellerCount'
-import DateRangeSelectore from 'components/SearchPanel/dateRangePicker'
+// import DateRangeSelectore from 'components/SearchPanel/dateRangePicker'
 import { jsonToQueryString, retrieveFromLocalStorage } from 'utils/helpers'
 import { DatePickerWrapper } from './style'
 import intl from 'utils/intlMessage'
@@ -22,12 +22,15 @@ import flightMessages from 'constants/messages/flightMessages'
 import Texts from 'constants/staticText'
 import { airlineName } from 'constants/globalConstants'
 
+const DateRangeSelectore = React.lazy(() => import('components/SearchPanel/dateRangePicker'))
+
 const EditAlertModal = (props) => {
   const { data, airlines, toggleEditAlertModal, setToggleEditAlertModal, toggleDeleteAlertModal,
-    handelDeleteAlert, setToggleDeleteALertModal, editAlert, extractedParams, getFlightAvailability, flights, allowedAlertDateRange, isUserGoldMember, isUserSilverMember, availablePassengerCabinClasses } = props
+    handelDeleteAlert, setToggleDeleteALertModal, editAlert, extractedParams, getFlightAvailability, flights, allowedAlertDateRange, isUserGoldMember, isUserSilverMember, updateReducerState, availablePassengerCabinClasses } = props
   const { number_of_passengers, trip_type, start_date, end_date, arrival_start_date,
     arrival_end_date, membership_type, travel_classes, id, available_travel_classes, destination_code, source_code, airline_name } = data || ''
     const { flightsAvailability } = flights || {}
+    const appendParams = sessionStorage.getItem('queryParamsGA') || ''
 
   const [editAlertState, SetEditAlertState] = useState({
     numberOfPassengers: 1,
@@ -56,7 +59,6 @@ const EditAlertModal = (props) => {
 
   const { numberOfPassengers, journeyType, rangeDepartStartDate, rangeDepartEndDate,
     rangeReturnStartDate, rangeReturnEndDate, cabinClasses, airlineMembership, availableClasses } = editAlertState
-
   useEffect(() => {
     const cabinClasses = travel_classes ? travel_classes.split(',') : []
     SetEditAlertState({
@@ -83,7 +85,6 @@ const EditAlertModal = (props) => {
     // eslint-disable-next-line
   }, [])
 
-
   // Call flight availibility API for managing passenger count & cabin class change
   const fetchFlightAvalibilityAPI = () => {
     const cabinClasses = travel_classes ? travel_classes.split(',') : []
@@ -98,7 +99,7 @@ const EditAlertModal = (props) => {
       tier: membership_type,
       sourceCode: source_code,
       destinationCode: destination_code,
-      airlineCode: airline_name === airlineName.VIRGIN_AIRWAYS ? 'VA' : Texts.DEFAULT_AIRLINE_TIER_CODE 
+      airlineCode: airline_name === airlineName.VA.AIRWAYS_NAME ? airlineName.VA.CODE : Texts.DEFAULT_AIRLINE_TIER_CODE 
     }
     getFlightAvailability(data)
   }
@@ -122,7 +123,7 @@ const EditAlertModal = (props) => {
   const getAmericanMemberShip = () => {
     let member = []
     airlines.map(item => {
-      if (item.value === 'BA' && item.memberships) {
+      if (item.value === airlineName.BA.CODE && item.memberships) {
         member = item.memberships
       }
       return member
@@ -447,7 +448,7 @@ const handleAlertRangeError = (alert) => {
       closeIcon={<div><Close className="cst-popup__close" /></div>}
       onClose={handlerToggalEditAlertPopUp}
       size="small"
-      className={'cst-popup american-alert-popup myProfileAlertPopup'}
+      className="cst-popup american-alert-popup myProfileAlertPopup"
     >
       {toggleDeleteAlertModal === 'edit' && <Modal.Header>
         <Header as="h2">{intl(dashboardMessages.editAlertModalTitle)}</Header>
@@ -508,7 +509,8 @@ const handleAlertRangeError = (alert) => {
                     <div className={`american-alert-popup__fields ${errors?.departDateError ? 'date-error-field' : ''}`}>
                       <label>{intl(dashboardMessages.editAlertModalDepRange)}</label>
                       <DatePickerWrapper>
-                        <DateRangeSelectore
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <DateRangeSelectore
                         startDate={rangeDepartStartDate}
                         endDate={rangeDepartEndDate}
                         startName="rangeDepartStartDate"
@@ -521,7 +523,8 @@ const handleAlertRangeError = (alert) => {
                         clearDates={clearDates}
                         rangeDepartStartDate={rangeDepartStartDate}
                         rangeReturnStartDate={rangeReturnStartDate}
-                        />
+                          />
+                        </Suspense>
                       </DatePickerWrapper>
                     </div>
                   </Grid.Column>
@@ -529,7 +532,8 @@ const handleAlertRangeError = (alert) => {
                     <div className={`american-alert-popup__fields ${errors?.returnDateError ? 'date-error-field' : ''}`}>
                       <label>{intl(dashboardMessages.editAlertModalRetRange)}</label>
                       <DatePickerWrapper>
-                        <DateRangeSelectore
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <DateRangeSelectore
                         startDate={rangeReturnStartDate}
                         endDate={rangeReturnEndDate}
                         startName="rangeReturnStartDate"
@@ -543,7 +547,8 @@ const handleAlertRangeError = (alert) => {
                         clearDates={clearDates}
                         rangeDepartStartDate={rangeDepartStartDate}
                         rangeReturnStartDate={rangeReturnStartDate}
-                        />
+                          />
+                        </Suspense>
                       </DatePickerWrapper>
                     </div>
                   </Grid.Column>
@@ -599,7 +604,13 @@ const handleAlertRangeError = (alert) => {
                       {intl(toustifyMessages.activeAlertErrorMessage, allowedAlertDateRange)}{intl(toustifyMessages.forXMembers, isUserSilverMember ? 'Silver' : 'Bronze')} {' '}
                       <p>{intl(toustifyMessages.pleaseCheckDateRange, journeyType === 'return' ? handleSpecificErrorAlertRange() : 'Outbound date range')}, { ' ' }
                         or
-                        <Link to={AppRoutes.PRICING} className="medium-blue-color link-hover-medium-blue">
+                        <Link to={`${AppRoutes.PRICING}${appendParams ? appendParams : ''}`}
+                        onClick ={ ()=>{
+                          updateReducerState('searchPanel', 'toggleEditAlertModal', false)
+                          updateReducerState('searchPanel', 'toggalPreviewAlertModal', false)
+                          }}
+                         className="medium-blue-color link-hover-medium-blue"
+                        >
                           { ' '} upgrade { ' '}
                         </Link>
                         {intl(toustifyMessages.yourPlan)}
@@ -650,4 +661,3 @@ EditAlertModal.propTypes = {
   availablePassengerCabinClasses: PropTypes.object
 }
 export default EditAlertModal
-

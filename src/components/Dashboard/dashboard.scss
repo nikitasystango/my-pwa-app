@@ -1,5 +1,5 @@
 .dashboard-pages {
-  padding: 6rem 1rem 1.5rem;
+  padding: 6rem 1rem 1.5rem !important; 
 }
 .user-dashboard {
     background: var(--white);
@@ -253,7 +253,8 @@
       cursor: not-allowed !important;
     }
 .contactphoneInput 
-{ width:100%;
+{
+  width:100%;
   .phone_field{
     padding: 0;
     padding-right: 0px;

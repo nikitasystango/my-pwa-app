@@ -18,13 +18,14 @@ import { getProfileDetails } from 'actions/Dashboard'
 import { AppRoutes } from 'constants/appRoutes'
 import { postRequestRuby, getRequestRuby } from './request'
 import { pushNotification } from 'utils/notifications'
-import { setInLocalStorage, retrieveFromLocalStorage, isFirstTimeLoginHandler, removeFromLocalStorage } from 'utils/helpers'
+import { setInLocalStorage, retrieveFromLocalStorage, isFirstTimeLoginHandler, removeFromLocalStorage, navigateToRespectivePage } from 'utils/helpers'
 import history from 'utils/history'
 import URls from 'constants/urls'
 import Messages from 'constants/messages'
 import env from 'utils/env_variables'
 import intl from 'utils/intlMessage'
 import toustifyMessages from 'constants/messages/toustifyMessages'
+const appendParams = sessionStorage.getItem('queryParamsGA')
 
 function* handleLogin(action) {
   const { data } = action.payload
@@ -52,10 +53,10 @@ function* handleLogin(action) {
         else{
       if (path) {
         if(path === '/chargebee/self_serve_portal') {
-          history.push(AppRoutes.HOME)
+          navigateToRespectivePage(AppRoutes.HOME, appendParams)
              //  window.location.href = `${env.REDIRECT_ON_RUBY}/chargebee/self_serve_portal?user_id=${userId}`
            const url = `${env.REDIRECT_ON_RUBY}/chargebee/self_serve_portal?user_id=${userId}`
-           const newWin = window.open(url)
+           const newWin = window.open(`${url}${appendParams ? appendParams.replace('?', '&') : ''}`)
            if(!newWin || newWin.closed || typeof newWin.closed=='undefined')
            {
              pushNotification(Messages.ENABLED_POPUP, 'error', 'TOP_CENTER', 3000)
@@ -65,7 +66,7 @@ function* handleLogin(action) {
           history.push(path)
         }
       } else {
-        history.push(AppRoutes.PROFILE_DETAILS)
+        navigateToRespectivePage(AppRoutes.HOME, appendParams)
       }
       // window.location.reload()
     }
@@ -94,7 +95,7 @@ function* handleSignUp(action) {
       const userId = response?.headers?.location?.split('/')?.pop()
       yield put(signupSuccess(response.data))
       yield put(getProfileDetails(userId))
-      history.push(AppRoutes.PROFILE_DETAILS)
+      navigateToRespectivePage(AppRoutes.THANK_YOU, appendParams)
     }
   } catch (error) {
     if (error && error.response && error.response.data && error.response.data.error) {
@@ -125,8 +126,12 @@ function* facebookLogin(action) {
         yield put(getPreSignedUrlAuth({ token: response.headers.accesstoken, image, type: 'fb', userId, isFirstTimeLogin }))
       } else {
         yield put(facebookLoginRequestSuccess(userId))
-         yield put(getProfileDetails(userId))
+        yield put(getProfileDetails(userId))
         isFirstTimeLoginHandler(isFirstTimeLogin)
+      }
+      if(isFirstTimeLogin) {
+        setInLocalStorage('firstTimeSignup', 'true')
+        history.push(AppRoutes.THANK_YOU)
       }
     }
   } catch (error) {
@@ -162,6 +167,10 @@ function* googleLogin(action) {
         yield put(getProfileDetails(userId))
         isFirstTimeLoginHandler(isFirstTimeLogin)
       }
+      if(isFirstTimeLogin) {
+        setInLocalStorage('firstTimeSignup', 'true')
+        history.push(AppRoutes.THANK_YOU)
+      }
     }
   } catch (error) {
     if (error && error.response && error.response.data && error.response.data.error) {
@@ -191,6 +200,10 @@ function* appleLogin(action) {
         yield put(appleLoginRequestSuccess(userId))
         yield put(getProfileDetails(userId))
         isFirstTimeLoginHandler(isFirstTimeLogin)
+        if(isFirstTimeLogin) {
+          setInLocalStorage('firstTimeSignup', 'true')
+          history.push(AppRoutes.THANK_YOU)
+        }
     }
   } catch (error) {
     if (error && error.response && error.response.data && error.response.data.error) {

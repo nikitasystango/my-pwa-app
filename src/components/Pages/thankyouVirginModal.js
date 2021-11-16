@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Modal } from 'semantic-ui-react'
 import { Close, ThankyouThumb } from '../../utils/svgs'
-import { retrieveFromLocalStorage } from 'utils/helpers'
+import { retrieveFromLocalStorage, navigateToRespectivePage } from 'utils/helpers'
 import { AppRoutes } from 'constants/appRoutes'
-import history from 'utils/history'
 import intl from 'utils/intlMessage'
 import pagesMessages from 'constants/messages/pagesMessages'
 import commonMessages from 'constants/messages/commonMessages';
@@ -13,9 +12,11 @@ import './assets/scss/virginAtlantic.scss'
 const ThankyouVirginModal = (props) => {
   const { toggleThankyouVaModal, updateReducerState , thankyouMessage } = props
   const token = retrieveFromLocalStorage('token')
+  const appendParams = sessionStorage.getItem('queryParamsGA')
+
   const redirectHandler = () => {
     updateReducerState('pages', 'toggleThankyouVaModal', false)
-    history.push(AppRoutes.SIGN_UP)
+    navigateToRespectivePage(AppRoutes.SIGN_UP, appendParams)
   }
 
   return (

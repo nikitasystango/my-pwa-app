@@ -10,7 +10,7 @@ import SeoTags from 'common/SeoTags'
 import SeoTexts from 'constants/seoConstants'
 import { BlogBox, BlogBoxInner, BlogImage, BlogMedia, BlogAuthor, BlogDummyImage, BlogDummyImg, BlogAuthorImg, BlogTitle, BlogAuthorName } from '../../common/RecentBlogs/style'
 import { blogSnippet } from 'constants/seoScriptConstants'
-import { checkImageFormateIsWebp, extractURLParams } from 'utils/helpers'
+import { checkImageFormateIsWebp, extractURLParams, navigateToRespectivePage } from 'utils/helpers'
 import { BlogDummyImageSvg } from 'utils/svgs'
 import history from 'utils/history'
 import { GoogleAdsParam } from 'constants/globalConstants'
@@ -24,6 +24,7 @@ const Blogs = (props) => {
   const { pageAnalytics, getBlogsCategories, blogsCategories,
     blogsCategoriesLoading, allBlogsData, getBlogs, allBlogsLoading, totalPages,
     match, location } = props
+  const appendParams = sessionStorage.getItem('queryParamsGA')
 
   const [activePage, setActivePage] = useState(1)
   const [categorie, setCategorie] = useState(null)
@@ -88,7 +89,7 @@ const Blogs = (props) => {
   }
 
   const singleBlock = (slug) => {
-    var win = window.open(`${AppRoutes.NEWS_AND_ADVICE}/${slug}`, '_blank')
+    const win = window.open(`${AppRoutes.NEWS_AND_ADVICE}/${slug}${appendParams ? appendParams : ''}`, '_blank')
     win.focus()
   }
 
@@ -104,9 +105,9 @@ const Blogs = (props) => {
       } else { 
       fetchBlogs(item.id)
       if(item.slug !== 'all') {
-        history.push(`${AppRoutes.BLOG_CATEGORY}/${item.slug}`)
+        navigateToRespectivePage(`${AppRoutes.BLOG_CATEGORY}/${item.slug}`, appendParams)
       }else{
-        history.push(AppRoutes.NEWS_AND_ADVICE)
+        navigateToRespectivePage(AppRoutes.NEWS_AND_ADVICE, appendParams)
       }
     }
   }
@@ -173,8 +174,9 @@ const Blogs = (props) => {
                 :
                 allBlogsData && allBlogsData.map((value, index) => {
                   const { slug, title, author, created_at: date, image } = value || ''
+                  const { formats } = author?.image || ''
                   const webpImage = checkImageFormateIsWebp(image?.url)
-                  const authorAvatarWebpImage = checkImageFormateIsWebp(author?.image?.url)
+                  const authorAvatarWebpImage = checkImageFormateIsWebp(formats?.thumbnail?.url)
                   return (
                     <GridColumn key={index} onClick={() => singleBlock(slug)}>
                       <BlogBox>
@@ -208,7 +210,7 @@ const Blogs = (props) => {
                           </BlogMedia>
                           <BlogTitle>{title && title.length > 75 ? `${title.substr(0, 75)}...` : title}</BlogTitle>
                           <BlogAuthor>
-                            {author?.image?.url ?
+                            {formats?.thumbnail?.url ?
                               <picture>
                                 <source data-srcSet={authorAvatarWebpImage} type="image/webp" />
                                 <ProgressiveImage

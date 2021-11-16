@@ -121,32 +121,6 @@
   background-size: cover; 
   padding-top: 40px;
 }
-.homeSearchBg{
-  background-image:  url("./assets/search-bg.webp");
-  @supports (-ms-ime-align: auto) {
-    background-image:  url("./assets/search-bg.jpg");
-    }
-    @supports (-ms-accelerator: true) {
-    background-image:  url("./assets/search-bg.jpg");
-    }
-    @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
-    background-image: url("./assets/search-bg.jpg");
-    }
-    @supports (display:-ms-grid) {
-    background-image:  url("./assets/search-bg.jpg");
-    }
-    @media not all and (min-resolution:.001dpcm) {
-    background-image:  url("./assets/search-bg.jpg");
-    }
-  background-position: bottom; 
-  background-repeat: no-repeat; 
-  background-size: cover; 
-  padding-bottom:10px;
-  @media(max-width:767px){
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-}
 .intro-main-wrap-logged-in{
   background-image: url("./assets/bg5.png"); 
   background-position: center; 
@@ -158,6 +132,6 @@
 }
 .homeBgWrap{
   padding: var(--header-height) 0 0px;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+  padding-left: 0;
+  padding-right: 0;
 }

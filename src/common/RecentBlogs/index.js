@@ -6,8 +6,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { BlogsPlaceholder } from 'common/Placeholder'
 import { getBlogs } from 'actions/Blogs'
-import history from 'utils/history'
-import { checkImageFormateIsWebp } from 'utils/helpers'
+import { checkImageFormateIsWebp, navigateToRespectivePage } from 'utils/helpers'
 import {
   RecentBlogsWrap,
   BlogBox,
@@ -30,6 +29,7 @@ import ProgressiveImage from 'utils/progressiveImage'
 
 const RecentBlogs = React.memo((props) => {
   const { blogsData, getBlogs, blogsLoading, btnClass } = props
+  const appendParams = sessionStorage.getItem('queryParamsGA')
 
   useEffect(() => {
     if (blogsData.length === 0) {
@@ -43,7 +43,7 @@ const RecentBlogs = React.memo((props) => {
   }, [])
 
   const singleBlock = (slug) => {
-    var win = window.open(`${AppRoutes.NEWS_AND_ADVICE}/${slug}`, '_blank')
+    var win = window.open(`${AppRoutes.NEWS_AND_ADVICE}/${slug}${appendParams ? appendParams : ''}`, '_blank')
     win.focus()
   }
 
@@ -157,7 +157,7 @@ const RecentBlogs = React.memo((props) => {
             <GridRow>
               <GridColumn textAlign="center" width="16">
                 <Button
-                  onClick={() => history.push(AppRoutes.NEWS_AND_ADVICE)}
+                  onClick={() => navigateToRespectivePage(AppRoutes.NEWS_AND_ADVICE, appendParams)}
                   className={`btn ${btnClass ? btnClass : 'btn--dark'}`}
                 >
                   {intl(commonMessages.viewAll)}

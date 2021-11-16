@@ -13,16 +13,17 @@ const CustomPhoneInput = (props) => {
   const { phone = '', isoCode, countryCode } = mobileDetails
   const [selectedOption, setSelectedOption] = useState(null)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  useEffect(() => {
-    if (isoCode) {
+
+  useEffect(()=>{
+    if(isoCode) {
       // eslint-disable-next-line
-      const dialCode = phoneNumberConstants.filter(
-        (item) => item.code === isoCode
-      )[0]
-      setSelectedOption(dialCode)
-    }
-    // eslint-disable-next-line
-  }, [isoCode]);
+   const dialCode = phoneNumberConstants.filter(
+    (item) => item.code === isoCode
+  )[0]
+  setSelectedOption(dialCode)
+   }
+   // eslint-disable-next-line
+  }, [isoCode])
 
   const getPhoneNumberCode = (data) => {
     const code = []
@@ -36,15 +37,7 @@ const CustomPhoneInput = (props) => {
       const flagIcon = item.code
       code.push({
         key: index + 1,
-        text: (
-          <img
-            className="flag-image"
-            src={item.flag}
-            alt={item.code}
-            width="23px"
-            height="25px"
-          />
-        ),
+        text: <img className="flag-image" src={item.flag} alt={item.code} width="23px" height="25px" />,
         value: item.code,
         content: `${item.text} ${item.dial_code}`,
         flag: flagIcon.toLowerCase()
@@ -56,30 +49,14 @@ const CustomPhoneInput = (props) => {
 
   const setPhoneNoHandler = (data) => {
     const value = data.replace(/[^\w\s]/gi, '')
-    setMobileDetails({
-      ...mobileDetails,
-      phone: value.charAt(0) === '0' ? mobileDetails.phone : value
-    })
+    // if (/^[0-9]*$/g.test(value)) {
+      setMobileDetails({
+        ...mobileDetails,
+        phone: value
+      })
+    // }
   }
 
-  const beforeMaskedValueChange = (newState, oldState, userInput) => {
-    var { value } = newState
-    var { selection } = newState
-    var cursorPosition = selection ? selection.start : null
-
-    if (value.startsWith('0') && userInput === '0') {
-      if (cursorPosition !== value.length) {
-        cursorPosition = value.length
-        selection = { start: cursorPosition, end: cursorPosition }
-      }
-      value = value.slice(0, -1)
-    }
-
-    return {
-      value,
-      selection
-    }
-  }
   const onCountryChange = (e, { ...dropDownAttribute }) => {
     const { value } = dropDownAttribute
     // eslint-disable-next-line
@@ -95,46 +72,26 @@ const CustomPhoneInput = (props) => {
     })
   }
 
-  const handleChange = (data) =>{
-    const value = data.replace(/[^\w\s]/gi, '')
-    if (value.charAt(0) === '0') {
-      return true
-    } else {
-      if (/^[0-9]*$/g.test(value)) {
-        setMobileDetails({
-          ...mobileDetails,
-          phone: value
-        })
-      }
-    }
-  }
-
   return (
     <div className="notification_input">
       <div>
         <Dropdown
-          inline
-          placeholder="Class"
-          value={isoCode}
-          onChange={onCountryChange}
-          fluid
-          search={(_, data) => getPhoneNumberCode(data)}
-          onClose={() => setIsDropdownOpen(false)}
-          onOpen={() => setIsDropdownOpen(true)}
-          selection
-          options={getPhoneNumberCode()}
-          disabled={userNumber}
-          className={`${isDropdownOpen ? '' : 'dropdown-none'}`}
+        inline
+        placeholder="Class"
+        value={isoCode}
+        onChange={onCountryChange}
+        fluid
+        search={(_, data) => getPhoneNumberCode(data)}
+        onClose={()=>setIsDropdownOpen(false)}
+        onOpen={()=>setIsDropdownOpen(true)}
+        selection
+        options={getPhoneNumberCode()}
+        disabled={userNumber}
+        className={`${isDropdownOpen ? 'test55' : 'dropdown-none'}`}
         />
-        {isDropdownOpen && (
-          <span
-            className="search-emoji countrySearchIcon"
-            role="img"
-            aria-label="Magnifying glass"
-          >
-            🔎
-          </span>
-        )}
+        {isDropdownOpen &&
+        <span className="search-emoji countrySearchIcon" role="img" aria-label="Magnifying glass">🔎</span>
+      }
       </div>
       <div className={`manageContact-CustomInput ${selectedOption && selectedOption.inputMask !== '' ? '' : 'non-masking-wrap'}`}>
         <span>{countryCode}</span>
@@ -149,7 +106,6 @@ const CustomPhoneInput = (props) => {
             placeholder={intl(dashboardMessages.mobileNumber)}
             value={phone}
             onChange={(e) => setPhoneNoHandler(e.target.value)}
-            beforeMaskedValueChange={beforeMaskedValueChange}
             // minLength={7}
             // maxLength={14}
             disabled={userNumber}
@@ -164,7 +120,15 @@ const CustomPhoneInput = (props) => {
             name={'lastName'}
             placeholder={intl(dashboardMessages.mobileNumber)}
             value={phone}
-            onChange={(data) => handleChange(data)}
+            onChange={(data) => {
+              const value = data.replace(/[^\w\s]/gi, '')
+              if (/^[0-9]*$/g.test(value)) {
+                setMobileDetails({
+                  ...mobileDetails,
+                  phone: value
+                })
+              }
+            }}
             maxLength={selectedOption?.maxLength || 14}
             disabled={userNumber}
             onBlur={(e) => validateOnBlur(e.target.name)}

@@ -15,7 +15,7 @@ import AAIcon from '../../assets/images/aa-icon.png'
 import BAIcon from '../../assets/images/ba-icon.svg'
 import moment from 'moment'
 import { Loader } from 'semantic-ui-react'
-import { BritishAirwaysAvailableClass } from 'constants/globalConstants'
+import { airlineName } from 'constants/globalConstants'
 
 const PreviewAlertModal = (props) => {
   const {
@@ -58,7 +58,7 @@ const PreviewAlertModal = (props) => {
   let cabinClasses = travel_classes ? travel_classes.split(',') : []
 
   if (cabinClasses?.length > 1) {
-    const allCabinClass = BritishAirwaysAvailableClass
+    const allCabinClass = ['economy', 'premium_economy', 'business', 'first']
     cabinClasses = allCabinClass.filter((item) => cabinClasses.includes(item))
   }
 
@@ -72,7 +72,6 @@ const PreviewAlertModal = (props) => {
     updateReducerState('searchPanel', 'toggalPreviewAlertModal', false)
     setToggleDeleteALertModal('edit')
   }
-
 
   return (
     <>
@@ -188,14 +187,14 @@ const PreviewAlertModal = (props) => {
                       <img
                         className="lazyload airline-img"
                         src={
-                          airline_name === 'american_airlines' ? AAIcon : BAIcon
+                          airline_name === airlineName.AA.AIRWAYS_NAME ? AAIcon : BAIcon
                         }
                         alt="airlines"
                       />
                       <label className=" create-alert-text">
-                        {airline_name === 'american_airlines'
-                          ? 'American Airlines'
-                          : 'British Airways'}
+                        {airline_name === airlineName.AA.AIRWAYS_NAME
+                          ? airlineName.AA.AIRLINE
+                          : airlineName.BA.AIRLINE}
                       </label>
                       <div className="classes-buttons member-text">
                         {`${membership_type} ${intl(commonMessages.member)}`}

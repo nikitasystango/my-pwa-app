@@ -21,6 +21,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import intl from 'utils/intlMessage'
 import commonMessages from 'constants/messages/commonMessages'
 import mapViewMessages from 'constants/messages/mapViewMessages'
+import 'leaflet/dist/leaflet.css'
 import '../FlightAvailability/flight-availability.scss'
 import moment from 'moment'
 import history from 'utils/history'
@@ -45,7 +46,7 @@ const LocationMap = (props) => {
   const zoom = 2
   const [locationDetail, setLocationDetail] = useState(null)
   const [ponitDetails, setPointDetails] = useState(null)
-  const [popupPosition, setPopupPosition] = useState('bottom')
+  const [popupPosition, setPopupPosition] = useState(null)
   const extractedParams = props.location && props.location.search ? extractURLParams(props.location.search) : {}
   const mapRef = React.useRef()
   const skaterSource = new Icon({
@@ -95,7 +96,7 @@ const LocationMap = (props) => {
             onMouseLeave={() => setPointDetails(null)}
           >
             <Tooltip
-            className="tooltip-popup"
+              className="tooltip-popup"
               position={'bottom center'}
               content={moment(date).format('MMMM')}
               trigger={
@@ -137,7 +138,6 @@ const LocationMap = (props) => {
   }
 
   const openCalendarHandler = (locationDetail) => {
-    updateReducerState('flights', 'flightsAvailability', {})
     openCalendarPageHandler(
       locationDetail,
       extractedParams,
@@ -203,14 +203,10 @@ const LocationMap = (props) => {
   const handleWindowPopup = (e) => {
     const windowSize = (window.innerHeight/2) + 120
     const originalSize = e.originalEvent.clientY
-    const originalSizeWidth = e.originalEvent.clientX
       if(windowSize > originalSize) {
       setPopupPosition('bottom')
       }else{
       setPopupPosition('top')
-      }
-      if(originalSizeWidth > 250 && window.innerWidth <= 767) {
-        setPopupPosition('right')
       }
   }
 
@@ -234,7 +230,6 @@ const LocationMap = (props) => {
       }else{
         map.setView(latLng, zoomValue)
         setLocationDetail(null)
-        setPopupPosition('bottom')
       }
     }
   }
@@ -454,14 +449,23 @@ const LocationMap = (props) => {
                  defaultBACabinClass
               )
             }}
-            className={popupPosition === 'bottom' ? 'popup-bottom' : popupPosition === 'right' ? 'popup-right' : 'popup-top'}
+            className={popupPosition === 'bottom' ? 'popup-bottom' : 'popup-top'}
           >
             <div className="map-search-result">
-              <div className="map-search-place">
+              <div className="map-search-place map-search-class">
                 <h3>
-                  {locationDetail.name}
+                  {`${locationDetail.name} Airport`} {''}
+                </h3>
+                <h3>
+                  {locationDetail.city_name}
                   <span>{locationDetail.country_name}</span>
                 </h3>
+                <span onClick={() => {
+                  setLocationDetail(null)
+                }}
+                >
+                  <a className="leaflet-popup-close-button" href="#close">×</a>
+                </span>
               </div>
               <div className="map-search-time">
                 <label>{intl(commonMessages.departure)}</label>

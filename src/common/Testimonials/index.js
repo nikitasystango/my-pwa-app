@@ -36,8 +36,8 @@ const Testimonial = (props) => {
           </TestimonialTop>
           <TestimonialBottom>
             <picture>
-              {webpImage && <source data-srcSet={webpImage} type="image/webp" className="lazyload" />}
-              {image && <AuthorImage data-src={image} alt={`testimonial-${key}`} className="lazyload" />}
+              {webpImage && <source srcSet={webpImage} type="image/webp" className="lazyload" />}
+              {image && <AuthorImage src={image} alt={`testimonial-${key}`} className="lazyload" />}
             </picture>
             <AuthorName>{title}</AuthorName>
           </TestimonialBottom>

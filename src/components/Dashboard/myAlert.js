@@ -3,7 +3,6 @@ import { Grid, Button } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import AlertBox from './alertBox'
 import { Link } from 'react-router-dom'
-import history from 'utils/history'
 import { CreateAlert, SortIconUp, SortIconDown } from '../../utils/svgs'
 import Loader from 'components/LoadingSpinner'
 import SeoHelmet from 'utils/seoHelmet'
@@ -14,8 +13,10 @@ import SendAlertCard from '../SearchPanel/sendAlertCard'
 import intl from 'utils/intlMessage'
 import commonMessages from 'constants/messages/commonMessages'
 import dashboardMessages from 'constants/messages/dashboardMessages'
+import { navigateToRespectivePage } from 'utils/helpers'
 import './assets/my-alert.scss'
 import { sortText } from 'utils/helpers'
+import { airlineName } from 'constants/globalConstants'
 
 const MyAlert = (props) => {
   const {
@@ -38,6 +39,7 @@ const MyAlert = (props) => {
     flights,
     searchPanel: { availablePassengerCabinClasses }
   } = props
+  const appendParams = sessionStorage.getItem('queryParamsGA') || ''
 
   const [selectedValue, setSelectedValue] = useState('start_date')
 
@@ -77,7 +79,7 @@ const MyAlert = (props) => {
 
   useEffect(() => {
     if (!airlines.length) {
-      getAirlineList({ isSetDefault: false, selectedAirline: 'BA' })
+      getAirlineList({ isSetDefault: false, selectedAirline: airlineName.BA.CODE })
     }
     pageAnalytics()
     // eslint-disable-next-line
@@ -133,7 +135,7 @@ const MyAlert = (props) => {
               {!isUserSilverMember && !isUserGoldMember && (
                 <p className="note-text note-text--my-alert">
                   {intl(dashboardMessages.myAlertAlertPerDay)}{' '}
-                  <Link to={AppRoutes.PRICING} className="text-medium-blue">
+                  <Link to={`${AppRoutes.PRICING}${appendParams ? appendParams: ''}`} className="text-medium-blue">
                     {intl(dashboardMessages.myAlertPricingPerMonth)}
                   </Link>
                 </p>
@@ -141,7 +143,7 @@ const MyAlert = (props) => {
               {isUserSilverMember && (
                 <p className="note-text note-text--my-alert">
                   {intl(dashboardMessages.myAlertAlertPerDaySilver)}{' '}
-                  <Link to={AppRoutes.PRICING} className="text-medium-blue">
+                  <Link to={`${AppRoutes.PRICING}${appendParams ? appendParams: ''}`} className="text-medium-blue">
                     {intl(dashboardMessages.myAlertPricingPerMonthSilver)}
                   </Link>
                 </p>
@@ -239,7 +241,7 @@ const MyAlert = (props) => {
               {intl(dashboardMessages.myAlertMakeSearch)}
             </p>
             <Button
-              onClick={() => history.push(AppRoutes.HOME)}
+              onClick={() => navigateToRespectivePage(AppRoutes.HOME, appendParams)}
               className="btn btn--medium-blue"
             >
               {intl(commonMessages.search)}

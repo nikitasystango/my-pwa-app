@@ -20,7 +20,8 @@
 
       &__head {
         border-bottom: 1px solid rgba(var(--dark-rgb), 0.1);
-
+        margin-bottom: 11px !important;
+        padding-bottom: 16px !important;
 
         .column {
           & + .column {
@@ -121,7 +122,6 @@
           border-radius: 0 10px 10px 10px;
           background: var(--dark);
           position: relative;
-          margin-bottom: 20px;
 
           &-inner {
             border-radius: 10px;
@@ -306,14 +306,6 @@
       }
     }
     // Subscription -->
-  }
-}
-.subscribtionBoxColumn{
-  .column{
-    &:nth-child(2)
-    .subscribtionBox{
-       background-color: #fff;
-    }
   }
 }
 

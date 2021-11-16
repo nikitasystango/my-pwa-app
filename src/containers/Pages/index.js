@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Pages from 'components/Pages'
 import { pageAnalytics, updateReducerState } from 'actions/Common'
-import { getPricingPlans, cancelEliteMembership, addEmail, getCouponsList, getCouponsById } from 'actions/Pages'
+import { getPricingPlans, cancelEliteMembership, addEmail } from 'actions/Pages'
 import { updateProfileDetails, getProfileDetails } from 'actions/Dashboard'
 
 const mapStateToProps = state => ({
@@ -21,9 +21,7 @@ const mapDispatchToProps = dispatch => ({
   cancelEliteMembership: (data) => dispatch(cancelEliteMembership(data)),
   addEmail: (data) => dispatch(addEmail(data)),
   updateProfileDetails: (data) => dispatch(updateProfileDetails(data)),
-  getProfileDetails: (id) => dispatch(getProfileDetails(id)),
-  getCouponsList: (data) => dispatch(getCouponsList(data)),
-  getCouponsById: (data) => dispatch(getCouponsById(data))
+  getProfileDetails: (id) => dispatch(getProfileDetails(id))
 })
 
 export default connect(

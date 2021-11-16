@@ -32,7 +32,7 @@ const LoginForm = (props) => {
   })
   const [rememberMe, setRemember] = useState(false)
   const [error, setErrors] = useState({})
-
+  const appendParams = sessionStorage.getItem('queryParamsGA')
   const { email, password } = logindetails
   useEffect(() => {
     props.pageAnalytics()
@@ -51,8 +51,7 @@ const LoginForm = (props) => {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(
-    () => () => {
+  useEffect(() => () => {
       if (retrieveFromLocalStorage('helpCenter')) {
         removeFromLocalStorage('helpCenter')
       }
@@ -122,8 +121,7 @@ const LoginForm = (props) => {
       ...logindetails,
       [name]: value
     })
-    const { errors } = _isValid()
-    setErrors({ ...errors, [name]: null })
+    setErrors({ ...error, [name]: null })
   }
   const errorCond = (error && (error.email
     || error.password
@@ -179,7 +177,7 @@ const LoginForm = (props) => {
             </Grid.Column>
             <Grid.Column className="pl-5px" textAlign="right">
               <Link
-                to={AppRoutes.FORGET_PASSWORD}
+                to={`${AppRoutes.FORGET_PASSWORD}${appendParams? appendParams :''}`}
                 className="link-dark link-hover-medium-blue"
               >
                 {intl(commonMessages.forgotPassword)}?

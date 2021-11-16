@@ -16,11 +16,12 @@ import searchPanelMessages from 'constants/messages/searchPanelMessages'
 import { Link } from 'react-router-dom'
 import { checkDifference, getDifferenceInDays, handleSpecificErrorAlertRange } from 'utils/commonFunction'
 import Texts from 'constants/staticText'
+import { airlineName } from 'constants/globalConstants'
 
 const DateSelect = (props) => {
   const { flightsAvailability, callCreateAlertAPi, sendAlertLoading, updateReducerState,
-    searchPanel: { departStartDate, departEndDate, returnStartDate, returnEndDate, journeyType, toggalAlertDatesModal, ticketsSearchBox, searchErrors, airlineMembership, selectedAirlineCode },
-    location, toggalClasses, activeAlertError, isUserGoldMember, allowedAlertDateRange, isUserSilverMember, errors, setErrors, handlerToggalAlertModal, handleUpdateReducer } = props
+    searchPanel: { departStartDate, departEndDate, returnStartDate, returnEndDate, journeyType, toggalAlertDatesModal, ticketsSearchBox, airlineMembership, selectedAirlineCode },
+    location, toggalClasses, setActiveAlertError, activeAlertError, isUserGoldMember, allowedAlertDateRange, isUserSilverMember, errors, setErrors, handlerToggalAlertModal } = props
   const { numberOfPassengers } = ticketsSearchBox
   const extractedParams = location?.search && extractURLParams(location.search)
   const [focused, setFocus] = useState(null)
@@ -73,7 +74,7 @@ const DateSelect = (props) => {
         source_code: extractedParams.dId,
         membership_type: airlineMembership ? airlineMembership : Texts.DEFAULT_AIRLINE_TIER,
         destination_code: extractedParams.aId,
-        airline_name: selectedAirlineCode === 'AA' ? 'american_airlines' : 'british_airways',
+        airline_name: selectedAirlineCode ? airlineName[selectedAirlineCode].AIRWAYS_NAME : airlineName.BA.AIRWAYS_NAME,
         travel_classes: selectedClasses?.toString(),
         number_of_passengers: numberOfPassengers || 1,
         trip_type: 'one_way',
@@ -128,18 +129,10 @@ const handleAlertRangeError = (alert) => {
            startDateError: validData?.outBound,
            endDateError: validData?.inBound
          })
-         const dataJson = {
-          searchErrors: {
-            ...searchErrors,
-            startDateError: validData?.outBound,
-            endDateError: validData?.inBound
-          }
-        }
-        handleUpdateReducer(dataJson)
          if(validData?.outBound || validData?.inBound) {
-           updateReducerState('searchPanel', 'activeAlertError', true)
+           setActiveAlertError(true)
          } else{
-          updateReducerState('searchPanel', 'activeAlertError', false)
+          setActiveAlertError(false)
          }
        return true
      }else{
@@ -148,18 +141,9 @@ const handleAlertRangeError = (alert) => {
        startDateError: false,
        endDateError: false
       })
-      const dataJson = {
-        searchErrors: {
-          ...searchErrors,
-          startDateError: false,
-          endDateError: false
-        }
-      }
-      handleUpdateReducer(dataJson)
-      updateReducerState('searchPanel', 'activeAlertError', false)
+      setActiveAlertError(false)
      }
   }
-
 
   const changeDepartureDatesHandler = ({ startDate, endDate, label }) => {
     clearAlertError()
@@ -208,18 +192,11 @@ const handleAlertRangeError = (alert) => {
             ...errors,
             endDateError: false
           })
-          const dataJson = {
-            searchErrors: {
-              ...searchErrors,
-              endDateError: false
-            }
-          }
-          handleUpdateReducer(dataJson)
           const validData = handleSpecificErrorAlertRange({
             start_date: departStartDate, end_date: departEndDate, arrival_start_date: returnStartDate, arrival_end_date: returnEndDate, allowedAlertDateRange
           })
           if(!validData?.outBound) {
-            updateReducerState('searchPanel', 'activeAlertError', false)
+            setActiveAlertError(false)
           }
         }
         updateReducerState('searchPanel', 'returnStartDate', startDate)
@@ -227,26 +204,17 @@ const handleAlertRangeError = (alert) => {
    }
 
   const clearAlertError = () => {
-    updateReducerState('searchPanel', 'activeAlertError', false)
+    setActiveAlertError(false)
     setErrors({
       ...errors,
       startDateError: false,
       endDateError: false
     })
-    const dataJson = {
-      searchErrors: {
-        ...searchErrors,
-        startDateError: false,
-        endDateError: false
-      }
-    }
-    handleUpdateReducer(dataJson)
   }
 
   const handlerSetDates = () => {
     sendAlertHandler()
   }
-
 
   const handleClosePopUp = () => {
     setFocus(null)
@@ -475,12 +443,12 @@ DateSelect.propTypes = {
   callCreateAlertAPi: PropTypes.func,
   toggalClasses: PropTypes.object,
   flightsAvailability: PropTypes.object,
+  setActiveAlertError: PropTypes.func,
   activeAlertError: PropTypes.string,
   isUserGoldMember: PropTypes.bool,
   allowedAlertDateRange: PropTypes.number,
   isUserSilverMember: PropTypes.bool,
   errors: PropTypes.object,
-  setErrors: PropTypes.func,
-  handleUpdateReducer: PropTypes.func
+  setErrors: PropTypes.func
 }
 export default DateSelect

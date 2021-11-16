@@ -113,7 +113,6 @@
 }
 
 .find-flight {
-    font-display: swap;
     position: relative;
     @media(min-width:800px){
       max-width: 865px;
@@ -136,7 +135,7 @@
 .search-panel {
     background: var(--light-blue);
     border-radius: 0 0 10px 10px;
-    justify-content: center;
+
     &__row {
         padding: {
             top: 0px !important;
@@ -972,7 +971,7 @@
 }
 .flight-availability-page__header .search-panel-responsive{
   @media (max-width: 767px) {
-   display:block !important;
+   display:none !important;
   }
 }
 .find-flight .date-select.date-select-responsive{
@@ -1443,7 +1442,6 @@
           line-height: 12px;
           align-items: center;
           color: #132C52;
-          text-transform: capitalize;
         }
       }
     }

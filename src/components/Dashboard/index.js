@@ -19,20 +19,15 @@ import commonMessages from 'constants/messages/commonMessages'
 
 const Dashboard = (props) => {
   const { editAlert, getAirlineList, airlines, user, getSubscribedAlerts, cancelSubscribedAlerts, getProfileDetails, location: { pathname, search },
-    dashboard: { myAlerts, accountSettings: { fetchingProfileDetails } }, pageAnalytics, updateReducerState, getFlightAvailability, flights , getCountriesList, getStateList, getCityList, searchPanel } = props
+    dashboard: { myAlerts, accountSettings: { fetchingProfileDetails } }, pageAnalytics, updateReducerState, getFlightAvailability, flights, searchPanel } = props
   const [activeView, setActiveView] = useState(null)
+  const appendParams = sessionStorage.getItem('queryParamsGA')
+
   const { isUserBronzeMember, isUserSilverMember, isUserGoldMember } = user || {}
   useEffect(() => {
     setRespectivePage(pathname)
     // eslint-disable-next-line
   }, [pathname])
-
-  useEffect(()=> {
-    getCountriesList()
-    getStateList()
-    getCityList()
-    // eslint-disable-next-line
-  }, [])
 
   const setRespectivePage = (pagetype) => {
     let pageNumber = 0
@@ -52,10 +47,11 @@ const Dashboard = (props) => {
       default:
         pageNumber = 10
     }
-    changeActiveView(pageNumber, true)
+    changeActiveView(pageNumber, true, '')
   }
 
-  const changeActiveView = (activeView, callApi) => {
+  const changeActiveView = (activeView, callApi, str) => {
+    const searchParam = str === 'eventTriggered' ? appendParams : search
     window.scrollTo(0, 0)
     let url = AppRoutes.MY_ALERT
     switch (activeView) {
@@ -64,8 +60,8 @@ const Dashboard = (props) => {
           getSubscribedAlerts()
         }
         url = AppRoutes.MY_ALERT
-        if (search) {
-          url = `${AppRoutes.MY_ALERT}${search}`
+        if (searchParam) {
+          url = `${AppRoutes.MY_ALERT}${searchParam}`
         }
         break
 
@@ -77,12 +73,17 @@ const Dashboard = (props) => {
           }
         }
         url = AppRoutes.ACCOUNT_SETTINGS
-        updateReducerState('dashboard', 'activeProfileView', 0)
+        if (searchParam) {
+          url = `${AppRoutes.ACCOUNT_SETTINGS}${searchParam}`
+        }
+        if(str) {
+          updateReducerState('dashboard', 'activeProfileView', 0)
+        }
         break
       case 2:
         url = AppRoutes.MEMBERSHIP
-        if (search) {
-          url = `${AppRoutes.MEMBERSHIP}${search}`
+        if (searchParam) {
+          url = `${AppRoutes.MEMBERSHIP}${searchParam}`
         }
         break
 
@@ -171,7 +172,7 @@ const Dashboard = (props) => {
             </p>
             <Menu vertical >
               {sidebarMenu.map((item, i) =>
-                <Menu.Item key={i} active={activeView === item.page} as={'a'} onClick={() => changeActiveView(item.page, false)}>
+                <Menu.Item key={i} active={activeView === item.page} as={'a'} onClick={() => changeActiveView(item.page, false, 'eventTriggered')}>
                   {item.icon}
                   {item.name}
                 </Menu.Item>
@@ -203,9 +204,6 @@ Dashboard.propTypes = {
   updateReducerState: PropTypes.func,
   getFlightAvailability: PropTypes.func,
   flights: PropTypes.object,
-  getCountriesList: PropTypes.func,
-  getStateList: PropTypes.func,
-  getCityList: PropTypes.func,
   searchPanel: PropTypes.object
 }
 export default Dashboard

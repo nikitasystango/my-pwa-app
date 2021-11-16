@@ -2,7 +2,7 @@ import React from 'react'
 import { Close, PlaneCircle } from 'utils/svgs'
 import PropTypes from 'prop-types'
 import { Button, Modal } from 'semantic-ui-react'
-import history from 'utils/history'
+import { navigateToRespectivePage } from 'utils/helpers'
 import Messages from 'constants/messages'
 import { AppRoutes } from 'constants/appRoutes'
 import intl from 'utils/intlMessage'
@@ -10,10 +10,11 @@ import searchPanelMessages from 'constants/messages/searchPanelMessages'
 
 const PlanLimitModal = (props) => {
   const { toggalPlanLimitModal, updateReducerState, createAlertsLimit} = props
+  const appendParams = sessionStorage.getItem('queryParamsGA')
 
   const redirectUser = () => {
     updateReducerState('searchPanel', 'toggalPlanLimitModal', false)
-    history.push(AppRoutes.PRICING)
+    navigateToRespectivePage(AppRoutes.PRICING, appendParams)
   }
 
   return (

@@ -90,7 +90,7 @@ const FacebookLogin = (props) => {
       callback={handleFacebookResponse}
       onFailure={handleFacebookLoginFailure}
       textButton={
-        <span className={`btn btn--facebook w-100 ${facebookLoginLoading ? 'btn--loader btn--disabled' : ''} `}><FB /> <span>{intl(commonMessages.facebook)}</span></span>
+        <span className={`btn btn--facebook w-100 ${facebookLoginLoading ? 'btn--loader btn--disabled' : ''} `}><FB />{intl(commonMessages.facebook)}</span>
       }
       cssClass="fb-login-btn"
       isMobile={false}

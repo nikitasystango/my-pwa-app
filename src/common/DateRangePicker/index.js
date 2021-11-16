@@ -150,11 +150,11 @@ const handleClickOutside = (event) => {
   return (
     <>
       <div ref={ref} className={`date-select-popup ${jType === 'return' ? '' : 'date-select-popup--one-way'} ${toggalDatesModal ? 'show' : ''}`}>
-        <div className={'date-select-popup__inner mappageDatePicker'}>
+        <div className="date-select-popup__inner mappageDatePicker">
           <Grid className="date-select-popup__grid m-0">
             <Grid.Row className="date-select-popup__header">
               <Grid.Column width={8} className="date-select-popup__depart">
-                <label>{intl(flightMessages.outboundDateText)} </label>
+                <label>{intl(flightMessages.outboundDateText)}</label>
                 <div className={`DateRangePickerWrapper ${focused ? 'DateRangePickerWrapper--focus' : ''}`}>
                   <DateRangePicker
                     startDate={depStartDateState || departureStartDate || null}

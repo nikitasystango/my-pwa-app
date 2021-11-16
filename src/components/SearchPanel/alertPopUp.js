@@ -2,15 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Modal } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import history from 'utils/history'
 import { Close, BellIconCircle } from '../../utils/svgs'
 import { AppRoutes } from 'constants/appRoutes'
 import intl from 'utils/intlMessage'
 import commonMessages from 'constants/messages/commonMessages'
 import searchPanelMessages from 'constants/messages/searchPanelMessages'
+import { navigateToRespectivePage } from 'utils/helpers'
+
 
 const AlertPopUp = (props) => {
   const { toggalAlertModal, handlerToggalAlertModal } = props
+  const appendParams = sessionStorage.getItem('queryParamsGA') || ''
 
   const continueWithoutLoginHandler = () => {
     handlerToggalAlertModal()
@@ -29,9 +31,9 @@ const AlertPopUp = (props) => {
       <p className="cst-popup__text">{intl(searchPanelMessages.alertPopUpText)}</p>
       <div className="cst-popup__buttons">
         <Button onClick={() => continueWithoutLoginHandler()} className="btn btn--outline-medium-blue">{intl(searchPanelMessages.continueWithSearch)}</Button>
-        <Button onClick={() => history.push(AppRoutes.SIGN_UP)} className="btn btn--medium-blue">{intl(commonMessages.signUpNow)}</Button>
+        <Button onClick={() => navigateToRespectivePage(AppRoutes.SIGN_UP, appendParams)} className="btn btn--medium-blue">{intl(commonMessages.signUpNow)}</Button>
       </div>
-      <p className="cst-popup__text">{intl(commonMessages.AlreadyHaveAnAccount)} <Link to={AppRoutes.SIGN_IN} className="text-medium-blue">{intl(commonMessages.signIn)}</Link></p>
+      <p className="cst-popup__text">{intl(commonMessages.AlreadyHaveAnAccount)} <Link to={`${AppRoutes.SIGN_IN}${appendParams ? appendParams : ''}`} className="text-medium-blue">{intl(commonMessages.signIn)}</Link></p>
     </Modal>
   )
 }

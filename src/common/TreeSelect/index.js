@@ -5,13 +5,6 @@ import intl from 'utils/intlMessage'
 import commonMessages from 'constants/messages/commonMessages'
 
 const SelectTree = (props) => {
-  // const alignConfig = {
-  //   points: ['tl', 'tt'],
-  //   offset: [-25, -40],
-  //   targetOffset: ['0%', '0%'],
-  //   overflow: { adjustX: true, adjustY: true }
-  // }
-
   return (
     <TreeSelect
       treeData={props.treeData}

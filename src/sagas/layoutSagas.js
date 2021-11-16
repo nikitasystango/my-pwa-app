@@ -11,6 +11,7 @@ import { resetAuthState } from 'actions/Auth'
 import { AppRoutes } from 'constants/appRoutes'
 import intl from 'utils/intlMessage'
 import toustifyMessages from 'constants/messages/toustifyMessages'
+const appendParams = sessionStorage.getItem('queryParamsGA')
 
 function* logoutUser() {
   const token = retrieveFromLocalStorage('token')
@@ -24,7 +25,7 @@ function* logoutUser() {
       removeFromLocalStorage('signupFirstTime')
       removeFromLocalStorage('userId')
       yield put(resetAuthState())
-      navigateToRespectivePage(AppRoutes.HOME)
+      navigateToRespectivePage(AppRoutes.HOME, appendParams)
       window.location.reload()
     }
   } catch (error) {

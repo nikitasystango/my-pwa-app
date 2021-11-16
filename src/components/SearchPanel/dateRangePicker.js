@@ -22,7 +22,6 @@ const DateRangeSelectore = (props) => {
     }
   }
   }
-
   const renderDayContent = (date) => {
     return <div className="CalendarDay__Date">{moment(date).format('DD')}</div>
   }
@@ -47,9 +46,7 @@ const DateRangeSelectore = (props) => {
       daySize={35}
       minimumNights={0}
       displayFormat="DD/MM/YYYY"
-      onFocusChange={focusedInput => {
-        setFocus(focusedInput)
-      }}
+      onFocusChange={focusedInput => setFocus(focusedInput)}
       disabled={disabled}
       isOutsideRange={(day) => isOutsideRange(day, focused)}
       navPrev={<ArrowPrev />}

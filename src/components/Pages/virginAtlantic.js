@@ -4,9 +4,6 @@ import SeoTags from 'common/SeoTags'
 import { Container, Grid, Button } from 'semantic-ui-react'
 import RecentBlogs from 'common/RecentBlogs'
 import Testimonials from 'common/Testimonials'
-import TrustBox from '../../common/Trustpilot'
-// import GetUsOn from 'components/Home/getuson'
-import history from 'utils/history'
 import {
   SearchImageWrapper,
   BgWrap,
@@ -16,30 +13,38 @@ import {
 } from '../Home/style'
 import MapBox from 'components/Home/mapBox'
 import './assets/scss/virginAtlantic.scss'
-import { retrieveFromLocalStorage } from 'utils/helpers'
+import { retrieveFromLocalStorage, navigateToRespectivePage } from 'utils/helpers'
 import { VaSearchIcon, VaMusicIcon, VaPoundIcon } from '../../utils/svgs'
 import ThankyouVirginModal from './thankyouVirginModal'
+import { InputBox } from 'utils/formUtils'
+import Validator from 'utils/validator'
 import SeoTexts from 'constants/seoConstants'
 import { AppRoutes } from '../../constants/appRoutes'
 import intl from 'utils/intlMessage'
 import pagesMessages from 'constants/messages/pagesMessages'
 import commonMessages from 'constants/messages/commonMessages'
 import { virginAtlanticSnippet } from 'constants/seoScriptConstants'
-import SearchPanel from 'containers/SearchPanel'
+// import SearchPanel from 'containers/SearchPanel'
 import staticMessage from 'constants/messages/homeMessages'
 import ProgressiveImage from 'utils/progressiveImage'
+import { airlineName } from 'constants/globalConstants'
 
 const VirginAtlantic = (props) => {
   const {
     mapPageUrl,
+    addEmail,
+    addEmailLoading,
     updateReducerState,
     toggleThankyouVaModal,
+    userEmail,
     vaEmail
   } = props
   const [details, setDetails] = useState({
     email: ''
   })
+  const [error, setErrors] = useState({})
   const token = retrieveFromLocalStorage('token')
+  const appendParams = sessionStorage.getItem('queryParamsGA')
 
   useEffect(() => {
     setDetails({
@@ -49,6 +54,65 @@ const VirginAtlantic = (props) => {
     // eslint-disable-next-line
   }, [vaEmail])
   // For login form validation
+  const _isValid = (field = null, value) => {
+    if (field) {
+      details[field] = value
+    }
+    const validate = Validator.createValidator(
+      {
+        email: ['required', 'email']
+      },
+      {
+        email: details.email
+      },
+      field,
+      {
+        email: ''
+      }
+    )
+    return validate
+  }
+
+  // Validations on blur
+  const validateOnBlur = (name, value) => {
+    const { errors } = _isValid(name, value)
+    setErrors({ ...error, [name]: errors[name] })
+  }
+
+  const onAddEmailHandler = (name, value) => {
+    setDetails({
+      ...details,
+      email: value
+    })
+    validateOnBlur(name, value)
+  }
+
+  const submitEmailHandler = () => {
+    const { isValid } = _isValid()
+    if (isValid) {
+      const data = {
+        upcoming_airline_request: {
+          email: details.email,
+          airline_name: airlineName.VA.AIRWAYS_NAME
+        }
+      }
+      updateReducerState('pages', 'vaEmail', details.email)
+      addEmail(data)
+    } else {
+      const { errors } = _isValid()
+      setErrors({ ...errors })
+    }
+  }
+
+  const submitEmailForLoggedInUser = () => {
+    const data = {
+      upcoming_airline_request: {
+        email: userEmail,
+        airline_name: airlineName.VA.AIRWAYS_NAME
+      }
+    }
+    addEmail(data)
+  }
 
   return (
     <div className="va-atlantics-wrap">
@@ -87,12 +151,11 @@ const VirginAtlantic = (props) => {
         <BgWrapInner className="atlantics-banner-inner">
           <SectionTitle>{intl(pagesMessages.virginAtlanticTitle)}</SectionTitle>
           {/* // } */}
-          <SectionSubTitle className="sub_title">
-            {intl(pagesMessages.virginAtlanticSubTitle)}
-          </SectionSubTitle>
-          <Container className="virgin-search-panel">
-            <SearchPanel />
-            {/* {token ?
+          
+          <Container>
+          {/* <Container className="virgin-search-panel"> */}
+            {/* <SearchPanel /> */}
+            {token ?
               <div >
                 <Button loading={addEmailLoading} className="ui submit button" onClick={submitEmailForLoggedInUser}>{intl(pagesMessages.tellMeWhenItsBack)}!</Button>
               </div>
@@ -110,8 +173,9 @@ const VirginAtlantic = (props) => {
                   />
                   <Button loading={addEmailLoading} className="ui submit button" onClick={submitEmailHandler}>{intl(commonMessages.submit)}</Button>
                 </div>
-              </div>} */}
+              </div>}
           </Container>
+          <SectionSubTitle className="sub_title">{intl(pagesMessages.virginAtlanticSubTitle)}</SectionSubTitle>
           <p className="RffFeatureTxt">{intl(commonMessages.featureOn)}</p>
         </BgWrapInner>
       </BgWrap>
@@ -210,14 +274,14 @@ const VirginAtlantic = (props) => {
                   {token ? (
                     <Button
                       className="btn btn--medium-blue"
-                      onClick={() => history.push(AppRoutes.HOME)}
+                      onClick={() => navigateToRespectivePage(AppRoutes.HOME, appendParams)}
                     >
                       {intl(pagesMessages.searchNow)}
                     </Button>
                   ) : (
                     <Button
                       className="btn btn--medium-blue"
-                      onClick={() => history.push(AppRoutes.SIGN_UP)}
+                      onClick={() => navigateToRespectivePage(AppRoutes.SIGN_UP, appendParams)}
                     >
                       {intl(commonMessages.signUpNow)}
                     </Button>
@@ -308,11 +372,11 @@ const VirginAtlantic = (props) => {
               <div className="testimonial__body">
                 <Testimonials />
               </div>
-              <div className="testimonial__footer">
+              {/* <div className="testimonial__footer">
                 <div className="trustpilot">
                   <TrustBox />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -344,14 +408,14 @@ const VirginAtlantic = (props) => {
                   {token ? (
                     <Button
                       className="btn btn--medium-blue"
-                      onClick={() => history.push(AppRoutes.HOME)}
+                      onClick={() => navigateToRespectivePage(AppRoutes.HOME, appendParams)}
                     >
                       {intl(pagesMessages.searchNow)}
                     </Button>
                   ) : (
                     <Button
                       className="btn btn--medium-blue"
-                      onClick={() => history.push(AppRoutes.SIGN_UP)}
+                      onClick={() => navigateToRespectivePage(AppRoutes.SIGN_UP, appendParams)}
                     >
                       {intl(commonMessages.signUpTitle)}
                     </Button>

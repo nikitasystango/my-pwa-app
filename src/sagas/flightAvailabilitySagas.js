@@ -12,12 +12,12 @@ import { getRequestNode, postRequestRuby, getRequestRuby } from './request'
 import URls from 'constants/urls'
 import { retrieveFromLocalStorage } from 'utils/helpers'
 import { pushNotification } from 'utils/notifications'
-import { availableAirways } from 'constants/globalConstants'
+import { availableAirways, airlineName } from 'constants/globalConstants'
 
 function* handleGetFlightAvailability(action) {
   const { data } = action.payload
   const { tier, sourceCode, destinationCode, toggleClass, numberOfPassengers, airlineCode } = data
-  const airlinePath = airlineCode === 'VA' ? availableAirways.VIRGIN_ATLANTIC :availableAirways.BRITISH_AIRWAYS
+  const airlinePath = airlineCode === airlineName.VA.CODE ? availableAirways.VIRGIN_ATLANTIC :availableAirways.BRITISH_AIRWAYS
   const pathUrl = `${URls.AVAILABLE_FLIGHTS}/${airlinePath}`
   const url = `${pathUrl}?source_code=${sourceCode}&destination_code=${destinationCode}&tier=${tier}&number_of_passengers=${numberOfPassengers}`
   try {
@@ -51,17 +51,17 @@ function* watchGetFlightAvailability() {
 //  Create action audit user api
 function* createUserActionAudit(action) {
   const { data } = action.payload
-  try {
-    const response = yield call(postRequestRuby, URls.USER_ACTION_AUDIT, data)
-    if (response && response.status && response.status === 201) {
-        yield put(userActionAuditSuccess())
-    }
-  } catch (error) {
-    if (error && error.response && error.response.data && error.response.data.error) {
-      // pushNotification(error.response.data.error, 'error', 'TOP_CENTER', 3000)
-    }
-    yield put(userActionAuditFailure())
-  }
+  // try {
+  //   const response = yield call(postRequestRuby, URls.USER_ACTION_AUDIT, data)
+  //   if (response && response.status && response.status === 201) {
+  //       yield put(userActionAuditSuccess())
+  //   }
+  // } catch (error) {
+  //   if (error && error.response && error.response.data && error.response.data.error) {
+  //     // pushNotification(error.response.data.error, 'error', 'TOP_CENTER', 3000)
+  //   }
+  //   yield put(userActionAuditFailure())
+  // }
 }
 
 function* watchUserActionAudit() {

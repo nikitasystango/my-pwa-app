@@ -7,7 +7,7 @@ import intl from 'utils/intlMessage'
 import dashboardMessages from 'constants/messages/dashboardMessages'
 
 const AirlineMembershipModal = (props) => {
-  const { airlineMembershipToggle, getAirlineList, searchPanel, updateReducerState, updateProfileDetails, user } = props
+  const { airlineMembershipToggle, getAirlineList, searchPanel, updateReducerState, updateProfileDetails, user, updateUserProfileLoading } = props
   return (
     <Modal
       open={airlineMembershipToggle}
@@ -30,6 +30,7 @@ const AirlineMembershipModal = (props) => {
             updateProfileDetails={updateProfileDetails}
             modalPopup= "true"
             userDetails={user}
+            updateUserProfileLoading={updateUserProfileLoading}
           />
           <div className="bottom-text-wrap">
             <span className="bottom-text">
@@ -50,7 +51,8 @@ AirlineMembershipModal.propTypes = {
   getAirlineList: PropTypes.func,
   searchPanel: PropTypes.object,
   updateReducerState: PropTypes.func,
-  updateProfileDetails: PropTypes.func
+  updateProfileDetails: PropTypes.func,
+  updateUserProfileLoading: PropTypes.bool
 }
 
 export default AirlineMembershipModal

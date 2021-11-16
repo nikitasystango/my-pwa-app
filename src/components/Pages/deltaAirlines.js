@@ -23,7 +23,6 @@ import intl from 'utils/intlMessage'
 import pagesMessages from 'constants/messages/pagesMessages'
 import commonMessages from 'constants/messages/commonMessages'
 import { deltaAirlineSnippet } from 'constants/seoScriptConstants'
-
 import ProgressiveImage from 'utils/progressiveImage'
 import './index.scss'
 const DeltaAirlineComponent = (props) => {

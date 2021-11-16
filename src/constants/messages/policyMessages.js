@@ -73,9 +73,9 @@ export default defineMessages({
     id: 'policy.privacyPolicy.lastUpdateDate',
     defaultMessage: 'Last Updated: July 2021'
   },
-  termOfUseDes: {
-    id: 'policy.termOfUse.termOfUseDes',
-    defaultMessage: 'PLEASE READ THESE TERMS AND CONDITIONS CAREFULLY BEFORE USING THIS SITE'
+  termOfUseTitle: {
+    id: 'policy.termOfUse.termOfUseTitle',
+    defaultMessage: 'Terms of use'
   },
   lastUpdatedTerOfUsePolicyDate: {
     id: 'policy.termOfUse.lastUpdatedTerOfUsePolicyDate',

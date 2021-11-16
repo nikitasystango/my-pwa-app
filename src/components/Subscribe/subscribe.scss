@@ -952,14 +952,6 @@
     }
   }
 }
-.conditionalArrow{
-  .DayPickerNavigation_button{
-    &:nth-child(1) 
-    {
-        display: none;      
-    }
-  }
-}
 .DayPickerNavigation_button__disabled{
   display: none !important;     
 }

@@ -7,7 +7,8 @@ import SeoTags from 'common/SeoTags'
 import {
   removeFromLocalStorage,
   retrieveFromLocalStorage,
-  extractURLParams
+  extractURLParams,
+  navigateToRespectivePage
 } from 'utils/helpers'
 import SeoTexts from 'constants/seoConstants'
 import history from 'utils/history'
@@ -25,6 +26,7 @@ const HelpCenter = (props) => {
   const { location, faqCategories, faqData } = props
   const { state = {} } = location || {}
   const [activeIndex, setActiveIndex] = useState(0)
+  const appendParams = sessionStorage.getItem('queryParamsGA')
 
   useEffect(() => {
     if (location?.search) {
@@ -65,8 +67,8 @@ const HelpCenter = (props) => {
         (list) => list.slug === state.stateName
       )[0]
       if (faqDetail && faqDetail.id) {
-        const url = `${AppRoutes.FAQ}?category=${faqDetail.id}`
-      history.push(url)
+        const searchQueryParam = appendParams ? `${appendParams}&category=${faqDetail.id}` : `?category=${faqDetail.id}`
+      navigateToRespectivePage(AppRoutes.FAQ, searchQueryParam)
       }
     }
     // eslint-disable-next-line
@@ -90,8 +92,8 @@ const HelpCenter = (props) => {
       (list) => list.id === newPane[data.activeIndex].id
     )[0]
     setActiveIndex(parseInt(faqDetail.orderNumber) - 1)
-    const url = `${AppRoutes.FAQ}?category=${faqDetail.id}`
-    history.push(url)
+    const searchQueryParam = appendParams ? `${appendParams}&category=${faqDetail.id}` : `?category=${faqDetail.id}`
+    navigateToRespectivePage(AppRoutes.FAQ, searchQueryParam)
   }
 
   return (

@@ -47,8 +47,7 @@ import {
   RESEND_VERIFICATION_EMAIL, RESEND_VERIFICATION_EMAIL_SUCCESS, RESEND_VERIFICATION_EMAIL_FAILED,
   TOGGLE_EMAILS_NOTIFICATION, TOGGLE_EMAILS_NOTIFICATION_SUCCESS, TOGGLE_EMAILS_NOTIFICATION_FAILED,
   DELETE_PHONE_NUMBER, DELETE_PHONE_NUMBER_SUCCESS, DELETE_PHONE_NUMBER_FAILED,
-  CANCEL_DOWNGRADE_SUBSCRIPTION, CANCEL_DOWNGRADE_SUBSCRIPTION_SUCCESS, CANCEL_DOWNGRADE_SUBSCRIPTION_FAILURE,
-  GET_COUNTRIES_LIST_SUCCESS
+  CANCEL_DOWNGRADE_SUBSCRIPTION, CANCEL_DOWNGRADE_SUBSCRIPTION_SUCCESS, CANCEL_DOWNGRADE_SUBSCRIPTION_FAILURE
 } from 'actions/Dashboard/actionTypes'
 
 const initialState = {
@@ -72,7 +71,7 @@ const initialState = {
     userDetails: null,
     changeUserPasswordModal: false,
     changeUserPasswordLoading: false,
-    updateUserProfileLoading: '',
+    updateUserProfileLoading: false,
     toggleSetSocialUserPasswordModal: false,
     setSocialUserPasswordLoading: false,
     toggleSetAlternateEmailsModal: false,
@@ -92,10 +91,7 @@ const initialState = {
   toggleCaneleMembershipModal: false,
   cancelDowngradeSubscriptionLoading: false,
   toggleMembershipTierModal: false,
-  activeProfileView: 0,
-  countriesList: [],
-  statesList: [],
-  citiesList: []
+  activeProfileView : 0
 }
 const profilePictureUploadModalToggle = (state, action) => ({
   ...state,
@@ -212,13 +208,15 @@ const cancelSubscribedAlertsFailed = (state) => ({
   }
 })
 
-const updateProfileDetails = (state, action) => ({
+const updateProfileDetails = (state, action) => {
+  return ({
     ...state,
     accountSettings: {
       ...state.accountSettings,
       updateUserProfileLoading: action?.payload?.data?.name
     }
   })
+}
 
 const updateProfileDetailsSuccess = (state, action) => ({
   ...state,
@@ -361,7 +359,7 @@ const addAlternateEmailSuccess = (state) => ({
   ...state,
   accountSettings: {
     ...state.accountSettings,
-    addAlternateEmailLoading: false
+    addAlternateEmailLoading: false,
     // toggleSetAlternateEmailsModal: false
   }
 })
@@ -647,16 +645,6 @@ const cancelDowngradeSubscriptionFailed = (state) => ({
   cancelDowngradeSubscriptionLoading: false
 })
 
-
-const getCountryListSuccess = (state, action) => {
-  const { data } = action.payload || ''
-  return {
-    ...state,
-    countriesList: data?.countries || []
-  }
-}
-
-
 const dashboardReducer = (state = initialState, action) => {
   switch (action.type) {
     case DSHBRD__PROFILE_PICTURE_UPLOAD_MODAL_TOGGLE: return profilePictureUploadModalToggle(state, action)
@@ -724,7 +712,6 @@ const dashboardReducer = (state = initialState, action) => {
     case CANCEL_DOWNGRADE_SUBSCRIPTION: return cancelDowngradeSubscription(state, action)
     case CANCEL_DOWNGRADE_SUBSCRIPTION_SUCCESS: return cancelDowngradeSubscriptionSuccess(state, action)
     case CANCEL_DOWNGRADE_SUBSCRIPTION_FAILURE: return cancelDowngradeSubscriptionFailed(state, action)
-    case GET_COUNTRIES_LIST_SUCCESS: return getCountryListSuccess(state, action)
     default: return state
   }
 }

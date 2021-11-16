@@ -25,7 +25,7 @@ const MapSearch = (props) => {
   const { ticketsSearchBox, journeyType, selectedAirlineCode,
     toggalClasses, airlineMembership, selectedAirline } = searchPanel || ''
   const { numberOfPassengers } = ticketsSearchBox || ''
-
+  const appendParams = sessionStorage.getItem('queryParamsGA')
   const [errors, setErrors] = useState({
     sourceError: false,
     departureDateError: false,
@@ -144,7 +144,7 @@ const MapSearch = (props) => {
       return
     }
 
-    history.push(`${AppRoutes.LOCATION}${jsonToQueryString(data)}`)
+    history.push(`${AppRoutes.LOCATION}${jsonToQueryString(data)}${appendParams ? appendParams.replace('?', '&'): ''}`)
     setSearchLocation('')
     setOnRunTimeUpdate(false)
     if (searchQuery !== jsonToQueryString(data) || mapLocationsError) {
@@ -257,6 +257,7 @@ const MapSearch = (props) => {
             displayFormat="DD/MM/YYYY"
             readOnly
             showClearDates
+            locationLabel={'mapview'}
             onDatesChange={() => clearDatesHandler({ startDateId: 'startDateDep' })}
           />
         </div>

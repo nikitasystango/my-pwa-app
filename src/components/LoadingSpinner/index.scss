@@ -1,0 +1,24 @@
+.full-page-loader-comp {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 999999999;
+    background: rgba(var(--dark-rgb), .7);
+  }
+
+  .full-page-loader-comp img {
+    max-width: 150px;
+    max-height: 150px;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(var(--dark-rgb), .25);
+    background: var(--white);
+  }

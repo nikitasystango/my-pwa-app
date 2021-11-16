@@ -4,11 +4,12 @@ import { withRouter } from 'react-router-dom'
 import ReactSelect from './reactSelect'
 import { pushNotification } from 'utils/notifications'
 import { sortSlectedRouteValue } from 'utils/helpers'
+import { sourceCodeOption, sourceCodeOptionVirginAtlantic } from 'constants/globalConstants'
 import { AppRoutes } from 'constants/appRoutes'
 import intl from 'utils/intlMessage'
 import searchPanelMessages from 'constants/messages/searchPanelMessages'
 import toustifyMessages from 'constants/messages/toustifyMessages'
-import { sourceCodeOptionVirginAtlantic, sourceCodeOption } from 'constants/globalConstants'
+import { airlineName } from 'constants/globalConstants'
 
 const SourceAutocomplete = (props) => {
   const { searchPanel: { souDesAirports, airportsWithMultiCity, possibleRoutes, selectedAirlineCode,
@@ -19,12 +20,11 @@ const SourceAutocomplete = (props) => {
 
   const handlerGetGroupOptions = () => {
     if (location?.pathname === AppRoutes.LOCATION) {
-      return selectedAirlineCode === 'VA' ? sourceCodeOptionVirginAtlantic : sourceCodeOption
+      return selectedAirlineCode === airlineName.VA.CODE ? sourceCodeOptionVirginAtlantic : sourceCodeOption
     } else {
       return sortSlectedRouteValue(possibleRoutes, selectArrivalCode, souDesAirports, airportsWithMultiCity, nearestAirports)
     }
   }
-
 
   const handlerSetData = (data) => {
     const selectedLocation = {
@@ -74,7 +74,7 @@ const SourceAutocomplete = (props) => {
         isCalendarHover={isCalendarHover}
         updateReducerState={updateReducerState}
       />
-      <span onClick={handleResetSource} className="search-panel-close-icon crossBtn" style={{ display: closeCondition }}>&times;</span>
+      <span onClick={handleResetSource} className="search-panel-close-icon" style={{ display: closeCondition }}>&times;</span>
     </>
   )
 }

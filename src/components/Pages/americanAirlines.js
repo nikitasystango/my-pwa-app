@@ -4,9 +4,6 @@ import SeoTags from 'common/SeoTags'
 import { Container, Grid, Button } from 'semantic-ui-react'
 import RecentBlogs from 'common/RecentBlogs'
 import Testimonials from 'common/Testimonials'
-import TrustBox from '../../common/Trustpilot'
-// import GetUsOn from 'components/Home/getuson'
-import history from 'utils/history'
 import {
   SearchImageWrapper,
   BgWrap,
@@ -17,7 +14,7 @@ import {
 import MapBox from 'components/Home/mapBox'
 import './assets/scss/virginAtlantic.scss'
 import './assets/scss/americanairline.scss'
-import { retrieveFromLocalStorage } from 'utils/helpers'
+import { retrieveFromLocalStorage, navigateToRespectivePage } from 'utils/helpers'
 import { VaSearchIcon, VaMusicIcon, VaPoundIcon } from '../../utils/svgs'
 import ThankyouVirginModal from './thankyouVirginModal'
 import { InputBox } from 'utils/formUtils'
@@ -32,6 +29,7 @@ import aerLingusMessages from 'constants/messages/aerLingusMessages'
 import americanAirlineMessages from 'constants/messages/americanAirlineMessages'
 import staticMessage from 'constants/messages/homeMessages'
 import ProgressiveImage from 'utils/progressiveImage'
+import { airlineName } from 'constants/globalConstants'
 
 const AmericanAirlines = (props) => {
   const {
@@ -48,6 +46,7 @@ const AmericanAirlines = (props) => {
   })
   const [error, setErrors] = useState({})
   const token = retrieveFromLocalStorage('token')
+  const appendParams = sessionStorage.getItem('queryParamsGA')
 
   useEffect(() => {
     setDetails({
@@ -96,7 +95,7 @@ const AmericanAirlines = (props) => {
       const data = {
         upcoming_airline_request: {
           email: details.email,
-          airline_name: 'american_airlines'
+          airline_name: airlineName.AA.AIRWAYS_NAME
         }
       }
       updateReducerState('pages', 'vaEmail', details.email)
@@ -111,7 +110,7 @@ const AmericanAirlines = (props) => {
     const data = {
       upcoming_airline_request: {
         email: userEmail,
-        airline_name: 'american_airlines'
+        airline_name: airlineName.AA.AIRWAYS_NAME
       }
     }
     addEmail(data)
@@ -301,14 +300,14 @@ const AmericanAirlines = (props) => {
                   {token ? (
                     <Button
                       className="btn btn--medium-blue"
-                      onClick={() => history.push(AppRoutes.HOME)}
+                      onClick={() => navigateToRespectivePage(AppRoutes.HOME, appendParams)}
                     >
                       {intl(pagesMessages.searchNow)}
                     </Button>
                   ) : (
                     <Button
                       className="btn btn--medium-blue"
-                      onClick={() => history.push(AppRoutes.SIGN_UP)}
+                      onClick={() => navigateToRespectivePage(AppRoutes.SIGN_UP, appendParams)}
                     >
                       {intl(commonMessages.signUpNow)}
                     </Button>
@@ -419,11 +418,11 @@ const AmericanAirlines = (props) => {
               <div className="testimonial__body">
                 <Testimonials />
               </div>
-              <div className="testimonial__footer">
+              {/* <div className="testimonial__footer">
                 <div className="trustpilot">
                   <TrustBox />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -455,14 +454,14 @@ const AmericanAirlines = (props) => {
                   {token ? (
                     <Button
                       className="btn btn--medium-blue"
-                      onClick={() => history.push(AppRoutes.HOME)}
+                      onClick={() => navigateToRespectivePage(AppRoutes.HOME, appendParams)}
                     >
                       {intl(pagesMessages.searchNow)}
                     </Button>
                   ) : (
                     <Button
                       className="btn btn--medium-blue"
-                      onClick={() => history.push(AppRoutes.SIGN_UP)}
+                      onClick={() => navigateToRespectivePage(AppRoutes.SIGN_UP, appendParams)}
                     >
                       {intl(commonMessages.signUp)}
                     </Button>

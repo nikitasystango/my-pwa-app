@@ -12,7 +12,7 @@ import {
   setInLocalStorage,
   retrieveFromLocalStorage,
   removeFromLocalStorage,
-  getRedirectionURL,
+  getRedirectionURL
 } from 'utils/helpers'
 import DateSelect from 'components/Subscribe'
 import { jsonToQueryString } from 'utils/helpers'
@@ -33,6 +33,7 @@ import toustifyMessages from 'constants/messages/toustifyMessages'
 import searchPanelMessages from 'constants/messages/searchPanelMessages'
 import publicIp from 'public-ip'
 import { checkDifference, handleSpecificErrorAlertRange, removeFalsyElement } from 'utils/commonFunction'
+import { airlineName } from 'constants/globalConstants'
 
 const SearchPanel = (props) => {
   const {
@@ -65,8 +66,6 @@ const SearchPanel = (props) => {
       ticketsSearchBox,
       departure: { value: depCode },
       arrival: { value: arrCode },
-      activeAlertError,
-      searchErrors,
       availablePassengerCabinClasses
     },
     updateReducerState,
@@ -92,8 +91,8 @@ const SearchPanel = (props) => {
     setOnRunTimeUpdate
   } = props
   const { ticketClass, numberOfPassengers } = ticketsSearchBox
+  const appendParams = sessionStorage.getItem('queryParamsGA')
   const { state } = location
-
   const [toggalAlertModal, setToggalAlertModal] = useState(false)
   const [errors, setErrors] = useState({
     sourceError: false,
@@ -108,6 +107,8 @@ const SearchPanel = (props) => {
     dontKnowSourceError: false,
     dontKnowDestinationError: false
   })
+  const [activeAlertError, setActiveAlertError] = useState(false)
+
 
   const handleScrollToStickyHeader = () => {
     window.scrollTo({
@@ -122,29 +123,6 @@ const SearchPanel = (props) => {
     // eslint-disable-next-line
   }, [flightsAvailability])
 
-
-  // Update error state in reducer
-  const handleUpdateReducer = (dataJson) => {
-    if (
-      dataJson &&
-      dataJson.searchErrors
-    ) {
-    Object.keys(dataJson).map((item) => (
-      updateReducerState('searchPanel', item, dataJson[item])
-    ))
-    }
-  }
-
-  useEffect(()=> {
-    // Update reducer error in local state
-    const { sourceError, destinationError, startDateError, endDateError } = searchErrors || {}
-    setErrors({
-      sourceError,
-      destinationError,
-      startDateError,
-      endDateError
-    })
-  }, [searchErrors])
 
   const handleInitialToggle = () => {
     if (
@@ -217,28 +195,19 @@ const SearchPanel = (props) => {
 
   // Get Airlines List
   useEffect(() => {
-    getClientIp()
-    const airlineSel = location.pathname === AppRoutes.HOME ? 'BA' : location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS ? 'VA' : selectedAirlineCode ? selectedAirlineCode : 'BA'
-    const values = retrieveFromLocalStorage(`${airlineSel === 'BA' ? 'recentSearch' : 'recentSearchVA'} `)
+    // getClientIp()
+    const airlineSel = location.pathname === AppRoutes.HOME ? airlineName.BA.CODE : location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS ? airlineName.VA.CODE : selectedAirlineCode ? selectedAirlineCode : airlineName.BA.CODE
+    const values = retrieveFromLocalStorage(`${airlineSel === airlineName.BA.CODE ? 'recentSearch' : 'recentSearchVA'} `)
 
       getSouDesLocations({ selectedAirline: airlineSel })
       getSouDesPossibleRoutes({ selectedAirline: airlineSel })
     if (location.pathname === AppRoutes.HOME || location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS) {
       setSearchPanelData(values)
     }
-    updateReducerState('searchPanel', 'activeAlertError', false)
-    const dataJson = {
-      searchErrors: {
-        sourceError: false,
-        destinationError: false,
-        startDateError: false,
-        endDateError: false
-      }
-    }
-    handleUpdateReducer(dataJson)
     // eslint-disable-next-line
   }, [])
 
+  // eslint-disable-next-line
   const getClientIp = async() => {
     try {
       const ipAdd = await publicIp.v4({ fallbackUrls: [
@@ -317,10 +286,11 @@ const SearchPanel = (props) => {
         )
         return
       }
+
       let data = {
         departure,
         arrival,
-        numberOfPassengers: passengerCountData ? passengerCountData : numberOfPassengers ,
+        numberOfPassengers: passengerCountData ? passengerCountData : numberOfPassengers,
         ticketClass,
         toggalClasses,
         journeyType,
@@ -338,8 +308,8 @@ const SearchPanel = (props) => {
         ...data,
         label: location.pathname === AppRoutes.CALENDER ? 'calendar' : 'home'
       }
-      const airlineSel = location.pathname === AppRoutes.HOME ? 'BA' : location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS ? 'VA' : selectedAirline ? selectedAirline.split('_')[0] : ''
-      setInLocalStorage(`${airlineSel === 'BA' ? 'recentSearch' : 'recentSearchVA'} `, values.join(';'))
+      const airlineSel = location.pathname === AppRoutes.HOME ? airlineName.BA.CODE : location.pathname === AppRoutes.VIRGIN_ATLANTIC_REWARD_FLIGHTS ? airlineName.VA.CODE : selectedAirline ? selectedAirline.split('_')[0] : ''
+      setInLocalStorage(`${airlineSel === airlineName.BA.CODE ? 'recentSearch' : 'recentSearchVA'} `, values.join(';'))
       setOnRunTimeUpdate && !passengerCountData && setOnRunTimeUpdate(false)
       // creating url
       const url = getRedirectionURL(data)
@@ -380,8 +350,7 @@ const SearchPanel = (props) => {
       source_code: depCode,
       membership_type: airlineMembership,
       destination_code: arrCode,
-      airline_name:
-        selectedAirlineCode === 'AA' ? 'american_airlines' : 'british_airways',
+      airline_name: selectedAirlineCode ? airlineName[selectedAirlineCode].AIRWAYS_NAME : airlineName.BA.AIRWAYS_NAME,
       number_of_passengers: numberOfPassengers,
       travel_class:
         ticketClass && ticketClass.value ? ticketClass.value : 'economy',
@@ -452,15 +421,7 @@ const SearchPanel = (props) => {
           startDateError: validData?.outBound,
           endDateError: validData?.inBound
         })
-        const dataJson = {
-          searchErrors: {
-            ...searchErrors,
-            startDateError: validData?.outBound,
-            endDateError: validData?.inBound
-          }
-        }
-        handleUpdateReducer(dataJson)
-        updateReducerState('searchPanel', 'activeAlertError', true)
+        setActiveAlertError(true)
         return
       }
       onSendMeAlert(payload)
@@ -544,7 +505,7 @@ const SearchPanel = (props) => {
         aDate: moment(mapDestinationDate).format('YYYY-MM-DD')
       }
     }
-    history.push(`location${jsonToQueryString(data)}`)
+    history.push(`location${jsonToQueryString(data)}${appendParams ? appendParams.replace('?', '&') : ''}`)
   }
 
   const getSerchPanelComponent = () => {
@@ -676,13 +637,6 @@ const SearchPanel = (props) => {
       ...error,
       [name]: error
     })
-    const dataJson = {
-      searchErrors: {
-        ...searchErrors,
-        [name]: error
-      }
-    }
-    handleUpdateReducer(dataJson)
   }
 
   const updateNumberOfPassanger = (sum) => {
@@ -811,7 +765,7 @@ const SearchPanel = (props) => {
           <div className="search-panel-divider" />
         </Grid>
         {isDateSelectVisible && (
-          <DateSelect
+        <DateSelect
             location={location}
             searchPanel={searchPanel}
             sendAlertLoading={sendAlertLoading}
@@ -824,14 +778,14 @@ const SearchPanel = (props) => {
             toggalClasses={toggalClasses}
             flightsAvailability={flightsAvailability}
             closeAlert={closeAlert}
+            setActiveAlertError={setActiveAlertError}
             activeAlertError={activeAlertError}
             isUserGoldMember={isUserGoldMember}
             allowedAlertDateRange={allowedAlertDateRange}
             isUserSilverMember={isUserSilverMember}
             errors={errors}
             setErrors={setErrors}
-            handleUpdateReducer={handleUpdateReducer}
-          />
+        />
         )}
       </div>
 
@@ -846,6 +800,7 @@ const SearchPanel = (props) => {
         toggalPlanLimitModal={toggalPlanLimitModal}
         updateReducerState={updateReducerState}
       />
+      {toggalPreviewAlertModal &&
       <PreviewAlertModal
         {...props}
         toggalPreviewAlertModal={toggalPreviewAlertModal}
@@ -860,6 +815,7 @@ const SearchPanel = (props) => {
         flights={flights}
         availablePassengerCabinClasses={availablePassengerCabinClasses}
       />
+     }
     </>
   )
 }

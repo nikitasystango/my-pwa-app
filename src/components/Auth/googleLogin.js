@@ -100,7 +100,7 @@ const GoogleLogin = (props) => {
   return (
     <GoogleLoginButton
       buttonText={
-        <span className={`btn btn--google w-100 ${googleLoginLoading ? 'btn--loader btn--disabled' : ''} `}><G /> <span>{intl(commonMessages.google)}</span></span>
+        <span className={`btn btn--google w-100 ${googleLoginLoading ? 'btn--loader btn--disabled' : ''} `}><G />{intl(commonMessages.google)}</span>
       }
       clientId={env.GOOGLE_CLIENT_ID}
       onSuccess={handleGoogleLoginSuccess}
