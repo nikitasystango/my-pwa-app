@@ -179,7 +179,7 @@ const Home = (props) => {
                     : intl(staticMessage.sectionTitle)}
                 </SectionTitle>
                 <SectionSubTitle>
-                  {intl(staticMessage.sectionSubTitle)}  checkkk 
+                  {intl(staticMessage.sectionSubTitle)}  
                 </SectionSubTitle>
               </HeaderContent>
             )}
