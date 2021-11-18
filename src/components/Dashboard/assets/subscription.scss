@@ -122,6 +122,7 @@
           border-radius: 0 10px 10px 10px;
           background: var(--dark);
           position: relative;
+          margin-bottom: 20px;
 
           &-inner {
             border-radius: 10px;
@@ -306,6 +307,14 @@
       }
     }
     // Subscription -->
+  }
+}
+.subscribtionBoxColumn{
+  .column{
+    &:nth-child(2)
+    .subscribtionBox{
+       background-color: #fff;
+    }
   }
 }
 

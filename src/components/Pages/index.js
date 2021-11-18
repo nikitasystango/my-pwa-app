@@ -3,9 +3,8 @@ import Layout from 'containers/Layout'
 import CancelEliteMembership from './cancelEliteMembership'
 import Vouchers from './vouchers'
 import PropTypes from 'prop-types'
-import PurchasingThankYou from './purchasingThankYou'
 import HowItWorks from './howItWorks'
-import PricingPage from './pricing'
+import PricingPage from './Pricing'
 import SignupThankyou from './signupThankYou'
 import history from 'utils/history'
 import Loader from 'components/LoadingSpinner'
@@ -25,7 +24,7 @@ import '../Home/index.scss'
 
 const Pages = (props) => {
   const { pages: { getPricingLoading, pricingPlans, cancelEliteLoading, addEmailLoading, toggleThankyouVaModal, vaEmail, toggleSignupOnBoardingModal }, getPricingPlans, pageAnalytics,
-    user: { isUserBronzeMember, goldFreeTrial, isUserGoldMember, isUserSilverMember, plan, id, email },
+    user: { isUserBronzeMember, goldFreeTrial, isUserGoldMember, isUserSilverMember, plan, id, email, trialEligibilty },
     cancelEliteMembership, fetchingProfileDetails, userRegisterConfirmation, updateReducerState, mapPageUrl, addEmail, toggleCaneleMembershipModal, updateProfileDetails, getProfileDetails, accountSettings: { userDetails } } = props
 
     const token = retrieveFromLocalStorage('token')
@@ -39,14 +38,6 @@ const Pages = (props) => {
     // eslint-disable-next-line
   }, [])
 
-  const thankyouPageMembersipHandler = () => (
-    <PurchasingThankYou
-      location={props.location}
-      isUserGoldMember={isUserGoldMember}
-      isUserSilverMember={isUserSilverMember}
-      getProfileDetails={getProfileDetails}
-    />
-  )
   useEffect(()=>{
     window.scrollTo({
       top: 0,
@@ -91,15 +82,6 @@ const Pages = (props) => {
                  />
         }
 
-      case AppRoutes.BRONZE_SIGNUP_THANKYOU:
-        return thankyouPageMembersipHandler()
-
-      case AppRoutes.SILVER_SIGNUP_THANKYOU:
-        return thankyouPageMembersipHandler()
-
-      case AppRoutes.GOLD_SIGNUP_THANKYOU:
-        return thankyouPageMembersipHandler()
-
         case AppRoutes.PRICING_SIGNUP:
           if(detailRedirection) {
             return (<PricingPage
@@ -113,6 +95,8 @@ const Pages = (props) => {
               isUserBronzeMember={isUserBronzeMember}
               isUserGoldMember={isUserGoldMember}
               isUserSilverMember={isUserSilverMember}
+              trialEligibilty={trialEligibilty}
+              getProfileDetails={getProfileDetails}
                     />)
           }else{
             history.push(AppRoutes.HOME)
@@ -131,6 +115,8 @@ const Pages = (props) => {
           isUserBronzeMember={isUserBronzeMember}
           isUserGoldMember={isUserGoldMember}
           isUserSilverMember={isUserSilverMember}
+          trialEligibilty={trialEligibilty}
+          getProfileDetails={getProfileDetails}
                 />)
 
       case AppRoutes.CHANGE_PLAN:
@@ -149,6 +135,8 @@ const Pages = (props) => {
           cancelEliteLoading={cancelEliteLoading}
           updateReducerState={updateReducerState}
           toggleCaneleMembershipModal={toggleCaneleMembershipModal}
+          trialEligibilty={trialEligibilty}
+          getProfileDetails={getProfileDetails}
                 />)
       case AppRoutes.HOW_IT_WORKS:
         return <HowItWorks location={props.location} />

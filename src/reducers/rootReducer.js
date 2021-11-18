@@ -59,7 +59,8 @@ const rootReducer = (state, action) => {
           isEmailNotificationEnable: false,
           createAlertsLimit: 0,
           activeAlertsCount: 0,
-          downgradeMembership: false
+          downgradeMembership: false,
+          trialEligibilty: {}
         }
       }
     }

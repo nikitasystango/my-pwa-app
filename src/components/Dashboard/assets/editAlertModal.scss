@@ -393,7 +393,7 @@
             background: #c9c9c9 !important;
             opacity: 0.3;
             border: 1px solid #d9d9d9;
-            color: black !important;
+            color: black;
             svg {
               rect{
                 fill: #656565;
@@ -438,6 +438,9 @@
         top: -35px!important;
         width: 250px;
         position: absolute !important;
+        @media (max-width: 767px) {
+          left: 0% !important;
+        }
       }
     }
     @media (max-width: 767px) {
@@ -464,6 +467,8 @@
 
           &__grp {
             margin: 0 5px 10px !important;
+            width: 100%;
+            flex:1 0 100%;
           }
         }
       }

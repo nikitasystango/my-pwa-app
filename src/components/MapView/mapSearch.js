@@ -126,7 +126,9 @@ const MapSearch = (props) => {
       fclass: toggalClasses?.first,
       bclass: toggalClasses?.business,
       desId: destinationLocation?.value,
-      desPlace: destinationLocation.name
+      desPlace: destinationLocation.name,
+      travelTo: journeyType !== 'return' && flyToSearch === 'travelTo' ? true : false,
+      flyToSearch
     }
 
     if (startDateReturn && endDateReturn && journeyType === 'return') {

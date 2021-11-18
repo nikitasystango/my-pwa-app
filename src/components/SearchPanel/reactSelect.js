@@ -12,7 +12,6 @@ const ReactSelect = (props) => {
   const groupStyles = {
     // border: `2px dotted ${colourOptions[2].color}`,
     borderRadius: '5px',
-    background: '#f2fcff'
   }
 
   const selectStyles = {

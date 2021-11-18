@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { PrivateRoute } from 'utils/privateRoute'
 import { AppRoutes } from '../../constants/appRoutes'
@@ -15,6 +15,10 @@ import ErrorPage from 'components/ErrorPage'
 import HelpCenter from 'containers/HelpCenter'
 import Pages from 'containers/Pages'
 import ProxyLoginComponent from 'containers/ProxyLogin'
+import SubscriptionThankyouPage from 'containers/SubscriptionThankyouPage'
+import ProfileDetails from 'containers/ProfileDetails'
+import { retrieveFromLocalStorage, removeFromLocalStorage } from 'utils/helpers'
+import history from 'utils/history'
 
 // Lazy load heavy dom components
 const MapView = React.lazy(() => import('containers/MapView'))
@@ -24,6 +28,28 @@ const FlightAvailabilityContainer = React.lazy(() =>
 const Dashboard = React.lazy(() => import('containers/Dashboard'))
 
 export default function App() {
+
+  useEffect(() => {
+    history.listen((location, action) => {
+      // check for sw updates on page change
+      const isNewUpdate = retrieveFromLocalStorage('isNewUpdate')
+      if(isNewUpdate){
+        handleCacheClear()
+      }
+    })
+    // eslint-disable-next-line
+  }, [window.location.pathname])
+
+  function handleCacheClear() {
+          caches.keys().then(function (names) {
+            // delete the available cache for
+            caches.delete('workbox-precache')
+            caches.delete('images')
+            caches.delete('api-cache')
+          })
+          removeFromLocalStorage('isNewUpdate')
+          window.location.reload()
+  }
 
   return (
     <Fragment>
@@ -247,15 +273,98 @@ export default function App() {
             path={AppRoutes.BRONZE_SIGNUP_THANKYOU}
             component={Pages}
         />
+
+        {/* Subscription thankyou  URL start */}
         <PrivateRoute
             exact
-            path={AppRoutes.SILVER_SIGNUP_THANKYOU}
-            component={Pages}
+            path={AppRoutes.SILVER_FREE_MONTHLY}
+            component={SubscriptionThankyouPage}
         />
         <PrivateRoute
             exact
-            path={AppRoutes.GOLD_SIGNUP_THANKYOU}
-            component={Pages}
+            path={AppRoutes.SILVER_FREE_YEARLY}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.GOLD_FREE_MONTHLY}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.GOLD_FREE_YEARLY}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.SILVER_PAID_MONTHLY}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.SILVER_PAID_YEARLY}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.GOLD_PAID_MONTHLY}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.GOLD_PAID_YEARLY}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.UPGRADE_SILVER_PAID_MONTHLY}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.UPGRADE_SILVER_PAID_YEARLY}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.UPGRADE_GOLD_PAID_MONTHLY}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.UPGRADE_GOLD_PAID_YEARLY}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.CANCEL_SILVER_TRIAL}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.CANCEL_GOLD_TRIAL}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.DOWNGRADE_SILVER_TO_BRONZE}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.DOWNGRADE_GOLD_TO_BRONZE}
+            component={SubscriptionThankyouPage}
+        />
+        <PrivateRoute
+            exact
+            path={AppRoutes.DOWNGRADE_SILVER_TO_GOLD}
+            component={SubscriptionThankyouPage}
+        />
+        {/* Subscription thankyou  URL end */}
+        <PrivateRoute
+            exact
+            path={AppRoutes.PROFILE_DETAILS}
+            component={ProfileDetails}
         />
         <PrivateRoute
             exact

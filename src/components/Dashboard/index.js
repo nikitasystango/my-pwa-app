@@ -29,6 +29,12 @@ const Dashboard = (props) => {
     // eslint-disable-next-line
   }, [pathname])
 
+
+  // useEffect(()=> {
+  //   getCountriesList()
+  //   // eslint-disable-next-line
+  // }, [])
+
   const setRespectivePage = (pagetype) => {
     let pageNumber = 0
     switch (pagetype) {

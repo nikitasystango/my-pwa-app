@@ -3,7 +3,7 @@
 
 <head>
   <!-- Google Tage Manager Start-->
-  <script async>(function (w, d, s, l, i) {
+  <script>(function (w, d, s, l, i) {
       w[l] = w[l] || []; w[l].push({
         'gtm.start':
           new Date().getTime(), event: 'gtm.js'
@@ -16,9 +16,9 @@
 
   <meta charset="utf-8" />
   <!-- <link rel="shortcut icon preload" href="%PUBLIC_URL%/favicon.ico" type="image/x-icon" /> -->
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
-  <!-- <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.css' rel='stylesheet preload' />
-  <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.js'></script> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.css' rel='stylesheet preload' />
+  <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.js'></script>
   <meta name="theme-color" content="#6610f2" />
   <meta name="apple-mobile-web-app-status-bar-style" content="red">
   <meta name="apple-mobile-web-app-title" content="Reward Flight Finder">
@@ -31,36 +31,34 @@
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-  <link rel="preconnect" href="https://in.hotjar.com">
-  <link rel="preconnect" href="https://srzf8amec7.execute-api.eu-west-2.amazonaws.com">
-  <link rel="dns-prefetch" href="https://connect.facebook.net">
-  <link rel="dns-prefetch" href="https://www.facebook.com">
-  <link rel="dns-prefetch" href="https://analytics.twitter.com">
-  <!-- <link rel="preconnect" href="https://rewardflightfinder.com"> -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
   <link rel="apple-touch-startup-image" href="/images/icons/launch.png" as="image" type="image/png">
   <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" as="image" type="image/png">
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" as="fetch" type="application/json" />
   <!-- <link rel="stylesheet" as="style" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin&display=swap"/> -->
-  <link async rel="stylesheet" as="style"
-    href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" />
-    
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" as="style"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap"/>
 
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
+
       Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   <link rel="icon" media="(prefers-color-scheme:dark)" href="%PUBLIC_URL%/favicon-dark.ico" type="image/x-icon" />
   <link rel="icon" media="(prefers-color-scheme:light)" href="%PUBLIC_URL%/favicon-light.ico" type="image/x-icon" />
-  <script defer type="application/javascript">
+  <script type="application/javascript">
     ; (function (mod) { function collectLinks() { return Array.prototype.slice.apply(document.head.querySelectorAll('link[rel*="icon"]')) } function applyLink(source, target) { target.setAttribute('type', source.getAttribute('type')); target.setAttribute('href', source.getAttribute('href')) } function initSwitcher(delay) { if (typeof window.matchMedia !== 'function') { return function noop() { } } var links = collectLinks(); var current = document.createElement('link'); var prevMatch; current.setAttribute('rel', 'shortcut icon'); document.head.appendChild(current); function faviconApplyLoop() { var matched; links.forEach(function (link) { if (window.matchMedia(link.media).matches) { matched = link } }); if (!matched) { return } if (matched.media !== prevMatch) { prevMatch = matched.media; applyLink(matched, current) } } var intervalId = setInterval(faviconApplyLoop, delay || 300); function unsubscribe() { clearInterval(intervalId); links.forEach(function (link) { document.head.appendChild(link) }) } faviconApplyLoop(); links.forEach(function (link) { document.head.removeChild(link) }); return unsubscribe } initSwitcher() })()
   </script>
 
 
   <script async src="lazysizes.min.js"></script>
+  <title>RFF</title>
   <meta property="fb:app_id" content="547320892866347"/>
   <!-- Add in some basic styles for our HTML -->
 
@@ -102,46 +100,8 @@
       z-index: 999;
     }
 
-    .update-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 9999;
-      display: none;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-    }
-
     .full-page-loader {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 999999999;
-    background: rgba(19,44,82, .7);
-  }
-
-  .full-page-loader img {
-    max-width: 150px;
-    max-height: 150px;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 10px;
-    box-shadow: 0 0 10px 0 rgba(var(--dark-rgb), .25);
-    background: white;
-  }
-
-.loader-img{
-  display: flex;
+      display: flex;
       align-items: center;
       flex-direction: column;
       justify-content: center;
@@ -150,76 +110,19 @@
       right: 0;
       left: 0;
       bottom: 0;
-}
-  
-
-
-    body.show .update-modal {
-      display: flex;
+      z-index: 999999999;
+      background: rgba(var(--dark-rgb), .7);
     }
 
-    .update-modal .modal-body {
-      max-width: 420px;
+    .full-page-loader img {
+      max-width: 150px;
+      max-height: 150px;
       width: 100%;
-    }
-
-    .update-modal .modal-body img {
-      width: 100%;
-      display: block;
-    }
-
-    .update-modal .modal-content-box {
-      background: #fff;
-      text-align: center;
-      width: 100%;
-      padding: 10px 0 30px;
-      border-radius: 6px;
-    }
-
-    .update-modal .modal-content-box h3 {
-      /* color: #121729; */
-      font-size: 1.25rem;
-      font-weight: 600;
-      line-height: 1.6;
-      margin-top: 0;
-      margin-bottom: 10px;
-    }
-
-    .update-modal .modal-content-box p {
-      font-size: 14px;
-      font-weight: 500;
-      /* color: rgb(62, 69, 97); */
-      line-height: 1.5;
-      margin-top: 0;
-    }
-
-    .update-modal .modal-content-box button {
-      padding: 6px 8px;
-      font-size: 16px;
-      box-sizing: border-box;
-      width: 100%;
-      max-width: 120px;
-      color: rgb(255, 255, 255);
-      /* transform: skewX(15deg); */
-      padding-left: 10px;
-      padding-right: 10px;
-      min-width: 100px;
-      transition: all 0.1s ease-in 0s;
-      background-color: #132c52;
-      border: 0;
-      line-height: 1.75;
-      cursor: pointer;
-      border-radius: 6px;
-    }
-
-
-    .update-modal .modal-content-box button.grey {
-      background-color: #03b2d8;
-    }
-
-    .update-modal .modal-content-box button:hover {
-      background: rgb(18, 23, 41);
-      /* box-shadow: 4px 4px 0 rgb(219, 0, 64); */
+      height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 0 10px 0 rgba(var(--dark-rgb), .25);
+      background: var(--white);
     }
 
     .offline-notification {
@@ -412,21 +315,9 @@
     <!-- <p>Almost there!!</p> -->
     <div class="full-page-loader">
       <picture>
-        <source srcset="/loader.webp" type="image/webp" />
-        <img src="/loader.gif" alt="loading..." className="lazyload" />
+        <source srcset="/loader.webp" data-srcset="/loader.gif" type="image/webp" />
+        <img width="150px" height="150px" src="/loader.gif" data-src="/loader.gif" alt="loading..." class="lazyload" />
       </picture>
-    </div>
-  </div>
-   <!-- Modal to show for each new deployment -->
-   <div class="update-modal">
-    <div class="modal-body">
-      <div class="modal-content-box">
-        <h3>It's time to update</h3>
-        <p>A new version of this app is available.<br />Click 'OK' to update.</p>
-        <button id="reload" type="button">
-          <span>OK</span>
-        </button>
-      </div>
     </div>
   </div>
 
@@ -458,11 +349,10 @@
     });
   </script>
 
-
   <!-- Cookie Consent by https://www.freeprivacypolicy.com -->
-  <script defer type="text/javascript"
+  <script type="text/javascript"
     src="//www.freeprivacypolicy.com/public/cookie-consent/3.1.0/cookie-consent.js"></script>
-  <script defer type="text/javascript">
+  <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
       window.onload = function () {
         setTimeout(function () {

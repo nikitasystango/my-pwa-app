@@ -12,7 +12,8 @@ const CancelMembershipModal = (props) => {
     toggleCaneleMembershipModal,
     toggleModal,
     cancelEliteMembership,
-    cancelEliteLoading
+    cancelEliteLoading,
+    userPlanId
   } = props
   return (
     <Modal
@@ -50,7 +51,7 @@ const CancelMembershipModal = (props) => {
               disabled={cancelEliteLoading}
               loading={cancelEliteLoading}
               className="btn btn--medium-blue"
-              onClick={() => cancelEliteMembership({ type: 'membership' })}
+              onClick={() => cancelEliteMembership({ type: 'membership', userPlanId: userPlanId })}
             >
               {intl(commonMessages.yes)}
             </Button>
@@ -65,7 +66,8 @@ CancelMembershipModal.propTypes = {
   toggleCaneleMembershipModal: PropTypes.bool,
   toggleModal: PropTypes.func,
   cancelEliteMembership: PropTypes.func,
-  cancelEliteLoading: PropTypes.bool
+  cancelEliteLoading: PropTypes.bool,
+  userPlanId: PropTypes.string
 }
 
 export default CancelMembershipModal

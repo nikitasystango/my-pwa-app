@@ -393,8 +393,11 @@ export default defineMessages({
   seoDeltaAirlinesDesc: {
     id: 'pages.seo.seoDeltaAirlinesDesc',
     defaultMessage: 'Discover Delta SkyMiles Reward Seats on RFF & Save Money. Check availability in just one click and receive alerts whenever seats become available. Sign up now!'
+  },
+  seoPricingSecondTitle: {
+    id: 'pages.seo.seoPricingSecondTitle',
+    defaultMessage: 'Choose Your Plan | Reward Flight Finder'
   }
-
 })
 
 

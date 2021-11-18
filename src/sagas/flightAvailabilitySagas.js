@@ -51,17 +51,16 @@ function* watchGetFlightAvailability() {
 //  Create action audit user api
 function* createUserActionAudit(action) {
   const { data } = action.payload
-  // try {
-  //   const response = yield call(postRequestRuby, URls.USER_ACTION_AUDIT, data)
-  //   if (response && response.status && response.status === 201) {
-  //       yield put(userActionAuditSuccess())
-  //   }
-  // } catch (error) {
-  //   if (error && error.response && error.response.data && error.response.data.error) {
-  //     // pushNotification(error.response.data.error, 'error', 'TOP_CENTER', 3000)
-  //   }
-  //   yield put(userActionAuditFailure())
-  // }
+  try {
+    const response = yield call(postRequestRuby, URls.USER_ACTION_AUDIT, data)
+    if (response && response.status && response.status === 201) {
+        yield put(userActionAuditSuccess())
+    }
+  } catch (error) {
+    if (error && error.response && error.response.data && error.response.data.error) {
+    }
+    yield put(userActionAuditFailure())
+  }
 }
 
 function* watchUserActionAudit() {

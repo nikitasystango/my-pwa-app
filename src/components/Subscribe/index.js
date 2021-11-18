@@ -280,7 +280,7 @@ const handleAlertRangeError = (alert) => {
         <div className="create-alert-close">
           <h2 onClick={() => props.closeAlert() } ><CloseIcon/> </h2>
         </div>
-        <Grid.Row>
+        <Grid.Row className="z-index-0">
           <Grid.Column mobile={8} tablet={8} computer={6} widescreen={6} className={`outbondRangepicker ${errors?.startDateError ? 'date-error-field' : ''}`}>
             <label>{intl(flightMessages.outboundDateText)}</label>
             <DateRangePicker

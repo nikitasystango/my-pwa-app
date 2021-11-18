@@ -162,7 +162,7 @@ const updateExistingEventId = () => {
       classFilter: true
     }
     const details = handleAuditUser(data, extractedParams, state)
-    // userActionAudit(details)
+    userActionAudit(details)
   }
 }
 
@@ -336,7 +336,7 @@ const updateExistingEventId = () => {
       }
     }
     const details = handleAuditUser(data, paramsData, state)
-    // userActionAudit(details)
+    userActionAudit(details)
     getFlightAvailability(data)
     let dataJson = {
       departure: {

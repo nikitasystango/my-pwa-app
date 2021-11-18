@@ -26,7 +26,7 @@ const DateRangeSelectore = React.lazy(() => import('components/SearchPanel/dateR
 
 const EditAlertModal = (props) => {
   const { data, airlines, toggleEditAlertModal, setToggleEditAlertModal, toggleDeleteAlertModal,
-    handelDeleteAlert, setToggleDeleteALertModal, editAlert, extractedParams, getFlightAvailability, flights, allowedAlertDateRange, isUserGoldMember, isUserSilverMember, updateReducerState, availablePassengerCabinClasses } = props
+    handelDeleteAlert, setToggleDeleteALertModal, editAlert, extractedParams, getFlightAvailability, flights, allowedAlertDateRange, isUserGoldMember, isUserSilverMember, availablePassengerCabinClasses, updateReducerState } = props
   const { number_of_passengers, trip_type, start_date, end_date, arrival_start_date,
     arrival_end_date, membership_type, travel_classes, id, available_travel_classes, destination_code, source_code, airline_name } = data || ''
     const { flightsAvailability } = flights || {}

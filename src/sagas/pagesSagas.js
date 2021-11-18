@@ -7,13 +7,15 @@ import {
   addEmailSuccess, addEmailFailed
 } from 'actions/Pages'
 import URls from 'constants/urls'
-import { retrieveFromLocalStorage, navigateToRespectivePage } from 'utils/helpers';
+import { retrieveFromLocalStorage, navigateToRespectivePage } from 'utils/helpers'
 import { pushNotification } from 'utils/notifications'
 import { getProfileDetails } from 'actions/Dashboard'
 import { updateReducerState } from 'actions/Common'
 import { AppRoutes } from 'constants/appRoutes'
 import intl from 'utils/intlMessage'
 import toustifyMessages from 'constants/messages/toustifyMessages'
+import { FreePlans } from 'constants/globalConstants'
+
 const appendParams = sessionStorage.getItem('queryParamsGA')
 
 // get pricing plans
@@ -44,13 +46,18 @@ function* cancelEliteMembership(action) {
   try {
     const response = yield call(deleteRequestRuby, url)
     const user = yield select(state => state.auth.user)
+    const searchUrl = `?user_id=${user && user.id}${appendParams ? appendParams.replace('?', '&'): ''}`
     if (response && response.status && response.status === 204) {
       yield put(cancelEliteMembershipSuccess())
       yield put(getProfileDetails(user && user.id))
       yield put(updateReducerState('dashboard', 'toggleCaneleMembershipModal', false))
-      if (data?.type === 'changePlan') {
-        const searchQuery = `?success=your+subscription+has+been+downgraded+successfully${appendParams ? appendParams.replace('?', '&') : ''}`
-        navigateToRespectivePage(AppRoutes.MEMBERSHIP, searchQuery)
+      if (data?.type === 'changePlan' && data?.path) {
+        navigateToRespectivePage(data?.path, searchUrl)
+      }
+      if(data?.userPlanId) {
+        (data?.userPlanId === FreePlans.SILVER_MONTHLY_PLAN || data?.userPlanId === FreePlans.SILVER_YEARLY_PLAN) ?
+        navigateToRespectivePage(AppRoutes.CANCEL_SILVER_TRIAL, searchUrl)
+        : navigateToRespectivePage(AppRoutes.CANCEL_GOLD_TRIAL, searchUrl)
       }
     }
   } catch (error) {
@@ -59,7 +66,7 @@ function* cancelEliteMembership(action) {
     } else {
       pushNotification(intl(toustifyMessages.someThingWrongChargebee), 'error', 'TOP_CENTER', 1000)
     }
-    yield put(cancelEliteMembershipFailed())
+     yield put(cancelEliteMembershipFailed())
   }
 }
 

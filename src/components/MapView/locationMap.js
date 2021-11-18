@@ -40,7 +40,8 @@ const LocationMap = (props) => {
     updateReducerState,
     searchLocation,
     availablePopupCabinClass,
-    setOnRunTimeUpdate
+    setOnRunTimeUpdate,
+    mapData: { flyToSearch }
   } = props
   const position = [51.148056, -0.190278]
   const zoom = 2
@@ -143,7 +144,8 @@ const LocationMap = (props) => {
       extractedParams,
       airportsWithMultiCity,
       souDesAirports,
-      availablePopupCabinClass
+      availablePopupCabinClass,
+      flyToSearch
     )
   }
 

@@ -648,3 +648,29 @@
 
 }
 // Pricing -->
+
+.ui.positive.button, .ui.positive.buttons .button {
+  background-color: #4cb2d8 !important;
+}
+.pricingToggleButton{
+  display: none;
+  .ui.button{
+    background-color: #D9F3F9 !important;
+    padding: 15px 20px !important;
+    font-weight: 600;
+    &:nth-child(1){
+      border-top-left-radius: 20px  !important;
+      border-bottom-left-radius: 20px  !important;
+    }
+    &:nth-child(2){
+      border-top-right-radius: 20px  !important;
+      border-bottom-right-radius: 20px  !important;
+    }
+    span{
+      font-size: 12px !important;
+    }
+  }
+  .ui.button.positive{
+    background-color: #03B2D8 !important;
+  }
+}

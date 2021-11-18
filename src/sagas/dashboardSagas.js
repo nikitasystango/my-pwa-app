@@ -18,7 +18,8 @@ import {
   RESEND_VERIFICATION_EMAIL,
   TOGGLE_EMAILS_NOTIFICATION,
   DELETE_PHONE_NUMBER,
-  CANCEL_DOWNGRADE_SUBSCRIPTION
+  CANCEL_DOWNGRADE_SUBSCRIPTION,
+  GET_COUNTRIES_LIST
 } from 'actions/Dashboard/actionTypes'
 import { all, put, call, takeLatest, select, takeEvery, take } from 'redux-saga/effects'
 import {
@@ -137,8 +138,8 @@ function* updateProfileDetails(action) {
       if(onboardingExistingUser && onboardingExistingUser !== null) {
         yield put(updateReducerState('pages', 'toggleSignupOnBoardingModal', false))
       }
-      // To close update profile modal once user details stored successfully
-      yield put(updateReducerState('pages', 'toggleUpdateProfileDetailsModal', false))
+       // To close update profile modal once user details stored successfully
+       yield put(updateReducerState('pages', 'toggleUpdateProfileDetailsModal', false))
     }
   } catch (error) {
     if (error?.response?.data?.error) {
@@ -200,7 +201,7 @@ function* getProfileDetails(action) {
         downgradeMembership: userValue?.gold_to_silver_downgrade || false,
         onboarded: userValue.onboarded,
         allowedAlertDateRange: userValue?.allowed_date_range_for_alerts || 0,
-        trialEligibilty: userValue?.trial_eligibilty || {},
+        trialEligibilty: userValue?.trial_eligibility || {},
         downgradedPlan: userValue?.downgraded_plan || null,
         address: userValue?.address || {},
         ageBand: userValue?.age_band || null,
@@ -710,6 +711,23 @@ function* watchCancelDowngradeSubscription() {
   yield takeLatest(CANCEL_DOWNGRADE_SUBSCRIPTION, HandlerCancelDowngradeSubscription)
 }
 
+// Get countries list
+function* getCountries() {
+  // try {
+  //   const response = yield call(getRequestRuby, URls.GET_COUNTRIES_LIST)
+  //   if (response?.status === 200 && response?.data) {
+  //     yield put(getCountriesListSuccess(response.data))
+  //   }
+  // } catch (error) {
+  //   yield put(getCountriesListFailed())
+  // }
+}
+
+function* watchGetCountriesList() {
+  yield takeLatest(GET_COUNTRIES_LIST, getCountries)
+}
+
+
 export default function* dashboardSagas() {
   yield all([
     watchRemoveProfilePicture(),
@@ -731,6 +749,7 @@ export default function* dashboardSagas() {
     watchResendVerificationEmail(),
     watchToggleEmailsNotification(),
     watchDeletePhoneNumber(),
-    watchCancelDowngradeSubscription()
+    watchCancelDowngradeSubscription(),
+    watchGetCountriesList()
   ])
 }

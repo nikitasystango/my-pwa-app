@@ -708,7 +708,7 @@ export default defineMessages({
   vuelinigClubPoundTextTwo: {
     id: 'pages.vuelingAirlines.vuelinigClubPoundTextTwo',
     defaultMessage: 'Pay for Vueling  tickets using points'
-  },  
+  },
   vuelingNewSeatsAvailable: {
     id: 'pages.vuelingAirlines.vuelingNewSeatsAvailable',
     defaultMessage: 'Find BA reward seat availability on Reward Flight Finder'
@@ -728,7 +728,7 @@ export default defineMessages({
   aboutVuelingTextOne: {
     id: 'pages.vuelingAirlines.aboutVuelingTextOne',
     defaultMessage: 'Vueling is a Spanish low-cost airline, owned by International Airlines Group (IAG).  It is based in Barcelona with hubs at Barcelona El-Prat Airport and Leonardo Da Vinci Fiumicino Airport in Rome, Italy. It also operates a significant number of flights from Madrid-Barajas airport.'
-  }, 
+  },
   aboutVuelingTextTwo: {
     id: 'pages.vuelingAirlines.aboutVuelingTextTwo',
     defaultMessage: 'Vueling was founded in 2004 and merged with rival Spanish low cost carrier Clickair in 2009. Following the merger, Iberia Airlines, owned by IAG, grew its shareholding in Vueling, then in 2012 Vueling became a fully owned IAG subsidiary. Vueling previously operated a loyalty programme called Punto, which allowed frequent flyers to earn and redeem points on Vueling flights. In 2017 Vueling replaced the Punto scheme with Vueling Club.'
@@ -806,7 +806,7 @@ iberiaClubPoundTextOneMoney: {
 iberiaClubPoundTextTwo: {
   id: 'pages.iberiaAirlines.iberiaClubPoundTextTwo',
   defaultMessage: 'Book Iberia flights with Avios instead of cash'
-},  
+},
 iberiaNewSeatsAvailable: {
   id: 'pages.iberiaAirlines.iberiaNewSeatsAvailable',
   defaultMessage: 'Discover British Airways reward seats on Reward Flight Finder'
@@ -830,7 +830,7 @@ aboutIberiaTitleBottom: {
 aboutIberiaTextOne: {
   id: 'pages.iberiaAirlines.aboutIberiaTextOne',
   defaultMessage: 'Iberia Airlines (Iberia, Líneas Aéreas de España) is the largest airline based in Spain and is a member of the Oneworld Alliance. It is owned by International Airlines Group (IAG), which also owns British Airways, Vueling, Aer Lingus and LEVEL.  Iberia uses Avios as its loyalty and reward currency. '
-}, 
+},
 aboutIberiaTextTwo: {
   id: 'pages.iberiaAirlines.aboutIberiaTextTwo',
   defaultMessage: 'Iberia was founded, in the Spanish capital of Madrid, in 1927. In 1940 it was awarded a government monopoly for national air transport, which was the beginning of Iberia’s growth as a major international airline. This was also when Iberia first became known as the flag carrier airline of Spain. After the Second World War, Iberia operated the first commercial flights between Europe and Latin America. Through the 1950s and ‘60s, Iberia expanded its routes to North America, Central America and South America.'
@@ -915,7 +915,7 @@ klmClubPoundTextOne: {
 klmClubPoundTextTwo: {
   id: 'pages.iberiaAirlines.klmClubPoundTextTwo',
   defaultMessage: 'Book tickets with KLM Flying Blue Miles instead of cash'
-},  
+},
 klmNewSeatsAvailable: {
   id: 'pages.iberiaAirlines.klmNewSeatsAvailable',
   defaultMessage: 'Discover BA reward seats and receive alerts when new seats are released.'
@@ -939,7 +939,7 @@ aboutKlmTitleBottom: {
 aboutKlmTextOne: {
   id: 'pages.iberiaAirlines.aboutKlmTextOne',
   defaultMessage: 'KLM has its main international hub at Amsterdam Schiphol Airport (AMS) and is the flag carrier airline of The Netherlands. It is part of the Air France- KLM Group and shares the Flying Blue loyalty programme with its French sister airline.'
-}, 
+},
 aboutKlmTextTwo: {
   id: 'pages.iberiaAirlines.aboutKlmTextTwo',
   defaultMessage: 'Like Air France, KLM is a member of the SkyTeam global airline alliance, alongside operators such as Delta Air Lines, Alitalia, Air China, Aeroflot and Korean Air.'
@@ -1197,7 +1197,7 @@ aboutAirFranceTitleBottom: {
 aboutAirFranceTextOne: {
   id: 'pages.airFranceAirlines.aboutAirFranceTextOne',
   defaultMessage: 'Air France was founded in 1933 and remains one of the world’s largest international airlines to this day. It is a founding member of the SkyTeam airline alliance and participates in the Flying Blue loyalty programme.'
-}, 
+},
 aboutAirFranceTextTwo: {
   id: 'pages.airFranceAirlines.aboutAirFranceTextTwo',
   defaultMessage: 'Air France was formed by a merger of Air Union, Air Orient, Compagnie Internationale de Navigation Aérienne (CIDNA), Compagnie Générale Aéropostale and Société Générale des Transports Aériens (SGTA). SGTA was the first international airline in France, founded in 1919.'
@@ -1270,5 +1270,12 @@ airFranceSubTitle: {
   id: 'pages.airFranceAirlines.airFranceSubTitle',
   defaultMessage: 'Submit your email address to be notified when Air France reward flight search goes live '
 },
-
+yearlyTwoMonthsFree: {
+  id: 'pages.pricing.yearlyTwoMonthsFree',
+  defaultMessage: 'Yearly'
+},
+yearlyTwoMonthsFreeText: {
+  id: 'pages.pricing.yearlyTwoMonthsFreeText',
+  defaultMessage: ' (2 months Free)'
+}
 })

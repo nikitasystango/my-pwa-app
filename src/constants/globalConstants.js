@@ -581,7 +581,28 @@ export const britishAirwaysClasses = [
   }
 ]
 
-export const checkRoutesForScript = [AppRoutes.THANK_YOU, AppRoutes.SILVER_SIGNUP_THANKYOU, AppRoutes.GOLD_SIGNUP_THANKYOU, AppRoutes.BRONZE_SIGNUP_THANKYOU, AppRoutes.PAGE_NOT_FOUND]
+export const checkRoutesForScript = [
+  AppRoutes.THANK_YOU,
+  AppRoutes.BRONZE_SIGNUP_THANKYOU,
+  AppRoutes.PAGE_NOT_FOUND,
+  AppRoutes.SILVER_FREE_MONTHLY,
+  AppRoutes.SILVER_FREE_YEARLY,
+  AppRoutes.SILVER_PAID_MONTHLY,
+  AppRoutes.SILVER_PAID_YEARLY,
+  AppRoutes.UPGRADE_SILVER_PAID_MONTHLY,
+  AppRoutes.UPGRADE_SILVER_PAID_YEARLY,
+  AppRoutes.CANCEL_SILVER_TRIAL,
+  AppRoutes.DOWNGRADE_SILVER_TO_BRONZE,
+  AppRoutes.DOWNGRADE_SILVER_TO_GOLD,
+  AppRoutes.GOLD_FREE_MONTHLY,
+  AppRoutes.GOLD_FREE_YEARLY,
+  AppRoutes.GOLD_PAID_MONTHLY,
+  AppRoutes.GOLD_PAID_YEARLY,
+  AppRoutes.UPGRADE_GOLD_PAID_MONTHLY,
+  AppRoutes.UPGRADE_GOLD_PAID_YEARLY,
+  AppRoutes.CANCEL_GOLD_TRIAL,
+  AppRoutes.DOWNGRADE_GOLD_TO_BRONZE
+]
 
 export const calendarMonthsLength = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 
@@ -917,25 +938,45 @@ export const disposalEmails = ['yopmail', 'mailinator', 'droverpzq', 'guerrillam
   'vomoto', 'zetmail', 'robot-mail']
 
 export const silverPlansList = [
-    'Silver plan GBP yearly',
-    'Silver plan GBP monthly',
-    'Elite GBP Annually',
-    'Elite EUR',
-    'Elite GBP One Month Free',
-    'Elite USD Standard',
-    'Elite GBP Standard',
-    'Elite GBP',
-    'Elite USD',
-    'Elite GBP GC Annually',
-    'Elite USD GC',
-    'Elite EUR GC',
-    'Elite GBP GC'
+    'elite-plan-pound-yearly',
+    'elite-plan-pound-monthly',
+    'elite-gbp-annually',
+    'elite-eur',
+    'elite-gbp-one-month-free',
+    'elite-usd-standard',
+    'elite-gbp-standard',
+    'elite-gbp',
+    'elite-usd',
+    'elite-gbp-gc-annually',
+    'elite-usd-gc',
+    'elite-eur-gc',
+    'elite-gbp-gc',
+    'elite-free',
+    'elite-plan-pound-yearly',
+    'elite-yearly-free'
+  ]
+
+  export const goldPlansList = [
+    'gold-plan-gbp-monthly-launch',
+    'gold-free',
+    'gold-plan-yearly-launch-promotion',
+    'gold-yearly-free'
   ]
 
 export const SubscriptionPlan = {
-  SILVER_PLAN: 'Silver plan GBP monthly',
-  GOLD_PLAN: 'Gold plan GBP monthly launch',
-  GOLD_FREE: 'Gold Free'
+  SILVER_PLAN: 'elite-plan-pound-monthly',
+  GOLD_PLAN: 'gold-plan-gbp-monthly-launch',
+  GOLD_FREE: 'gold-free',
+  SILVER_FREE: 'elite-free',
+  GOLD_PLAN_ANNUALLY: 'gold-plan-yearly-launch-promotion',
+  SILVER_PLAN_ANNUALLY: 'elite-plan-pound-yearly'
+}
+
+export const FreePlans = {
+  SILVER_MONTHLY_PLAN: 'elite-free',
+  GOLD_MONTHLY_FREE: 'gold-free',
+  SILVER_YEARLY_PLAN: 'elite-yearly-free',
+  GOLD_YEARLY_FREE: 'gold-yearly-free'
 }
 
 export const GoogleAdsParam = [
@@ -1012,22 +1053,11 @@ export const calendarDefaultRouteSearcParams = {
   }
 
   export const RecommendedBronze = [
-    'elite-plan-pound-monthly',
-    'elite-plan-pound-yearly'
+    'elite-plan-pound-monthly'
   ]
 
-  export const RecommendedSilverMonthly = [
-    'elite-plan-pound-yearly',
+  export const RecommendedSilver = [
     'gold-plan-gbp-monthly-launch'
-  ]
-
-  export const RecommendedGoldMonthly = [
-    'elite-plan-pound-yearly',
-    'gold-plan-yearly-launch-promotion'
-  ]
-
-  export const RecommendedSilverYearly = [
-   'gold-plan-yearly-launch-promotion'
   ]
 
   export const SilverThankyouRoutes = [
@@ -1138,7 +1168,11 @@ export const calendarDefaultRouteSearcParams = {
     },
     {
       value: 'Other',
-      label: 'I\'d prefer not to say'
+      label: 'Other'
+    },
+    {
+      value: 'Prefer Not To Say',
+      label: 'Prefer Not To Say'
     }
   ]
 

@@ -38,6 +38,7 @@ const URLs = {
   TRACK_USER_AGENT: 'v1/users/track_fingerprint',
   UPDATE_PROFILE_NAME: '/update_details',
   GET_ALERT_AVAILIBILITY: '/availabilities',
+  GET_COUNTRIES_LIST: 'v1/geographies/countries',
 
   // alerts
   SUBSCRIBE_AVAILABILITY_ALERT: 'v1/alerts',
@@ -48,12 +49,12 @@ const URLs = {
   GET_SUBSCRIBED_ALERTS: 'alerts',
   GET_AVAILABILITY: 'flights/query',
   ADD_EMAIL_URL: '/v1/upcoming_airline_requests',
- // Node APi's
- AVAILABLE_FLIGHTS: 'entire-availability',
- GET_FLIGHTS_AVAILABILITY: 'available-destinations',
- AIRLINES_LIST: '/airlines',
- GET_SOU_DES_LOCATION_URL: 'locations',
- GET_SOU_DES_POSSIBLE_ROUTES_URL: 'possible-routes'
+  // Node APi's
+  AVAILABLE_FLIGHTS: 'entire-availability',
+  GET_FLIGHTS_AVAILABILITY: 'available-destinations',
+  AIRLINES_LIST: '/airlines',
+  GET_SOU_DES_LOCATION_URL: 'locations',
+  GET_SOU_DES_POSSIBLE_ROUTES_URL: 'possible-routes'
 
 }
 

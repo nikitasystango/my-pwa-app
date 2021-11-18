@@ -612,6 +612,19 @@
   
   .tabular.menu{
     border: none;
+    &.tab-border{
+      border-bottom: 2px solid var(--medium-blue);
+    .item{
+        &:after{
+          content:none;
+        }
+        &.active{
+          color: var(--medium-blue);
+          background: unset;
+          border-color: #fff !important;
+        }    
+      }
+    }
     .item{
       font-size: 13px;
       color: var(--dark);

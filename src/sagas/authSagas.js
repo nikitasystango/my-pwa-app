@@ -129,10 +129,6 @@ function* facebookLogin(action) {
         yield put(getProfileDetails(userId))
         isFirstTimeLoginHandler(isFirstTimeLogin)
       }
-      if(isFirstTimeLogin) {
-        setInLocalStorage('firstTimeSignup', 'true')
-        history.push(AppRoutes.THANK_YOU)
-      }
     }
   } catch (error) {
     if (error && error.response && error.response.data && error.response.data.error) {
@@ -167,10 +163,6 @@ function* googleLogin(action) {
         yield put(getProfileDetails(userId))
         isFirstTimeLoginHandler(isFirstTimeLogin)
       }
-      if(isFirstTimeLogin) {
-        setInLocalStorage('firstTimeSignup', 'true')
-        history.push(AppRoutes.THANK_YOU)
-      }
     }
   } catch (error) {
     if (error && error.response && error.response.data && error.response.data.error) {
@@ -200,10 +192,6 @@ function* appleLogin(action) {
         yield put(appleLoginRequestSuccess(userId))
         yield put(getProfileDetails(userId))
         isFirstTimeLoginHandler(isFirstTimeLogin)
-        if(isFirstTimeLogin) {
-          setInLocalStorage('firstTimeSignup', 'true')
-          history.push(AppRoutes.THANK_YOU)
-        }
     }
   } catch (error) {
     if (error && error.response && error.response.data && error.response.data.error) {

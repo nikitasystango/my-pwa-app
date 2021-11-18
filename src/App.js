@@ -54,7 +54,6 @@ export default function MainApp() {
 
 
   useEffect(() => {
-    console.log('page update');
     if (process.env.NODE_ENV === 'production') {
       serviceWorkerRegistration.register({ onUpdate: onServiceWorkerUpdate });
     }

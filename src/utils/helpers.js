@@ -278,18 +278,16 @@ export const getErrorMessage = (error, msg) => {
   return message
 }
 
-export const openCalendarPageHandler = (locationDetail, flightDetails, airportsWithMultiCity, souDesAirports, availablePopupCabinClass) => {
-  const { tier, jType, passenger, airline, airlineCode, dId,
+export const openCalendarPageHandler = (locationDetail, flightDetails, airportsWithMultiCity, souDesAirports, availablePopupCabinClass, flyToSearch) => {
+  const { jType, passenger, dId,
     dPlace } = flightDetails || ''
     const { business, economy, first, premium } = availablePopupCabinClass || {}
+    const multiAir = airportsWithMultiCity.find(item => item.value === locationDetail.code)
+    const airport = souDesAirports.find(item => item.value === locationDetail.code)
   let details = {
-    airlineSelected: airline,
-    airlineMembership: tier,
-    aCode: airlineCode,
     numberOfPassengers: passenger,
     tclass: 'Economy',
     tValue: 'economy',
-    membership: tier,
     jType: jType === 'return' ? 'return' : 'one-way',
     economy: economy,
     premium: premium,
@@ -298,19 +296,21 @@ export const openCalendarPageHandler = (locationDetail, flightDetails, airportsW
     dPlace: dPlace,
     dId: dId
   }
-  const multiAir = airportsWithMultiCity.find(item => item.value === locationDetail.code)
-  const airport = souDesAirports.find(item => item.value === locationDetail.code)
   if (multiAir) {
     details = {
       ...details,
-      aPlace: multiAir.label,
-      aId: locationDetail.code
+      aPlace: flyToSearch === 'travelTo' ? dPlace : multiAir.label,
+      aId: flyToSearch === 'travelTo' ? dId : locationDetail.code,
+      dPlace: flyToSearch === 'travelTo' ? multiAir.label : dPlace,
+      dId: flyToSearch === 'travelTo' ? locationDetail.code : dId
     }
   } else if (airport) {
     details = {
       ...details,
-      aPlace: airport.label,
-      aId: locationDetail.code
+      aPlace: flyToSearch === 'travelTo' ? dPlace : airport.label,
+      aId: flyToSearch === 'travelTo' ? dId : locationDetail.code,
+      dPlace: flyToSearch === 'travelTo' ? airport.label : dPlace,
+      dId: flyToSearch === 'travelTo' ? locationDetail.code : dId
     }
   }
     history.push(`${AppRoutes.CALENDER}${jsonToQueryString(details)}${appendParams ? appendParams.replace('?', '&'): ''}`)

@@ -35,7 +35,7 @@ const SidebarSearch = (props) => {
         className="formSidebar__inner map-sidebar"
       >
         <>
-          <div className="ui attached tabular menu">
+          <div className={`ui attached tabular menu ${!mapLocations ? 'tab-border' : ''}`} >
             {/* eslint-disable-next-line */}
             <a className={`${!toggleTab ? 'active' : ''} item`} onClick={() => updateReducerState('mapData', 'toggleTab', false)}>{intl(commonMessages.search)}</a>
             {/* eslint-disable-next-line */}

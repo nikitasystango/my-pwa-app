@@ -126,7 +126,7 @@ const storeGAInSessionStorage = () => {
       activeAlertsCount: userValue?.current_active_alerts || 0,
       downgradeMembership: userValue?.gold_to_silver_downgrade || false,
       allowedAlertDateRange: userValue?.allowed_date_range_for_alerts || 0,
-      trialEligibilty: userValue?.trial_eligibilty || {},
+      trialEligibilty: userValue?.trial_eligibility || {},
       downgradedPlan: userValue?.downgraded_plan || null,
       address: userValue?.address || {},
       ageBand: userValue?.age_band || null,

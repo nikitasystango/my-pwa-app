@@ -11,7 +11,9 @@ import { retrieveFromLocalStorage, extractURLParams, checkAnyTrueObjectValue } f
 import SidebarSearch from './sideBarSearch'
 import { ShowBtnArrow } from '../../utils/svgs'
 import LoginMagPopup from 'components/SearchPanel/loginMsgPopup'
+import history from 'utils/history'
 import { GoogleAdsParam } from 'constants/globalConstants'
+import { AppRoutes } from 'constants/appRoutes'
 import intl from 'utils/intlMessage'
 import commonMessages from 'constants/messages/commonMessages'
 import flightMessages from 'constants/messages/flightMessages'
@@ -25,6 +27,7 @@ import Texts from 'constants/staticText'
 import AirlineMembershipModal from 'common/Modals/airlineMembershipModal'
 import { pushNotification } from 'utils/notifications'
 import toustifyMessages from 'constants/messages/toustifyMessages'
+import { airlineName } from 'constants/globalConstants'
 
 
 const MapView = (props) => {
@@ -32,7 +35,9 @@ const MapView = (props) => {
     updateTicketsSearchBox, flightsAvailability, getAirlineList, mapData, isUserBronzeMember, updateToggalClassesState,
     common: { airlineMembershipToggle },
     user,
-    accountSettings : { updateUserProfileLoading }
+    accountSettings : { updateUserProfileLoading },
+    getSouDesLocations,
+    getSouDesPossibleRoutes
   } = props
   const { toggalMapEliteLoginPopUp, toggalClasses, airportsWithMultiCity, souDesAirports,
     ticketsSearchBox: { numberOfPassengers }, selectedAirlineCode, selectedAirline,
@@ -66,6 +71,8 @@ const MapView = (props) => {
   if(!token) {
     pushNotification(intl(toustifyMessages.currentAirlineMembershipText), 'success', 'TOP_CENTER', 5000)
   }
+  getSouDesLocations({ selectedAirline: airlineName.BA.CODE })
+  getSouDesPossibleRoutes({ selectedAirline: airlineName.BA.CODE })
     // eslint-disable-next-line
   }, [])
   useEffect(() => {
@@ -119,7 +126,7 @@ const updateLocation = () => {
         && extractedParams.passenger && extractedParams.ouStartDate && extractedParams.ouEndDate
         && extractedParams.dId && extractedParams.dPlace &&
         extractedParams.eclass && extractedParams.pclass && extractedParams.fclass && extractedParams.bclass) {
-        const { tier, jType, dPlace, dId, passenger, airlineCode, ouStartDate, ouEndDate, inStartDate, inEndDate, eclass, pclass, fclass, bclass } = extractedParams || ''
+        const { tier, jType, dPlace, dId, passenger, airlineCode, ouStartDate, ouEndDate, inStartDate, inEndDate, desId, desPlace, eclass, pclass, fclass, bclass, travelTo, flyToSearch } = extractedParams || ''
         let data = {
           tier: airlineMembership ? airlineMembership : Texts.DEFAULT_AIRLINE_TIER,
           travel_class: 'economy',
@@ -128,7 +135,8 @@ const updateLocation = () => {
           source_code: dId,
           outbound_start_date: ouStartDate,
           outbound_end_date: ouEndDate,
-          airlineCode: airlineCode
+          airlineCode: airlineCode,
+          travelTo
         }
         if (inStartDate && inEndDate && jType === 'return') {
           data = {
@@ -154,7 +162,8 @@ const updateLocation = () => {
             premium: pclass.toString() === 'true' ? true : false,
             first: fclass.toString() === 'true'? true : false,
             business: bclass.toString() === 'true'? true : false
-          }
+          },
+          journeyType: jType === 'return' ? 'return' : 'one-way'
         }
         Object.keys(dataJson).map(item => updateReducerState('searchPanel', item, dataJson[item]))
         const mapSearchJson = {
@@ -166,7 +175,12 @@ const updateLocation = () => {
           sourceLocation: {
             name: dPlace,
             value: dId
-          }
+          },
+          destinationLocation: {
+            name: desPlace,
+            value: desId
+          },
+          flyToSearch
         }
         Object.keys(mapSearchJson).map(item => (
           updateReducerState('mapData', item, mapSearchJson[item])
@@ -175,7 +189,7 @@ const updateLocation = () => {
         const arrData = Object.keys(extractedParams)
         const isExist = GoogleAdsParam.includes(arrData[0])
           if(!isExist) {
-            // history.push(AppRoutes.PAGE_NOT_FOUND)
+            history.push(AppRoutes.PAGE_NOT_FOUND)
           }
       }
     }
@@ -238,6 +252,7 @@ const updateLocation = () => {
           handleInitialToggle={handleInitialToggle}
           availablePopupCabinClass={availablePopupCabinClass}
           setOnRunTimeUpdate={setOnRunTimeUpdate}
+          mapData={mapData}
         /> :
         !getLocationLoading &&
         <div className="noData">

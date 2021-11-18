@@ -49,7 +49,8 @@ import {
   DELETE_PHONE_NUMBER, DELETE_PHONE_NUMBER_SUCCESS, DELETE_PHONE_NUMBER_FAILED,
   CANCEL_DOWNGRADE_SUBSCRIPTION,
   CANCEL_DOWNGRADE_SUBSCRIPTION_SUCCESS,
-  CANCEL_DOWNGRADE_SUBSCRIPTION_FAILURE
+  CANCEL_DOWNGRADE_SUBSCRIPTION_FAILURE,
+  GET_COUNTRIES_LIST, GET_COUNTRIES_LIST_FAILED, GET_COUNTRIES_LIST_SUCCESS,
 } from './actionTypes'
 
 // Account settings
@@ -353,4 +354,18 @@ export const cancelDowngradeSubscriptionSuccess = () => ({
 
 export const cancelDowngradeSubscriptionFailed = () => ({
   type: CANCEL_DOWNGRADE_SUBSCRIPTION_FAILURE
+})
+
+// GET COUNTRIES LIST
+export const getCountriesList = () => ({
+  type: GET_COUNTRIES_LIST
+})
+
+export const getCountriesListSuccess = (data) => ({
+  type: GET_COUNTRIES_LIST_SUCCESS,
+  payload: { data }
+})
+
+export const getCountriesListFailed = () => ({
+  type: GET_COUNTRIES_LIST_FAILED
 })

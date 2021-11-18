@@ -125,6 +125,9 @@ const SeoTexts = {
   PRICING_OG_IMAGE_URL: `${baseURL}${LogoFull}`,
   PRICING_TWITTER_IMAGE_URL: `${baseURL}${LogoFull}`,
 
+  PRICING_SECOND_TITLE: intl(seoMessages.seoPricingSecondTitle),
+  PRICING_SECOND_CANONICAL: `${baseURL}${AppRoutes.PRICING_SIGNUP}/`,
+
   // how it works page
   HOW_IT_WORKS_TITLE: intl(seoMessages.seoHowItWorksTitle),
   HOW_IT_WORKS_DESCRIPTION: intl(seoMessages.seoHowItWorksDesc),

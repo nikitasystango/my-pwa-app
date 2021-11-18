@@ -107,7 +107,6 @@ const Home = (props) => {
     if (userDetails && userDetails.onboarded === false) {
       updateReducerState('pages', 'toggleSignupOnBoardingModal', true)
     }
-    // if (token && userDetails && (!firstName || !lastName || !country || !address?.address1 || !address?.state || !gender || !ageBand || !flightsTakenAnnually)) {
       if (token && userDetails && (!firstName || !lastName)) {
       updateReducerState('pages', 'toggleUpdateProfileDetailsModal', true)
       // document.body.style.position = 'fixed'
@@ -180,7 +179,7 @@ const Home = (props) => {
                     : intl(staticMessage.sectionTitle)}
                 </SectionTitle>
                 <SectionSubTitle>
-                  {intl(staticMessage.sectionSubTitle)}
+                  {intl(staticMessage.sectionSubTitle)} 
                 </SectionSubTitle>
               </HeaderContent>
             )}

@@ -38,8 +38,7 @@
     top: -15px;
     border-radius: 50%;
     @media(max-width:767px){
-      top: -10px;
-      height: 35px;
+      top: -20px;
       width: 35px;
     }
   }
@@ -134,7 +133,7 @@
         left:44%;
       }
       @media(max-width:767px){
-        left:35%;
+        left:36%;
       } 
     } 
     .control-next{
@@ -155,7 +154,7 @@
       left: 52%;
     }    
     @media(max-width:767px){
-      left:49%;
+      left:51%;
     }
     }
  }

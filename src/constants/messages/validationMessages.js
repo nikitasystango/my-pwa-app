@@ -76,5 +76,37 @@ export default defineMessages({
    strongPasswordText: {
     id: 'validation.strongPasswordText',
     defaultMessage: 'Password must contain at least 1 Uppercase 1 Lowercase & 1 Number'
+   },
+   couponAlreadyRedemmed: {
+    id: 'validation.couponAlreadyRedemmed',
+    defaultMessage: 'This coupon has already been redeemed'
+   },
+   notValidOnCurrentPlan: {
+    id: 'validation.notValidOnCurrentPlan',
+    defaultMessage: 'This coupon is not valid on your current plan'
+   },
+   couponValidityExpire: {
+    id: 'validation.couponValidityExpire',
+    defaultMessage: 'This coupon has expired'
+   },
+   maxCouponLimitExceed: {
+    id: 'validation.maxCouponLimitExceed',
+    defaultMessage: 'You have reached max limit of applied coupons'
+   },
+   applyOneCouponAtATime: {
+       id: 'validation.applyOneCouponAtATime',
+       defaultMessage: 'You can only apply one coupon at a time'
+   },
+   couponAppliedSuccessfully: {
+    id: 'validation.couponAppliedSuccessfully',
+    defaultMessage: 'Coupon has been applied successfully'
+   },
+   invalidCoupon: {
+    id: 'validation.invalidCoupon',
+    defaultMessage: 'This coupon is invalid'
+   },
+   invalidPostalCode: {
+       id: 'validation.invalidPostalCode',
+       defaultMessage: 'Invalid postal code'
    }
 })

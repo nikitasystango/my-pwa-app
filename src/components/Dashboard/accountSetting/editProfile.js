@@ -206,11 +206,7 @@ const EditProfile = (props) => {
             {error && error.lastName &&
               <span className="error-text">{error.lastName}</span>
                }
-            {!userDetails?.socialUserPasswordSet && (
-              <span>
-                {intl(dashboardMessages.accountSettingLogginWithGoogle)}
-              </span>
-            )}
+           
           </Grid.Column>
         </Grid.Row>
         <Grid.Row className="py-0 j-c-c">
@@ -232,6 +228,11 @@ const EditProfile = (props) => {
             />
           </Grid.Column>
         </Grid.Row>
+        {!userDetails?.socialUserPasswordSet && (
+              <span>
+                {intl(dashboardMessages.accountSettingLogginWithGoogle)}
+              </span>
+            )}
         <Grid.Row className="py-0">
           <Grid.Column width={16} className="mt-10">
             <Button disabled={Boolean(updateUserProfileLoading === 'userDetails') || isDisabled} loading={Boolean(updateUserProfileLoading === 'userDetails')} size={'small'} primary content={intl(commonMessages.update)} onClick={formSubmitHandlerClick} className="btn btn--medium-blue btn--account-setting" />

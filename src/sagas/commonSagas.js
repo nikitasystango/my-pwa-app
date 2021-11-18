@@ -11,8 +11,10 @@ import URls from 'constants/urls'
 import intl from 'utils/intlMessage'
 import toustifyMessages from 'constants/messages/toustifyMessages'
 import { pushNotification } from 'utils/notifications'
-import { updateReducerState } from 'actions/Common'
 import { getProfileDetails as getProfileDetailsUser } from 'actions/Dashboard'
+import { updateReducerState } from 'actions/Common'
+
+
 // get Testimonial data
 function* getTestimonials() {
   try {
@@ -59,10 +61,8 @@ function* updateProfileDetailsPopup(action) {
     if (response && response.status && response.status === 204) {
       yield put(getProfileDetailsUser(user?.id))
       yield put(updateUserNameSuccess())
-      document.body.style.position = "static"
-      document.body.style.width = "100%"
-      // To close update profile modal once user details stored successfully
-      yield put(updateReducerState('pages', 'toggleUpdateProfileDetailsModal', false))
+       // To close update profile modal once user details stored successfully
+       yield put(updateReducerState('pages', 'toggleUpdateProfileDetailsModal', false))
     }
   } catch (error) {
     if (error?.response?.data?.error) {
